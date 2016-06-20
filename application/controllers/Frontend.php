@@ -551,29 +551,33 @@ redirect('frontend/index');
         
          $getPriceResults = $this->FrontEndModel->getpriceresults_resort();
         foreach ($getPriceResults->result() as $k) {
-
+          $resorttitleurl = str_replace(" ", "-", $k->resortname);
         $sql = "select min(adultprice) as minprice from tblpackages WHERE resortid=$k->resortid";
           $query2 = $this->db->query($sql);
           $packagerow = $query2->row();
 
           if ($packagerow->minprice!='') {
            echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
-           <div class='img_container'>
-              <a href='<?php echo site_url().'resorts/'.$k->resortname.'/'.$k->resortid;   ?>'>";
-              echo '<img width="400" height="267" src="'.base_url().'/assets/resortimages/'.$k->photoname.'">';         
+           <div class='tour_container'><div class='img_container'>";
+       ?>
+              <a href='<?php echo site_url().'resorts/'.$resorttitleurl.'/'.$k->resortid;   ?>'>";
+              <?php
+        echo '<img src="'.base_url().'/assets/resortimages/'.$k->photoname.'" style="min-height:267px;">';         
               
               echo "<div class='short_info'>
-                <i class='icon_set_1_icon-4'></i>$k->resortname; 
-                <span class='price'><span><sup>Rs.</sup>$packagerow->minprice</span></span>
+                <i class='icon_set_1_icon-4'></i>".$k->resortname." 
+                <span class='price'><span><sup>Rs.</sup>".$packagerow->minprice."</span></span>
                                 
               </div>
               </a>
           </div>
-          <div class='tour_title'>
-              <a href='<?php echo site_url().'resorts/'.$k->resortname.'/'.$k->resortid;   ?>'>
-                  <h3 >$k->resortname</h3>
+          <div class='tour_title'>"; 
+      ?>
+              <a href='<?php echo site_url().'resorts/'.$resorttitleurl.'/'.$k->resortid; ?>'>
+          <?php echo "<h3>".$k->resortname."</h3>
               </a>
             
+          </div>
           </div>
           </div>"; 
           }
@@ -587,30 +591,36 @@ redirect('frontend/index');
         $getPriceResults = $this->FrontEndModel->getpriceresults_resort($startprice,$endprice);
         foreach ($getPriceResults->result() as $k) {
 
+          $resorttitleurl = str_replace(" ", "-", $k->resortname);
+
           $sql = "select min(adultprice) as minprice from tblpackages WHERE resortid=$k->resortid AND adultprice between $startprice AND $endprice ";
           $query2 = $this->db->query($sql);
           $packagerow = $query2->row();
 
           if ($packagerow->minprice!='') {
            echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
-           <div class='img_container'>
-              <a href='<?php echo site_url().'resorts/'.$k->resortname.'/'.$k->resortid;   ?>'>";
-              echo '<img width="400" height="267" src="'.base_url().'/assets/resortimages/'.$k->photoname.'">';         
+           <div class='tour_container'><div class='img_container'>";
+       ?>
+      
+              <a href='<?php echo site_url().'resorts/'.$resorttitleurl.'/'.$k->resortid;   ?>'>
+              <img src="<?php echo base_url().'/assets/resortimages/'.$k->photoname ;?>" style="min-height:267px;">
               
-              echo "<div class='short_info'>
-                <i class='icon_set_1_icon-4'></i>$k->resortname; 
-                <span class='price'><span><sup>Rs.</sup>$packagerow->minprice</span></span>
+              <div class='short_info'>
+                <i class='icon_set_1_icon-4'></i><?php echo $k->resortname; ?>
+                <span class='price'><span><sup>Rs.</sup><?php echo $packagerow->minprice; ?></span></span>
                                 
               </div>
               </a>
           </div>
           <div class='tour_title'>
-              <a href='<?php echo site_url().'resorts/'.$k->resortname.'/'.$k->resortid;   ?>'>
-                  <h3 >$k->resortname</h3>
+              <a href='<?php echo site_url().'resorts/'.$resorttitleurl.'/'.$k->resortid;   ?>'>
+                  <h3 ><?php echo$k->resortname ?></h3>
               </a>
             
           </div>
-          </div>"; 
+          </div>
+          </div>
+<?php       
           }
 
         }
@@ -642,31 +652,35 @@ redirect('frontend/index');
         
          $getPriceResults = $this->FrontEndModel->getpriceresults_resortAjax($limit,$lastid);
         foreach ($getPriceResults->result() as $k) {
-
+          $resorttitleurl = str_replace(" ", "-", $k->resortname);
           $sql = "select min(adultprice) as minprice from tblpackages WHERE resortid=$k->resortid";
           $query2 = $this->db->query($sql);
           $packagerow = $query2->row();
 
           if ($packagerow->minprice!='') {
            echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
-           <div class='img_container'>
-              <a href='<?php echo site_url().'resorts/'.$k->resortname.'/'.$k->resortid;   ?>'>";
-              echo '<img width="400" height="267" src="'.base_url().'/assets/resortimages/'.$k->photoname.'">';         
+           <div class='tour_container'><div class='img_container'>";
+       ?>
+      
+              <a href='<?php echo site_url().'resorts/'.$resorttitleurl.'/'.$k->resortid;   ?>'>
+              <img src="<?php echo base_url().'/assets/resortimages/'.$k->photoname ;?>" style="min-height:267px;">
               
-              echo "<div class='short_info'>
-                <i class='icon_set_1_icon-4'></i>$k->resortname; 
-                <span class='price'><span><sup>Rs.</sup>$packagerow->minprice</span></span>
+              <div class='short_info'>
+                <i class='icon_set_1_icon-4'></i><?php echo $k->resortname; ?>
+                <span class='price'><span><sup>Rs.</sup><?php echo $packagerow->minprice; ?></span></span>
                                 
               </div>
               </a>
           </div>
           <div class='tour_title'>
-              <a href='<?php echo site_url().'resorts/'.$k->resortname.'/'.$k->resortid;   ?>'>
-                  <h3 >$k->resortname</h3>
+              <a href='<?php echo site_url().'resorts/'.$resorttitleurl.'/'.$k->resortid;   ?>'>
+                  <h3 ><?php echo$k->resortname ?></h3>
               </a>
             
           </div>
-          </div>"; 
+          </div>
+          </div>
+<?php    
           $lastid = $k->resortid;
           }
       }
@@ -681,31 +695,35 @@ redirect('frontend/index');
       
         $getPriceResults = $this->FrontEndModel->getpriceresults_resortAjax($limit,$lastid);
         foreach ($getPriceResults->result() as $k) {
-
+          $resorttitleurl = str_replace(" ", "-", $k->resortname);
           $sql = "select min(adultprice) as minprice from tblpackages WHERE resortid=$k->resortid AND adultprice between $startprice AND $endprice ";
           $query2 = $this->db->query($sql);
           $packagerow = $query2->row();
 
           if ($packagerow->minprice!='') {
            echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
-           <div class='img_container'>
-              <a href='<?php echo site_url().'resorts/'.$k->resortname.'/'.$k->resortid;   ?>'>";
-              echo '<img width="400" height="267" src="'.base_url().'/assets/resortimages/'.$k->photoname.'">';         
+           <div class='tour_container'><div class='img_container'>";
+       ?>
+      
+              <a href='<?php echo site_url().'resorts/'.$resorttitleurl.'/'.$k->resortid;   ?>'>
+              <img src="<?php echo base_url().'/assets/resortimages/'.$k->photoname ;?>" style="min-height:267px;">
               
-              echo "<div class='short_info'>
-                <i class='icon_set_1_icon-4'></i>$k->resortname; 
-                <span class='price'><span><sup>Rs.</sup>$packagerow->minprice</span></span>
+              <div class='short_info'>
+                <i class='icon_set_1_icon-4'></i><?php echo $k->resortname; ?>
+                <span class='price'><span><sup>Rs.</sup><?php echo $packagerow->minprice; ?></span></span>
                                 
               </div>
               </a>
           </div>
           <div class='tour_title'>
-              <a href='<?php echo site_url().'resorts/'.$k->resortname.'/'.$k->resortid;   ?>'>
-                  <h3 >$k->resortname</h3>
+              <a href='<?php echo site_url().'resorts/'.$resorttitleurl.'/'.$k->resortid;   ?>'>
+                  <h3 ><?php echo$k->resortname ?></h3>
               </a>
             
           </div>
-          </div>"; 
+          </div>
+          </div>
+<?php 
            $lastid = $k->resortid;
           }
 
@@ -971,31 +989,47 @@ redirect('frontend/index');
 
         foreach ($qq->result() as $k) {
           //echo $k->eventid."<br>";
+          $eventtitleurl = str_replace(" ", "-", $k->eventname);
           $sql2 = "SELECT  min(adultprice) as minprice from tblpackages WHERE eventid='$k->eventid'";
                    //echo $sql2."<br><br>";
 
 
                  $query2 = $this->db->query($sql2);
                  $row =$query2->row();
-        echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
-         <div class='img_container'>
-            <a href='site_url().'events/'.$k->eventname.'/'.$k->eventid;'>";
-            echo '<img width="400" height="267" src="'.base_url().'/assets/eventimages/'.$k->photoname.'">';         
-            
-            echo "<div class='short_info'>
-              <i class='icon_set_1_icon-4'></i>$k->eventname; 
-              <span class='price'><span><sup>Rs.</sup>$row->minprice</span></span>
-                              
-            </div>
-            </a>
-        </div>
-        <div class='tour_title'>
-            <a href='site_url().'events/'.$k->eventname.'/'.$k->eventid;'>
-                <h3 >$k->eventname</h3>
-            </a>
-          
-        </div>
-        </div>"; 
+        ?>
+        <div class="col-md-4 col-sm-4 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
+
+    
+                  
+                            <div class="tour_container">
+                                <div class="img_container">
+                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                                    <img width="400" height="267" src="<?php  echo base_url().'assets/eventimages/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->
+                                    <div class="short_info">
+                                        <i class="icon_set_1_icon-4"></i><?php echo $k->eventname;   ?> 
+                                        <span class="price"><span><sup>Rs.</sup><?php echo $row->minprice;   ?></span></span>
+                                                      
+                                    </div>
+                                    </a>
+                                </div>
+                                <div class="tour_title">
+                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                                        <h3 ><?php echo $k->eventname;   ?>  </h3>
+                                    </a>
+                                  <!--  <div class="rating">
+                                        <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
+                                    </div> end rating -->
+                                    <!--
+                                                <div class="wishlist">
+                                        <a class="tooltip_flip tooltip-effect-1 btn-add-wishlist" href="#" data-post-id="170"><span class="wishlist-sign">+</span><span class="tooltip-content-flip"><span class="tooltip-back">Add to wishlist</span></span></a>
+                                        <a class="tooltip_flip tooltip-effect-1 btn-remove-wishlist" href="#" data-post-id="170" style="display:none;"><span class="wishlist-sign">-</span><span class="tooltip-content-flip"><span class="tooltip-back">Remove from wishlist</span></span></a>
+                                    </div> End wish list-->
+                                </div>
+                            </div><!-- End box tour -->
+    
+        </div><!-- End col-md-6 -->
+
+        <?php 
         
       }
 
@@ -1055,25 +1089,40 @@ redirect('frontend/index');
 
                  $query2 = $this->db->query($sql2);
                  $row =$query2->row();
-        echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
-         <div class='img_container'>
-            <a href='site_url().'events/'.$k->eventname.'/'.$k->eventid;'>";
-            echo '<img width="400" height="267" src="'.base_url().'/assets/eventimages/'.$k->photoname.'">';         
-            
-            echo "<div class='short_info'>
-              <i class='icon_set_1_icon-4'></i>$k->eventname; 
-              <span class='price'><span><sup>Rs.</sup>$row->minprice</span></span>
-                              
-            </div>
-            </a>
-        </div>
-        <div class='tour_title'>
-            <a href='site_url().'events/'.$k->eventname.'/'.$k->eventid;'>
-                <h3 >$k->eventname</h3>
-            </a>
-          
-        </div>
-        </div>"; 
+        ?>
+        <div class="col-md-4 col-sm-4 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
+
+    
+                  
+                            <div class="tour_container">
+                                <div class="img_container">
+                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                                    <img width="400" height="267" src="<?php  echo base_url().'assets/eventimages/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->
+                                    <div class="short_info">
+                                        <i class="icon_set_1_icon-4"></i><?php echo $k->eventname;   ?> 
+                                        <span class="price"><span><sup>Rs.</sup><?php echo $row->minprice;   ?></span></span>
+                                                      
+                                    </div>
+                                    </a>
+                                </div>
+                                <div class="tour_title">
+                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                                        <h3 ><?php echo $k->eventname;   ?>  </h3>
+                                    </a>
+                                  <!--  <div class="rating">
+                                        <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
+                                    </div> end rating -->
+                                    <!--
+                                                <div class="wishlist">
+                                        <a class="tooltip_flip tooltip-effect-1 btn-add-wishlist" href="#" data-post-id="170"><span class="wishlist-sign">+</span><span class="tooltip-content-flip"><span class="tooltip-back">Add to wishlist</span></span></a>
+                                        <a class="tooltip_flip tooltip-effect-1 btn-remove-wishlist" href="#" data-post-id="170" style="display:none;"><span class="wishlist-sign">-</span><span class="tooltip-content-flip"><span class="tooltip-back">Remove from wishlist</span></span></a>
+                                    </div> End wish list-->
+                                </div>
+                            </div><!-- End box tour -->
+    
+        </div><!-- End col-md-6 -->
+
+        <?php
 
         $last_id = $k->eventid;
         
@@ -1377,7 +1426,7 @@ redirect('frontend/index');
 
     }
 
-    public function showEventDetails($eventname='',$eventid=''){
+    public function showEventDetails($eventname,$eventid){
 
 
       $data['eventid'] = $eventid;

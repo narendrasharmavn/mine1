@@ -121,6 +121,7 @@ class FrontEndModel extends CI_Model {
         //return $result;
 
         foreach ($eventsresults->result() as $k) {
+          $eventtitleurl = str_replace(" ", "-", $k->eventname);
 
             $priceQuery = "SELECT  min(tp.adultprice) as minprice from tblpackages tp WHERE eventid='$k->eventid'";
             if ($priceString!='') {
@@ -134,25 +135,41 @@ class FrontEndModel extends CI_Model {
                 $price= $priceResults->row();
                 //echo "count is: ".count($priceResults->row())."<br>";
                 if ($price->minprice!='') {
-                    echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
-         <div class='img_container'>
-            <a href='site_url().'events/'.$k->eventname.'/'.$k->eventid;'>";
-            echo '<img width="400" height="267" src="'.base_url().'/assets/eventimages/'.$k->photoname.'">';         
-            
-            echo "<div class='short_info'>
-              <i class='icon_set_1_icon-4'></i>$k->eventname; 
-              <span class='price'><span><sup>Rs.</sup>$price->minprice</span></span>
-                              
-            </div>
-            </a>
-        </div>
-        <div class='tour_title'>
-            <a href='site_url().'events/'.$k->eventname.'/'.$k->eventid;'>
-                <h3 >$k->eventname</h3>
-            </a>
-          
-        </div>
-        </div>"; 
+                    ?>
+
+                    <div class="col-md-4 col-sm-4 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
+
+    
+                  
+                            <div class="tour_container">
+                                <div class="img_container">
+                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                                    <img width="400" height="267" src="<?php  echo base_url().'assets/eventimages/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->
+                                    <div class="short_info">
+                                        <i class="icon_set_1_icon-4"></i><?php echo $k->eventname;   ?> 
+                                        <span class="price"><span><sup>Rs.</sup><?php echo $price->minprice;   ?></span></span>
+                                                      
+                                    </div>
+                                    </a>
+                                </div>
+                                <div class="tour_title">
+                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                                        <h3 ><?php echo $k->eventname;   ?>  </h3>
+                                    </a>
+                                  <!--  <div class="rating">
+                                        <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
+                                    </div> end rating -->
+                                    <!--
+                                                <div class="wishlist">
+                                        <a class="tooltip_flip tooltip-effect-1 btn-add-wishlist" href="#" data-post-id="170"><span class="wishlist-sign">+</span><span class="tooltip-content-flip"><span class="tooltip-back">Add to wishlist</span></span></a>
+                                        <a class="tooltip_flip tooltip-effect-1 btn-remove-wishlist" href="#" data-post-id="170" style="display:none;"><span class="wishlist-sign">-</span><span class="tooltip-content-flip"><span class="tooltip-back">Remove from wishlist</span></span></a>
+                                    </div> End wish list-->
+                                </div>
+                            </div><!-- End box tour -->
+    
+        </div><!-- End col-md-6 -->
+
+                    <?php  
                 }
 
 
@@ -249,25 +266,40 @@ class FrontEndModel extends CI_Model {
                 $price= $priceResults->row();
                 //echo "count is: ".count($priceResults->row())."<br>";
                 if ($price->minprice!='') {
-                    echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
-         <div class='img_container'>
-            <a href='site_url().'events/'.$k->eventname.'/'.$k->eventid;'>";
-            echo '<img width="400" height="267" src="'.base_url().'/assets/eventimages/'.$k->photoname.'">';         
-            
-            echo "<div class='short_info'>
-              <i class='icon_set_1_icon-4'></i>$k->eventname; 
-              <span class='price'><span><sup>Rs.</sup>$price->minprice</span></span>
-                              
-            </div>
-            </a>
-        </div>
-        <div class='tour_title'>
-            <a href='site_url().'events/'.$k->eventname.'/'.$k->eventid;'>
-                <h3 >$k->eventname</h3>
-            </a>
-          
-        </div>
-        </div>"; 
+                    ?>
+        <div class="col-md-4 col-sm-4 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
+
+    
+                  
+                            <div class="tour_container">
+                                <div class="img_container">
+                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                                    <img width="400" height="267" src="<?php  echo base_url().'assets/eventimages/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->
+                                    <div class="short_info">
+                                        <i class="icon_set_1_icon-4"></i><?php echo $k->eventname;   ?> 
+                                        <span class="price"><span><sup>Rs.</sup><?php echo $price->minprice;   ?></span></span>
+                                                      
+                                    </div>
+                                    </a>
+                                </div>
+                                <div class="tour_title">
+                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                                        <h3 ><?php echo $k->eventname;   ?>  </h3>
+                                    </a>
+                                  <!--  <div class="rating">
+                                        <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
+                                    </div> end rating -->
+                                    <!--
+                                                <div class="wishlist">
+                                        <a class="tooltip_flip tooltip-effect-1 btn-add-wishlist" href="#" data-post-id="170"><span class="wishlist-sign">+</span><span class="tooltip-content-flip"><span class="tooltip-back">Add to wishlist</span></span></a>
+                                        <a class="tooltip_flip tooltip-effect-1 btn-remove-wishlist" href="#" data-post-id="170" style="display:none;"><span class="wishlist-sign">-</span><span class="tooltip-content-flip"><span class="tooltip-back">Remove from wishlist</span></span></a>
+                                    </div> End wish list-->
+                                </div>
+                            </div><!-- End box tour -->
+    
+        </div><!-- End col-md-6 -->
+
+        <?php 
 
         $last_id = $k->eventid;
                 }
