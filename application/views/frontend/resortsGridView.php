@@ -228,13 +228,14 @@
                     </div>-->
                 </div>
             </div><!--End tools -->
-           
-            <div class="tour-list row add-clearfix">
 
+
+            <div class="tour-list row add-clearfix" id="results">
+               
             <?php 
 
                     foreach ($getdata->result() as $k) {
-                          //echo $k->eventname."<br>";
+                         //echo $k->eventname."<br>";
                     $sql = "SELECT  min(adultprice) as minprice from tblpackages WHERE resortid='$k->resortid'";
                    //echo $sql."<br>";
 
@@ -243,14 +244,15 @@
                  $row =$query2->row();
                           ?>
                           <div id="results"></div>
-                          <!--<div class="col-md-4 col-sm-4 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
+                          <div class="col-md-4 col-sm-4 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
 
     
                   
     <div class="tour_container">
         <div class="img_container">
-            <a href="<?php //echo site_url().'/frontend/showResortDetails/'.$k->resortid;   ?>  ">
-            <img width="400" height="267" src="<?php  //echo base_url().'assets/resortimages/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->
+            <a href="<?php echo site_url().'/frontend/showResortDetails/'.$k->resortid;   ?>  ">
+            <img width="400" height="267" src="<?php  echo base_url().'assets/resortimages/'.$k->photoname;   ?>  ">
+                     <!-- <div class="ribbon top_rated"></div> -->
             <!--<div class="short_info">
                 <i class="icon_set_1_icon-4"></i><?php //echo $k->resortname;   ?> 
                               <span class="price"><span><sup>Rs.</sup><?php //echo $row->minprice;   ?></span></span>
@@ -259,8 +261,8 @@
             </a>
         </div>
         <div class="tour_title">
-            <a href="<?php //echo site_url().'/frontend/showResortDetails/'.$k->resortid;   ?>  ">
-                <h3 ><?php //echo $k->resortname;   ?>  </h3>
+            <a href="<?php echo site_url().'/frontend/showResortDetails/'.$k->resortid;   ?>  ">
+                <h3 ><?php echo $k->resortname;   ?>  </h3>
             </a>
           <!--  <div class="rating">
                 <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
@@ -281,18 +283,13 @@
                     }
 
                      ?>
-
+</div>
+</div>
+</div>
  </div><!-- End row -->
-
-            <hr>
-
-                <div class="text-center">
-                <?php //echo $pagination; ?>
-                   
-                </div><!-- end pagination-->
-                
-        </div><!-- End col lg 9 -->
-    </div><!-- End row -->
+ </div>
+           
+            
 </div>
     
     

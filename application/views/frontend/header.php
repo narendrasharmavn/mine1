@@ -195,7 +195,7 @@
                                 
                             </li>
                             <li >
-                                <a href="<?php echo site_url().'places' ?>" class="show-submenu">Places </a>
+                                <a href="<?php echo site_url().'placesall' ?>" class="show-submenu">Places </a>
                                 
                             </li>
                             <li >
