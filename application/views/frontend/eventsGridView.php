@@ -221,10 +221,10 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-6 hidden-xs text-right">
-                        <a href="<?php echo site_url().'/frontend/eventsGridView'; ?>" class="bt_filters" title="Grid View"><i class="icon-th"></i></a>
-                        <a href="<?php echo site_url().'/frontend/eventsListView'; ?>" class="bt_filters" title="List View"><i class="icon-list"></i></a>
-                    </div>
+                    <!--<div class="col-md-6 col-sm-6 hidden-xs text-right">
+                        <a href="<?php //echo site_url().'/frontend/eventsGridView'; ?>" class="bt_filters" title="Grid View"><i class="icon-th"></i></a>
+                        <a href="<?php //echo site_url().'/frontend/eventsListView'; ?>" class="bt_filters" title="List View"><i class="icon-list"></i></a>
+                    </div>-->
                 </div>
             </div><!--End tools -->
            
@@ -248,7 +248,7 @@
                   
                             <div class="tour_container">
                                 <div class="img_container">
-                                    <a href="<?php echo site_url().'/frontend/showEventDetails/'.$k->eventid;   ?>  ">
+                                    <a href="<?php echo site_url().'events/'.$k->eventname.'/'.$k->eventid;   ?> ">
                                     <img width="400" height="267" src="<?php  echo base_url().'assets/eventimages/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->
                                     <div class="short_info">
                                         <i class="icon_set_1_icon-4"></i><?php echo $k->eventname;   ?> 
@@ -258,7 +258,7 @@
                                     </a>
                                 </div>
                                 <div class="tour_title">
-                                    <a href="<?php echo site_url().'/frontend/showEventDetails/'.$k->eventid;   ?>  ">
+                                    <a href="<?php echo site_url().'events/'.$k->eventname.'/'.$k->eventid;   ?> ">
                                         <h3 ><?php echo $k->eventname;   ?>  </h3>
                                     </a>
                                   <!--  <div class="rating">

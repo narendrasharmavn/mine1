@@ -10,7 +10,7 @@
                             
                              echo $this->session->flashdata('error-msg'); 
 
-                                echo form_open('Frontend/updateMyAccount',array('name'=>'registerform','method'=>'post'));
+                                echo form_open('myaccount-update',array('name'=>'registerform','method'=>'post'));
                             ?>
                             
                                 <div class="form-group">

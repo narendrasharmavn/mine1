@@ -38,11 +38,13 @@
     <link href="<?php echo base_url(); ?>/assets/frontend/css/slider-pro.min.css" rel="stylesheet" type="text/css" media="all" >
     <link href="<?php echo base_url(); ?>/assets/frontend/css/date_time_picker.css" rel="stylesheet" type="text/css" media="all" >
     <link href="<?php echo base_url(); ?>/assets/frontend/css/animate.css" rel="stylesheet" type="text/css" media="all" >
+    <link href="<?php echo base_url(); ?>/assets/frontend/css/carouselpart.css" rel="stylesheet" type="text/css" media="all" >
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script type='text/javascript' src='<?php echo base_url(); ?>/assets/frontend/js/jquery/jquery-migrate.min.js'></script>
     <script type='text/javascript' src='<?php echo base_url(); ?>/assets/frontend/js/theia-sticky-sidebar.js'></script>
-
+    <link href="<?php echo base_url(); ?>/assets/frontend/css/detailscarousel.css" rel="stylesheet" type="text/css" media="all" >
+    <script type='text/javascript' src='<?php echo base_url(); ?>/assets/frontend/js/detailspage.js'></script>
 
 
 
@@ -111,11 +113,11 @@
 
                                 <li>
                                 <div class="dropdown dropdown-access">
-                                    <a href="<?php echo site_url().'/frontend/loginForm'; ?>" class="dropdown-toggle" id="access_link">Sign in</a>
+                                    <a href="<?php echo site_url().'login'; ?>" class="dropdown-toggle" id="access_link">Sign in</a>
                                     <!-- End Dropdown access -->
                             </li>
                             
-                           <li><a href="<?php echo site_url().'/frontend/registerForm'; ?>">Register</a></li>
+                           <li><a href="<?php echo site_url().'register'; ?>">Register</a></li>
 
                                 <?php
 
@@ -126,9 +128,9 @@
                                         
                                         <div class="login-or">
                                             <ul>
-                                            <a href="'.site_url().'/frontend/myAccount"><li class="my">My Account</li></a>
-                                            <a href="'.site_url().'/frontend/myorders"><li class="my">My Orders</li></a>
-                                            <a href="'.site_url().'/frontend/logout'.'"><li class="my" >Logout</li></a>
+                                            <a href="'.site_url().'my-account"><li class="my">My Account</li></a>
+                                            <a href="'.site_url().'my-orders"><li class="my">My Orders</li></a>
+                                            <a href="'.site_url().'logout'.'"><li class="my" >Logout</li></a>
                                             </ul>
                                         </div>
                                         
@@ -160,7 +162,7 @@
                 <div class="col-md-3 col-sm-3 col-xs-3">
                      <div id="logo_home">
                     	<!--<img src="<?php echo base_url(); ?>/assets/frontend/images/logo.jpg" width="160" height="34" alt="City tours" data-retina="true" class="logo_sticky">-->
-                        <a href="<?php echo site_url().'/frontend/index';      ?>">
+                        <a href="<?php echo site_url().'home';      ?>">
                             <span style="color: white;font-size: 30px;">Book4Holiday</span>
                         </a>
                     </div>
@@ -170,14 +172,14 @@
                     <div class="main-menu">
                         <div id="header_menu">
                             <!--<img src="<?php echo base_url(); ?>/assets/frontend/img/logo_sticky.png" width="160" height="34" alt="City tours" data-retina="true">-->
-                            <a href="<?php echo site_url().'/frontend/index';      ?>">
+                            <a href="<?php echo site_url().'home';      ?>">
                                 <span style="color: Black;font-size: 30px;">Book4Holiday</span>
                            </a>
                         </div>
                         <a href="#" class="open_close" id="close_in"><i class="icon_set_1_icon-77"></i></a>
                         <ul id="menu-menu-1" class="menu">
                             <li >
-                                <a href="<?php echo site_url().'/frontend/index';      ?>" class="show-submenu">Home </a>
+                                <a href="<?php echo site_url().'home';?>" class="show-submenu">Home </a>
                                 
                             </li>
                             <li >
@@ -193,11 +195,11 @@
                                 
                             </li>
                             <li >
-                                <a href="<?php echo site_url().'/frontend/' ?>placegridview" class="show-submenu">Places </a>
+                                <a href="<?php echo site_url().'places' ?>" class="show-submenu">Places </a>
                                 
                             </li>
                             <li >
-                                <a href="<?php echo site_url().'/frontend/showResortDetails/1';      ?>" class="show-submenu">Book Zoo Tickets </a>
+                                <a href="<?php echo site_url().'resorts/zoo/1'; ?>" class="show-submenu">Book Zoo Tickets </a>
                                 
                             </li>
 

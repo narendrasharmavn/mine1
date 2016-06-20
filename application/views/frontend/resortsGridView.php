@@ -222,10 +222,10 @@
                     <div class="col-md-3 col-sm-3 col-xs-6">
                         
                     </div>
-                    <div class="col-md-6 col-sm-6 hidden-xs text-right">
-                        <a href="<?php echo site_url().'/frontend/resortsGridView'; ?>" class="bt_filters" title="Grid View"><i class="icon-th"></i></a>
-                        <a href="<?php echo site_url().'/frontend/resortsListView'; ?>" class="bt_filters" title="List View"><i class="icon-list"></i></a>
-                    </div>
+                    <!--<div class="col-md-6 col-sm-6 hidden-xs text-right">
+                        <a href="<?php //echo site_url().'/frontend/resortsGridView'; ?>" class="bt_filters" title="Grid View"><i class="icon-th"></i></a>
+                        <a href="<?php //echo site_url().'/frontend/resortsListView'; ?>" class="bt_filters" title="List View"><i class="icon-list"></i></a>
+                    </div>-->
                 </div>
             </div><!--End tools -->
            

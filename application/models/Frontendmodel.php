@@ -136,7 +136,7 @@ class FrontEndModel extends CI_Model {
                 if ($price->minprice!='') {
                     echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
          <div class='img_container'>
-            <a href='site_url().'/frontend/showEventDetails/'.$k->eventid;'>";
+            <a href='site_url().'events/'.$k->eventname.'/'.$k->eventid;'>";
             echo '<img width="400" height="267" src="'.base_url().'/assets/eventimages/'.$k->photoname.'">';         
             
             echo "<div class='short_info'>
@@ -147,7 +147,7 @@ class FrontEndModel extends CI_Model {
             </a>
         </div>
         <div class='tour_title'>
-            <a href='site_url().'/frontend/showEventDetails/'.$k->eventid;'>
+            <a href='site_url().'events/'.$k->eventname.'/'.$k->eventid;'>
                 <h3 >$k->eventname</h3>
             </a>
           
@@ -251,7 +251,7 @@ class FrontEndModel extends CI_Model {
                 if ($price->minprice!='') {
                     echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
          <div class='img_container'>
-            <a href='site_url().'/frontend/showEventDetails/'.$k->eventid;'>";
+            <a href='site_url().'events/'.$k->eventname.'/'.$k->eventid;'>";
             echo '<img width="400" height="267" src="'.base_url().'/assets/eventimages/'.$k->photoname.'">';         
             
             echo "<div class='short_info'>
@@ -262,7 +262,7 @@ class FrontEndModel extends CI_Model {
             </a>
         </div>
         <div class='tour_title'>
-            <a href='site_url().'/frontend/showEventDetails/'.$k->eventid;'>
+            <a href='site_url().'events/'.$k->eventname.'/'.$k->eventid;'>
                 <h3 >$k->eventname</h3>
             </a>
           

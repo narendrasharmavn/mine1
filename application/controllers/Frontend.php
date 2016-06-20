@@ -519,7 +519,7 @@ redirect('frontend/index');
                  
                  echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
                  <div class='img_container'>
-                    <a href='site_url().'/frontend/showResortDetails/'.$content->resortid;'>";
+                    <a href='<?php echo site_url().'resorts/'.$content->resortname.'/'.$content->resortid;   ?>'>";
                     echo '<img width="400" height="267" src="'.base_url().'/assets/resortimages/'.$content->photoname.'">';         
                     
                     echo "<div class='short_info'>
@@ -530,7 +530,7 @@ redirect('frontend/index');
                     </a>
                 </div>
                 <div class='tour_title'>
-                    <a href='site_url().'/frontend/showResortDetails/'.$content->resortid;'>
+                    <a href='<?php echo site_url().'resorts/'.$content->resortname.'/'.$content->resortid;   ?>'>
                         <h3 >$content->resortname</h3>
                     </a>
                   
@@ -559,7 +559,7 @@ redirect('frontend/index');
           if ($packagerow->minprice!='') {
            echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
            <div class='img_container'>
-              <a href='site_url().'/frontend/showResortDetails/'.$k->resortid;'>";
+              <a href='<?php echo site_url().'resorts/'.$k->resortname.'/'.$k->resortid;   ?>'>";
               echo '<img width="400" height="267" src="'.base_url().'/assets/resortimages/'.$k->photoname.'">';         
               
               echo "<div class='short_info'>
@@ -570,7 +570,7 @@ redirect('frontend/index');
               </a>
           </div>
           <div class='tour_title'>
-              <a href='site_url().'/frontend/showResortDetails/'.$k->resortid;'>
+              <a href='<?php echo site_url().'resorts/'.$k->resortname.'/'.$k->resortid;   ?>'>
                   <h3 >$k->resortname</h3>
               </a>
             
@@ -594,7 +594,7 @@ redirect('frontend/index');
           if ($packagerow->minprice!='') {
            echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
            <div class='img_container'>
-              <a href='site_url().'/frontend/showResortDetails/'.$k->resortid;'>";
+              <a href='<?php echo site_url().'resorts/'.$k->resortname.'/'.$k->resortid;   ?>'>";
               echo '<img width="400" height="267" src="'.base_url().'/assets/resortimages/'.$k->photoname.'">';         
               
               echo "<div class='short_info'>
@@ -605,7 +605,7 @@ redirect('frontend/index');
               </a>
           </div>
           <div class='tour_title'>
-              <a href='site_url().'/frontend/showResortDetails/'.$k->resortid;'>
+              <a href='<?php echo site_url().'resorts/'.$k->resortname.'/'.$k->resortid;   ?>'>
                   <h3 >$k->resortname</h3>
               </a>
             
@@ -650,7 +650,7 @@ redirect('frontend/index');
           if ($packagerow->minprice!='') {
            echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
            <div class='img_container'>
-              <a href='site_url().'/frontend/showResortDetails/'.$k->resortid;'>";
+              <a href='<?php echo site_url().'resorts/'.$k->resortname.'/'.$k->resortid;   ?>'>";
               echo '<img width="400" height="267" src="'.base_url().'/assets/resortimages/'.$k->photoname.'">';         
               
               echo "<div class='short_info'>
@@ -661,7 +661,7 @@ redirect('frontend/index');
               </a>
           </div>
           <div class='tour_title'>
-              <a href='site_url().'/frontend/showResortDetails/'.$k->resortid;'>
+              <a href='<?php echo site_url().'resorts/'.$k->resortname.'/'.$k->resortid;   ?>'>
                   <h3 >$k->resortname</h3>
               </a>
             
@@ -689,7 +689,7 @@ redirect('frontend/index');
           if ($packagerow->minprice!='') {
            echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
            <div class='img_container'>
-              <a href='site_url().'/frontend/showResortDetails/'.$k->resortid;'>";
+              <a href='<?php echo site_url().'resorts/'.$k->resortname.'/'.$k->resortid;   ?>'>";
               echo '<img width="400" height="267" src="'.base_url().'/assets/resortimages/'.$k->photoname.'">';         
               
               echo "<div class='short_info'>
@@ -700,7 +700,7 @@ redirect('frontend/index');
               </a>
           </div>
           <div class='tour_title'>
-              <a href='site_url().'/frontend/showResortDetails/'.$k->resortid;'>
+              <a href='<?php echo site_url().'resorts/'.$k->resortname.'/'.$k->resortid;   ?>'>
                   <h3 >$k->resortname</h3>
               </a>
             
@@ -931,18 +931,18 @@ redirect('frontend/index');
                  
                  echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
                  <div class='img_container'>
-                    <a href='site_url().'/frontend/showEventDetails/'.$content->eventid;'>";
+                    <a href='site_url().'events/'.$content->eventname.'/'.$content->eventid;'>";
                     echo '<img width="400" height="267" src="'.base_url().'/assets/eventimages/'.$content->photoname.'">';         
                     
                     echo "<div class='short_info'>
-                      <i class='icon_set_1_icon-4'></i>$content->resortname; 
+                      <i class='icon_set_1_icon-4'></i>$content->eventname; 
                       <span class='price'><span><sup>Rs.</sup>$row->minprice</span></span>
                                       
                     </div>
                     </a>
                 </div>
                 <div class='tour_title'>
-                    <a href='site_url().'/frontend/showEventDetails/'.$content->eventid;'>
+                    <a href='site_url().'events/'.$content->eventname.'/'.$content->eventid;'>
                         <h3 >$content->eventname</h3>
                     </a>
                   
@@ -979,7 +979,7 @@ redirect('frontend/index');
                  $row =$query2->row();
         echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
          <div class='img_container'>
-            <a href='site_url().'/frontend/showEventDetails/'.$k->eventid;'>";
+            <a href='site_url().'events/'.$k->eventname.'/'.$k->eventid;'>";
             echo '<img width="400" height="267" src="'.base_url().'/assets/eventimages/'.$k->photoname.'">';         
             
             echo "<div class='short_info'>
@@ -990,7 +990,7 @@ redirect('frontend/index');
             </a>
         </div>
         <div class='tour_title'>
-            <a href='site_url().'/frontend/showEventDetails/'.$k->eventid;'>
+            <a href='site_url().'events/'.$k->eventname.'/'.$k->eventid;'>
                 <h3 >$k->eventname</h3>
             </a>
           
@@ -1057,7 +1057,7 @@ redirect('frontend/index');
                  $row =$query2->row();
         echo "<div class='col-md-4 col-sm-4 wow zoomIn animated' data-wow-delay='0.1s' style='visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;'>
          <div class='img_container'>
-            <a href='site_url().'/frontend/showEventDetails/'.$k->eventid;'>";
+            <a href='site_url().'events/'.$k->eventname.'/'.$k->eventid;'>";
             echo '<img width="400" height="267" src="'.base_url().'/assets/eventimages/'.$k->photoname.'">';         
             
             echo "<div class='short_info'>
@@ -1068,7 +1068,7 @@ redirect('frontend/index');
             </a>
         </div>
         <div class='tour_title'>
-            <a href='site_url().'/frontend/showEventDetails/'.$k->eventid;'>
+            <a href='site_url().'events/'.$k->eventname.'/'.$k->eventid;'>
                 <h3 >$k->eventname</h3>
             </a>
           
@@ -1363,7 +1363,7 @@ redirect('frontend/index');
 }
 
 
-    public function showResortDetails($resortId){
+    public function showResortDetails($resortname='',$resortId=''){
 
 
       $data['resortid'] = $resortId;
@@ -1377,7 +1377,7 @@ redirect('frontend/index');
 
     }
 
-    public function showEventDetails($eventid){
+    public function showEventDetails($eventname='',$eventid=''){
 
 
       $data['eventid'] = $eventid;

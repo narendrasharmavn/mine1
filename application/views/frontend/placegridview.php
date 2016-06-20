@@ -108,7 +108,7 @@
                     
     <div class="tour_container">
         <div class="img_container">
-            <a href="<?php echo site_url().'/frontend/placesdetails/'.$k->plid;   ?>  ">
+            <a href="<?php echo site_url().'placesall/'.$k->place.'/'.$k->plid; ?>">
             <img width="400" height="267" src="<?php  echo base_url().'assets/places/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->
             <div class="short_info">
                 <i class="icon_set_1_icon-4"></i><?php echo $k->place;   ?>               
@@ -117,7 +117,7 @@
             </a>
         </div>
         <div class="tour_title">
-            <h3><a href="<?php echo site_url().'/frontend/placesdetails/'.$k->plid;   ?>  "><?php echo $k->place;   ?>  </a></h3>
+            <h3><a href="<?php echo site_url().'placesall/'.$k->place.'/'.$k->plid; ?>"><?php echo $k->place;   ?>  </a></h3>
             <div>
                 <?php echo $k->address; ?>
             </div>

@@ -7,7 +7,7 @@
                         
                         <?php       
 
-    echo form_open('Frontend/forgotpassword',array('id'=>'editstates','method'=>'post'));
+    echo form_open('forgot-password',array('id'=>'editstates','method'=>'post'));
 ?>
                            
                                 <div class="form-group">
@@ -21,9 +21,9 @@
                                 
                                 <br>
                                 <div style="text-align:center">
-                                    <a href="<?php echo site_url().'/frontend/loginForm'; ?>" class="underline">Login</a>
-                                                                         | <a href="<?php echo site_url().'/frontend/registerForm'; ?>" class="underline">Sign Up</a>
-                                                                    </div>
+                                    <a href="<?php echo site_url().'login'; ?>" class="underline">Login</a>
+                                    <a href="<?php echo site_url().'register'; ?>" class="underline">Sign Up</a>
+                                </div>
                             </form>
 
                         
