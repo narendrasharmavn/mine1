@@ -12,7 +12,7 @@
                             
                              echo $this->session->flashdata('error-msg'); 
                              echo $this->session->flashdata('success'); 
-                                echo form_open('Frontend/submitGuestlogin',array('name'=>'registerform','method'=>'post'));
+                                echo form_open('guestlogin_error',array('name'=>'registerform','method'=>'post'));
                             ?>
                           
                                 <div class="form-group">
@@ -44,12 +44,12 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="checkbox" name="rememberme" tabindex="3" value="forever" id="rememberme" class="pull-left"> <label for="rememberme" class="pl-8">Remember my details</label>
-                                    <div class="small pull-right"><a href="<?php echo site_url().'/frontend/forgotForm'; ?>">Forgot password?</a></div>
+                                    <div class="small pull-right"><a href="<?php echo site_url().'forgot-password'; ?>">Forgot password?</a></div>
                                 </div>
                                 <button type="submit" class="btn_full">Login</button>
                                 <input type="hidden" name="redirect_to" value="">
                                                                     <br>Don't have an account? 
-                                <a href="<?php echo site_url().'/frontend/registerForm'; ?>" class="">Register</a>
+                                <a href="<?php echo site_url().'register'; ?>" class="">Register</a>
                             </form>
 
                         

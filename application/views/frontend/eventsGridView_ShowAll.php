@@ -89,7 +89,7 @@
 
     <!-- content starts here -->
     
-   <!-- <section class="parallax-window" data-parallax="scroll" data-image-src="<?php echo base_url(); ?>assets/frontend/images/bg.jpg" data-natural-width="1400" data-natural-height="500">
+   <!-- <section class="parallax-window" data-parallax="scroll" data-image-src="<?php //echo base_url(); ?>assets/frontend/images/bg.jpg" data-natural-width="1400" data-natural-height="500">
         <div class="parallax-content-1">
                 <div class="wpb_wrapper">
             <div>
@@ -234,6 +234,7 @@
 
                     foreach ($getdata->result() as $k) {
                           //echo $k->eventname."<br>";
+                        $eventtitleurl = str_replace(" ", "-", $k->eventname);
                     $sql = "SELECT  min(adultprice) as minprice from tblpackages WHERE eventid='$k->eventid'";
                    //echo $sql."<br>";
 
@@ -248,7 +249,7 @@
                   
     <div class="tour_container">
         <div class="img_container">
-            <a href="<?php echo site_url().'/frontend/showEventDetails/'.$k->eventid;   ?>  ">
+            <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>  ">
             <img width="400" height="267" src="<?php  echo base_url().'assets/eventimages/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->
             <div class="short_info">
                 <i class="icon_set_1_icon-4"></i><?php echo $k->eventname;   ?> 
@@ -258,7 +259,7 @@
             </a>
         </div>
         <div class="tour_title">
-            <a href="<?php echo site_url().'/frontend/showEventDetails/'.$k->eventid;   ?>  ">
+            <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>  ">
                 <h3 ><?php echo $k->eventname;   ?>  </h3>
             </a>
           <!--  <div class="rating">

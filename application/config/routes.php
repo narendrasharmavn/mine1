@@ -49,14 +49,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+
+$route['home'] = "frontend/index";
 $route['admin'] = "Admin/";
 $route['default_controller'] = 'frontend';
-$route['index'] = 'frontend/index';
+
 $route['about'] = 'frontend/about';
 $route['trustees'] = 'frontend/trustees';
-$route['register'] = 'frontend/register';
+
+
+$route['register'] = 'frontend/registerForm';
+$route['register-error'] = 'frontend/register';
+
+
+
 $route['contact'] = 'frontend/contact';
 $route['feedback'] = 'frontend/feedback';
+$route['eventsall'] = 'frontend/eventsGridView_ShowAll';
+
+$route['search-results'] = 'frontend/indexsearch';
+
+$route['confirm-booking'] = 'frontend/confirm';
+$route['places/(:any)/(:num)'] = 'frontend/placesdetails';
+$route['forgot-password'] = 'frontend/forgotForm';
+
+$route['guest-login'] = 'frontend/guestLoginForm';
+$route['guestlogin_error'] = 'frontend/submitGuestlogin';
+
+$route['invoice/(:any)/(:num)'] = 'frontend/invoice';
+
+$route['my-account'] = 'frontend/myAccount';
+$route['myaccount-update'] = 'frontend/updateMyAccount';
+
+$route['my-orders'] = 'frontend/myorders';
+$route['response'] = 'frontend/response';
+
+$route['login'] = 'frontend/loginForm';
+$route['login_error'] = 'frontend/loginCheck';
+
+$route['logout'] = 'frontend/logout';
+
+$route['resorts/(:any)/(:num)'] = 'frontend/showResortDetails/$1/$2';
+$route['eventdetails/(:any)/(:num)'] = 'frontend/showEventDetails/$1/$2';
+
+$route['events'] = 'frontend/eventsGridView';
+$route['resorts'] = 'frontend/resortsGridView';
+
+
+$route['placesall'] = "frontend/placegridview";
 
 
 $route['404_override'] = '';

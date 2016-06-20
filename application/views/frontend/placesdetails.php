@@ -117,45 +117,65 @@
         <div class="container margin_60" style="transform: none;">
     <div class="row" style="transform: none;">
         <div class="col-md-8" id="single_tour_desc">
+         
+          <div class="container-fluid">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner">
+               <?php
+              $i=0;
+              $query = $this->db->query("SELECT * from tblplacesphotos WHERE plid='$placeid' order by pphotoid DESC limit 6");
+               foreach ($query->result() as $k) {
+                if($i==0){
+                ?>
+                <div class="item active">
+                  <img src="<?php echo base_url();?>assets/places/<?php echo $k->photoname ;?>">
+                   <!--<div class="carousel-caption">
+                    <h3>Headline</h3>
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. <a href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank" class="label label-danger">Bootstrap 3 - Carousel Collection</a></p>
+                  </div>-->
+                </div><!-- End Item -->
+                 <?php 
+                    }
+                    else
+                    {
+                        ?>
+                        <div class="item">
+                  <img src="<?php echo base_url();?>assets/places/<?php echo $k->photoname ;?>">
+                   <!--<div class="carousel-caption">
+                    <h3>Headline</h3>
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. <a href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank" class="label label-danger">Bootstrap 3 - Carousel Collection</a></p>
+                  </div>-->
+                </div>
+                        <?php
 
+                    }
+                    $i++;
+                }
+                 ?>
+              </div><!-- End Carousel Inner -->
+
+
+                <ul class="nav nav-pills nav-justified hidden-xs">
+                    <?php
+              $i=0;
+              $query = $this->db->query("SELECT * from tblplacesphotos WHERE plid='$placeid' order by pphotoid DESC limit 6");
+               foreach ($query->result() as $k) {
+                ?>
+                  <li data-target="#myCarousel" data-slide-to="<?php echo $i ;?>"><a href="#" class="detialsbar"><img src="<?php echo base_url();?>assets/places/<?php echo $k->photoname ;?>" class="img-thumbnail"></a></li>
+                 <?php
+                 $i++;
+                  } 
+                  ?>   
+                </ul>
+
+
+            </div><!-- End Carousel -->
          
                    
                             
-<div id="slider-pro-1" class="slider-pro sp-horizontal" style="width: 100%; max-width: 960px;">
-    
-<div class="sp-slides-container">
-     <div class="row">
-    <div id="myCarousel" class="carousel  slide">
-  <!-- Dot Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-  </ol>
-  <!-- Items -->
-  <div class="carousel-inner">
-  <?php
-  $i=0;
-  $query = $this->db->query("SELECT * from tblplacesphotos WHERE plid='$placeid'");
-   foreach ($query->result() as $k) {
-    if($i==0){
-              echo '<div class="item active">  <img src="'.base_url().'assets/places/'.$k->photoname.'" class="img-responsive"></div>';
-        }else{
-             echo '<div class="item">  <img src="'.base_url().'assets/places/'.$k->photoname.'" class="img-responsive"></div>';
-        }
-        $i++;
 
-        }
-        ?>
-        
-    
-   </div>
-  <!-- Navigation -->
-
-</div>
-    </div>
-
-</div>
 </div>               <hr>
             
             <div class="row">
@@ -263,14 +283,15 @@ if ($this->session->userdata('holidayCustomerName')) {
                        $rows = $getplacepic->row(); 
                        $photoname = $rows->photoname;
                        //echo $photoname."<br>";
+                       $placetitleurl = str_replace(" ", "-", $k->place);
                     
                 ?>
                 <div class="row">
                 <div class="col-md-12 col-sm-6 text-center">
                     <p>
-                        <a href="<?php echo $k->plid; ?>"><img src="<?php echo base_url(); ?>/assets/places/<?php echo $photoname; ?>" alt="Pic" width="800" height="450" style="min-height: 200px;" class="img-responsive"></a>
+                        <a href="<?php echo site_url().'places/'.$placetitleurl.'/'.$k->plid; ?>"><img src="<?php echo base_url(); ?>/assets/places/<?php echo $photoname; ?>" alt="Pic" width="800" height="450" style="min-height: 200px;" class="img-responsive"></a>
                   </p>
-                    <h4><a href="<?php echo $k->plid; ?>"><?php echo $placename; ?></a></h4>
+                    <h4><a href="<?php echo site_url().'places/'.$placetitleurl.'/'.$k->plid; ?>"><?php echo $placename; ?></a></h4>
                    
                 </div>
                 </div>

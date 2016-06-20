@@ -1,4 +1,3 @@
-
 <script>
 
          var icon = new google.maps.MarkerImage("<?php echo base_url().'assets/marker/'  ?>green.png",
@@ -222,19 +221,19 @@
                     <div class="col-md-3 col-sm-3 col-xs-6">
                         
                     </div>
-                    <div class="col-md-6 col-sm-6 hidden-xs text-right">
-                        <a href="<?php echo site_url().'/frontend/resortsGridView'; ?>" class="bt_filters" title="Grid View"><i class="icon-th"></i></a>
-                        <a href="<?php echo site_url().'/frontend/resortsListView'; ?>" class="bt_filters" title="List View"><i class="icon-list"></i></a>
-                    </div>
+                    <!--<div class="col-md-6 col-sm-6 hidden-xs text-right">
+                        <a href="<?php //echo site_url().'/frontend/resortsGridView'; ?>" class="bt_filters" title="Grid View"><i class="icon-th"></i></a>
+                        <a href="<?php //echo site_url().'/frontend/resortsListView'; ?>" class="bt_filters" title="List View"><i class="icon-list"></i></a>
+                    </div>-->
                 </div>
             </div><!--End tools -->
            
-            <div class="tour-list row add-clearfix">
+            <div class="tour-list row add-clearfix" id="results">
 
             <?php 
 
                     foreach ($getdata->result() as $k) {
-                          //echo $k->eventname."<br>";
+                         $resorttitleurl = str_replace(" ", "-", $k->resortname);
                     $sql = "SELECT  min(adultprice) as minprice from tblpackages WHERE resortid='$k->resortid'";
                    //echo $sql."<br>";
 
@@ -242,25 +241,25 @@
                  $query2 = $this->db->query($sql);
                  $row =$query2->row();
                           ?>
-                          <div id="results"></div>
-                          <!--<div class="col-md-4 col-sm-4 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
+                          
+                          <div class="col-md-4 col-sm-4 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
 
     
                   
     <div class="tour_container">
         <div class="img_container">
-            <a href="<?php //echo site_url().'/frontend/showResortDetails/'.$k->resortid;   ?>  ">
-            <img width="400" height="267" src="<?php  //echo base_url().'assets/resortimages/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->
-            <!--<div class="short_info">
-                <i class="icon_set_1_icon-4"></i><?php //echo $k->resortname;   ?> 
-                              <span class="price"><span><sup>Rs.</sup><?php //echo $row->minprice;   ?></span></span>
+            <a href="<?php echo site_url().'resorts/'.$resorttitleurl.'/'.$k->resortid;   ?>">
+            <img  src="<?php  echo base_url().'assets/resortimages/'.$k->photoname;   ?>  " style="height:267px;">         <!-- <div class="ribbon top_rated"></div> -->
+            <div class="short_info">
+                <i class="icon_set_1_icon-4"></i><?php echo $k->resortname;   ?> 
+                              <span class="price"><span><sup>Rs.</sup><?php echo $row->minprice;   ?></span></span>
                               
             </div>
             </a>
         </div>
         <div class="tour_title">
-            <a href="<?php //echo site_url().'/frontend/showResortDetails/'.$k->resortid;   ?>  ">
-                <h3 ><?php //echo $k->resortname;   ?>  </h3>
+            <a href="<?php echo site_url().'resorts/'.$resorttitleurl.'/'.$k->resortid;   ?>">
+                <h3 ><?php echo $k->resortname;   ?>  </h3>
             </a>
           <!--  <div class="rating">
                 <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
@@ -270,10 +269,10 @@
                 <a class="tooltip_flip tooltip-effect-1 btn-add-wishlist" href="#" data-post-id="170"><span class="wishlist-sign">+</span><span class="tooltip-content-flip"><span class="tooltip-back">Add to wishlist</span></span></a>
                 <a class="tooltip_flip tooltip-effect-1 btn-remove-wishlist" href="#" data-post-id="170" style="display:none;"><span class="wishlist-sign">-</span><span class="tooltip-content-flip"><span class="tooltip-back">Remove from wishlist</span></span></a>
             </div> End wish list-->
-        <!--</div>
+        </div>
     </div><!-- End box tour -->
-    <!--</div>
-</div><!-- End col-md-6 -->
+    </div>
+<!-- End col-md-6 -->
 
                           <?php
 
@@ -390,7 +389,7 @@ $(document).ready(function() {
             {           
                 if(is_loading == false)
                 {
-                    alert(last_id);
+                  //  alert(last_id);
                   loading = true; 
                   $('.loader_image').show(); 
                   var price = $('#sort_price').val();

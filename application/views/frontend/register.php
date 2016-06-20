@@ -12,7 +12,7 @@
                             
                              echo $this->session->flashdata('error-msg'); 
 
-                                echo form_open('Frontend/register',array('name'=>'registerform','method'=>'post'));
+                                echo form_open('register-error',array('name'=>'registerform','method'=>'post'));
                             ?>
                             
                                 <div class="form-group">
@@ -46,7 +46,7 @@
                                 </div>
                                 
                                 <button type="submit" class="btn_full">Create an account</button>
-                                <br>Already a member? <a href="<?php echo site_url().'/frontend/loginForm'; ?>">Login</a>
+                                <br>Already a member? <a href="<?php echo site_url().'login'; ?>">Login</a>
                             </form>
 
                         

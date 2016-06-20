@@ -127,50 +127,61 @@
 
             
 
-                            
-<div id="slider-pro-1" class="slider-pro sp-horizontal" style="width: 100%; max-width: 960px;">
-    
-<div class="sp-slides-container"><div class="sp-mask sp-grab" style="width: 770px; height: 401.042px;">
-<div class="container">
-    <div class="row">
-    <div id="myCarousel" class="carousel  slide">
-  <!-- Dot Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-  </ol>
-  <!-- Items -->
-  <div class="carousel-inner">
-  <?php
-  $i=0;
-  $query = $this->db->query("SELECT * from tbleventphotos WHERE eventid='$eventid'");
-   foreach ($query->result() as $k) {
-    if($i==0){
-              echo '<div class="item active">  <img src="'.base_url().'assets/eventimages/'.$k->photoname.'" class="img-responsive"></div>';
-        }else{
-             echo '<div class="item">  <img src="'.base_url().'assets/eventimages/'.$k->photoname.'" class="img-responsive"></div>';
-        }
-        $i++;
+ <div class="container-fluid">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner">
+               <?php
+              $i=0;
+              $query = $this->db->query("SELECT * from tbleventphotos WHERE eventid='$eventid' order by photoid DESC limit 6");
+               foreach ($query->result() as $k) {
+                if($i==0){
+                ?>
+                <div class="item active">
+                  <img src="<?php echo base_url();?>assets/eventimages/<?php echo $k->photoname ;?>">
+                   <!--<div class="carousel-caption">
+                    <h3>Headline</h3>
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. <a href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank" class="label label-danger">Bootstrap 3 - Carousel Collection</a></p>
+                  </div>-->
+                </div><!-- End Item -->
+                 <?php 
+                    }
+                    else
+                    {
+                        ?>
+                        <div class="item">
+                  <img src="<?php echo base_url();?>assets/eventimages/<?php echo $k->photoname ;?>">
+                   <!--<div class="carousel-caption">
+                    <h3>Headline</h3>
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. <a href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank" class="label label-danger">Bootstrap 3 - Carousel Collection</a></p>
+                  </div>-->
+                </div>
+                        <?php
 
-        }
-        ?>
-        
-    
-   </div>
-  <!-- Navigation -->
-   <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" style="left:5%;top:30%;"></span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" style="left:60%;top:30%;"></span>
-        </a>
-</div>
-    </div>
-</div>
-</div>
-</div>
-</div>               <hr>
+                    }
+                    $i++;
+                }
+                 ?>
+              </div><!-- End Carousel Inner -->
+
+
+                <ul class="nav nav-pills nav-justified hidden-xs">
+                    <?php
+              $i=0;
+              $query = $this->db->query("SELECT * from tbleventphotos WHERE eventid='$eventid' order by photoid DESC limit 6");
+               foreach ($query->result() as $k) {
+                ?>
+                  <li data-target="#myCarousel" data-slide-to="<?php echo $i ;?>"><a href="#" class="detialsbar"><img src="<?php echo base_url();?>assets/eventimages/<?php echo $k->photoname ;?>" class="img-thumbnail"></a></li>
+                 <?php
+                 $i++;
+                  } 
+                  ?>   
+                </ul>
+
+
+            </div><!-- End Carousel -->
+        </div>            <hr>
             
             <div class="row">
                 <div class="col-md-3">
@@ -471,24 +482,6 @@ if ($this->session->userdata('holidayCustomerName')) {
                             <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
                         </div>
                     </div>
-
-                                    </div>
-                                    <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <label>Add Kid Meal Rs.50 per Kid</label>
-                            
-                        </div>
-                    </div>
-                                        <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <label>Qty</label>
-                            <div class="numbers-row" data-min="0">
-                                <input type="text" value="0" id="children" class="qty2 form-control" name="kids">
-                            <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
-                        </div>
-                    </div>
-                    
                                     </div>
                 <br>
                 <table class="table table_summary">
@@ -540,7 +533,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                                 ?>
 
                                  
-                                                        <a href="<?php echo site_url().'/frontend/loginForm'; ?>" class="btn_full_outline">login</a>
+                                                        <a href="<?php echo site_url().'login'; ?>" class="btn_full_outline">login</a>
 
                                 <?php
 
