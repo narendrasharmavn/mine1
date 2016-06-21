@@ -227,7 +227,8 @@
                     </div>
                 </div>
             </div><!--End tools -->
-           
+            
+            <input type="hidden" id="sessionvalue" name="sessionvalue" value="0">
             <div class="tour-list row add-clearfix" id="results">
                
             <?php 
@@ -374,49 +375,71 @@ Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur i
         </body>
 
 </html>
+<script type="text/javascript">var last_id = <?php echo $last_id; ?>;</script>
 
 <script type="text/javascript">
-    /*
-    $(document).ready(function() {
-        var total_record = 0;
-        var total_groups = <?php echo $total_data; ?>; 
-        //alert(total_groups); 
-        $('#results').load("<?php echo site_url() ?>/frontend/load_more_events",
-         {'group_no':total_record}, function() {total_record++;});
+  var is_loading = false; // initialize is_loading by false to accept new loading
+  var limit = 4; // limit items per page
+
+
+
+$(document).ready(function() {
+        var totalrecord = 0;
+        
+        var lastid = <?php echo $last_id; ?>
+        
         $(window).scroll(function() {       
             if($(window).scrollTop() + $(window).height() == $(document).height())  
             {           
-                if(total_record <= total_groups)
+                if(is_loading == false)
                 {
+                    //alert(last_id);
                   loading = true; 
                   $('.loader_image').show(); 
-                  $.ajax({
-                    type: "POST",
-                    url: '<?php echo site_url("frontend/load_more_events")?>',
-                    data: {
-                       group_no:total_record 
-                    },
-                    success: function(data) {
-                        if(data!='')
+                  var price = $('#sort_price').val();
+                var date = $('#sort_date').val();
+                //alert(lastid);
+                var lastidone =lastid;
+                var sessionValue = $('#sessionvalue').val();
+                //sessionValue += (parseInt(sessionValue))+(1);
+                //alert(+sessionValue+1);
+                sessionValue  =+sessionValue+1;
+                //alert(sessionValue);
+                $('#sessionvalue').val(sessionValue);
+
+     $.ajax({
+        type: "POST",
+        url: '<?php echo site_url("frontend/sortpricedateforeventsallAjax")?>',
+        data: {
+           'date':date,
+           'price':price,
+           'lastid':lastidone,
+           'limit':limit,
+           'sessionValue':sessionValue
+            },
+        success: function(data) {
+        if(data!='')
                         {
                             $("#results").append(data);                 
                             $('.loader_image').hide();                  
-                            total_record++;
+                            
                           
                         }
-                    },
-                        error: function (xhr, ajaxOptions, thrownError) {
-                            console.log(xhr.status);
-                            console.log(thrownError);
-                            console.log(xhr.responseText);
-                         
-                        }
-                    });     
+        },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+                console.log(xhr.responseText);
+             
+            }
+        });
+
+
+
                 }
             }
         });
     });
-    */
 
     loadMap();
 
@@ -425,7 +448,7 @@ Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur i
     {
        var price = $('#sort_price').val();
        //alert(price);
-
+       $('#sessionvalue').val(0);
        var date = $('#sort_date').val();
        //alert(date);
 
@@ -437,7 +460,7 @@ Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur i
            price:price
         },
         success: function(data) {
-            if(data.trim()!='0')
+            if(data.trim()!='')
             {
               $('#results').html(data);
               

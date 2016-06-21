@@ -1036,6 +1036,96 @@ redirect('frontend/index');
         
       }else{
      $this->FrontEndModel->getdateandprice_filterevents($price,$date);
+      
+
+      }
+      
+      
+    }
+
+
+
+
+    public function sortpricedateforeventsallAjax()
+    {
+      $last_id = $this->input->post('lastid');
+      $limit = $this->input->post('limit');
+      $price = $this->input->post('price');
+      $date = $this->input->post('date');
+      $sessionValue = $this->input->post('sessionValue');
+      //echo "date is: ".$date."<br>";
+      //echo "last id is: ".$last_id."<br>";
+
+      
+      
+      $last_id=$sessionValue*4;
+      if ($price=='' && $date=='') {
+
+        
+        
+        //echo "session variable is: ".$this->session->userdata('limitcount')."<br>";
+
+        $sql = "SELECT e.*,ep.* FROM tblevents e LEFT JOIN tbleventphotos ep ON e.eventid=ep.eventid WHERE e.status=1 GROUP by ep.eventid ORDER by e.eventid DESC LIMIT $last_id,$limit";
+        //echo $sql."<br>";
+
+        
+
+        $qq = $this->db->query($sql);
+
+        foreach ($qq->result() as $k) {
+          $eventtitleurl = str_replace(" ", "-", $k->eventname);
+          $sql2 = "SELECT  min(adultprice) as minprice from tblpackages WHERE eventid='$k->eventid'";
+                   //echo $sql2."<br><br>";
+
+
+                 $query2 = $this->db->query($sql2);
+                 $row =$query2->row();
+        ?>
+        <div class="col-md-4 col-sm-4 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
+
+    
+                  
+                            <div class="tour_container">
+                                <div class="img_container">
+                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                                    <img width="400" height="267" src="<?php  echo base_url().'assets/eventimages/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->
+                                    <div class="short_info">
+                                        <i class="icon_set_1_icon-4"></i><?php echo $k->eventname;   ?> 
+                                        <span class="price"><span><sup>Rs.</sup><?php echo $row->minprice;   ?></span></span>
+                                                      
+                                    </div>
+                                    </a>
+                                </div>
+                                <div class="tour_title">
+                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                                        <h3 ><?php echo $k->eventname;   ?>  </h3>
+                                    </a>
+                                  <!--  <div class="rating">
+                                        <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
+                                    </div> end rating -->
+                                    <!--
+                                                <div class="wishlist">
+                                        <a class="tooltip_flip tooltip-effect-1 btn-add-wishlist" href="#" data-post-id="170"><span class="wishlist-sign">+</span><span class="tooltip-content-flip"><span class="tooltip-back">Add to wishlist</span></span></a>
+                                        <a class="tooltip_flip tooltip-effect-1 btn-remove-wishlist" href="#" data-post-id="170" style="display:none;"><span class="wishlist-sign">-</span><span class="tooltip-content-flip"><span class="tooltip-back">Remove from wishlist</span></span></a>
+                                    </div> End wish list-->
+                                </div>
+                            </div><!-- End box tour -->
+    
+        </div><!-- End col-md-6 -->
+
+        <?php
+
+        $last_id = $k->eventid;
+        
+      }
+
+      if ($last_id != 0) {
+  echo '<script type="text/javascript">var last_id = '.$last_id.';</script>';
+}
+
+        
+      }else{
+     $this->FrontEndModel->getdateandprice_filtereventsallajax($price,$date,$last_id,$limit);
       //echo $getDateResults;
       
       
@@ -1047,32 +1137,20 @@ redirect('frontend/index');
     }
 
 
-
-
     public function sortpricedateforeventsAjax()
     {
       $last_id = $this->input->post('lastid');
       $limit = $this->input->post('limit');
       $price = $this->input->post('price');
       $date = $this->input->post('date');
+      $sessionValue = $this->input->post('sessionValue');
       //echo "date is: ".$date."<br>";
       //echo "last id is: ".$last_id."<br>";
 
-      $sessioncheck = $this->session->userdata('limitcount');
-
-      if ($sessioncheck==NULL) {
-        $this->session->set_userdata('limitcount',1);
-      } else {
-        $sessionlimit = $this->session->userdata('limitcount');
-        $this->session->set_userdata('limitcount',$sessionlimit+1);
-      }
       
+      $last_id=$sessionValue*4;
 
       if ($price=='' && $date=='') {
-
-        $last_id=$this->session->userdata('limitcount')*4;
-        
-        //echo "session variable is: ".$this->session->userdata('limitcount')."<br>";
 
         $sql = "SELECT e.*,ep.* FROM tblevents e LEFT JOIN tbleventphotos ep ON e.eventid=ep.eventid WHERE e.status=1 AND (e.fromdate>='".$this->session->userdata('searchdate')."' OR e.todate='".$this->session->userdata('searchdate')."') AND ( e.location LIKE '%".$this->session->userdata('searchterm')."%' OR e.eventname LIKE '%".$this->session->userdata('searchterm')."%' OR e.description LIKE '%".$this->session->userdata('searchterm')."%' ) GROUP by ep.photoname ORDER BY e.eventid desc LIMIT $last_id,$limit";
         //echo $sql."<br>";
@@ -1192,7 +1270,7 @@ redirect('frontend/index');
 
         $sql = "SELECT e.*,ep.* FROM tblevents e LEFT JOIN tbleventphotos ep ON e.eventid=ep.eventid WHERE e.status=1 GROUP by ep.eventid ORDER by e.eventid DESC limit 4";
         //echo $sql."<br>";
-
+        $this->session->set_userdata('limitcount',0);
         $query2 = $this->db->query($sql);
         $data['getdata'] = $query2;
         
@@ -1214,7 +1292,7 @@ redirect('frontend/index');
       $date = $this->input->post('date');
       if ($price=='' && $date=='') {
         $sql = "SELECT e.*,ep.* FROM tblevents e LEFT JOIN tbleventphotos ep ON e.eventid=ep.eventid WHERE e.status=1 GROUP by ep.eventid ORDER by e.eventid DESC limit 4";
-        //echo $sql."<br>";
+        echo $sql."<br>";
 
         
 
@@ -1268,7 +1346,7 @@ redirect('frontend/index');
 
         
       }else{
-     $this->FrontEndModel->getdateandprice_filterevents($price,$date);
+     $this->FrontEndModel->getdateandprice_filtereventseventsall($price,$date);
       //echo $getDateResults;
       
       

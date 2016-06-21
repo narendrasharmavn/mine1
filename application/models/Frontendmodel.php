@@ -115,7 +115,7 @@ class FrontEndModel extends CI_Model {
       }
 
      
-      $eventsQuery.=' GROUP by ep.photoname ';
+      $eventsQuery.=' GROUP by e.eventid ORDER by e.eventid DESC limit 4 ';
      // echo $eventsQuery."<br>";
       $eventsresults = $this->db->query($eventsQuery);
         //return $result;
@@ -315,6 +315,275 @@ class FrontEndModel extends CI_Model {
 }
 
       
+      
+    }
+
+
+
+    public function getdateandprice_filtereventsallajax($price,$date,$last_id,$limit)
+    {
+      $filters= [];
+      //$date = $this->input->post('date');
+
+      if (null != $price) {
+        
+        //echo $price;
+        $rp = explode("-",$price);
+        $startprice = $rp[0];
+        $endprice =  $rp[1]; 
+        $filters['price'] = $price;
+      }
+
+      if (null != $date) {
+        
+      
+        $filters['date'] = $date;
+      }
+
+      $queryString="";
+      $priceString="";
+      $dateString="";
+      $eventsQuery = "SELECT e.*,ep.* FROM tblevents e LEFT JOIN tbleventphotos ep ON e.eventid=ep.eventid WHERE e.status=1";
+      foreach ($filters as $key => $value) {
+        //echo $key."  ".$value."<br><br>";
+        if ($key=="date") {
+          //$value
+          if($value=="today")
+          {
+            $startdate = date('Y-m-d');
+            $enddate = date('Y-m-d');
+            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+          }else if($value=="tomorrow")
+          {
+            $startdate = date('Y-m-d');
+            $d=strtotime("tomorrow");
+            $enddate = date("Y-m-d", $d);
+            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+          }else if($value=="tweek"){
+            $startdate = date('Y-m-d');
+            $d = strtotime("+1 week");
+            $enddate = date("Y-m-d", $d);
+            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+          }else{
+            $startdate = date('Y-m-d');
+            $d=strtotime("next Saturday");
+            $enddate = date("Y-m-d", $d);
+            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+          }
+        }else{
+
+            $priceString .="  tp.adultprice between '$startprice' AND '$endprice' ";
+            //echo "price string ".$priceString."<br>";
+          
+        }
+      }
+
+      if ($dateString!='') {
+         $eventsQuery .= ' AND '.$dateString;
+      }
+
+     
+      $eventsQuery.=' GROUP by ep.eventid ORDER by e.eventid DESC LIMIT '.$last_id.','.$limit;
+     //echo $eventsQuery."<br>";
+      $eventsresults = $this->db->query($eventsQuery);
+        //return $result;
+
+        foreach ($eventsresults->result() as $k) {
+          $eventtitleurl = str_replace(" ", "-", $k->eventname);
+            $priceQuery = "SELECT  min(tp.adultprice) as minprice from tblpackages tp WHERE eventid='$k->eventid'";
+            if ($priceString!='') {
+                $priceQuery = "SELECT  min(tp.adultprice) as minprice from tblpackages tp WHERE eventid='$k->eventid' AND ".$priceString;
+                
+
+            }
+            //echo $eventsQuery."<br><br><br>";
+            //echo $priceQuery."<br><br>";
+            $priceResults = $this->db->query($priceQuery);
+                $price= $priceResults->row();
+                //echo "count is: ".count($priceResults->row())."<br>";
+                if ($price->minprice!='') {
+                    ?>
+        <div class="col-md-4 col-sm-4 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
+
+    
+                  
+                            <div class="tour_container">
+                                <div class="img_container">
+                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                                    <img width="400" height="267" src="<?php  echo base_url().'assets/eventimages/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->
+                                    <div class="short_info">
+                                        <i class="icon_set_1_icon-4"></i><?php echo $k->eventname;   ?> 
+                                        <span class="price"><span><sup>Rs.</sup><?php echo $price->minprice;   ?></span></span>
+                                                      
+                                    </div>
+                                    </a>
+                                </div>
+                                <div class="tour_title">
+                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                                        <h3 ><?php echo $k->eventname;   ?>  </h3>
+                                    </a>
+                                  <!--  <div class="rating">
+                                        <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
+                                    </div> end rating -->
+                                    <!--
+                                                <div class="wishlist">
+                                        <a class="tooltip_flip tooltip-effect-1 btn-add-wishlist" href="#" data-post-id="170"><span class="wishlist-sign">+</span><span class="tooltip-content-flip"><span class="tooltip-back">Add to wishlist</span></span></a>
+                                        <a class="tooltip_flip tooltip-effect-1 btn-remove-wishlist" href="#" data-post-id="170" style="display:none;"><span class="wishlist-sign">-</span><span class="tooltip-content-flip"><span class="tooltip-back">Remove from wishlist</span></span></a>
+                                    </div> End wish list-->
+                                </div>
+                            </div><!-- End box tour -->
+    
+        </div><!-- End col-md-6 -->
+
+        <?php 
+
+        $last_id = $k->eventid;
+                }
+
+
+        
+
+        
+      }
+
+      if ($last_id != 0) {
+  echo '<script type="text/javascript">var last_id = '.$last_id.';</script>';
+}
+
+      
+      
+    }
+
+
+
+
+    public function getdateandprice_filtereventseventsall($price,$date)
+    {
+      $filters= [];
+      //$date = $this->input->post('date');
+
+      if (null != $price) {
+        
+        //echo $price;
+        $rp = explode("-",$price);
+        $startprice = $rp[0];
+        $endprice =  $rp[1]; 
+        $filters['price'] = $price;
+      }
+
+      if (null != $date) {
+        
+      
+        $filters['date'] = $date;
+      }
+
+      $queryString="";
+      $priceString="";
+      $dateString="";
+      $eventsQuery = "SELECT e.*,ep.* FROM tblevents e LEFT JOIN tbleventphotos ep ON e.eventid=ep.eventid WHERE e.status=1 ";
+      foreach ($filters as $key => $value) {
+        //echo $key."  ".$value."<br><br>";
+        if ($key=="date") {
+          //$value
+          if($value=="today")
+          {
+            $startdate = date('Y-m-d');
+            $enddate = date('Y-m-d');
+            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+          }else if($value=="tomorrow")
+          {
+            $startdate = date('Y-m-d');
+            $d=strtotime("tomorrow");
+            $enddate = date("Y-m-d", $d);
+            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+          }else if($value=="tweek"){
+            $startdate = date('Y-m-d');
+            $d = strtotime("+1 week");
+            $enddate = date("Y-m-d", $d);
+            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+          }else{
+            $startdate = date('Y-m-d');
+            $d=strtotime("next Saturday");
+            $enddate = date("Y-m-d", $d);
+            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+          }
+        }else{
+
+            $priceString .="  tp.adultprice between '$startprice' AND '$endprice' ";
+            //echo "price string ".$priceString."<br>";
+          
+        }
+      }
+
+      if ($dateString!='') {
+         $eventsQuery .= ' AND '.$dateString;
+      }
+
+     
+      $eventsQuery.=' GROUP by ep.eventid ORDER by e.eventid DESC limit 4 ';
+      //echo $eventsQuery."<br>";
+      $eventsresults = $this->db->query($eventsQuery);
+        //return $result;
+
+        foreach ($eventsresults->result() as $k) {
+          $eventtitleurl = str_replace(" ", "-", $k->eventname);
+
+            $priceQuery = "SELECT  min(tp.adultprice) as minprice from tblpackages tp WHERE eventid='$k->eventid'";
+            if ($priceString!='') {
+                $priceQuery = "SELECT  min(tp.adultprice) as minprice from tblpackages tp WHERE eventid='$k->eventid' AND ".$priceString;
+                
+
+            }
+            //echo $eventsQuery."<br><br><br>";
+            //echo $priceQuery."<br><br>";
+            $priceResults = $this->db->query($priceQuery);
+                $price= $priceResults->row();
+                //echo "count is: ".count($priceResults->row())."<br>";
+                if ($price->minprice!='') {
+                    ?>
+
+                    <div class="col-md-4 col-sm-4 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
+
+    
+                  
+                            <div class="tour_container">
+                                <div class="img_container">
+                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                                    <img width="400" height="267" src="<?php  echo base_url().'assets/eventimages/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->
+                                    <div class="short_info">
+                                        <i class="icon_set_1_icon-4"></i><?php echo $k->eventname;   ?> 
+                                        <span class="price"><span><sup>Rs.</sup><?php echo $price->minprice;   ?></span></span>
+                                                      
+                                    </div>
+                                    </a>
+                                </div>
+                                <div class="tour_title">
+                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                                        <h3 ><?php echo $k->eventname;   ?>  </h3>
+                                    </a>
+                                  <!--  <div class="rating">
+                                        <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
+                                    </div> end rating -->
+                                    <!--
+                                                <div class="wishlist">
+                                        <a class="tooltip_flip tooltip-effect-1 btn-add-wishlist" href="#" data-post-id="170"><span class="wishlist-sign">+</span><span class="tooltip-content-flip"><span class="tooltip-back">Add to wishlist</span></span></a>
+                                        <a class="tooltip_flip tooltip-effect-1 btn-remove-wishlist" href="#" data-post-id="170" style="display:none;"><span class="wishlist-sign">-</span><span class="tooltip-content-flip"><span class="tooltip-back">Remove from wishlist</span></span></a>
+                                    </div> End wish list-->
+                                </div>
+                            </div><!-- End box tour -->
+    
+        </div><!-- End col-md-6 -->
+
+                    <?php  
+                }
+
+
+        
+
+        
+      }
+
+    
       
     }
 

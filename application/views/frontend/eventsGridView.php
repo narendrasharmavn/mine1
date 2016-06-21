@@ -227,7 +227,7 @@
                     </div>-->
                 </div>
             </div><!--End tools -->
-           
+           <input type="hidden" id="sessionvalue" name="sessionvalue" value="0">
             <div class="tour-list row add-clearfix" id="results">
                
             <?php 
@@ -400,6 +400,11 @@ $(document).ready(function() {
                 //alert(lastid);
                 var lastidone =lastid;
 
+                 var sessionValue = $('#sessionvalue').val();
+                sessionValue  =+sessionValue+1;
+                //alert(sessionValue);
+                $('#sessionvalue').val(sessionValue);
+
                 $.ajax({
         type: "POST",
         url: '<?php echo site_url("frontend/sortpricedateforeventsAjax")?>',
@@ -408,48 +413,28 @@ $(document).ready(function() {
            'price':price,
            'lastid':lastidone,
            'limit':limit,
+           'sessionValue':sessionValue
            
                         },
         success: function(data) {
-        if(data!='')
+                        if(data!='')
                         {
                             $("#results").append(data);                 
                             $('.loader_image').hide();                  
                             
                           
                         }
-        }
-        });
-
-
-/*
-                  $.ajax({
-                    type: "POST",
-                    url: '<?php echo site_url("frontend/sortpricedateforeventsAjax")?>',
-                    data: {
-                           'date':date,
-                           'price':price,
-                           'lastid':lastid,
-                           'limit':limit,
-                           'group_no':totalrecord
-                        },
-                    success: function(data) {
-                        if(data!='')
-                        {
-                            $("#results").append(data);                 
-                            $('.loader_image').hide();                  
-                            total_record++;
-                          
-                        }
-                    },
+        },
                         error: function (xhr, ajaxOptions, thrownError) {
                             console.log(xhr.status);
                             console.log(thrownError);
                             console.log(xhr.responseText);
                          
                         }
-                    });  
-*/
+
+
+        }); //end of ajax
+
 
 
                 }
@@ -465,7 +450,7 @@ $(document).ready(function() {
     {
        var price = $('#sort_price').val();
        //alert(price);
-
+        $('#sessionvalue').val(0);
        var date = $('#sort_date').val();
        //alert(date);
 

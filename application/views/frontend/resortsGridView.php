@@ -228,6 +228,7 @@
                 </div>
             </div><!--End tools -->
            
+           <input type="hidden" id="sessionvalue" name="sessionvalue" value="0">
             <div class="tour-list row add-clearfix" id="results">
 
             <?php 
