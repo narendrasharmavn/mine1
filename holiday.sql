@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2016 at 08:08 AM
+-- Generation Time: Jun 21, 2016 at 02:26 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.5.35
 
@@ -220,8 +220,8 @@ CREATE TABLE `tblemail_template` (
 CREATE TABLE `tbleventphotos` (
   `photoid` int(10) UNSIGNED NOT NULL,
   `eventid` int(10) UNSIGNED DEFAULT NULL,
-  `photoname` varchar(45) DEFAULT NULL,
-  `path` varchar(150) DEFAULT NULL,
+  `photoname` longtext,
+  `path` longtext,
   `status` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -297,12 +297,12 @@ CREATE TABLE `tblpackages` (
   `updatedon` datetime DEFAULT NULL,
   `servicetax` double DEFAULT '0',
   `vendorid` int(11) DEFAULT NULL,
-  `packageimage` varchar(150) DEFAULT NULL,
+  `packageimage` longtext,
   `packagetags` longtext,
   `packagetype` varchar(45) DEFAULT NULL,
   `eventid` varchar(45) DEFAULT NULL,
-  `adultprice` varchar(45) DEFAULT NULL,
-  `childprice` varchar(45) DEFAULT NULL,
+  `adultprice` decimal(10,0) DEFAULT NULL,
+  `childprice` decimal(10,0) DEFAULT NULL,
   `expirydate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -443,8 +443,8 @@ INSERT INTO `tblplacesphotos` (`pphotoid`, `plid`, `photoname`, `path`, `status`
 CREATE TABLE `tblresorphotos` (
   `rphotoid` int(10) UNSIGNED NOT NULL,
   `resortid` int(10) UNSIGNED DEFAULT NULL,
-  `photoname` varchar(45) DEFAULT NULL,
-  `path` varchar(150) DEFAULT NULL,
+  `photoname` longtext,
+  `path` longtext,
   `status` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
