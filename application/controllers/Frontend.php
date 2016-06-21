@@ -1286,7 +1286,7 @@ redirect('frontend/index');
       $date = $this->input->post('date');
       if ($price=='' && $date=='') {
         $sql = "SELECT e.*,ep.* FROM tblevents e LEFT JOIN tbleventphotos ep ON e.eventid=ep.eventid WHERE e.status=1 GROUP by ep.eventid ORDER by e.eventid DESC limit 4";
-        echo $sql."<br>";
+        //echo $sql."<br>";
 
         
 
