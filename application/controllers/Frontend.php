@@ -635,20 +635,14 @@ redirect('frontend/index');
       $price = $this->input->post('price');
       $lastid = $this->input->post('lastid');
       $limit = $this->input->post('limit');
+      $sessionValue = $this->input->post('sessionValue');
 
 
-       $sessioncheck = $this->session->userdata('limitcount');
-
-      if ($sessioncheck==NULL) {
-        $this->session->set_userdata('limitcount',1);
-      } else {
-        $sessionlimit = $this->session->userdata('limitcount');
-        $this->session->set_userdata('limitcount',$sessionlimit+1);
-      }
+       $last_id=$sessionValue*4;
        
       if ($price=='') {
 
-         $last_id=$this->session->userdata('limitcount')*4;
+         
         
          $getPriceResults = $this->FrontEndModel->getpriceresults_resortAjax($limit,$lastid);
         foreach ($getPriceResults->result() as $k) {

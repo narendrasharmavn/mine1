@@ -401,8 +401,7 @@ $(document).ready(function() {
                 //alert(lastid);
                 var lastidone =lastid;
                 var sessionValue = $('#sessionvalue').val();
-                //sessionValue += (parseInt(sessionValue))+(1);
-                //alert(+sessionValue+1);
+               
                 sessionValue  =+sessionValue+1;
                 //alert(sessionValue);
                 $('#sessionvalue').val(sessionValue);

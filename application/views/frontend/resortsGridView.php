@@ -397,6 +397,12 @@ $(document).ready(function() {
                 
                   var lastidone =lastid;
 
+                  var sessionValue = $('#sessionvalue').val();
+               
+                sessionValue  =+sessionValue+1;
+                //alert(sessionValue);
+                $('#sessionvalue').val(sessionValue);
+
                 $.ajax({
                 type: "POST",
                 url: '<?php echo site_url("frontend/sortpriceforresortsAjax")?>',
@@ -405,6 +411,7 @@ $(document).ready(function() {
                    'price':price,
                    'lastid':lastidone,
                    'limit':limit,
+                   'sessionValue':sessionValue
                    
                                 },
                 success: function(data) {
@@ -425,34 +432,7 @@ $(document).ready(function() {
                 });
 
 
-/*
-                  $.ajax({
-                    type: "POST",
-                    url: '<?php echo site_url("frontend/sortpricedateforeventsAjax")?>',
-                    data: {
-                           'date':date,
-                           'price':price,
-                           'lastid':lastid,
-                           'limit':limit,
-                           'group_no':totalrecord
-                        },
-                    success: function(data) {
-                        if(data!='')
-                        {
-                            $("#results").append(data);                 
-                            $('.loader_image').hide();                  
-                            total_record++;
-                          
-                        }
-                    },
-                        error: function (xhr, ajaxOptions, thrownError) {
-                            console.log(xhr.status);
-                            console.log(thrownError);
-                            console.log(xhr.responseText);
-                         
-                        }
-                    });  
-*/
+
 
 
                 }
@@ -468,7 +448,7 @@ $(document).ready(function() {
     {
         var price = $('#sort_price').val();
         //alert(price);
-
+$('#sessionvalue').val(0);
 
         $.ajax({
         type: "POST",
