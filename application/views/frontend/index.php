@@ -1,6 +1,4 @@
 amar
-
-
     <!-- Slider -->
     <div class="tp-banner-container">
       <!-- ForNext Slider -->

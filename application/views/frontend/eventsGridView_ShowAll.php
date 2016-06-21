@@ -201,7 +201,7 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-3 col-xs-6">
                         <div class="styled-select-filters">
-                            <select name="sort_date" id="sort_date"  onchange="showEventsDatePrice()">
+                            <select name="sort_date" id="sort_date"  onchange="showAllEventsDatePrice()">
                                 <option value="" selected="">Sort by Date</option>
                                 <option value="today">Today</option>
                                 <option value="tomorrow">Tomorrow</option>
@@ -212,7 +212,7 @@
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-6">
                         <div class="styled-select-filters">
-                            <select name="sort_price" id="sort_price"  onchange="showEventsDatePrice()">
+                            <select name="sort_price" id="sort_price"  onchange="showAllEventsDatePrice()">
                                 <option value="" selected="">Sort by Price</option>
                                 <option value="0-100">0-100</option>
                                 <option value="100-500">100-500</option>
@@ -228,13 +228,13 @@
                 </div>
             </div><!--End tools -->
            
-            <div class="tour-list row add-clearfix">
-                <div id="results">
+            <div class="tour-list row add-clearfix" id="results">
+               
             <?php 
 
                     foreach ($getdata->result() as $k) {
                           //echo $k->eventname."<br>";
-                        $eventtitleurl = str_replace(" ", "-", $k->eventname);
+                         $eventtitleurl = str_replace(" ", "-", $k->eventname);
                     $sql = "SELECT  min(adultprice) as minprice from tblpackages WHERE eventid='$k->eventid'";
                    //echo $sql."<br>";
 
@@ -243,44 +243,48 @@
                  $row =$query2->row();
                           ?>
                           
-                          <div class="col-md-4 col-sm-4 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
+        <div class="col-md-4 col-sm-4 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
 
     
                   
-    <div class="tour_container">
-        <div class="img_container">
-            <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>  ">
-            <img width="400" height="267" src="<?php  echo base_url().'assets/eventimages/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->
-            <div class="short_info">
-                <i class="icon_set_1_icon-4"></i><?php echo $k->eventname;   ?> 
-                <span class="price"><span><sup>Rs.</sup><?php echo $row->minprice;   ?></span></span>
-                              
-            </div>
-            </a>
-        </div>
-        <div class="tour_title">
-            <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>  ">
-                <h3 ><?php echo $k->eventname;   ?>  </h3>
-            </a>
-          <!--  <div class="rating">
-                <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
-            </div> end rating -->
-            <!--
-                        <div class="wishlist">
-                <a class="tooltip_flip tooltip-effect-1 btn-add-wishlist" href="#" data-post-id="170"><span class="wishlist-sign">+</span><span class="tooltip-content-flip"><span class="tooltip-back">Add to wishlist</span></span></a>
-                <a class="tooltip_flip tooltip-effect-1 btn-remove-wishlist" href="#" data-post-id="170" style="display:none;"><span class="wishlist-sign">-</span><span class="tooltip-content-flip"><span class="tooltip-back">Remove from wishlist</span></span></a>
-            </div> End wish list-->
-        </div>
-    </div><!-- End box tour -->
+                            <div class="tour_container">
+                                <div class="img_container">
+                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                                    <img width="400" height="267" src="<?php  echo base_url().'assets/eventimages/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->
+                                    <div class="short_info">
+                                        <i class="icon_set_1_icon-4"></i><?php echo $k->eventname;   ?> 
+                                        <span class="price"><span><sup>Rs.</sup><?php echo $row->minprice;   ?></span></span>
+                                                      
+                                    </div>
+                                    </a>
+                                </div>
+                                <div class="tour_title">
+                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                                        <h3 ><?php echo $k->eventname;   ?>  </h3>
+                                    </a>
+                                  <!--  <div class="rating">
+                                        <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
+                                    </div> end rating -->
+                                    <!--
+                                                <div class="wishlist">
+                                        <a class="tooltip_flip tooltip-effect-1 btn-add-wishlist" href="#" data-post-id="170"><span class="wishlist-sign">+</span><span class="tooltip-content-flip"><span class="tooltip-back">Add to wishlist</span></span></a>
+                                        <a class="tooltip_flip tooltip-effect-1 btn-remove-wishlist" href="#" data-post-id="170" style="display:none;"><span class="wishlist-sign">-</span><span class="tooltip-content-flip"><span class="tooltip-back">Remove from wishlist</span></span></a>
+                                    </div> End wish list-->
+                                </div>
+                            </div><!-- End box tour -->
     
-</div><!-- End col-md-6 -->
-</div><!-- Results -->
+        </div><!-- End col-md-6 -->
+
 
                           <?php
+
+                          $last_id = $k->eventid;
                     }
 
                      ?>
-
+</div>
+</div>
+</div>
  </div><!-- End row -->
 
             <hr>
@@ -417,7 +421,7 @@ Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur i
     loadMap();
 
 
-    function showEventsDatePrice()
+    function showAllEventsDatePrice()
     {
        var price = $('#sort_price').val();
        //alert(price);
@@ -427,7 +431,7 @@ Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur i
 
        $.ajax({
         type: "POST",
-        url: '<?php echo site_url("frontend/sortpricedateforevents")?>',
+        url: '<?php echo site_url("frontend/showalleventsdateprice")?>',
         data: {
            date:date,
            price:price
