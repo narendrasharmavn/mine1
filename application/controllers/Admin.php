@@ -70,6 +70,97 @@ class Admin extends CI_Controller {
     }
 
 
+    public function deletesliderid()
+    {
+      $id = $this->input->post('uid');
+      $query = $this->db->query("SELECT * FROM tblsliders WHERE sid='$id'");
+        foreach ($query->result() as $k) 
+        {
+          $photoname = $k->image;
+          // unlink photo //
+          $file = "assets/sliderimages/".$photoname."";
+          
+          if (is_readable($file) && unlink($file)) {
+              $this->db->delete('tblsliders', array('sid' => $id));
+              $this->session->set_flashdata('success','<div class="alert alert-success text-center">The file has been deleted</div>');
+          } else {
+              $this->session->set_flashdata('success','<div class="alert alert-danger text-center">The file was not found or not readable and could not be deleted</div>');
+          }
+
+          // unlink photo //
+        }
+    }
+
+
+    public function submitsliders()
+    {
+      $sname = $this->input->post('sname');
+      $subtitle = $this->input->post('subtitle');
+      $link = $this->input->post('link');
+      $title = $this->input->post('title');
+      $edate = $this->input->post('edate');
+
+      $config['upload_path']   = './assets/sliderimages';
+      $config['allowed_types'] = 'gif|jpg|png';
+      
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('userfile'))
+        {
+            $error = array('error' => $this->upload->display_errors());
+            $this->session->set_flashdata('success',$error);
+        } else {
+          $imageInformation = $this->upload->data();
+          $this->imagename = $imageInformation['file_name'];
+          $this->filepath = $imageInformation['file_path'];
+          $data = array(
+             'name' => $sname ,
+             'title' => $title ,
+             'subtitle' => $subtitle,
+             'link' => $link,
+             'expirydate' => $edate,
+             'createdby' => 'admin',
+             'createdon' => date('Y-m-d h:i:s'),
+             'image' => $this->imagename,
+             'status' =>1
+          );
+          $this->db->insert('tblsliders', $data); 
+        }
+      
+      $this->session->set_flashdata('success','<div class="alert alert-success text-center">Slider Created</div>');
+      redirect('admin/addsliders');
+    }
+
+
+
+    public function submiteditaddslider()
+    {
+      $name = $this->input->post('name');
+      $title = $this->input->post('title');
+      $subtitle = $this->input->post('subtitle');
+      $link = $this->input->post('link');
+      $expirydate = $this->input->post('expirydate');
+      $sid = $this->input->post('sid');
+      $data = array(
+         'name' => $name ,
+         'title' => $title ,
+         'subtitle' => $subtitle,
+         'link' => $link,
+         'expirydate' => $expirydate,
+         'updatedby' => 'admin',
+         'updatedon' => date('Y-m-d h:i:s'),
+         
+      );
+      $this->db->where('sid', $sid);
+      $this->db->update('tblsliders', $data); 
+
+      $this->session->set_flashdata('success','<div class="alert alert-success text-center">Record Updated Successfully</div>');
+
+      redirect('admin/addsliders');
+
+    }
+
+
+    
     
 
     public function vendorcomissionreports($vendorid='',$fromdate='',$todate=''){

@@ -60,8 +60,38 @@
 												  <span class="text-danger"><?php echo form_error('name'); ?></span>
 								                </div>
 							                </div>
+
+							                <div class="form-group" style="margin-right: 442px;">
+								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Title</label>
+								                <div class="col-sm-7">
+								                  <input type="text" class="form-control" name="title" id="title" placeholder="Enter Title" value="<?php echo $rows->title; ?>">
+												  <span class="text-danger"><?php echo form_error('title'); ?></span>
+								                </div>
+							                </div>
 											
-											
+											<div class="form-group" style="margin-right: 442px;">
+								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Subtitle</label>
+								                <div class="col-sm-7">
+								                  <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Enter Subtitle" value="<?php echo $rows->subtitle; ?>">
+												  <span class="text-danger"><?php echo form_error('subtitle'); ?></span>
+								                </div>
+							                </div>
+
+							                <div class="form-group" style="margin-right: 442px;">
+								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Link</label>
+								                <div class="col-sm-7">
+								                  <input type="text" class="form-control" name="link" id="link" placeholder="Enter Link" value="<?php echo $rows->link; ?>">
+												  <span class="text-danger"><?php echo form_error('link'); ?></span>
+								                </div>
+							                </div>
+
+                                            <div class="form-group" style="margin-right: 442px;">
+								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Expiry Date</label>
+								                <div class="col-sm-7">
+								                  <input type="date" class="form-control" name="expirydate" id="expirydate" placeholder="Enter Expiry Date" value="<?php echo $rows->expirydate; ?>">
+												  <span class="text-danger"><?php echo form_error('expirydate'); ?></span>
+								                </div>
+							                </div>
 							                                                      
 											
 											<div class="form-group">
