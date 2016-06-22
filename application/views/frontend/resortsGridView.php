@@ -102,6 +102,7 @@
     
     <div class="container margin_60">
     <div class="row">
+    
         <!--<aside class="col-lg-3 col-md-3">
 
         <div id="search_results"><?php //echo $totalrows; ?> Results found</div>

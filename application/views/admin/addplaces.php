@@ -176,9 +176,9 @@
 											
 											
 											
-											<td><a href="<?php echo site_url(); ?>/admin/addplacesphotos/<?php echo $k->plid; ?>">Add Pics to this Places</a></td>
+											<td><a href="<?php echo site_url(); ?>admin/addplacesphotos/<?php echo $k->plid; ?>">Add Pics to this Places</a></td>
 											<td class="center hidden-phone">
-												<a href="<?php echo site_url(); ?>/admin/editaddplaces/<?php echo $k->plid; ?>" target="_blank"  name="edit" id="edit" value="edit">
+												<a href="<?php echo site_url(); ?>admin/editaddplaces/<?php echo $k->plid; ?>" target="_blank"  name="edit" id="edit" value="edit">
 													Edit
 												</a>
 											</td>

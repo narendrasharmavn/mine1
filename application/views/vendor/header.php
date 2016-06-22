@@ -273,7 +273,7 @@
 									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
 								</li>-->
 								<li>
-									<a role="menuitem" tabindex="-1" href="<?php echo site_url(); ?>/vendor/logout"><i class="fa fa-power-off"></i> Logout</a>
+									<a role="menuitem" tabindex="-1" href="<?php echo site_url(); ?>vendor/logout"><i class="fa fa-power-off"></i> Logout</a>
 								</li>
 							</ul>
 						</div>
@@ -302,7 +302,7 @@
 								<ul class="nav nav-main">
 									
 									<li class="nav-active">
-										<a href="<?php echo site_url(); ?>/vendor/dashboard">
+										<a href="<?php echo site_url(); ?>vendor/dashboard">
 											<i class="fa fa-home" aria-hidden="true"></i>
 											<span>Dashboard</span>
 										</a>
@@ -312,35 +312,35 @@
                                    
 
 									<li class="nav-active">
-										<a href="<?php echo site_url(); ?>/vendor/addevents">
+										<a href="<?php echo site_url(); ?>vendor/addevents">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 											<span>Events</span>
 										</a>
 									</li>
 									
 									<li class="nav-active">
-										<a href="<?php echo site_url(); ?>/vendor/addresorts">
+										<a href="<?php echo site_url(); ?>vendor/addresorts">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 											<span>Resorts</span>
 										</a>
 									</li>
 
 								    <li class="nav-active">
-										<a href="<?php echo site_url(); ?>/vendor/addpackages">
+										<a href="<?php echo site_url(); ?>vendor/addpackages">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 											<span>Packages</span>
 										</a>
 									</li>
 
 									<li class="nav-active">
-										<a href="<?php echo site_url(); ?>/vendor/additems">
+										<a href="<?php echo site_url(); ?>vendor/additems">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 											<span>Transactions</span>
 										</a>
 									</li>
 
 									<li class="nav-parent">
-										<a href="<?php echo site_url(); ?>/vendor/additems">
+										<a href="<?php echo site_url(); ?>vendor/additems">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 											<span>Reports</span>
 										</a>
@@ -348,7 +348,7 @@
 											
 											
 											<li>
-												<a href="<?php echo site_url(); ?>/vendor/vbookings">
+												<a href="<?php echo site_url(); ?>vendor/vbookings">
 													 Daily Bookings
 												</a>
 											</li>
@@ -359,7 +359,7 @@
 									</li>
 
 									<li class="nav-active">
-										<a href="<?php echo site_url(); ?>/vendor/additems">
+										<a href="<?php echo site_url(); ?>vendor/additems">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 											<span>Others</span>
 										</a>
@@ -376,19 +376,19 @@
 											
 											
 											<li>
-												<a href="<?php echo site_url(); ?>/vendor/eventsdata">
+												<a href="<?php echo site_url(); ?>vendor/eventsdata">
 													 Events Data
 												</a>
 											</li>
 
 											<li>
-												<a href="<?php echo site_url(); ?>/vendor/resortsdata">
+												<a href="<?php echo site_url(); ?>vendor/resortsdata">
 													 Resorts Data
 												</a>
 											</li>
 											
 											<li>
-												<a href="<?php echo site_url(); ?>/vendor/packagesdata">
+												<a href="<?php echo site_url(); ?>vendor/packagesdata">
 													 Packages Data
 												</a>
 											</li>

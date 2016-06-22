@@ -165,9 +165,9 @@
 													
 													
 													
-													<td><a href="<?php echo site_url(); ?>/admin/addresortphotos/<?php echo $k->resortid; ?>">Add Pics to this Event</a></td>
+													<td><a href="<?php echo site_url(); ?>admin/addresortphotos/<?php echo $k->resortid; ?>">Add Pics to this Event</a></td>
 													<td class="center hidden-phone">
-														<a href="<?php echo site_url(); ?>/admin/updateresorts/<?php echo $k->resortid; ?>" target="_blank"  name="edit" id="edit" value="edit">
+														<a href="<?php echo site_url(); ?>admin/updateresorts/<?php echo $k->resortid; ?>" target="_blank"  name="edit" id="edit" value="edit">
 															Edit
 														</a>
 													</td>

@@ -179,7 +179,7 @@
 													
 													
 													<td class="center hidden-phone">
-														<a href="<?php echo site_url(); ?>/admin/editvendorpayment/<?php echo $k->vpid; ?>" target="_blank"  name="edit" id="edit" value="edit">
+														<a href="<?php echo site_url(); ?>admin/editvendorpayment/<?php echo $k->vpid; ?>" target="_blank"  name="edit" id="edit" value="edit">
 															Edit
 														</a>
 													</td>

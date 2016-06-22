@@ -79,9 +79,9 @@ include 'header.php';
 											
 											
 											
-											<td><a href="<?php echo site_url(); ?>/vendor/addeventphotos/<?php echo $k->eventid; ?>">Add Pics to this Event</a></td>
+											<td><a href="<?php echo site_url(); ?>vendor/addeventphotos/<?php echo $k->eventid; ?>">Add Pics to this Event</a></td>
 											<td class="center hidden-phone">
-												<a href="<?php echo site_url(); ?>/vendor/editeventdata/<?php echo $k->eventid; ?>" target="_blank"  name="edit" id="edit" value="edit">
+												<a href="<?php echo site_url(); ?>vendor/editeventdata/<?php echo $k->eventid; ?>" target="_blank"  name="edit" id="edit" value="edit">
 													Edit
 												</a>
 											</td>

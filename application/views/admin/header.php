@@ -58,7 +58,7 @@
 			<!-- start: header -->
 			<header class="header">
 				<div class="logo-container">
-					<a href="../" class="logo">
+					<a href="<?php echo site_url(); ?>admin/dashboard" class="logo">
 						<!--<img src="<?php echo base_url(); ?>assets/assets/images/logo.png" height="35" alt="Porto Admin" />-->
 						<h4>Holiday Application Admin</h4>
 					</a>
@@ -301,7 +301,7 @@
 								<ul class="nav nav-main">
 									
 									<li class="nav-active">
-										<a href="<?php echo site_url(); ?>/admin/dashboard">
+										<a href="<?php echo site_url(); ?>admin/dashboard">
 											<i class="fa fa-home" aria-hidden="true"></i>
 											<span>Dashboard</span>
 										</a>
@@ -328,35 +328,35 @@
                                     <?php } ?>
 
                                     <li class="nav-active">
-										<a href="<?php echo site_url(); ?>/admin/addsliders">
+										<a href="<?php echo site_url(); ?>admin/addsliders">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 											<span>Sliders</span>
 										</a>
 									</li>
 
                                     <li class="nav-active">
-										<a href="<?php echo site_url(); ?>/admin/addplaces">
+										<a href="<?php echo site_url(); ?>admin/addplaces">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 											<span>Places</span>
 										</a>
 									</li>
 
                                     <li class="nav-active">
-										<a href="<?php echo site_url(); ?>/admin/addvendors">
+										<a href="<?php echo site_url(); ?>admin/addvendors">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 											<span>Vendors</span>
 										</a>
 									</li>
 
 									<li class="nav-active">
-										<a href="<?php echo site_url(); ?>/admin/addresorts">
+										<a href="<?php echo site_url(); ?>admin/addresorts">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 											<span>Resorts</span>
 										</a>
 									</li>
 
 									<li class="nav-active">
-										<a href="<?php echo site_url(); ?>/admin/addevents">
+										<a href="<?php echo site_url(); ?>admin/addevents">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 											<span>Events</span>
 										</a>
@@ -364,7 +364,7 @@
 
 
 									<li class="nav-active">
-										<a href="<?php echo site_url(); ?>/admin/addpackages">
+										<a href="<?php echo site_url(); ?>admin/addpackages">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 											<span>Packages</span>
 										</a>
@@ -372,7 +372,7 @@
 
 				
 									<li class="nav-active">
-										<a href="<?php echo site_url(); ?>/admin/additems">
+										<a href="<?php echo site_url(); ?>admin/additems">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 											<span>Transactions</span>
 										</a>
@@ -387,25 +387,25 @@
 											
 											
 											<li>
-												<a href="<?php echo site_url(); ?>/admin/vbookings">
+												<a href="<?php echo site_url(); ?>admin/vbookings">
 													 Daily Bookings
 												</a>
 											</li>
 
 											<li>
-												<a href="<?php echo site_url(); ?>/admin/outstandingreports">
+												<a href="<?php echo site_url(); ?>admin/outstandingreports">
 													 OutStanding Reports
 												</a>
 											</li>
 
 											<li>
-												<a href="<?php echo site_url(); ?>/admin/vendorpayments">
+												<a href="<?php echo site_url(); ?>admin/vendorpayments">
 													 Vendor Payments
 												</a>
 											</li>
 
 											<li>
-												<a href="<?php echo site_url(); ?>/admin/vendorcomissionreports">
+												<a href="<?php echo site_url(); ?>admin/vendorcomissionreports">
 													 Vendor Commission Report
 												</a>
 											</li>
@@ -416,7 +416,7 @@
 									</li>
 
 									<li class="nav-active">
-										<a href="<?php echo site_url(); ?>/admin/additems">
+										<a href="<?php echo site_url(); ?>admin/additems">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 											<span>Others</span>
 										</a>
@@ -431,32 +431,32 @@
 										</a>
 										<ul class="nav nav-children">
 											<li>
-												<a href="<?php echo site_url(); ?>/admin/vendorsdata">
+												<a href="<?php echo site_url(); ?>admin/vendorsdata">
 													Vendor's Data
 												</a>
 											</li>
 											
 											<li>
-												<a href="<?php echo site_url(); ?>/admin/eventsdata">
+												<a href="<?php echo site_url(); ?>admin/eventsdata">
 													 Events Data
 												</a>
 											</li>
 
 											<li>
-												<a href="<?php echo site_url(); ?>/admin/resortsdata">
+												<a href="<?php echo site_url(); ?>admin/resortsdata">
 													 Resorts Data
 												</a>
 											</li>
 
 
 											<li>
-												<a href="<?php echo site_url(); ?>/admin/packagesdata">
+												<a href="<?php echo site_url(); ?>admin/packagesdata">
 													 Packages
 												</a>
 											</li>
 
 											<li>
-												<a href="<?php echo site_url(); ?>/admin/paymentsdata">
+												<a href="<?php echo site_url(); ?>admin/paymentsdata">
 													 Bookings Or Payments
 												</a>
 											</li>
