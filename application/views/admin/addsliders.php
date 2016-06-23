@@ -93,23 +93,20 @@
 											  <span class="text-danger"><?php echo form_error('edate'); ?></span>
 							                </div>
 						                </div>
-						            	
 
-						                
-                                        
-                                        <div>&nbsp;</div>
+                                        <div class="form-group">
+					                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Places Image</label>
+					                <div class="col-sm-7">
+					                    <input type="file" class="form-control" name="userfile">
+									  <span class="text-danger"><?php echo form_error('userfile'); ?></span>
+					                </div>
+				                </div> 
                                         
 						            </div>	
 						        </div>
-                                 <!--
-						         <div class="form-group" style="margin-right: 442px;">
-					                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Places Image</label>
-					                <div class="col-sm-7">
-					                    <?php //echo form_error('uploadedimages[]'); ?>
-                                        <?php //echo form_upload('uploadedimages[]','','multiple'); ?>
-									  <span class="text-danger"><?php //echo form_error('userfile'); ?></span>
-					                </div>
-				                </div>-->
+						        <div>&nbsp;</div>
+                                
+						         
                                 <div>&nbsp;</div>
 								<center>
                                 	<div class="form-group">
@@ -134,9 +131,10 @@
 											<th>Name</th>
 											<th>Title</th>
 											<th>Subtitle </th>
+											<th>Image </th>
 											<th>Link</th>
 											<th>Expiry Date</th>
-											<th>Add Photos</th>
+											
 											<th class="hidden-phone">Edit</th>
 											<th class="hidden-phone">Delete</th>
 											
@@ -156,15 +154,16 @@
 											<td><?php echo $k->name; ?></td>
 											<td><?php echo $k->title; ?></td>
 											<td><?php echo $k->subtitle; ?></td>
+											<td><img src="<?php echo base_url().'assets/sliderimages/'.$k->image; ?>" alt="<?php echo $k->image; ?>" title="<?php echo $k->image; ?>" height="120px" width="130px"></td>
 											<td><?php echo $k->link; ?></td>
 											<td><?php echo $k->expirydate; ?></td>
 											
 											
 											
 											
-											<td><a href="<?php echo site_url(); ?>admin/addsliderphotos/<?php echo $k->sid; ?>">Add Pics to this Places</a></td>
+											
 											<td class="center hidden-phone">
-												<a href="<?php echo site_url(); ?>admin/editaddslider/<?php echo $k->sid; ?>" target="_blank"  name="edit" id="edit" value="edit">
+												<a href="<?php echo site_url(); ?>/admin/editaddslider/<?php echo $k->sid; ?>" target="_blank"  name="edit" id="edit" value="edit">
 													Edit
 												</a>
 											</td>

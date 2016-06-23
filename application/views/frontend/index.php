@@ -1,3 +1,10 @@
+<?php
+    $query = $this->db->query("SELECT * FROM tblsliders WHERE status=1");
+
+
+
+
+?>
 
     <!-- Slider -->
     <div class="tp-banner-container">
@@ -8,66 +15,84 @@
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            <?php
+            $i=0;
+            foreach ($query->result() as $k) {
+                if($i==1){
+                    ?>
+
+                    <li data-target="#carousel-example-generic" data-slide-to="<?php echo $i;  ?>" class="active"></li>
+
+                    <?php
+}else{
+    ?>
+<li data-target="#carousel-example-generic" data-slide-to="<?php echo $i;  ?>" ></li>
+    <?php
+}
+
+$i++;
+            }
+            ?>
+               
             </ol>
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
-                <div class="item active">
-                    <img src="<?php echo base_url(); ?>/assets/frontend/images/slides/1.jpg" alt="First slide">
+                <?php
+            $i=0;
+            foreach ($query->result() as $k) {
+                if($i==1){
+                    ?>
+
+                    <div class="item active">
+                    <img src="<?php echo base_url(); ?>/assets/sliderimages/<?php echo $k->image; ?>" alt="<?php echo $k->image; ?>">
                     <!-- Static Header -->
                     <div class="header-text hidden-xs">
                         <div class="col-md-12 text-center">
                             <h2>
-                                <span>Welcome to <strong>LOREM IPSUM</strong></span>
+                                <span>Welcome to <strong><?php echo $k->title; ?></strong></span>
                             </h2>
                             <br>
                             <h3>
-                                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+                                <span><?php echo $k->subtitle; ?></span>
                             </h3>
                             <br>
                             <div class="">
-                                <a class="btn btn-theme btn-sm btn-min-block" href="#">Login</a><a class="btn btn-theme btn-sm btn-min-block" href="#">Register</a></div>
+                                <a class="btn btn-theme btn-sm btn-min-block" href="<?php echo $k->link; ?>"><?php echo $k->name; ?></a><a class="btn btn-theme btn-sm btn-min-block" href="#">Register</a></div>
                         </div>
                     </div><!-- /header-text -->
                 </div>
-                <div class="item">
-                    <img src="<?php echo base_url(); ?>/assets/frontend/images/slides/2.jpg" alt="Second slide">
+
+                    <?php
+}else{
+    ?>
+<div class="item">
+                    <img src="<?php echo base_url(); ?>/assets/sliderimages/<?php echo $k->image; ?>" alt="<?php echo $k->image; ?>">
                     <!-- Static Header -->
                     <div class="header-text hidden-xs">
                         <div class="col-md-12 text-center">
                             <h2>
-                                <span>Welcome to LOREM IPSUM</span>
+                                <span>Welcome to <strong><?php echo $k->title; ?></strong></span>
                             </h2>
                             <br>
                             <h3>
-                                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+                                <span><?php echo $k->subtitle; ?></span>
                             </h3>
                             <br>
                             <div class="">
-                                <a class="btn btn-theme btn-sm btn-min-block" href="#">Login</a><a class="btn btn-theme btn-sm btn-min-block" href="#">Register</a></div>
+                                <a class="btn btn-theme btn-sm btn-min-block" href="<?php echo $k->link; ?>"><?php echo $k->name; ?></a><a class="btn btn-theme btn-sm btn-min-block" href="#">Register</a></div>
                         </div>
                     </div><!-- /header-text -->
                 </div>
-                <div class="item">
-                    <img src="<?php echo base_url(); ?>/assets/frontend/images/slides/3.jpg" alt="Third slide">
-                    <!-- Static Header -->
-                    <div class="header-text hidden-xs">
-                        <div class="col-md-12 text-center">
-                            <h2>
-                                <span>Welcome to LOREM IPSUM</span>
-                            </h2>
-                            <br>
-                            <h3>
-                                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                            </h3>
-                            <br>
-                            <div class="">
-                                <a class="btn btn-theme btn-sm btn-min-block" href="#">Login</a><a class="btn btn-theme btn-sm btn-min-block" href="#">Register</a></div>
-                        </div>
-                    </div><!-- /header-text -->
-                </div>
+    <?php
+}
+
+$i++;
+            }
+            ?>
+
+              
+                
+                
             </div>
             <!-- Controls -->
             <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">

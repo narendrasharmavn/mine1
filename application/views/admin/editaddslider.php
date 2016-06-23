@@ -13,7 +13,7 @@
 										<i class="fa fa-home"></i>
 									</a>
 								</li>
-								<li><span>Edit Event Data</span></li>
+								<li><span>Edit Slider Data</span></li>
 								
 							</ol>
 					
@@ -31,7 +31,7 @@
 											<a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
 										</div>
 						
-										<h2 class="panel-title">Event Edit</h2>
+										<h2 class="panel-title">Slider Edit</h2>
 									</header>
 									<div class="panel-body">
 										

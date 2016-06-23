@@ -885,6 +885,45 @@ class Admin extends CI_Controller {
       $this->load->view('admin/addsliders',$data);
     }
 
+    public function submitsliders()
+    {
+      $sname = $this->input->post('sname');
+      $subtitle = $this->input->post('subtitle');
+      $link = $this->input->post('link');
+      $title = $this->input->post('title');
+      $edate = $this->input->post('edate');
+
+      $config['upload_path']   = './assets/sliderimages';
+      $config['allowed_types'] = 'gif|jpg|png';
+      
+      $this->load->library('upload', $config);
+      if (!$this->upload->do_upload('userfile'))
+      {
+          $error = array('error' => $this->upload->display_errors());
+          $this->session->set_flashdata('success',$error);
+      } else {
+        $imageInformation = $this->upload->data();
+        $this->imagename = $imageInformation['file_name'];
+        $this->filepath = $imageInformation['file_path'];
+        $data = array(
+           'name' => $sname ,
+           'title' => $title ,
+           'subtitle' => $subtitle,
+           'link' => $link,
+           'expirydate' => $edate,
+           'createdby' => 'admin',
+           'createdon' => date('Y-m-d h:i:s'),
+           'image' => $this->imagename,
+           'status' =>1
+        );
+        $this->db->insert('tblsliders', $data); 
+      }
+      
+      $this->session->set_flashdata('success','<div class="alert alert-success text-center">Slider Created</div>');
+      redirect('admin/addsliders');
+    }
+
+
     public function submiteditaddslider()
     {
       $name = $this->input->post('name');
