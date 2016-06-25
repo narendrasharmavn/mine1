@@ -291,7 +291,7 @@
                      <input type="hidden" id="<?php echo $k->packageid.'childprice';   ?>" value="<?php echo $k->childprice;   ?>">
                      <input type="hidden" id="<?php echo $k->packageid.'servicetax';   ?>" value="<?php echo $k->servicetax;   ?>">
 
-                    <p><button onclick="bookthispackage(<?php echo $k->packageid;   ?>)" class="btn_1">Details</a></p>
+                    <p><button onclick="bookthispackage(<?php echo $k->packageid;   ?>)" class="btn_1">Book</a></p>
                 </div>
             </div>
 
@@ -299,10 +299,7 @@
     </div>
 </div>
 
-
-
-
-            <?php
+  <?php
                         }
 
                         }
