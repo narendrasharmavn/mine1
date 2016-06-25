@@ -94,18 +94,62 @@
 
     <!-- Header================================================== -->
     <header>
-        <div id="top_line">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-                    <i class="icon-facebook"></i>
-                    <i class="icon-twitter"></i>
-                    <i class="icon-google"></i>
-                    
-                    <strong>Help Line : <i class="icon-phone"></i>+91 1231313131</strong></div>
-                    
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-                        <ul id="top_links">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                     <div id="logo_home">
+                    	<!--<img src="<?php echo base_url(); ?>/assets/frontend/images/logo.jpg" width="160" height="34" alt="City tours" data-retina="true" class="logo_sticky">-->
+                        <a href="<?php echo site_url().'home';      ?>">
+                            <span class="logo-title">Book4Holiday</span>
+                        </a>
+                    </div>
+                </div>
+                <nav class="col-md-9 col-sm-9 col-xs-9" >
+                    <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
+                    <div class="main-menu">
+                        <div id="header_menu">
+                            <!--<img src="<?php echo base_url(); ?>/assets/frontend/img/logo_sticky.png" width="160" height="34" alt="City tours" data-retina="true">-->
+                            <a href="<?php echo site_url().'home';      ?>">
+                                <span style="color: Black;font-size: 30px;">Book4Holiday</span>
+                           </a>
+                        </div>
+                        <a href="#" class="open_close" id="close_in"><i class="icon_set_1_icon-77"></i></a>
+                        <ul id="menu-menu-1" class="menu">
+                            <li >
+                                <a href="<?php echo site_url().'home';?>" class="show-submenu">Home </a>
+                                
+                            </li>
+                            <li >
+                                <a href="javascript:void(0);" class="show-submenu">Kids Dayout </a>
+                                
+                            </li>
+                            <li >
+                                <a href="javascript:void(0);" class="show-submenu">Adventure </a>
+                                
+                            </li>
+                            <li >
+                                <a href="javascript:void(0);" class="show-submenu">Day Events </a>
+                                
+                            </li>
+                            <li >
+                                <a href="<?php echo site_url().'placesall' ?>" class="show-submenu">Places </a>
+                                
+                            </li>
+                            <li >
+                                <a href="<?php echo site_url().'resorts/zoo/1'; ?>" class="show-submenu">Book Zoo Tickets </a>
+                                
+                            </li>
+							<li>
+                              
+                            </li>
+
+                        </ul>
+                    </div><!-- End main-menu -->
+                    <ul id="top_tools">
+                        <li>
+                            <div class="dropdown dropdown-search">
+                              <ul id="top_links">
                         <?php
                             if (!$this->session->userdata('holidayCustomerName')) {
 
@@ -146,155 +190,7 @@
                                            
                         ?>
 
-                       
-                            
-
-
-
-                        </ul>
-                    </div>
-                </div><!-- End row -->
-            </div><!-- End container-->
-        </div><!-- End top line-->
-        
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-3 col-xs-3">
-                     <div id="logo_home">
-                    	<!--<img src="<?php echo base_url(); ?>/assets/frontend/images/logo.jpg" width="160" height="34" alt="City tours" data-retina="true" class="logo_sticky">-->
-                        <a href="<?php echo site_url().'home';      ?>">
-                            <span style="color: white;font-size: 30px;">Book4Holiday</span>
-                        </a>
-                    </div>
-                </div>
-                <nav class="col-md-9 col-sm-9 col-xs-9" style="text-align:right;">
-                    <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
-                    <div class="main-menu">
-                        <div id="header_menu">
-                            <!--<img src="<?php echo base_url(); ?>/assets/frontend/img/logo_sticky.png" width="160" height="34" alt="City tours" data-retina="true">-->
-                            <a href="<?php echo site_url().'home';      ?>">
-                                <span style="color: Black;font-size: 30px;">Book4Holiday</span>
-                           </a>
-                        </div>
-                        <a href="#" class="open_close" id="close_in"><i class="icon_set_1_icon-77"></i></a>
-                        <ul id="menu-menu-1" class="menu">
-                            <li >
-                                <a href="<?php echo site_url().'home';?>" class="show-submenu">Home </a>
-                                
-                            </li>
-                            <li >
-                                <a href="javascript:void(0);" class="show-submenu">Kids Dayout </a>
-                                
-                            </li>
-                            <li >
-                                <a href="javascript:void(0);" class="show-submenu">Adventure </a>
-                                
-                            </li>
-                            <li >
-                                <a href="javascript:void(0);" class="show-submenu">Day Events </a>
-                                
-                            </li>
-                            <li >
-                                <a href="<?php echo site_url().'placesall' ?>" class="show-submenu">Places </a>
-                                
-                            </li>
-                            <li >
-                                <a href="<?php echo site_url().'resorts/zoo/1'; ?>" class="show-submenu">Book Zoo Tickets </a>
-                                
-                            </li>
-
-                            
-                            
-                           
-                             <!-- 
-                            
-                              <li class="submenu">
-                                <a href="javascript:void(0);" class="show-submenu">Restaurants <i class="icon-down-open-mini"></i></a>
-                                <ul>
-                                    <li><a href="all_restaurants_list.html">All restaurants list</a></li>
-                                    <li><a href="all_restaurants_grid.html">All restaurants grid</a></li>
-                                    <li><a href="single_restaurant.html">Single restaurant page</a></li>
-                                    <li><a href="payment_restaurant.html">Booking restaurant</a></li>
-                                    <li><a href="confirmation_transfer.html">Confirmation transfers</a></li>
-                                </ul>
-                            </li>
-                            <li class="megamenu submenu">
-                                <a href="javascript:void(0);" class="show-submenu-mega">Pages<i class="icon-down-open-mini"></i></a>
-                                <div class="menu-wrapper">
-                                    <div class="col-md-4">
-                                        <h3>Pages</h3>
-                                        <ul>
-                                            <li><a href="about.html">About us</a></li>
-                                           <li><a href="general_page.html">General page</a></li>
-                                            <li><a href="tourist_guide.html">Tourist guide</a></li>
-                                             <li><a href="wishlist.html">Wishlist page</a></li>
-                                             <li><a href="faq.html">Faq</a></li>
-                                             <li><a href="faq_2.html">Faq smooth scroll</a></li>
-                                             <li><a href="pricing_tables.html">Pricing tables</a></li>
-                                             <li><a href="gallery_3_columns.html">Gallery 3 columns</a></li>
-                                            <li><a href="gallery_4_columns.html">Gallery 4 columns</a></li>
-                                            <li><a href="grid_gallery_1.html">Grid gallery</a></li>
-                                            <li><a href="grid_gallery_2.html">Grid gallery with filters</a></li>
-                                            <li><a href="shortcodes.html">Shortcodes</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h3>Pages</h3>
-                                        <ul>
-                                            <li><a href="contact_us_1.html">Contact us 1</a></li>
-                                            <li><a href="contact_us_2.html">Contact us 2</a></li>
-                                             <li><a href="blog_right_sidebar.html">Blog</a></li>
-                                            <li><a href="blog.html">Blog left sidebar</a></li>
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="register.html">Register</a></li>
-                                            <li><a href="invoice.html" target="_blank">Invoice</a></li>
-                                            <li><a href="404.html">404 Error page</a></li>
-                                            <li><a href="site_launch/index.html">Site launch / Coming soon</a></li>
-                                            <li><a href="timeline.html">Tour timeline</a></li>
-                                            <li><a href="page_with_map.html">Full screen map</a></li>
-                                            <li><a href="admin.html">Admin area</a></li>
-                                            <li><a href="rtl_version/index.html">RTL version</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h3>Elements</h3>
-                                        <ul>
-                                            <li><a href="index.html"><i class="icon-columns"></i> Header transparent</a></li>
-                                            <li><a href="header_plain.html"><i class="icon-columns"></i> Header plain</a></li>
-                                            <li><a href="header_transparent_colored.html"><i class="icon-columns"></i> Header transparent colored</a></li>
-                                            <li><a href="footer_2.html"><i class="icon-columns"></i> Footer with working newsletter</a></li>
-                                            <li><a href="icon_pack_1.html"><i class="icon-inbox-alt"></i> Icon pack 1 (1900)</a></li>
-                                            <li><a href="icon_pack_2.html"><i class="icon-inbox-alt"></i> Icon pack 2 (100)</a></li>
-                                            <li><a href="icon_pack_3.html"><i class="icon-inbox-alt"></i> Icon pack 3 (30)</a></li>   
-                                            <li><a href="newsletter_template/newsletter.html" target="blank"><i class=" icon-mail"></i> Responsive email template</a></li>  
-                                            <li><a href="general_page.html"><i class="icon-light-up"></i>  Weather Forecast</a></li>     
-                                            <li><a href="#0"><i class="icon-circle color_1"></i> Color version 1</a></li>                                    
-                                            <li><a href="color_2/index.html"><i class="icon-circle color_2"></i> Color version 2</a></li>
-                                            <li><a href="color_3/index.html"><i class="icon-circle color_3"></i> Color version 3</a></li>
-                                           	<li><a href="color_4/index.html"><i class="icon-circle color_4"></i> Color version 4</a></li>                                          
-                                        </ul>
-                                    </div>
-                                </div>   <!--End menu-wrapper--><!--
-                            </li>
-
-                            -->
-                        </ul>
-                    </div><!-- End main-menu -->
-                    <ul id="top_tools">
-                        <li>
-                            <div class="dropdown dropdown-search">
-                              <!--   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-search"></i></a>
-                                <div class="dropdown-menu">
-                                   <form>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search...">
-                                            <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button" style="margin-left:0;">
-                                            <i class="icon-search"></i>
-                                            </button>
-                                            </span>
-                                        </div>
-                                    </form> -->
+                        </ul>    
                                 </div>
                             </div>
                         </li>

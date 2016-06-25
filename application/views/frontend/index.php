@@ -13,6 +13,79 @@
     <div class="row">
         <!-- Carousel -->
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+		<div class="featured-overlay">
+                                <a id="close-form" href="#" class="button close open-close-btn"><i class="icon_close_alt2"></i></a>
+								<div class="main_titlee">
+                             <h3 style="color:white;">Search 4 Holiday</h3>
+                            
+                        </div>
+							   <div class="featured-overlay-inner">
+                                       <?php echo $this->session->flashdata('error-msg'); ?>
+                                                <?php  
+
+                                                    echo form_open('search-results',array('id'=>'searchform','method'=>'post','role' => 'search'));
+                                                ?>   
+                                        <div class="search-field">
+                                        
+                                            <div class="destination-field">
+                                             <div class="row">
+											 
+                                       
+                       
+                        <input type="hidden" name="post_type" value="tour">
+                        
+												<div class="col-md-12">
+													<div class="form-group">
+														
+														<select class="form-control search-form-slider" id="searchtype" name="searchtype">
+															<option value="" selected="">Select with</option>
+															<option value="resortname" <?php echo  set_select('searchtype', 'resortname'); ?>>Resort Name</option>
+														   <option value="eventname" <?php echo  set_select('searchtype', 'eventname'); ?>>Event Name</option>
+														   <option value="places" <?php echo  set_select('searchtype', 'places'); ?>>Places</option>
+														   
+														 </select>
+														 <span class="text-danger"><?php echo form_error('searchtype'); ?></span>
+														</div>
+												</div>
+												<div class="col-md-12">
+                                <div class="form-group">
+                                   
+                                    <input type="text" class="form-control search-form-slider" name="searchterm" placeholder="Type your search terms" value="<?php echo set_value('searchterm'); ?>">
+                                    <span class="text-danger"><?php echo form_error('searchterm'); ?></span>
+                                </div>
+                            </div>
+                            
+                        
+                            <div class="col-md-12 datefield">
+                                <div class="form-group">
+                                    
+                                    <input class="form-control search-form-slider" id="datepickerj" type="text" name="date" placeholder="Select date">
+                                    <span class="text-danger"><?php echo form_error('date'); ?></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-3 col-xs-6">
+                                <div class="form-group">
+                                   
+                                
+                                    <button type="submit" class="btn_1 green"><i class="icon-search"></i>Search now</button>
+                                </div>
+                            </div>
+												</div>
+												
+                                            </div>
+                                        </div>                                            
+                                         
+                                    </form><!-- /form.location-search -->
+                                     
+<link rel="stylesheet" type="text/css" href="http://50.116.106.227/~thenordi/demo/themeforest/wordpress/traveline/wp-content/plugins/dopbsp/templates/default/css/jquery.dop.frontend.BSPSearch.css">
+<script type="text/JavaScript">
+    jQuery(document).ready(function(){
+        jQuery("#DOPBSPSearch1").DOPBSPSearch({"availability":{"data":{"enabled":false,"max":10,"min":1},"text":{"title":"No book items"}},"currency":{"data":{"code":"USD","position":"before","sign":"&#36;","text":[]}},"days":{"data":{"first":1,"multipleSelect":true},"text":{"names":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"shortNames":["Su","Mo","Tu","We","Th","Fr","Sa"]}},"hours":{"data":{"ampm":true,"definitions":[{"value":"00:00"},{"value":"01:00"},{"value":"02:00"},{"value":"03:00"},{"value":"04:00"},{"value":"05:00"},{"value":"06:00"},{"value":"07:00"},{"value":"08:00"},{"value":"09:00"},{"value":"10:00"},{"value":"11:00"},{"value":"12:00"},{"value":"13:00"},{"value":"14:00"},{"value":"15:00"},{"value":"16:00"},{"value":"17:00"},{"value":"18:00"},{"value":"19:00"},{"value":"20:00"},{"value":"21:00"},{"value":"22:00"},{"value":"23:00"}],"enabled":false,"multipleSelect":true},"text":[]},"ID":"1","months":{"data":[],"text":{"names":["January","February","March","April","May","June","July","August","September","October","November","December"],"shortNames":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]}},"pluginURL":"http:\/\/50.116.106.227\/~thenordi\/demo\/themeforest\/wordpress\/traveline\/wp-content\/plugins\/dopbsp\/","price":{"data":{"enabled":false,"max":"20","min":"20"},"text":[]},"search":{"data":{"dateType":2,"enabled":true,"language":"en","template":"default"},"text":{"checkIn":"Check in","checkOut":"Check out","hourEnd":"Finish at","hourStart":"Start at","title":"!"}},"sort":{"data":[],"text":{"name":"Name","price":"Price","title":"Sort by"}},"URL":"http:\/\/50.116.106.227\/~thenordi\/demo\/themeforest\/wordpress\/traveline\/wp-admin\/admin-ajax.php","view":{"data":{"default":false,"gridEnabled":true,"listEnabled":true,"mapEnabled":false,"results":1},"text":{"grid":"Grid view","list":"List view","map":"Map view"}}});
+    });
+</script>
+
+                                </div><!-- /.featured-overlay-inner -->
+                            </div>
             <!-- Indicators -->
             <ol class="carousel-indicators">
             <?php
@@ -112,60 +185,7 @@ $i++;
 <div class="banner colored">
 <div class="container">
 
-                                        <?php echo $this->session->flashdata('error-msg'); ?>
-                                                <?php  
-
-                                                    echo form_open('search-results',array('id'=>'search-tour-form','method'=>'post','role' => 'search'));
-                                                ?>
-                       
-                        <input type="hidden" name="post_type" value="tour">
-                        <div class="main_title">
-                             <h2 style="color:white;">Search 4 Holiday</h2>
-                            
-                        </div>
-                       
-                        <div class="row">
-                        <div class="col-md-1"></div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    
-                                    <select class="form-control" id="searchtype" name="searchtype">
-                                        <option value="" selected="">Select with</option>
-                                        <option value="resortname" <?php echo  set_select('searchtype', 'resortname'); ?>>Resort Name</option>
-                                       <option value="eventname" <?php echo  set_select('searchtype', 'eventname'); ?>>Event Name</option>
-                                       <option value="places" <?php echo  set_select('searchtype', 'places'); ?>>Places</option>
-                                       
-                                     </select>
-                                     <span class="text-danger"><?php echo form_error('searchtype'); ?></span>
-                                    </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                   
-                                    <input type="text" class="form-control" name="searchterm" placeholder="Type your search terms" value="<?php echo set_value('searchterm'); ?>">
-                                    <span class="text-danger"><?php echo form_error('searchterm'); ?></span>
-                                </div>
-                            </div>
-                            
-                        
-                            <div class="col-md-2 datefield">
-                                <div class="form-group">
-                                    
-                                    <input class="form-control" id="datepickerj" type="text" name="date" placeholder="Select date">
-                                    <span class="text-danger"><?php echo form_error('date'); ?></span>
-                                </div>
-                            </div>
-                            <div class="col-md-2 col-sm-3 col-xs-6">
-                                <div class="form-group">
-                                   
-                                
-                                    <button type="submit" class="btn_1 green"><i class="icon-search"></i>Search now</button>
-                                </div>
-                            </div>
-                            <div class="col-md-1"></div>
-                            
-                            
-            </div>
+                               
                         </div><!-- End row -->
             </div>
 <?php

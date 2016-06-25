@@ -342,17 +342,43 @@ a.btn_full:hover, .btn_full:hover{
 #logo{margin-top:10px;}
 
 header{
-	    background: rgba(0, 0, 0, 0.64);
+background: #9dbb29; 
   width:100%;
   position:fixed;
   left:0;
   top:0;
   z-index:99999;
-  padding:10px 0;
+  padding:0px 0;
+}
+
+.featured-overlay {
+  -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 100px;
+    width: 25%;
+    height: 100%;
+    background: rgba(18, 55, 78, 0.6);
+    z-index: 10;
+    color: #ffffff;
+}
+.featured-overlay .featured-overlay-inner {
+    margin: 30px 10px 30px 10px;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 .logged-in header {top: 32px !important; }
 @media screen and (max-width: 600px) {
   .logged-in header.sticky {top: 0 !important; }
+}
+.logo-title{
+	color: white;font-size: 30px;
+	text-shadow:2px 4px 3px rgb(85, 86, 81);
+	
 }
 header.plain{background-color:#fff;}
 
@@ -368,10 +394,11 @@ header.sticky #top_line {  height: 0;overflow:hidden; padding:0; opacity:0;
 }
 
 header.sticky{ 
+background-color: #9dbb29;
   -webkit-box-shadow: 0px 2px 10px -2px rgba(0, 0, 0, 0.41);
   -moz-box-shadow:0px 2px 10px -2px rgba(0, 0, 0, 0.41);
   box-shadow:0px 2px 10px -2px rgba(0, 0, 0, 0.41);
-  background-color:#337ab7; 
+  
   padding-bottom:0;
 }
 
@@ -385,8 +412,9 @@ ul#top_tools a{ color:#fff;}
 ul#top_tools li{display:inline-block; padding:0 10px;}
 
 #top_line{
+background:white;
   color:#fff;
-  height:28px;
+  height:38px;
   font-size:12px;
   border-bottom:1px solid rgba(255,255,255,0.2);
   font-size:11px;
@@ -396,6 +424,7 @@ ul#top_tools li{display:inline-block; padding:0 10px;}
   position:relative;
   z-index:999999;
 }
+.top-line-row{margin-top:5px;}
 ul#top_links{
   list-style:none;
   margin:0;
@@ -2372,6 +2401,10 @@ img.aligncenter,
 }
 
 .main_title{ text-align:center; font-size:16px; margin-bottom:30px;}
+.main_titlee{ text-align:center;  
+margin-top: 35px;
+    padding: 1px 4px 4px 4px;
+    background: #9dbb29;}
 .main_title h2{ text-transform: uppercase; font-weight:700; letter-spacing:-1px; font-size:30px; margin-bottom:0;margin-top:0; }
 .main_title p{ font-family:"Lato",Arial, sans-serif; font-weight:300; font-size:20px}
 
@@ -2494,7 +2527,13 @@ img.aligncenter,
   font-size:34px;
   color:#6dcff6;
 }
-
+.search-form-slider{
+	    font-size: 15px !important;
+    color: #333 !important;
+    height: 55px !important;
+    border-radius: 3px !important;
+	
+}
 /* Input form style */   
 .form-control {
   font-size: 12px;
