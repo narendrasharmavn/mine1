@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2016 at 02:26 PM
+-- Generation Time: Jun 25, 2016 at 08:58 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.5.35
 
@@ -46,9 +46,9 @@ INSERT INTO `eventreviews` (`rid`, `pricereview`, `qualityreview`, `review`, `cu
 (2, 1, 2, 'adfasd', 5, '2016-06-15 12:28:10', 'zoo', 0),
 (3, 3, 3, 'asdfad', 5, '2016-06-15 12:31:32', 'zoo', 0),
 (4, 3, 3, 'asdfad', 5, '2016-06-15 12:31:57', 'zoo', 0),
-(5, 2, 3, 'asdfad', 5, '2016-06-15 12:32:37', 'zoo', 0),
-(6, 2, 3, 'asdfasdf', 5, '2016-06-15 12:38:02', 'zoo', 0),
-(7, 3, 3, 'asdfsdfa', 5, '2016-06-15 12:39:14', 'The Tech Fest 2016', 0);
+(5, 2, 3, 'asdfad', 5, '2016-06-24 13:09:07', '2', 1),
+(6, 2, 3, 'asdfasdf', 5, '2016-06-24 13:09:04', '2', 1),
+(7, 3, 3, 'asdfsdfa', 5, '2016-06-24 13:09:00', '2', 1);
 
 -- --------------------------------------------------------
 
@@ -72,10 +72,10 @@ CREATE TABLE `placereviews` (
 --
 
 INSERT INTO `placereviews` (`prid`, `pricereview`, `qualityreview`, `review`, `customerid`, `reviewgivendate`, `placeid`, `status`) VALUES
-(1, 3, 2, 'asfasdfasd', 5, '2016-06-15 12:55:34', 3, 0),
-(2, 4, 4, 'asfasdfasd', 5, '2016-06-15 12:56:50', 3, 0),
-(3, 4, 2, 'adsdghsgh asa sdf ', 5, '2016-06-15 12:57:29', 3, 0),
-(4, 4, 2, 'adsdghsgh asa sdf ', 5, '2016-06-15 12:57:41', 3, 0);
+(1, 3, 2, 'asfasdfasd', 5, '2016-06-25 06:51:31', 3, 1),
+(2, 4, 4, 'asfasdfasd', 5, '2016-06-25 06:51:29', 3, 1),
+(3, 4, 2, 'adsdghsgh asa sdf ', 5, '2016-06-25 06:51:26', 3, 1),
+(4, 4, 2, 'adsdghsgh asa sdf ', 5, '2016-06-25 06:51:23', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -87,12 +87,19 @@ CREATE TABLE `resortreviews` (
   `rrid` int(10) NOT NULL,
   `pricereview` int(4) NOT NULL,
   `qualityreview` int(4) NOT NULL,
-  `review` int(4) NOT NULL,
+  `review` longtext NOT NULL,
   `customerid` int(10) NOT NULL,
   `reviewgivendate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `resortname` varchar(75) NOT NULL,
   `status` int(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `resortreviews`
+--
+
+INSERT INTO `resortreviews` (`rrid`, `pricereview`, `qualityreview`, `review`, `customerid`, `reviewgivendate`, `resortname`, `status`) VALUES
+(1, 2, 3, 'zoo has animals. good to see them all. The package is quite good with child meal', 5, '2016-06-25 06:44:52', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -311,11 +318,11 @@ CREATE TABLE `tblpackages` (
 --
 
 INSERT INTO `tblpackages` (`packageid`, `resortid`, `packagename`, `description`, `status`, `createdby`, `createdon`, `updatedby`, `updatedon`, `servicetax`, `vendorid`, `packageimage`, `packagetags`, `packagetype`, `eventid`, `adultprice`, `childprice`, `expirydate`) VALUES
-(1, 1, 'Entry Fee', 'Nehru Zoological Park in Hyderabad is popularly known as the Hyderabad Zoo. Named after Pandit Jawaharlal Nehru, the zoo is an attraction of the city since it was established and opened to public in 1963.', '1', '1', '2016-06-12 01:12:35', 'admin', '2016-06-12 01:12:35', 0, 1, '', 'fun,dayout', 'daily', '', '20', '10', '2016-06-20'),
+(1, 1, 'Entry Fee', 'Nehru Zoological Park in Hyderabad is popularly known as the Hyderabad Zoo. Named after Pandit Jawaharlal Nehru, the zoo is an attraction of the city since it was established and opened to public in 1963.', '1', '1', '2016-06-12 01:12:35', 'admin', '2016-06-12 01:12:35', 0, 1, '', 'fun,dayout', 'daily', '', '20', '10', '2016-06-30'),
 (3, 0, 'Regular Ticket', 'Wingding refers to ‘A Lively Event’ i.e. the name itself Derives concept of the event.', '1', '1', '2016-06-12 01:58:13', 'admin', '2016-06-12 01:58:13', 0, 2, '', 'fun', 'event', '1', '1200', '800', '0000-00-00'),
 (4, 0, 'VIP Ticket', 'Wingding refers to ‘A Lively Event’ i.e. the name itself Derives concept of the event.', '1', '1', '2016-06-12 02:00:25', 'admin', '2016-06-12 02:00:25', 0, 2, '', 'fun', 'event', '1', '1500', '1500', '0000-00-00'),
-(5, 0, 'Early Bird', 'Wingding refers to ‘A Lively Event’ i.e. the name itself Derives concept of the event.', '1', '1', '2016-06-12 02:01:28', 'admin', '2016-06-12 02:01:28', 0, 2, '', 'fun', 'event', '1', '900', '600', '0000-00-00'),
-(6, 0, 'Early Bird Ticket - Valid For 2 Days', 'India''s Largest Technology and Design UnConference for Students  ', '1', '1', '2016-06-12 02:08:23', 'admin', '2016-06-12 02:08:23', 10, 2, '', 'technology,design', 'event', '2', '600', '600', '2016-06-14'),
+(5, 0, 'Early Bird', 'Wingding refers to ‘A Lively Event’ i.e. the name itself Derives concept of the event.', '1', '1', '2016-06-12 02:01:28', 'admin', '2016-06-12 02:01:28', 0, 2, '', 'fun', 'event', '1', '900', '600', '2016-06-30'),
+(6, 0, 'Early Bird Ticket - Valid For 2 Days', 'India''s Largest Technology and Design UnConference for Students  ', '1', '1', '2016-06-12 02:08:23', 'admin', '2016-06-12 02:08:23', 10, 2, '', 'technology,design', 'event', '2', '600', '600', '2016-06-30'),
 (7, 0, 'Late Bird Ticket - Valid For 2 Days', 'India''s Largest Technology and Design UnConference for Students  ', '1', '1', '2016-06-12 02:09:45', 'admin', '2016-06-12 02:09:45', 5, 2, '', 'technology,design', 'event', '2', '1000', '1000', '0000-00-00'),
 (8, 2, 'Entry Fee', 'One of the famous Hyderabad tourist places, Lumbini Park Hyderabad was developed by the Hyderabad Urban Development Authority in the year of 1994.', '1', '1', '2016-06-12 02:23:04', 'admin', '2016-06-12 02:23:04', 0, 3, '', 'fun,kids', 'daily', '', '10', '10', '2016-06-13'),
 (9, 2, 'Speed Boating', 'One of the famous Hyderabad tourist places, Lumbini Park Hyderabad was developed by the Hyderabad Urban Development Authority in the year of 1994.', '1', '1', '2016-06-12 02:24:17', 'admin', '2016-06-12 02:24:17', 0, 3, '', 'fun,kids', 'daily', '', '50', '50', '0000-00-00'),
@@ -485,6 +492,36 @@ CREATE TABLE `tblresorts` (
 INSERT INTO `tblresorts` (`resortid`, `vendorid`, `resortname`, `location`, `description`, `createdby`, `createdon`, `updatedby`, `updatedon`, `status`, `latitude`, `longitude`) VALUES
 (1, 1, 'zoo', 'Hyderabad', 'Welcome to Nehru Zoological Park, and its sylvan setting, abutting the historic miralam Tank bund, (200 year old, World''s first multi arch masonry dam). The Zoo spread in over 380 acres established on 6th October, 1963.', 'admin', '2016-06-12 12:59:56', NULL, NULL, '1', '17.350695', '78.452313'),
 (2, 3, 'Lumbini Park', 'Hyderabad', 'One of the famous Hyderabad tourist places, Lumbini Park Hyderabad was developed by the Hyderabad Urban Development Authority in the year of 1994.', 'admin', '2016-06-12 02:20:19', NULL, NULL, '1', '17.410057', '78.473219');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblsliders`
+--
+
+CREATE TABLE `tblsliders` (
+  `sid` int(10) UNSIGNED NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `title` longtext,
+  `subtitle` longtext,
+  `link` longtext,
+  `expirydate` date DEFAULT NULL,
+  `status` varchar(45) DEFAULT NULL,
+  `createdon` datetime DEFAULT NULL,
+  `createdby` varchar(45) DEFAULT NULL,
+  `updatedon` datetime DEFAULT NULL,
+  `updatedby` varchar(45) DEFAULT NULL,
+  `image` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblsliders`
+--
+
+INSERT INTO `tblsliders` (`sid`, `name`, `title`, `subtitle`, `link`, `expirydate`, `status`, `createdon`, `createdby`, `updatedon`, `updatedby`, `image`) VALUES
+(3, 'theimage', 'slides', 'slider image', 'http://google.com', '2016-06-30', '1', '2016-06-23 11:42:42', 'admin', NULL, NULL, 'bg11.jpg'),
+(4, 'Welcome to Lorem epsum', 'slides', 'book zoo tickets online', 'http://google.com', '2016-06-30', '1', '2016-06-23 12:01:02', 'admin', NULL, NULL, '1.jpg'),
+(5, 'Golkonda', 'golconda', 'Tourist spot', 'http://google.com', '2016-12-31', '1', '2016-06-23 12:01:39', 'admin', NULL, NULL, '2.jpg');
 
 -- --------------------------------------------------------
 
@@ -749,6 +786,12 @@ ALTER TABLE `tblresorts`
   ADD PRIMARY KEY (`resortid`);
 
 --
+-- Indexes for table `tblsliders`
+--
+ALTER TABLE `tblsliders`
+  ADD PRIMARY KEY (`sid`);
+
+--
 -- Indexes for table `tblsms_template`
 --
 ALTER TABLE `tblsms_template`
@@ -802,7 +845,7 @@ ALTER TABLE `placereviews`
 -- AUTO_INCREMENT for table `resortreviews`
 --
 ALTER TABLE `resortreviews`
-  MODIFY `rrid` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `rrid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `smssettings`
 --
@@ -878,6 +921,11 @@ ALTER TABLE `tblresorphotos`
 --
 ALTER TABLE `tblresorts`
   MODIFY `resortid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `tblsliders`
+--
+ALTER TABLE `tblsliders`
+  MODIFY `sid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tblstates`
 --
