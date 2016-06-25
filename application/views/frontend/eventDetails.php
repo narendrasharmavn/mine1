@@ -261,23 +261,17 @@
              <div class="strip_all_tour_list wow fadeIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
     <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-4">
-                      <!--  <div class="wishlist">
-                <a class="tooltip_flip tooltip-effect-1 btn-add-wishlist" href="#" data-post-id="170">
-                    <span class="wishlist-sign">+</span>
-                    <span class="tooltip-content-flip"><span class="tooltip-back">Add to wishlist</span></span>
-                </a>
-                <a class="tooltip_flip tooltip-effect-1 btn-remove-wishlist" href="#" data-post-id="170" style="display:none;"><span class="wishlist-sign">-</span><span class="tooltip-content-flip"><span class="tooltip-back">Remove from wishlist</span></span></a>
-            </div>-->
+                      
                         <div class="img_list">
                 <a href="<?php echo $k->packageid;   ?>">
-                    <!-- <div class="ribbon popular" ></div> -->
+                    
                     <img width="330" height="220" src="<?php echo base_url(); ?>assets/eventimages/<?php echo $photoName; ?>" class="attachment-330x220 wp-post-image" alt="tour_box_1">                   <div class="short_info"><i class="icon_set_1_icon-4"></i><?php //echo $k->eventname;   ?> </div>                </a>
             </div>
         </div>
         <div class="clearfix visible-xs-block"></div>
         <div class="col-lg-5 col-md-5 col-sm-6">
             <div class="tour_list_desc">
-             <!--   <div class="rating"><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small></div>-->
+             
                 <h3><?php echo $k->packagename;   ?></h3>
                 <p><?php echo $k->description;   ?></p>
             </div>
