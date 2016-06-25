@@ -13,7 +13,7 @@
     <div class="row">
         <!-- Carousel -->
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-		<div class="featured-overlay">
+		<div class="featured-overlay hidden-sm hidden-xs">
                                 <a id="close-form" href="#" class="button close open-close-btn"><i class="icon_close_alt2"></i></a>
 								<div class="main_titlee">
                              <h3 style="color:white;">Search 4 Holiday</h3>
@@ -182,10 +182,65 @@ $i++;
     <!-- End Slider -->
 
        
-<div class="banner colored">
+
+       
+<div class="banner colored hidden-lg hidden-md">
 <div class="container">
 
-                               
+                                        <?php echo $this->session->flashdata('error-msg'); ?>
+                                                <?php  
+
+                                                    echo form_open('search-results',array('id'=>'search-tour-form','method'=>'post','role' => 'search'));
+                                                ?>
+                       
+                        <input type="hidden" name="post_type" value="tour">
+                        <div class="main_title">
+                             <h2 style="color:white;">Search 4 Holiday</h2>
+                            
+                        </div>
+                       
+                        <div class="row">
+                        <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    
+                                    <select class="form-control" id="searchtype" name="searchtype">
+                                        <option value="" selected="">Select with</option>
+                                        <option value="resortname" <?php echo  set_select('searchtype', 'resortname'); ?>>Resort Name</option>
+                                       <option value="eventname" <?php echo  set_select('searchtype', 'eventname'); ?>>Event Name</option>
+                                       <option value="places" <?php echo  set_select('searchtype', 'places'); ?>>Places</option>
+                                       
+                                     </select>
+                                     <span class="text-danger"><?php echo form_error('searchtype'); ?></span>
+                                    </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                   
+                                    <input type="text" class="form-control" name="searchterm" placeholder="Type your search terms" value="<?php echo set_value('searchterm'); ?>">
+                                    <span class="text-danger"><?php echo form_error('searchterm'); ?></span>
+                                </div>
+                            </div>
+                            
+                        
+                            <div class="col-md-2 datefield">
+                                <div class="form-group">
+                                    
+                                    <input class="form-control" id="datepickerj" type="text" name="date" placeholder="Select date">
+                                    <span class="text-danger"><?php echo form_error('date'); ?></span>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 col-xs-6">
+                                <div class="form-group">
+                                   
+                                
+                                    <button type="submit" class="btn_1 green"><i class="icon-search"></i>Search now</button>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                            
+                            
+            </div>
                         </div><!-- End row -->
             </div>
 <?php

@@ -91,30 +91,7 @@
         </script>
 
        
-
-
-     
- <section class="parallax-window" data-parallax="scroll" data-image-src="<?php echo base_url(); ?>assets/eventimages/<?php echo $photoName; ?>" data-natural-width="1400" data-natural-height="500">
-        <div class="parallax-content-2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-sm-8">
-                        <h1><?php echo $eventResults->eventname; ?></h1>
-                        <span><?php echo $eventResults->location; ?></span>
-                        <span class="rating"><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small></span>
-                    </div>
-                    <div class="col-md-4 col-sm-4">
-                       <!-- <div id="price_single_main">
-                            from/per person <span><sup>Rs. </sup><?php echo $packageResults->cost;  ?></span>                             
-                        </div>-->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-     
-
-    
+ 
         <div class="collapse" id="collapseMap">
            <!-- <div id="mapp" class="map"></div>-->
         </div>
@@ -123,7 +100,7 @@
         <div id="overlay" class="over"><i class="icon-spin3 animate-spin"></i></div>
         <div class="container margin_60" style="transform: none;">
     <div class="row" style="transform: none;">
-        <div class="col-md-8" id="single_tour_desc">
+        
 
             
 
@@ -166,23 +143,15 @@
               </div><!-- End Carousel Inner -->
 
 
-                <ul class="nav nav-pills nav-justified hidden-xs">
-                    <?php
-              $i=0;
-              $query = $this->db->query("SELECT * from tbleventphotos WHERE eventid='$eventid' order by photoid DESC limit 6");
-               foreach ($query->result() as $k) {
-                ?>
-                  <li data-target="#myCarousel" data-slide-to="<?php echo $i ;?>"><a href="#" class="detialsbar"><img src="<?php echo base_url();?>assets/eventimages/<?php echo $k->photoname ;?>" class="img-thumbnail"></a></li>
-                 <?php
-                 $i++;
-                  } 
-                  ?>   
-                </ul>
 
 
             </div><!-- End Carousel -->
-        </div>            <hr>
-            
+        </div>     
+		<div class="col-md-8 col-sm-8">
+                        <h1><?php echo $eventResults->eventname; ?></h1>
+                        <span><?php echo $eventResults->location; ?></span>
+                        <span class="rating"><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small></span>
+					
             <div class="row">
                 <div class="col-md-3">
                     <h3>Description</h3>
@@ -222,26 +191,6 @@
             </div>
 
 <hr>
-
-<!--map starts from here-->
-            <div class="row">
-                    <div class="col-md-3">
-                        <h3>Location</h3>
-                    </div>
-                    <div class="col-md-9">
-                       
-                        <div id="map" class="map"></div>
-
-      
-                    </div>
-                </div>
-
-<!--map ends from here-->
-
-
-            <hr>
-
-
  <div class="row">
                 <div class="col-md-3">
                     <h3>Packages</h3>
@@ -301,98 +250,14 @@
 
                 ?>
 
-               
-
-
-
-                <!--    <div class=" table-responsive">
-                            <table class="table table-striped">
-                            <thead>
-                            <tr>
-                            <th colspan="2">1st March to 31st October</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                            <td>Monday</td>
-                            <td>10.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Tuesday</td>
-                            <td>09.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Wednesday</td>
-                            <td>09.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Thursday</td>
-                            <td><span class="label label-danger">Closed</span></td>
-                            </tr>
-                            <tr>
-                            <td>Friday</td>
-                            <td>09.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Saturday</td>
-                            <td>09.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Sunday</td>
-                            <td>10.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td><strong><em>Last Admission</em></strong></td>
-                            <td><strong>17.00</strong></td>
-                            </tr>
-                            </tbody>
-                            </table>
-                            </div>
-                            <div class=" table-responsive">
-                            <table class="table table-striped">
-                            <thead>
-                            <tr>
-                            <th colspan="2">1st November to 28th February</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                            <td>Monday</td>
-                            <td>10.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Tuesday</td>
-                            <td>09.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Wednesday</td>
-                            <td>09.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Thursday</td>
-                            <td><span class="label label-danger">Closed</span></td>
-                            </tr>
-                            <tr>
-                            <td>Friday</td>
-                            <td>09.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Saturday</td>
-                            <td>09.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Sunday</td>
-                            <td>10.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td><strong><em>Last Admission</em></strong></td>
-                            <td><strong>17.00</strong></td>
-                            </tr>
-                            </tbody>
-                            </table>
-</div>-->
+             
                 </div>
             </div>
+			<hr>
+<!--map starts from here-->
+           
+
+<!--map ends from here-->
 
             <hr>
 
@@ -519,44 +384,26 @@ if ($this->session->userdata('holidayCustomerName')) {
                                 </div>
                             
                             </div>
-                            
                             <div class="col-md-12">
                                 <hr>
                             </div>
-
-
                          <?php
-
-
-
                         }
-
-
                     ?>
 
-                    
-
-                    
                     </div>
-                    
-                 
-                    
+                   
                 </div>
-                
-                
-                
+                         
         <!--Reviews End-->
-
-
-
-            
+     
         </div><!--End  single_tour_desc-->
-
-                <aside class="col-md-4" id="sidebar" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
-
-                    
-
-                                        <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; top: 80px; z-index: 100; left: 889.5px;">
+  <div class="col-md-4">
+ 
+                <aside class="col-md-12 aside-panel" id="sidebar">
+             <div class="col-md-12" style="margin-top:25px;color:black;font-size:13px;">
+			  </div>
+			 <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; top: 80px; z-index: 100; left: 889.5px;">
                             <div class="box_style_1 expose overone">
             <h3 class="inner" id="bookingscroll">- Booking -</h3>
                         <form method="get" id="booking-form" action="place-your-order-2/" novalidate="novalidate">
@@ -652,8 +499,10 @@ if ($this->session->userdata('holidayCustomerName')) {
                                                                     </form>
                     </div><!--/box_style_1 -->
                                                 </div>
-                    
+          <div id="map" class="map"></div>          
         </aside>
+		 
+    </div><!--End row -->
     </div><!--End row -->
 </div>
 
@@ -876,7 +725,7 @@ $('.childprice').html($('#'+childPriceId).val());
 $('#servicetax').html($('#'+serviceTaxId).val());
 
 $('html, body').animate({
-    scrollTop: 25
+    scrollTop: 350
     
 }, 1000);
 
