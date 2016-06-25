@@ -252,7 +252,120 @@ if ($this->session->userdata('holidayCustomerName')) {
 }
 ?>
                 
+    
+    <!--Reviews Start-->
+                
+                <div class="row">
+                    <div class="col-md-3 col-xs-12">
+                        <h3>User Reviews</h3>
+                    </div>
+                    <div class="col-md-9 col-xs-12">
 
+                    <?php
+
+                        $reviewsquery = $this->db->query("SELECT rr.*,c.name from placereviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.placeid='$placeid' ORDER BY rr.prid DESC LIMIT 8");
+                        //echo "SELECT er.*,c.name from eventreviews er LEFT JOIN tblcustomers c ON er.customerid=c.customer_id WHERE er.status=1 AND er.resortoreventname='$eventid' ORDER BY er.rid DESC LIMIT 4";
+
+                        foreach ($reviewsquery->result() as $k) {
+                         
+                         ?>
+
+                         <div id="general_rating"><?php echo $k->name; ?> 
+                            
+                        </div>
+                       
+                            <div class="col-md-12 col-xs-12" id="rating_summary" style="padding-left: 0px;padding-right: 0px;">
+                                <ul>
+                                    <li style="text-align:justify;"><?php echo $k->review; ?>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-12" style="margin-bottom: 10px;">
+                                <div class="col-md-6" style="padding-left:0px;">
+                                    
+                                    <div id="rating_summary">
+                                        <ul>
+                                            <li>Price
+                                                <div class="rating">
+                                                <?php
+
+                                                
+                                              
+                                                    $i=0;
+                                                    //echo "review is: ".$k->pricereview."<br>";
+                                                    for ($j=$k->pricereview; $j > 0 ; $j--) { 
+                                                        
+                                                        echo '<i class="icon-smile voted"></i>';
+                                                        $i++;
+                                                    }
+
+                                                    for ($a=$i; $a < 5; $a++) { 
+                                                        echo '<i class="icon-smile"></i>';
+                                                    }
+                                                    
+
+                                                ?>
+                                                    
+                                                    
+                                                </div>
+                                            </li>   
+                                            <li>Quality
+                                                <div class="rating">
+
+                                                <?php
+
+                                                
+                                              
+                                                    $i=0;
+                                                    //echo "quality review is: ".;
+                                                    for ($j=$k->qualityreview; $j > 0 ; $j--) { 
+                                                        
+                                                        echo '<i class="icon-smile voted"></i>';
+                                                        $i++;
+                                                    }
+
+                                                    for ($a=$i; $a < 5; $a++) { 
+                                                        echo '<i class="icon-smile"></i>';
+                                                    }
+                                                    
+
+                                                ?>
+                                                    
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                
+                                </div>
+                            
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+
+
+                         <?php
+
+
+
+                        }
+
+
+                    ?>
+
+                    
+
+                    
+                    </div>
+                    
+                 
+                    
+                </div>
+                
+                
+                
+        <!--Reviews End-->
 
             
             
