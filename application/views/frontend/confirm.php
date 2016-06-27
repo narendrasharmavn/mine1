@@ -7,15 +7,31 @@
                 <div class="col-md-12 col-xs-12">
                     <div class="col-md-8 col-xs-12">
                         <h3 style="color:#fff; background-color:#3cf; padding:20px;">Share Your Contact Details</h3>
-                            <form class="form-inline" style="background-color:#eee; padding:25px;">
+                        <form class="form-inline" action="<?php echo base_url().'merchant/';  ?>submit.php" method="post" style="background-color:#eee; padding:25px;">
+
+                        <input type="hidden" name="amount" class=" form-control" placeholder="Password" value="<?php echo $this->session->userdata('totalcost') ?>" readonly>
+                                    <INPUT TYPE="hidden" NAME="udf3" value="NSE">
+                                    <INPUT TYPE="hidden" NAME="udf4" value="NSE">
+                                    
+                                    <INPUT TYPE="hidden" NAME="product" value="NSE">
+                                    <INPUT TYPE="hidden" NAME="TType" value="NBFundTransfer">
+
+                                    <INPUT TYPE="hidden" NAME="clientcode" value="9654">
+                                    <INPUT TYPE="hidden" NAME="AccountNo" value="85654125485412">
+
+                                    <INPUT TYPE="hidden" NAME="ru" value="<?php echo site_url().'frontend/response'; ?>">
+                                    <input type="hidden" name="bookingid" value="<?php echo  rand(10000,1000000); ?>"/>
+
+
+                            
                               <div class="form-group">
                                 <label for="exampleInputName2">Name</label> &nbsp; &nbsp;
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
-                                    echo '<input type="text" class="form-control" id="exampleInputName2" placeholder="Enter Your Name">';
+                                    echo '<input type="text" name="udf1" class="form-control" id="exampleInputName2" placeholder="Enter Your Name">';
                                  }else{
                                     ?>
-                                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Enter Your Name" value="<?php echo $this->session->userdata('holidayCustomerName');  ?>">
+                                    <input type="text" name="udf1" class="form-control" id="exampleInputName2" placeholder="Enter Your Name" value="<?php echo $this->session->userdata('holidayCustomerName');  ?>">
 
                                     <?php
                                  }
@@ -27,10 +43,10 @@
                                 <label for="exampleInputEmail2">Email</label> &nbsp; &nbsp;
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
-                                    echo '<input type="email" class="form-control" id="exampleInputEmail2" placeholder="abcd@example.com">';
+                                    echo '<input type="email" name="udf2" class="form-control" id="exampleInputEmail2" placeholder="abcd@example.com">';
                                  }else{
                                     ?>
-                                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="abcd@example.com" value="<?php echo $this->session->userdata('holidayEmail');  ?>">
+                                    <input type="email" name="udf2" class="form-control" id="exampleInputEmail2" placeholder="abcd@example.com" value="<?php echo $this->session->userdata('holidayEmail');  ?>">
 
                                     <?php
                                  }
@@ -57,6 +73,10 @@
                                 </li>
                                 <li>
                                     <div>Sub Total : <span style="float:right;"><b>Rs. <?php echo $this->session->userdata('totalcost');  ?></b></span></div>
+
+
+
+
                                 </li>
                                 
                             </ul>
