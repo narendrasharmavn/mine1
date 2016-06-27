@@ -76,7 +76,7 @@ $route['forgot-password'] = 'frontend/forgotForm';
 $route['guest-login'] = 'frontend/guestLoginForm';
 $route['guestlogin_error'] = 'frontend/submitGuestlogin';
 
-$route['invoice/(:any)/(:num)'] = 'frontend/invoice';
+$route['invoice/(:num)'] = 'frontend/invoice/$1';
 
 $route['my-account'] = 'frontend/myAccount';
 $route['myaccount-update'] = 'frontend/updateMyAccount';

@@ -1,29 +1,29 @@
 <!-- Common scripts -->
 
-    <script src="<?php echo base_url(); ?>/assets/frontend/js/jquery-1.11.2.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/frontend/js/jquery-1.11.2.min.js"></script>
 
-    <link href="<?php echo base_url(); ?>/assets/frontend/datepicker/jquery.datepick.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>assets/frontend/datepicker/jquery.datepick.css" rel="stylesheet">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="<?php echo base_url(); ?>/assets/frontend/datepicker/jquery.plugin.js"></script>
-    <script src="<?php echo base_url(); ?>/assets/frontend//datepicker/jquery.datepick.js"></script>
+    <script src="<?php echo base_url(); ?>assets/frontend/datepicker/jquery.plugin.js"></script>
+    <script src="<?php echo base_url(); ?>assets/frontend//datepicker/jquery.datepick.js"></script>
 
-    <script src="<?php echo base_url(); ?>/assets/frontend/js/common_scripts_min.js"></script>
-    <script src="<?php echo base_url(); ?>/assets/frontend/js/functions.js"></script>
+    <script src="<?php echo base_url(); ?>assets/frontend/js/common_scripts_min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/frontend/js/functions.js"></script>
 
    <!-- <script src="<?php echo base_url(); ?>/assets/frontend/js/bootstrap-datepicker.js"></script>-->
 
-    <script type="text/javascript" src="<?php echo base_url(); ?>/assets/frontend/js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url(); ?>/assets/frontend/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>assets/frontend/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>assets/frontend/js/jquery.validate.js"></script>
 
   
 
 
     <!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
-    <script src="<?php echo base_url(); ?>/assets/frontend/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
-    <script src="<?php echo base_url(); ?>/assets/frontend/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
-    <script src="<?php echo base_url(); ?>/assets/frontend/js/revolution_func.js"></script>
+    <script src="<?php echo base_url(); ?>assets/frontend/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/frontend/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/frontend/js/revolution_func.js"></script>
 
-    <script src = "<?php echo base_url(); ?>/assets/js/barcodejquery.js"></script>
+    <script src = "<?php echo base_url(); ?>assets/js/barcodejquery.js"></script>
 
 
     
