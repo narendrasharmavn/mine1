@@ -171,10 +171,10 @@
                                     <div class="dropdown-menu">
                                         
                                         <div class="login-or">
-                                            <ul>
-                                            <a href="'.site_url().'my-account"><li class="my">My Account</li></a>
-                                            <a href="'.site_url().'my-orders"><li class="my">My Orders</li></a>
-                                            <a href="'.site_url().'logout'.'"><li class="my" >Logout</li></a>
+                                            <ul class="my-account-ul">
+                                            <a href="'.site_url().'my-account"><li class="my my-account-ul-li">My Account</li></a>
+                                            <a href="'.site_url().'my-orders"><li class="my my-account-ul-li">My Orders</li></a>
+                                            <a href="'.site_url().'logout'.'"><li class="my my-account-ul-li" >Logout</li></a>
                                             </ul>
                                         </div>
                                         

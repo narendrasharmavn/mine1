@@ -1,3 +1,78 @@
+<div class="anim hidden-sm hidden-xs">
+<!--<blockquote class="oval-thought">
+        <p>Hi.. How can I help you :-)</p>
+      </blockquote>-->
+<img src="<?php echo base_url(); ?>/assets/anim/ani.gif" data-toggle="modal" data-target="#myModal" style="height:200px;"/></div>
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Search 4 Holiday</h4>
+      </div>
+      <div class="modal-body">
+        
+                                        <?php echo $this->session->flashdata('error-msg'); ?>
+                                                <?php  
+
+                                                    echo form_open('search-results',array('id'=>'search-tour-form','method'=>'post','role' => 'search'));
+                                                ?>
+                       
+                        <input type="hidden" name="post_type" value="tour">
+                       
+                        <div class="row">
+                        
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    
+                                    <select class="form-control" id="searchtype" name="searchtype">
+                                        <option value="" selected="">Search For</option>
+                                        <option value="resortname" <?php echo  set_select('searchtype', 'resortname'); ?>>Resort Name</option>
+                                       <option value="eventname" <?php echo  set_select('searchtype', 'eventname'); ?>>Event Name</option>
+                                       <option value="places" <?php echo  set_select('searchtype', 'places'); ?>>Places</option>
+                                       
+                                     </select>
+                                     <span class="text-danger"><?php echo form_error('searchtype'); ?></span>
+                                    </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                   
+                                    <input type="text" class="form-control" name="searchterm" placeholder="Enter Keywords" value="<?php echo set_value('searchterm'); ?>">
+                                    <span class="text-danger"><?php echo form_error('searchterm'); ?></span>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="row">
+                        
+                            <div class="col-md-4 datefield">
+                                <div class="form-group">
+                                    
+                                    <input class="form-control" id="datepickerj" type="date" name="date" placeholder="Select date">
+                                    <span class="text-danger"><?php echo form_error('date'); ?></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-5 col-xs-6">
+                                <div class="form-group">
+                                   
+                                
+                                    <button type="submit" class="btn_1 green"><i class="icon-search"></i>Search now</button>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                            
+                            
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 <footer>
         <div class="container">
             <div class="row">
@@ -57,3 +132,24 @@
             </div><!-- End row -->
         </div><!-- End container -->
     </footer><!-- End footer -->
+
+
+<script type="text/javascript">
+    
+    $i=0;
+    window.setInterval(function(){
+    
+    if ($i==1) {
+        $('.anim img').attr('src','<?php echo base_url(); ?>/assets/anim/elephant.gif');
+    }else if($i==2){
+        $('.anim img').attr('src','<?php echo base_url(); ?>/assets/anim/squirrel-acorns.gif');
+    }else{
+        $i=0;
+        $('.anim img').attr('src','<?php echo base_url(); ?>/assets/anim/ani.gif');
+    }
+    
+
+    $i++;
+}, 5000);
+
+</script>    

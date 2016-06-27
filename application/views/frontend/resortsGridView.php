@@ -250,7 +250,7 @@
                   
     <div class="tour_container">
         <div class="img_container">
-            <a href="<?php echo site_url().'resorts/'.$resorttitleurl.'/'.$k->resortid;   ?>">
+            <a href="<?php echo site_url().'resorts/'.$resorttitleurl.'/'.$k->resortid;   ?>" target="_blank">
             <img  src="<?php  echo base_url().'assets/resortimages/'.$k->photoname;   ?>  " style="height:267px;">         <!-- <div class="ribbon top_rated"></div> -->
             <div class="short_info">
                 <i class="icon_set_1_icon-4"></i><?php echo $k->resortname;   ?> 

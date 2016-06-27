@@ -250,7 +250,7 @@
                   
                             <div class="tour_container">
                                 <div class="img_container">
-                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                                    <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> " target="_blank">
                                     <img width="400" height="267" src="<?php  echo base_url().'assets/eventimages/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->
                                     <div class="short_info">
                                         <i class="icon_set_1_icon-4"></i><?php echo $k->eventname;   ?> 

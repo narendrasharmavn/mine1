@@ -38,7 +38,7 @@
 													<div class="form-group">
 														
 														<select class="form-control search-form-slider" id="searchtype" name="searchtype">
-															<option value="" selected="">Select with</option>
+															<option value="" selected="">Search For</option>
 															<option value="resortname" <?php echo  set_select('searchtype', 'resortname'); ?>>Resort Name</option>
 														   <option value="eventname" <?php echo  set_select('searchtype', 'eventname'); ?>>Event Name</option>
 														   <option value="places" <?php echo  set_select('searchtype', 'places'); ?>>Places</option>
@@ -50,7 +50,7 @@
 												<div class="col-md-12">
                                 <div class="form-group">
                                    
-                                    <input type="text" class="form-control search-form-slider" name="searchterm" placeholder="Type your search terms" value="<?php echo set_value('searchterm'); ?>">
+                                    <input type="text" class="form-control search-form-slider" name="searchterm" placeholder="Enter Keywords" value="<?php echo set_value('searchterm'); ?>">
                                     <span class="text-danger"><?php echo form_error('searchterm'); ?></span>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                             <div class="col-md-12 datefield">
                                 <div class="form-group">
                                     
-                                    <input class="form-control search-form-slider" id="datepickerj" type="text" name="date" placeholder="Select date">
+                                    <input class="form-control search-form-slider" id="datepickerj" type="date" name="date" placeholder="Select date">
                                     <span class="text-danger"><?php echo form_error('date'); ?></span>
                                 </div>
                             </div>
@@ -118,8 +118,7 @@ $i++;
 
                     <div class="item active">
                     <img src="<?php echo base_url(); ?>/assets/sliderimages/<?php echo $k->image; ?>" alt="<?php echo $k->image; ?>">
-                    <!-- Static Header -->
-                    <div class="header-text hidden-xs">
+                                        <div class="header-text hidden-xs">
                         <div class="col-md-12 text-center">
                             <h2>
                                 <span>Welcome to <strong><?php echo $k->title; ?></strong></span>
@@ -130,7 +129,7 @@ $i++;
                             </h3>
                             <br>
                             <div class="">
-                                <a class="btn btn-theme btn-sm btn-min-block" href="<?php echo $k->link; ?>"><?php echo $k->name; ?></a><a class="btn btn-theme btn-sm btn-min-block" href="#">Register</a></div>
+                                <a class="btn btn-danger btn-sm btn-min-block" href="<?php echo $k->link; ?>"><?php echo $k->name; ?></a></div>
                         </div>
                     </div><!-- /header-text -->
                 </div>
@@ -152,7 +151,7 @@ $i++;
                             </h3>
                             <br>
                             <div class="">
-                                <a class="btn btn-theme btn-sm btn-min-block" href="<?php echo $k->link; ?>"><?php echo $k->name; ?></a><a class="btn btn-theme btn-sm btn-min-block" href="#">Register</a></div>
+                                <a class="btn btn-danger btn-sm btn-min-block" href="<?php echo $k->link; ?>"><?php echo $k->name; ?></a></div>
                         </div>
                     </div><!-- /header-text -->
                 </div>
@@ -205,7 +204,7 @@ $i++;
                                 <div class="form-group">
                                     
                                     <select class="form-control" id="searchtype" name="searchtype">
-                                        <option value="" selected="">Select with</option>
+                                        <option value="" selected="">Search For</option>
                                         <option value="resortname" <?php echo  set_select('searchtype', 'resortname'); ?>>Resort Name</option>
                                        <option value="eventname" <?php echo  set_select('searchtype', 'eventname'); ?>>Event Name</option>
                                        <option value="places" <?php echo  set_select('searchtype', 'places'); ?>>Places</option>
@@ -217,7 +216,7 @@ $i++;
                             <div class="col-md-3">
                                 <div class="form-group">
                                    
-                                    <input type="text" class="form-control" name="searchterm" placeholder="Type your search terms" value="<?php echo set_value('searchterm'); ?>">
+                                    <input type="text" class="form-control" name="searchterm" placeholder="Enter Keywords" value="<?php echo set_value('searchterm'); ?>">
                                     <span class="text-danger"><?php echo form_error('searchterm'); ?></span>
                                 </div>
                             </div>
@@ -226,7 +225,7 @@ $i++;
                             <div class="col-md-2 datefield">
                                 <div class="form-group">
                                     
-                                    <input class="form-control" id="datepickerj" type="text" name="date" placeholder="Select date">
+                                    <input class="form-control" id="datepickerj" type="date" name="date" placeholder="Select date">
                                     <span class="text-danger"><?php echo form_error('date'); ?></span>
                                 </div>
                             </div>
@@ -252,7 +251,7 @@ if (count($events->result())>0) {
     
         <div class="main_title">
             <h2>Latest Events</h2>
-            <p>Happening in Your City</p>
+           
         </div>
 
         
@@ -281,11 +280,11 @@ if (count($events->result())>0) {
                     <div class="tour_title">
                         <h3>
                             <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> "> 
-                            <strong>
+                           
                             
                                 <?php echo $k->eventname; ?>
                                 
-                            </strong> tour
+                          
                             </a>
                         </h3>
                       <!--  <div class="rating">
@@ -308,12 +307,12 @@ if (count($events->result())>0) {
                  
         </div><!-- End row -->
         <p class="text-center add_bottom_30">
-            <a href="<?php echo site_url().'eventsall' ?>" class="btn_1 medium"><i class="icon-eye-7"></i>View all Events  </a>
+            <a href="<?php echo site_url().'eventsall' ?>" class="btn_1 green medium"><i class="icon-eye-7"></i>View all Events  </a>
         </p>
         
         <hr>
         
-         </div><!-- End container -->
+        
 
          <?php
 
@@ -333,8 +332,7 @@ if (count($query->result())>0) {
 
 ?>
     
-    <div class="white_bg">
-        <div class="container margin_60">
+    
             <div class="main_title">
                 <h2>Other <span>Popular</span> Places in Hyderabad</h2>
                 
@@ -360,8 +358,10 @@ if (count($query->result())>0) {
                     <p>
                         <a href="<?php echo site_url().'places/'.$placetitleurl.'/'.$k->plid; ?>"><img src="<?php echo base_url(); ?>/assets/places/<?php echo $photoname; ?>" alt="Pic" width="800" height="450" style="min-height: 200px;" class="img-responsive"></a>
                   </p>
-                    <h4><a href="<?php echo site_url().'places/'.$placetitleurl.'/'.$k->plid; ?>"><?php echo $placename; ?></a></h4>
-                    <p>
+				  <div class="place_title">
+                    <h3><a href="<?php echo site_url().'places/'.$placetitleurl.'/'.$k->plid; ?>"><?php echo $placename; ?></a></h3>
+</div>                   
+				   <p>
                         <?php echo $pdescription; ?>
                     </p>
                 </div>
@@ -370,7 +370,7 @@ if (count($query->result())>0) {
             </div><!-- End row -->
 
             <p class="text-center add_bottom_30">
-            <a href="<?php echo site_url().'placesall' ?>" class="btn_1 medium"><i class="icon-eye-7"></i>View all Places  </a>
+            <a href="<?php echo site_url().'placesall' ?>" class="btn_1 green medium"><i class="icon-eye-7"></i>View all Places  </a>
         </p>
 
            

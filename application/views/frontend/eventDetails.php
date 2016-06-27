@@ -253,7 +253,7 @@
              
                 </div>
             </div>
-			<hr>
+		
 <!--map starts from here-->
            
 

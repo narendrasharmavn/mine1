@@ -78,7 +78,7 @@ h2 b, h3 b, h4 b, h5 b, h6 b{color:#e04f67; font-weight: inherit;}
 a {color: #51bce6;text-decoration: none;-webkit-transition: all 0.2s ease;transition: all 0.2s ease; outline:none;}
 a:hover,a:focus {color: #111;text-decoration: none; outline:none;}
 
-p {margin: 0 0 20px 0;}
+p {margin: 0 0 20px 0;text-align:justify;}
 
 .nopadding {
   margin: 0 !important;
@@ -496,34 +496,34 @@ header#colored.sticky ul#top_tools a {color:#fff;}
   font-size:13px !important;
 }
 .dropdown-cart .dropdown-menu, .dropdown-access .dropdown-menu, .dropdown-search .dropdown-menu {
-  border: none;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  float: right;
-  left: auto;
-  min-width: 0;
-  padding: 15px;
-  right: 0;
-  width: 250px;
-  top:100%;
-  font-size:12px;
-  font-weight: normal;
-  text-shadow:none;
-  text-transform:none !important;
-  border-top: 2px solid #e04f67;
+ border: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 5px;
+    float: right;
+    left: auto;
+    min-width: 0;
+    padding: 5px;
+    right: 0;
+    width: 125px;
+    top: 100%;
+    font-size: 15px;
+    font-weight: normal;
+    text-shadow: none;
+    text-transform: none !important;
+    border-top: 2px solid #222906;
 }
 
 .dropdown-cart .dropdown-menu:before, .dropdown-access .dropdown-menu:before, .dropdown-search .dropdown-menu:before {
   bottom: 100%;
-  right: 10%;
+  right: 80%;
   border: solid transparent;
   content: " ";
   height: 0;
   width: 0;
   position: absolute;
   pointer-events: none;
-  border-bottom-color: #e04f67;
+  border-bottom-color: #222906;
   border-width: 7px;
   margin-left: -7px;
 }
@@ -638,10 +638,17 @@ a#forgot_pw{
   a#forgot_pw:hover{
   color:#333 !important;
   }
-  
+  .my-account-ul{
+	  padding-left: 10px;
+  }
+  .my-account-ul-li{
+font-size: 13px;
+    text-align: left;
+    font-family: roboto;
+  }
 .dropdown-search .dropdown-menu{
-  margin-top:15px;
-  right:-25px;
+margin-top: 5px;
+    right: 15px;
 }
 .input-group button { background-color:#333; color:#fff; border-color:#333}
 .input-group button:hover, .input-group button:focus { background-color:#e04f67; color:#fff; border-color:#e04f67}
@@ -2778,7 +2785,8 @@ ul.page-numbers > li > span:focus {
 .styled-select-filters select:focus { outline:none;}
 
 /* Margin tools */
-.margin_60 {padding-top:30px; padding-bottom:30px;}
+.margin_60 {padding-top:30px; padding-bottom:30px;background: white;
+   box-shadow: 0px 5px 4px 6px #cecece;}
 .margin_top_60 {padding-top:60px;}
 .margin_bottom_60 {padding-bottom:60px;}
 .margin_30 {margin-top:30px; margin-bottom:30px;}
@@ -2862,6 +2870,70 @@ ul.page-numbers > li > span:focus {
 .tour_container .tour_title{
   padding:15px;
   position:relative;
+  text-align:center;
+  color:#2a3305 !important;
+}
+.tour_container .tour_title h3 a{
+	color:#2a3305 !important;
+	    font-family: calibri;
+    font-size: 22px !important;
+}
+ .place_title h3 a{
+	color:#2a3305 !important;
+	    font-family: calibri;
+    font-size: 22px !important;
+}	
+.anim{
+	    z-index: 999;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 200px;
+}
+.oval-thought {
+    position: relative;
+    width: 208px;
+    left: 57px;
+    font-size: 12px;
+    padding: 19px 19px;
+    margin: 1em auto 0px;
+    text-align: left;
+    color: #fff;
+    background: #075698;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#2e88c4), to(#075698));
+    background: -moz-linear-gradient(#2e88c4, #075698);
+    background: -o-linear-gradient(#2e88c4, #075698);
+    background: linear-gradient(#2e88c4, #075698);
+    -webkit-border-top-left-radius: 220px 120px;
+    -webkit-border-top-right-radius: 220px 120px;
+    -webkit-border-bottom-right-radius: 220px 120px;
+    -webkit-border-bottom-left-radius: 220px 120px;
+    -moz-border-radius: 220px / 120px;
+    border-radius: 220px / 120px;
+}
+.oval-thought:before {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    left: 50px;
+    width: 30px;
+    height: 30px;
+    background: #075698;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+}
+.oval-thought:after {
+    content: "";
+    position: absolute;
+    bottom: -30px;
+    left: 30px;
+    width: 15px;
+    height: 15px;
+    background: #075698;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
 }
 .tour_container .tour_title .rating{
   font-size:14px;
@@ -3996,3 +4068,5 @@ a#close_in {display:block;position:absolute;right:15px;top:10px;width:20px;heigh
 
 }
 .signupform { display: none; }
+
+
