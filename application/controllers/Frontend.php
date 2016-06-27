@@ -222,10 +222,7 @@ class Frontend extends CI_Controller {
 
     public function confirmbookings(){
 
-      if (!$this->session->userdata('holidayEmail'))
-        {
-          echo "false";
-        }else{
+     
 
       $packageid = $this->input->post('packageid');
       $dateofvisit = $this->input->post('dateofvisit');
@@ -289,6 +286,8 @@ class Frontend extends CI_Controller {
       $this->session->set_userdata('numberofchildren',$numberofchildren);
       $this->session->set_userdata('servicetax',$servicetax);
       $this->session->set_userdata('vendorid',$vendorid);
+      $this->session->set_userdata('dateofvisit',$dateofvisit);
+      
 
       //$data['resortResults'] =  $this->FrontEndModel->getResortDetailsBasedOnPackageId($packageid);
 
@@ -297,7 +296,7 @@ class Frontend extends CI_Controller {
      // $this->load->view('frontend/header');
       //$this->load->view('frontend/confirm');
 
-}
+
 
     }
 

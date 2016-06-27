@@ -742,9 +742,7 @@ $('.theiaStickySidebar').show();
 
 $('.book-now').on('click',function(){
 
-
-
-    if ($('#datepickerj').datepick('getDate') == "") {
+ if ($('#datepickerj').datepick('getDate') == "") {
     alert("Please Select a Date");
     //return false;
 }else if($('.total-cost').text()==0 || $('.total-cost').text()==''){

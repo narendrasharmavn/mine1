@@ -95,7 +95,7 @@
       
 
         ?>
- <section class="parallax-window" data-parallax="scroll" data-image-src="<?php echo base_url(); ?>assets/resortimages/<?php echo $photoName; ?>" data-natural-width="1400" data-natural-height="500">
+ <!--<section class="parallax-window" data-parallax="scroll" data-image-src="<?php echo base_url(); ?>assets/resortimages/<?php echo $photoName; ?>" data-natural-width="1400" data-natural-height="500">
         <div class="parallax-content-2">
             <div class="container">
                 <div class="row">
@@ -105,15 +105,12 @@
                         <span class="rating"><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small></span>
                     </div>
                     <div class="col-md-4 col-sm-4">
-                      <!--  <div id="price_single_main">
-                            from/per person <span><sup>Rs. </sup><?php echo $packageResults->amount;  ?></span>                             
-                        </div>
-                        -->
+                      
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
      
     
         <div class="collapse" id="collapseMap">
@@ -124,7 +121,7 @@
         <div id="overlay" class="over"><i class="icon-spin3 animate-spin"></i></div>
         <div class="container margin_60" style="transform: none;">
     <div class="row" style="transform: none;">
-        <div class="col-md-8" id="single_tour_desc">
+        <div class="col-md-12" id="single_tour_desc">
 
          <div class="container-fluid">
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -139,10 +136,7 @@
                 ?>
                 <div class="item active">
                   <img src="<?php echo base_url();?>assets/resortimages/<?php echo $k->photoname ;?>">
-                   <!--<div class="carousel-caption">
-                    <h3>Headline</h3>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. <a href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank" class="label label-danger">Bootstrap 3 - Carousel Collection</a></p>
-                  </div>-->
+                   
                 </div><!-- End Item -->
                  <?php 
                     }
@@ -151,10 +145,7 @@
                         ?>
                         <div class="item">
                   <img src="<?php echo base_url();?>assets/resortimages/<?php echo $k->photoname ;?>">
-                   <!--<div class="carousel-caption">
-                    <h3>Headline</h3>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. <a href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank" class="label label-danger">Bootstrap 3 - Carousel Collection</a></p>
-                  </div>-->
+                   
                 </div>
                         <?php
 
@@ -164,7 +155,7 @@
                  ?>
               </div><!-- End Carousel Inner -->
 
-
+<!--
                 <ul class="nav nav-pills nav-justified hidden-xs">
                     <?php
               $i=0;
@@ -177,74 +168,43 @@
                   } 
                   ?>   
                 </ul>
-
+-->
 
             </div><!-- End Carousel -->
-   
-            </div>            <hr>
+
+            </div>            
             
             <div class="row">
-                <div class="col-md-3">
-                    <h3>Description</h3>
-                </div>
-                <div class="col-md-9">
-                    <h4><?php echo $resortResults->resortname;  ?></h4>
-                    <?php echo $resortResults->description;  ?>
-
-                      <!--  <div class="row">
-                        <div class="col-sm-6 one-half">
-
-                        <ul class="list_ok">
-                            <li>Lorem ipsum dolor sit amet</li>
-                            <li>No scripta electram necessitatibus sit</li>
-                            <li>Quidam percipitur instructior an eum</li>
-                            <li>Ut est saepe munere ceteros</li>
-                            <li>No scripta electram necessitatibus sit</li>
-                            <li>Quidam percipitur instructior an eum</li>
-                        </ul>
-
-                        </div>
-                        <div class="col-sm-6 one-half">
-
-                        <ul class="list_ok">
-                            <li>Lorem ipsum dolor sit amet</li>
-                            <li>No scripta electram necessitatibus sit</li>
-                            <li>Quidam percipitur instructior an eum</li>
-                            <li>No scripta electram necessitatibus sit</li>
-                        </ul>
-
-                        </div>
-                        </div>   -->   
-                                </div>
-            </div>
-
-<hr>
-            <!--Map code starts here-->
-            <div class="row">
-                <div class="col-md-3">
-                    <h3>Location</h3>
-                </div>
-                <div class="col-md-9">
-                                       
-
-
-                    <div id="map" class="map"></div>
-
-
-
-
+                <div class="col-md-8">
+				<div class="row">
+                    <div class="col-md-12 col-sm-8">
+                        <h1><?php echo $resortResults->resortname; ?></h1>
+                        <span><?php echo $resortResults->location; ?></span>
+                        <span class="rating"><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small></span>
                     </div>
+                    <div class="col-md-4 col-sm-4">
+                      
+                    </div>
+                </div>
+                <hr>
+                    <div class="col-md-3">
+                        <h3>Description</h3>
+                    </div>
+                    <div class="col-md-9">
+                        <h4><?php echo $resortResults->resortname;  ?></h4>
+                        <?php echo $resortResults->description;  ?>
 
-            </div>              
-
-            <!--Map code ends here -->
-
-            <hr>
+                            
+                    </div>
+					 <!--Map code starts here-->
+                         
 
 <div class="row">
-                <div class="col-md-3">
+<div class="col-md-12">
+<hr>
+    <div class="col-md-3">
                     <h3>Packages</h3>
-                </div>
+    </div>
                 <div class="col-md-9">
 
                 <?php
@@ -254,13 +214,7 @@
              <div class="strip_all_tour_list wow fadeIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
     <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-4">
-                      <!--  <div class="wishlist">
-                <a class="tooltip_flip tooltip-effect-1 btn-add-wishlist" href="#" data-post-id="170">
-                    <span class="wishlist-sign">+</span>
-                    <span class="tooltip-content-flip"><span class="tooltip-back">Add to wishlist</span></span>
-                </a>
-                <a class="tooltip_flip tooltip-effect-1 btn-remove-wishlist" href="#" data-post-id="170" style="display:none;"><span class="wishlist-sign">-</span><span class="tooltip-content-flip"><span class="tooltip-back">Remove from wishlist</span></span></a>
-            </div>-->
+                      
                         <div class="img_list">
                 <a href="<?php echo site_url().'resorts/'.$k->packagename.'/'.$k->packageid;?>">
                     <!-- <div class="ribbon popular" ></div> -->
@@ -305,98 +259,13 @@
 
 
 
-                <!--    <div class=" table-responsive">
-                            <table class="table table-striped">
-                            <thead>
-                            <tr>
-                            <th colspan="2">1st March to 31st October</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                            <td>Monday</td>
-                            <td>10.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Tuesday</td>
-                            <td>09.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Wednesday</td>
-                            <td>09.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Thursday</td>
-                            <td><span class="label label-danger">Closed</span></td>
-                            </tr>
-                            <tr>
-                            <td>Friday</td>
-                            <td>09.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Saturday</td>
-                            <td>09.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Sunday</td>
-                            <td>10.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td><strong><em>Last Admission</em></strong></td>
-                            <td><strong>17.00</strong></td>
-                            </tr>
-                            </tbody>
-                            </table>
-                            </div>
-                            <div class=" table-responsive">
-                            <table class="table table-striped">
-                            <thead>
-                            <tr>
-                            <th colspan="2">1st November to 28th February</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                            <td>Monday</td>
-                            <td>10.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Tuesday</td>
-                            <td>09.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Wednesday</td>
-                            <td>09.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Thursday</td>
-                            <td><span class="label label-danger">Closed</span></td>
-                            </tr>
-                            <tr>
-                            <td>Friday</td>
-                            <td>09.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Saturday</td>
-                            <td>09.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td>Sunday</td>
-                            <td>10.00 - 17.30</td>
-                            </tr>
-                            <tr>
-                            <td><strong><em>Last Admission</em></strong></td>
-                            <td><strong>17.00</strong></td>
-                            </tr>
-                            </tbody>
-                            </table>
-</div>-->
+               
+                </div>
+
                 </div>
             </div>
-
-            <hr>
-
-
+			
+			
        <?php
 
 if ($this->session->userdata('holidayCustomerName')) {
@@ -406,6 +275,8 @@ if ($this->session->userdata('holidayCustomerName')) {
             ?>
             
 <div class="row">
+    <div class="col-md-12">
+     <hr>
         <div class="col-md-3">
             <h3>Reviews</h3>
             <a href="#" class="btn_1 add_bottom_15" data-toggle="modal" data-target="#myReview">Leave a review</a>
@@ -428,16 +299,181 @@ if ($this->session->userdata('holidayCustomerName')) {
             <div class="guest-reviews">
                                         </div>
         </div>
+        </div>
  </div>
 
 <?php
 }
 ?>
 
+            <!--Map code ends here -->
+
+                </div>
+               <aside class="col-md-4" id="sidebar" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+               
+
+                    
+
+                                        <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; top: 80px; z-index: 100; left: 889.5px;">
+                            <div class="box_style_1 expose overone">
+            <h3 class="inner" id="bookingscroll">- Booking -</h3>
+                        <form method="get" id="booking-form" action="place-your-order-2/" novalidate="novalidate">
+                <input type="hidden" name="tour_id" value="213">
+                                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <label><i class="icon-calendar-7"></i> Select a date</label>
+                            <input type="hidden" value="" id="packageid">
+                            <input type="hidden" value="<?php echo $resortResults->vendorid; ?>" id="vendorid">
+                            <input class="form-control" id="datepickerj" type="text" name="date">
+                        </div>
+                    </div>
+                </div>
+                                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <label>Adults</label>
+                            <div class="numbers-row" data-min="0">
+                                <input type="text" value="0" id="adults" class="qty2 form-control" name="adults">
+                            <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
+                        </div>
+                    </div>
+                                        <div class="col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <label>Children</label>
+                            <div class="numbers-row" data-min="0">
+                                <input type="text" value="0" id="children" class="qty2 form-control" name="kids">
+                            <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
+                        </div>
+                    </div>
+                                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>Add Kid Meal Rs.50 per Kid</label>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>Qty</label>
+                                <div class="numbers-row" data-min="0">
+                                    <input type="text" value="0" id="kidsmeal" class="qty2 form-control" name="kids">
+                                <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                <br>
+                <table class="table table_summary">
+                <tbody>
+                <tr>
+                    <td>
+                        Adults( Rs. <span class="adultprice">0</span>)                  </td>
+                    <td class="text-right adults-number" >
+                        <span id="adultprice">0</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Children (Rs. <span class="childprice">0</span>)                   </td>
+                    <td class="text-right children-number" >
+                       <span id="childprice">0</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Kids Meal (Rs. <span class="kidsmealprice">50</span>)                   </td>
+                    <td class="text-right kidsmeal-number" >
+                       <span id="kidsmealqty">0</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Service Tax                    </td>
+                    <td class="text-right" >
+                        % <span id="servicetax">0</span> (per ticket)
+                    </td>
+                </tr>
+                                <tr>
+                    <td>
+                        Total amount                    </td>
+                    <td class="text-right">
+                        <span class="adults-number" >0</span>x 
+                        Rs. <span class="adultprice">0</span>                                                   <span class="child-amount hide"> + <span class="children-number">0</span>x 
+                            Rs. <span class="childprice">0</span> 
+
+
+                        </span>
+
+
+                            +  
+
+                            <span class="kidsmeal-number">0</span> *  Rs . <span class="kidsmeal">50</span> 
+                         +  Rs. <span class="calculated-servicetax">0</span> (Service Tax)
+                                            </td>
+                </tr>
+                <tr class="total">
+                    <td>
+                        Total cost                  </td>
+                    <td class="text-right">
+                        Rs.  <span class="total-cost">0 </span>                 </td>
+                </tr>
+                </tbody>
+                </table>
+                <button type="button" class="btn_full book-now">Book now</button>
+                            <?php
+                            if (!$this->session->userdata('holidayCustomerName')) {
+
+                                ?>
+
+                                 
+                                                        <a href="<?php echo site_url().'/frontend/loginForm'; ?>" class="btn_full_outline">login</a>
+
+                                <?php
+
+                            }
+                                           
+                        ?>
+                                                  
+                                                       
+
+                                                                    </form>
+                    </div><!--/box_style_1 -->
+                                                </div>
+												<div class="row">
+                <div class="col-md-12">
+                <hr>
+				<h3>Location</h3>
+                    <div id="map" class="map"></div>
+				</div>
+
+            </div> 
+                    
+        </aside>
+
+
+    </div><!--End row -->
+</div>
+
+
+                
+            
+            </div><!-- end of row -->
+
+
+           
+            
+
+            
+
+
+
 
 <!--Reviews Start-->
                 
                 <div class="row">
+
                     <div class="col-md-3 col-xs-12">
                         <h3>User Reviews</h3>
                     </div>
@@ -555,141 +591,7 @@ if ($this->session->userdata('holidayCustomerName')) {
             
         </div><!--End  single_tour_desc-->
 
-                <aside class="col-md-4" id="sidebar" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
-
-                    
-
-                                        <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; top: 80px; z-index: 100; left: 889.5px;">
-                            <div class="box_style_1 expose overone">
-            <h3 class="inner" id="bookingscroll">- Booking -</h3>
-                        <form method="get" id="booking-form" action="place-your-order-2/" novalidate="novalidate">
-                <input type="hidden" name="tour_id" value="213">
-                                <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <label><i class="icon-calendar-7"></i> Select a date</label>
-                            <input type="hidden" value="" id="packageid">
-                            <input type="hidden" value="<?php echo $resortResults->vendorid; ?>" id="vendorid">
-                            <input class="form-control" id="datepickerj" type="text" name="date">
-                        </div>
-                    </div>
-                </div>
-                                <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <label>Adults</label>
-                            <div class="numbers-row" data-min="0">
-                                <input type="text" value="0" id="adults" class="qty2 form-control" name="adults">
-                            <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
-                        </div>
-                    </div>
-                                        <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <label>Children</label>
-                            <div class="numbers-row" data-min="0">
-                                <input type="text" value="0" id="children" class="qty2 form-control" name="kids">
-                            <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
-                        </div>
-                    </div>
-                                    </div>
-                                    <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <label>Add Kid Meal Rs.50 per Kid</label>
-                            
-                        </div>
-                    </div>
-                                        <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <label>Qty</label>
-                            <div class="numbers-row" data-min="0">
-                                <input type="text" value="0" id="kidsmeal" class="qty2 form-control" name="kids">
-                            <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
-                        </div>
-                    </div>
-                    
-                                    </div>
-                <br>
-                <table class="table table_summary">
-                <tbody>
-                <tr>
-                    <td>
-                        Adults( Rs. <span class="adultprice">0</span>)                  </td>
-                    <td class="text-right adults-number" >
-                        <span id="adultprice">0</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Children (Rs. <span class="childprice">0</span>)                   </td>
-                    <td class="text-right children-number" >
-                       <span id="childprice">0</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Kids Meal (Rs. <span class="kidsmealprice">50</span>)                   </td>
-                    <td class="text-right kidsmeal-number" >
-                       <span id="kidsmealqty">0</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Service Tax                    </td>
-                    <td class="text-right" >
-                        % <span id="servicetax">0</span> (per ticket)
-                    </td>
-                </tr>
-                                <tr>
-                    <td>
-                        Total amount                    </td>
-                    <td class="text-right">
-                        <span class="adults-number" >0</span>x 
-                        Rs. <span class="adultprice">0</span>                                                   <span class="child-amount hide"> + <span class="children-number">0</span>x 
-                            Rs. <span class="childprice">0</span> 
-
-
-                        </span>
-
-
-                            +  
-
-                            <span class="kidsmeal-number">0</span> *  Rs . <span class="kidsmeal">50</span> 
-                         +  Rs. <span class="calculated-servicetax">0</span> (Service Tax)
-                                            </td>
-                </tr>
-                <tr class="total">
-                    <td>
-                        Total cost                  </td>
-                    <td class="text-right">
-                        Rs.  <span class="total-cost">0 </span>                 </td>
-                </tr>
-                </tbody>
-                </table>
-                <button type="button" class="btn_full book-now">Book now</button>
-                            <?php
-                            if (!$this->session->userdata('holidayCustomerName')) {
-
-                                ?>
-
-                                 
-                                                        <a href="<?php echo site_url().'/frontend/loginForm'; ?>" class="btn_full_outline">login</a>
-
-                                <?php
-
-                            }
-                                           
-                        ?>
-                                                  
-                                                       
-
-                                                                    </form>
-                    </div><!--/box_style_1 -->
-                                                </div>
-                    
-        </aside>
-    </div><!--End row -->
-</div>
+                
 
 
 <!--review Modal-->
@@ -916,7 +818,7 @@ $('.childprice').html($('#'+childPriceId).val());
 $('#servicetax').html($('#'+serviceTaxId).val());
 
 $('html, body').animate({
-    scrollTop: 25
+    scrollTop: 500
     
 }, 1000);
 
@@ -927,11 +829,7 @@ $(".overone").css("z-index", '100');
 
 $('.theiaStickySidebar').show();
 
-
-//window.location.hash = '#bookingscroll';
-
-
-   
+ 
 
 }
 
@@ -1007,10 +905,10 @@ var current = new Date(dateSecond[2], dateSecond[1], dateSecond[0]);
         success: function(res) {
 
                 if (res.trim()=="true") {
-                    window.location.href="<?php echo site_url().'/frontend/confirm'; ?>";
+                    window.location.href="<?php echo site_url().'frontend/confirm'; ?>";
                 } else if(res.trim()=="false") {
                     alert("Please login to book tickets");
-                     window.location.href="<?php echo site_url().'/frontend/loginForm'; ?>";
+                     window.location.href="<?php echo site_url().'frontend/loginForm'; ?>";
                 }else{
                     console.log(res);
                 }        //$('#email').html(res);
