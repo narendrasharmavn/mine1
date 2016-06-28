@@ -222,8 +222,6 @@ class Frontend extends CI_Controller {
 
     public function confirmbookings(){
 
-     
-
       $packageid = $this->input->post('packageid');
       $dateofvisit = $this->input->post('dateofvisit');
       $vendorid = $this->input->post('vendorid');
@@ -255,8 +253,7 @@ class Frontend extends CI_Controller {
 
       );
 
-        $this->db->insert('tblbookings',$bookingsdata); 
-        $this->session->set_userdata('bookingsid',$this->db->insert_id());
+      
         
 
         $paymentsdata = array(
@@ -273,11 +270,7 @@ class Frontend extends CI_Controller {
 
       );
 
-        $this->db->insert('tblpayments',$paymentsdata); 
         
-       
-
-      $this->session->set_userdata('paytmentsid',$this->db->insert_id());
       $this->session->set_userdata('packageid',$packageid);
       $this->session->set_userdata('totalcost',$totalcost);
       $this->session->set_userdata('adultpriceperticket',$adultpriceperticket);
@@ -287,16 +280,22 @@ class Frontend extends CI_Controller {
       $this->session->set_userdata('servicetax',$servicetax);
       $this->session->set_userdata('vendorid',$vendorid);
       $this->session->set_userdata('dateofvisit',$dateofvisit);
+
+
+     if ($this->session->userdata('holidayEmail')) {
+       # code...
+     
+        $this->db->insert('tblbookings',$bookingsdata); 
+        $this->session->set_userdata('bookingsid',$this->db->insert_id());
+    
+        $this->db->insert('tblpayments',$paymentsdata); 
+        $this->session->set_userdata('paytmentsid',$this->db->insert_id());
       
-
-      //$data['resortResults'] =  $this->FrontEndModel->getResortDetailsBasedOnPackageId($packageid);
-
-
       echo "true";
-     // $this->load->view('frontend/header');
-      //$this->load->view('frontend/confirm');
-
-
+    
+}else{
+  echo "false";
+}
 
     }
 

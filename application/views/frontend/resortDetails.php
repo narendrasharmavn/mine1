@@ -237,6 +237,7 @@
                      <input type="hidden" id="<?php echo $k->packageid.'adultprice';   ?>" value="<?php echo $k->adultprice;   ?>">
                      <input type="hidden" id="<?php echo $k->packageid.'childprice';   ?>" value="<?php echo $k->childprice;   ?>">
                      <input type="hidden" id="<?php echo $k->packageid.'servicetax';   ?>" value="<?php echo $k->servicetax;   ?>">
+                     <input type="hidden" id="<?php echo $k->packageid.'kidsmealprice';   ?>" value="<?php echo $k->kidsmealprice;   ?>">
 
                     <p><button onclick="bookthispackage(<?php echo $k->packageid;   ?>)" class="btn_1">Book Now</a></p>
                 </div>
@@ -347,10 +348,10 @@ if ($this->session->userdata('holidayCustomerName')) {
                         </div>
                     </div>
                                     </div>
-                    <div class="row">
+                    <div class="row kids">
                         <div class="col-md-6 col-sm-6">
                             <div class="form-group">
-                                <label>Add Kid Meal Rs.50 per Kid</label>
+                                <label>Add Kid Meal Rs.<span class="kidsmealprice">50<span> per Kid</label>
                                 
                             </div>
                         </div>
@@ -381,7 +382,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                        <span id="childprice">0</span>
                     </td>
                 </tr>
-                <tr>
+                <tr class="kids">
                     <td>
                         Kids Meal (Rs. <span class="kidsmealprice">50</span>)                   </td>
                     <td class="text-right kidsmeal-number" >
@@ -408,9 +409,11 @@ if ($this->session->userdata('holidayCustomerName')) {
 
 
                             +  
-
-                            <span class="kidsmeal-number">0</span> *  Rs . <span class="kidsmeal">50</span> 
-                         +  Rs. <span class="calculated-servicetax">0</span> (Service Tax)
+                        <span class="kids">
+                                <span class="kidsmeal-number">0</span> *  Rs . <span class="kidsmealprice">50</span> 
+                             + 
+                         </span>
+                          Rs. <span class="calculated-servicetax">0</span> (Service Tax)
                                             </td>
                 </tr>
                 <tr class="total">
@@ -422,19 +425,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                 </tbody>
                 </table>
                 <button type="button" class="btn_full book-now">Book now</button>
-                            <?php
-                            if (!$this->session->userdata('holidayCustomerName')) {
-
-                                ?>
-
-                                 
-                                                        <a href="<?php echo site_url().'/frontend/loginForm'; ?>" class="btn_full_outline">login</a>
-
-                                <?php
-
-                            }
-                                           
-                        ?>
+                            
                                                   
                                                        
 
@@ -810,12 +801,22 @@ function bookthispackage(packageId){
 var adultPriceId = packageId+"adultprice";
 var childPriceId = packageId+"childprice";
 var serviceTaxId = packageId+"servicetax";
+var kmp = packageId+"kidsmealprice";
+var kidsmealprice = $('#'+kmp).val();
 
 //alert($('#'+serviceTaxId).val());
 
 $('.adultprice').html($('#'+adultPriceId).val());
 $('.childprice').html($('#'+childPriceId).val());
 $('#servicetax').html($('#'+serviceTaxId).val());
+
+$('.kidsmealprice').html(kidsmealprice);
+
+if (kidsmealprice>0) {
+    $(".kids").show();
+}else{
+    $(".kids").hide();
+}
 
 $('html, body').animate({
     scrollTop: 500
@@ -907,8 +908,8 @@ var current = new Date(dateSecond[2], dateSecond[1], dateSecond[0]);
                 if (res.trim()=="true") {
                     window.location.href="<?php echo site_url().'frontend/confirm'; ?>";
                 } else if(res.trim()=="false") {
-                    alert("Please login to book tickets");
-                     window.location.href="<?php echo site_url().'frontend/loginForm'; ?>";
+                    //alert("Please login to book tickets");
+                     window.location.href="<?php echo site_url().'frontend/confirm'; ?>";
                 }else{
                     console.log(res);
                 }        //$('#email').html(res);

@@ -25,13 +25,15 @@
 
                             
                               <div class="form-group">
-                                <label for="exampleInputName2">Name</label> &nbsp; &nbsp;
+                                <label for="exampleInputName2">Mobile</label> &nbsp; &nbsp;
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
-                                    echo '<input type="text" name="udf1" class="form-control" id="exampleInputName2" placeholder="Enter Your Name">';
+                                    echo '<input type="text" name="udf1" class="form-control" id="exampleInputName2" placeholder="Enter Your mobile">';
                                  }else{
                                     ?>
-                                    <input type="text" name="udf1" class="form-control" id="exampleInputName2" placeholder="Enter Your Name" value="<?php echo $this->session->userdata('holidayCustomerName');  ?>">
+                                    <input type="text" name="udf1" class="form-control" id="exampleInputName2" placeholder="Enter Your mobile" value="<?php
+                                    echo $this->db->get_where('tblcustomers' , array('customer_id' =>$this->session->userdata('holidayCustomerId')))->row()->number;
+                                       ?>">
 
                                     <?php
                                  }
