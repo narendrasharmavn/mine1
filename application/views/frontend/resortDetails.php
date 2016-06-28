@@ -885,6 +885,7 @@ var current = new Date(dateSecond[2], dateSecond[1], dateSecond[0]);
         var numberofadults = $('.adults-number').html();
         var numberofchildren = $('.children-number').html();
         var servicetax = $('#servicetax').html();
+        var kidsmealqty = $("#kidsmeal").val();
 
         //alert(numberofadults);
 
@@ -900,7 +901,8 @@ var current = new Date(dateSecond[2], dateSecond[1], dateSecond[0]);
             childpriceperticket:childpriceperticket,
             numberofadults:numberofadults,
             numberofchildren:numberofchildren,
-            servicetax:servicetax
+            servicetax:servicetax,
+            kidsmealqty:kidsmealqty
 
         },
         success: function(res) {

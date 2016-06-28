@@ -7,7 +7,7 @@
                 <div class="col-md-12 col-xs-12">
                     <div class="col-md-8 col-xs-12">
                         <h3 style="color:#fff; background-color:#3cf; padding:20px;">Share Your Contact Details</h3>
-                        <form class="form-inline" action="<?php echo base_url().'merchant/';  ?>submit.php" method="post" style="background-color:#eee; padding:25px;">
+                        <form class="form-inline" action="<?php echo base_url().'merchant/';  ?>submit.php" method="post" id="theForm" style="background-color:#eee; padding:25px;">
 
                         <input type="hidden" name="amount" class=" form-control" placeholder="Password" value="<?php echo $this->session->userdata('totalcost') ?>" readonly>
                                     <INPUT TYPE="hidden" NAME="udf3" value="NSE">
@@ -28,10 +28,10 @@
                                 <label for="exampleInputName2">Mobile</label> &nbsp; &nbsp;
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
-                                    echo '<input type="text" name="udf1" class="form-control" id="exampleInputName2" placeholder="Enter Your mobile">';
+                                    echo '<input type="tel" name="udf1" class="form-control" id="mobile" placeholder="Enter Your mobile">';
                                  }else{
                                     ?>
-                                    <input type="text" name="udf1" class="form-control" id="exampleInputName2" placeholder="Enter Your mobile" value="<?php
+                                    <input type="tel" name="udf1" class="form-control" id="mobile" placeholder="Enter Your mobile" value="<?php
                                     echo $this->db->get_where('tblcustomers' , array('customer_id' =>$this->session->userdata('holidayCustomerId')))->row()->number;
                                        ?>">
 
@@ -45,10 +45,10 @@
                                 <label for="exampleInputEmail2">Email</label> &nbsp; &nbsp;
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
-                                    echo '<input type="email" name="udf2" class="form-control" id="exampleInputEmail2" placeholder="abcd@example.com">';
+                                    echo '<input type="email" name="udf2" class="form-control" id="email" placeholder="abcd@example.com">';
                                  }else{
                                     ?>
-                                    <input type="email" name="udf2" class="form-control" id="exampleInputEmail2" placeholder="abcd@example.com" value="<?php echo $this->session->userdata('holidayEmail');  ?>">
+                                    <input type="email" name="udf2" class="form-control" id="email" placeholder="abcd@example.com" value="<?php echo $this->session->userdata('holidayEmail');  ?>">
 
                                     <?php
                                  }
@@ -56,7 +56,14 @@
                                 ?>
                                 
                               </div> &nbsp; &nbsp;
-                              <button type="submit" class="btn btn-primary">CONTINUE</button>
+                              <?php
+                              if ($this->session->userdata('holidayEmail')) {
+                                 echo '<button type="submit" class="btn btn-primary">Pay</button>';
+                              }else{
+                                echo '<button type="button" id="pay" class="btn btn-primary">Pay</button>';
+                              }
+                              ?>
+                              
                             </form>
                     </div>
                     <div class="col-md-4 col-xs-12" style="background-color:#eee; margin-top:20px;">
@@ -100,7 +107,8 @@
      include 'scripts.php';
       ?>
 
-
+ <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+  
 <script type="text/javascript">
 
 $('document').ready(function(){
@@ -136,6 +144,62 @@ $('#searchtype').on('change',function(){
         // $(".datefield").attr("disabled", "disabled");
         $('#datepickerj').prop('disabled', true);
     }
+
+});
+
+
+$('#pay').on('click',function(){
+    //alert("pay clicked");
+    var mobile = $('#mobile').val();
+    var email = $('#email').val()
+    if($('#mobile').val()=='' || $('#email').val()==''){
+        alert("fields are empty");
+    }else if(mobile.length<10 || mobile.length>10){
+        alert("Mobile number should be 10 digits");
+    }else{
+        
+        //ajax submit
+
+        $.ajax({
+        type: "POST",
+        url: '<?php echo site_url("frontend/nosessionhandler")?>',
+        data: {
+            mobile:mobile,
+            email:email
+
+        },
+        success: function(res) {
+            if (res.trim()=="true") {
+                document.getElementById('theForm').submit();
+            }else{
+                alert(res.trim());
+            }
+            
+
+/*
+                if (res.trim()=="true") {
+                    window.location.href="<?php echo site_url().'frontend/confirm'; ?>";
+                } else if(res.trim()=="false") {
+                    //alert("Please login to book tickets");
+                     window.location.href="<?php echo site_url().'frontend/confirm'; ?>";
+                }else{
+                    console.log(res);
+                }   
+                */     //$('#email').html(res);
+        },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                    console.log(xhr.responseText);
+                 
+                }
+        });
+
+        //end of ajax submit
+
+
+    }
+
 
 });
 
