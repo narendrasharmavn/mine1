@@ -236,7 +236,7 @@ class Frontend extends CI_Controller {
 
           'name' => 'Guest',
           'username' => $email,
-          'password' => hash(rand(9999,99999)),
+          'password' => hash('sha512',rand(9999,99999)),
           'number' => $mobile,
           'dateofcreation' => date('Y-m-d')
 
@@ -333,7 +333,7 @@ class Frontend extends CI_Controller {
       $bookingsdata = array(
           'dateofvisit' => $this->session->userdata('dateofvisit'),
           'date'=>date('Y-m-d'),
-          'userid' => $customerid,
+          'userid' => $this->session->userdata('holidayCustomerId'),
           'quantity' => $this->session->userdata('numberofadults'),
           'booking_status' => 'pending',
           'packageid'=>$this->session->userdata('packageid'),

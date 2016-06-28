@@ -175,17 +175,6 @@ $('#pay').on('click',function(){
                 alert(res.trim());
             }
             
-
-/*
-                if (res.trim()=="true") {
-                    window.location.href="<?php echo site_url().'frontend/confirm'; ?>";
-                } else if(res.trim()=="false") {
-                    //alert("Please login to book tickets");
-                     window.location.href="<?php echo site_url().'frontend/confirm'; ?>";
-                }else{
-                    console.log(res);
-                }   
-                */     //$('#email').html(res);
         },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr.status);
