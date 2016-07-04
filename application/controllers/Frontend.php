@@ -328,7 +328,7 @@ class Frontend extends CI_Controller {
 
       $noOfTickets = ($numberofadults)+($numberofchildren);
 
-      //echo $noOfTickets."<br>";
+      
 
       $bookingsdata = array(
           'dateofvisit' => $this->session->userdata('dateofvisit'),
