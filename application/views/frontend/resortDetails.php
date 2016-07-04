@@ -326,7 +326,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                             <label><i class="icon-calendar-7"></i> Select a date</label>
                             <input type="hidden" value="" id="packageid">
                             <input type="hidden" value="<?php echo $resortResults->vendorid; ?>" id="vendorid">
-                            <input class="form-control" id="datepickerj" type="text" name="date">
+                            <input class="form-control datepickerj" ID="DATEPICKERJ" type="text" name="date">
                         </div>
                     </div>
                 </div>
@@ -673,7 +673,7 @@ var exchange_rate = 1;
 //$(document).ready(function(){
  //$('.carousel').carousel({interval: 2000});
     //loadMap();
-     $('#datepickerj').datepick({dateFormat: 'yyyy-mm-dd'});
+     $( ".datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
 
      $('.theiaStickySidebar').hide();
      //document.getElementsByClassName("book-now").disabled = true

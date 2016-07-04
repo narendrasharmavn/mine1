@@ -14,7 +14,7 @@
                                     Please enter your registered email. We will send you the password to your Registered Mobile Number                                </div>
                                 <div class="form-group">
                                     <label>E-mail</label>
-                                    <input type="email" name="email" class="form-control" placeholder="Enter E-mail" value="<?php echo set_value('email'); ?>">
+                                    <input type="email" name="email" class="form-control" placeholder="Enter E-mail" value="<?php echo set_value('email'); ?>" required>
                                     <span class="text-danger"><?php echo form_error('email'); ?></span>
                                 </div>
                                 <button type="submit" class="btn_full">Get New Password</button>

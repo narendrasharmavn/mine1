@@ -1,10 +1,5 @@
-<?php
-    $query = $this->db->query("SELECT * FROM tblsliders WHERE status=1");
+<?php  $query = $this->db->query("SELECT * FROM tblsliders WHERE status=1"); ?>
 
-
-
-
-?>
 
     <!-- Slider -->
     <div class="tp-banner-container">
@@ -23,7 +18,7 @@
                                        <?php echo $this->session->flashdata('error-msg'); ?>
                                                 <?php  
 
-                                                    echo form_open('search-results',array('id'=>'searchform','method'=>'post','role' => 'search'));
+                                                    echo form_open('search-results',array('id'=>'searchform','method'=>'post','role' => 'search','class' => 'searchform'));
                                                 ?>   
                                         <div class="search-field">
                                         
@@ -37,37 +32,37 @@
 												<div class="col-md-12">
 													<div class="form-group">
 														
-														<select class="form-control search-form-slider" id="searchtype" name="searchtype">
+														<select class="form-control search-form-slider searchtype" id="searchtype" name="searchtype" required>
 															<option value="" selected="">Search For</option>
 															<option value="resortname" <?php echo  set_select('searchtype', 'resortname'); ?>>Resort Name</option>
 														   <option value="eventname" <?php echo  set_select('searchtype', 'eventname'); ?>>Event Name</option>
 														   <option value="places" <?php echo  set_select('searchtype', 'places'); ?>>Places</option>
 														   
 														 </select>
-														 <span class="text-danger"><?php echo form_error('searchtype'); ?></span>
+														 <span class="text-danger searchtypeerror"><?php echo form_error('searchtype'); ?></span>
 														</div>
 												</div>
 												<div class="col-md-12">
                                 <div class="form-group">
                                    
-                                    <input type="text" class="form-control search-form-slider" name="searchterm" placeholder="Enter Keywords" value="<?php echo set_value('searchterm'); ?>">
-                                    <span class="text-danger"><?php echo form_error('searchterm'); ?></span>
+                                    <input type="text" class="form-control search-form-slider" name="searchterm" id="searchterm" placeholder="Enter Keywords" value="<?php echo set_value('searchterm'); ?>" required>
+                                    <span class="text-danger searchtermerror"><?php echo form_error('searchterm'); ?></span>
                                 </div>
                             </div>
                             
                         
-                            <div class="col-md-12 datefield">
+                         <div class="col-md-12 datefield">
                                 <div class="form-group">
                                     
-                                    <input class="form-control search-form-slider" id="datepickerj" type="date" name="date" placeholder="Select date">
-                                    <span class="text-danger"><?php echo form_error('date'); ?></span>
+                                    <input class="form-control search-form-slider datepickerj" type="text" name="date" id="date" placeholder="Select date">
+                                    <span class="text-danger datepickerjerror"><?php echo form_error('date'); ?></span>
                                 </div>
                             </div>
                             <div class="col-md-12 col-sm-3 col-xs-6">
                                 <div class="form-group">
                                    
                                 
-                                    <button type="submit" class="btn_1 green"><i class="icon-search"></i>Search now</button>
+                                    <button type="submit" class="btn_1 green searchnowbutton"><i class="icon-search"></i>Search now</button>
                                 </div>
                             </div>
 												</div>
@@ -77,12 +72,7 @@
                                          
                                     </form><!-- /form.location-search -->
                                      
-<link rel="stylesheet" type="text/css" href="http://50.116.106.227/~thenordi/demo/themeforest/wordpress/traveline/wp-content/plugins/dopbsp/templates/default/css/jquery.dop.frontend.BSPSearch.css">
-<script type="text/JavaScript">
-    jQuery(document).ready(function(){
-        jQuery("#DOPBSPSearch1").DOPBSPSearch({"availability":{"data":{"enabled":false,"max":10,"min":1},"text":{"title":"No book items"}},"currency":{"data":{"code":"USD","position":"before","sign":"&#36;","text":[]}},"days":{"data":{"first":1,"multipleSelect":true},"text":{"names":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"shortNames":["Su","Mo","Tu","We","Th","Fr","Sa"]}},"hours":{"data":{"ampm":true,"definitions":[{"value":"00:00"},{"value":"01:00"},{"value":"02:00"},{"value":"03:00"},{"value":"04:00"},{"value":"05:00"},{"value":"06:00"},{"value":"07:00"},{"value":"08:00"},{"value":"09:00"},{"value":"10:00"},{"value":"11:00"},{"value":"12:00"},{"value":"13:00"},{"value":"14:00"},{"value":"15:00"},{"value":"16:00"},{"value":"17:00"},{"value":"18:00"},{"value":"19:00"},{"value":"20:00"},{"value":"21:00"},{"value":"22:00"},{"value":"23:00"}],"enabled":false,"multipleSelect":true},"text":[]},"ID":"1","months":{"data":[],"text":{"names":["January","February","March","April","May","June","July","August","September","October","November","December"],"shortNames":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]}},"pluginURL":"http:\/\/50.116.106.227\/~thenordi\/demo\/themeforest\/wordpress\/traveline\/wp-content\/plugins\/dopbsp\/","price":{"data":{"enabled":false,"max":"20","min":"20"},"text":[]},"search":{"data":{"dateType":2,"enabled":true,"language":"en","template":"default"},"text":{"checkIn":"Check in","checkOut":"Check out","hourEnd":"Finish at","hourStart":"Start at","title":"!"}},"sort":{"data":[],"text":{"name":"Name","price":"Price","title":"Sort by"}},"URL":"http:\/\/50.116.106.227\/~thenordi\/demo\/themeforest\/wordpress\/traveline\/wp-admin\/admin-ajax.php","view":{"data":{"default":false,"gridEnabled":true,"listEnabled":true,"mapEnabled":false,"results":1},"text":{"grid":"Grid view","list":"List view","map":"Map view"}}});
-    });
-</script>
+
 
                                 </div><!-- /.featured-overlay-inner -->
                             </div>
@@ -189,7 +179,7 @@ $i++;
                                         <?php echo $this->session->flashdata('error-msg'); ?>
                                                 <?php  
 
-                                                    echo form_open('search-results',array('id'=>'search-tour-form','method'=>'post','role' => 'search'));
+                                                    echo form_open('search-results',array('class' => 'searchform','id'=>'search-tour-form','method'=>'post','role' => 'search','novalidate'=>'novalidate'));
                                                 ?>
                        
                         <input type="hidden" name="post_type" value="tour">
@@ -203,7 +193,7 @@ $i++;
                             <div class="col-md-3">
                                 <div class="form-group">
                                     
-                                    <select class="form-control" id="searchtype" name="searchtype">
+                                    <select class="form-control searchtype" name="searchtype">
                                         <option value="" selected="">Search For</option>
                                         <option value="resortname" <?php echo  set_select('searchtype', 'resortname'); ?>>Resort Name</option>
                                        <option value="eventname" <?php echo  set_select('searchtype', 'eventname'); ?>>Event Name</option>
@@ -222,10 +212,10 @@ $i++;
                             </div>
                             
                         
-                            <div class="col-md-2 datefield">
+                            <div class="col-md-12 datefield">
                                 <div class="form-group">
                                     
-                                    <input class="form-control" id="datepickerj" type="date" name="date" placeholder="Select date">
+                                    <input class="form-control search-form-slider datepickerj" type="text" name="date" placeholder="Select date">
                                     <span class="text-danger"><?php echo form_error('date'); ?></span>
                                 </div>
                             </div>
@@ -233,7 +223,7 @@ $i++;
                                 <div class="form-group">
                                    
                                 
-                                    <button type="submit" class="btn_1 green"><i class="icon-search"></i>Search now</button>
+                                    <button type="submit" class="btn_1 green searchnowbutton"><i class="icon-search"></i>Search now</button>
                                 </div>
                             </div>
                             <div class="col-md-1"></div>
@@ -251,11 +241,8 @@ if (count($events->result())>0) {
     
         <div class="main_title">
             <h2>Latest Events</h2>
-           
-        </div>
+         </div>
 
-        
-        
         <div class="row">
 
         <?php
@@ -372,10 +359,7 @@ if (count($query->result())>0) {
             <p class="text-center add_bottom_30">
             <a href="<?php echo site_url().'placesall' ?>" class="btn_1 green medium"><i class="icon-eye-7"></i>View all Places  </a>
         </p>
-
-           
-            
-            
+         
         </div><!-- End container -->
     </div><!-- End white_bg -->
    
@@ -396,44 +380,53 @@ if (count($query->result())>0) {
 <script type="text/javascript">
 
 $('document').ready(function(){
-    //alert("hello");
-    $('#datepickerj').datepick({dateFormat: 'yyyy-mm-dd'});
-    //$('#inlineDatepicker').datepick({onSelect: showDate});
-    //$('#datetimepicker4').datetimepicker();
+    
 
-    var searchType = $('#searchtype').val();
+   $( ".datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
+
+    var searchType = $('.searchtype').val();
     if (searchType=="eventname") {
-        //$('.datefield').show();
-        $('#datepickerj').prop('disabled', false);
-        //$(this).text(enable ? 'Disable' : 'Enable'). 
-        //siblings('.is-datepick').datepick(enable ? 'enable' : 'disable'); 
-        //$(".datefield").attr("enabled", "enabled"); 
-        
-    } else {
         $('.datefield').show();
-         //$(".datefield").attr("disabled", "disabled");
-         $('#datepickerj').prop('disabled', true);
+    } else {
+        $('.datefield').hide();    
     }
+
+
+    
+
+
 });
 
 
-$('#searchtype').on('change',function(){
+$('.searchtype').on('change',function(){
     //alert(this.value);
-    if(this.value=='eventname'){
-       // $('.datefield').show();
-       //  $(".datefield").attr("enabled", "enabled");
-       $('#datepickerj').prop('disabled', false);
-    }else{
-       // $('.datefield').show();
-        // $(".datefield").attr("disabled", "disabled");
-        $('#datepickerj').prop('disabled', true);
+    if (this.value=="eventname") {
+        $('.datefield').show();
+        $(".datefield").rules("add", "required");
+    } else {
+        $('.datefield').hide();
+        $(".datefield").rules("remove", "required"); 
     }
 
 });
 
+/*
 
+$('.searchnowbutton').click(function(event) {
+    var searchType = $('.searchtype').val();
+    var searchterm = $('.searchterm').val();
+    var datepickerj = $('.datepickerj').val();
+
+    //alert(datepickerj);
+    
+    
+});
+
+
+*/
 
 </script>
+
 
         </body>
 

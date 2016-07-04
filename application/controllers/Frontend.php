@@ -175,7 +175,7 @@ class Frontend extends CI_Controller {
                           $searchterm = $this->input->post('searchterm');
                           $searchdate = $this->input->post('date');
 
-
+                          $searchdate = date('Y-m-d', strtotime($searchdate));
                          if ($searchtype!='' || $searchterm!='' || $searchdate!='') {
                           //echo "true"."<br>";
                           //echo $searchterm."<br>";

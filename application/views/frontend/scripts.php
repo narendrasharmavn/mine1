@@ -2,10 +2,8 @@
 
     <script src="<?php echo base_url(); ?>assets/frontend/js/jquery-1.11.2.min.js"></script>
 
-    <link href="<?php echo base_url(); ?>assets/frontend/datepicker/jquery.datepick.css" rel="stylesheet">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/frontend/datepicker/jquery.plugin.js"></script>
-    <script src="<?php echo base_url(); ?>assets/frontend//datepicker/jquery.datepick.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 
     <script src="<?php echo base_url(); ?>assets/frontend/js/common_scripts_min.js"></script>
     <script src="<?php echo base_url(); ?>assets/frontend/js/functions.js"></script>

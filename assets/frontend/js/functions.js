@@ -194,6 +194,7 @@ var toggles = document.querySelectorAll(".cmn-toggle-switch");
 	});
 });
 
+/*
 $(document).ready(function(){
 	if ( $('.widget_recent_entries').length ) {
 		$( '.widget_recent_entries > ul > li' ).each(function(index){
@@ -208,6 +209,8 @@ $(document).ready(function(){
 		});
 	}
 });
+
+*/
 
 //reviews ajax loading
 $('.guest-reviews .more-review').click(function() {

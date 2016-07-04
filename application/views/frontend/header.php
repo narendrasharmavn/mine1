@@ -15,17 +15,17 @@
     <script src="https://use.fontawesome.com/3ad883fb7d.js"></script>
 
 
-  <!--  <script src="<?php echo base_url(); ?>/assets/frontend/fontawesome/fonts.js"></script>-->
+  <!--  <script src="<?php echo base_url(); ?>assets/frontend/fontawesome/fonts.js"></script>-->
 
     <!-- Favicons-->
-    <link rel="shortcut icon" href="<?php echo base_url(); ?>/assets/frontend/img/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" type="image/x-icon" href="<?php echo base_url(); ?>/assets/frontend/img/apple-touch-icon-57x57-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="<?php echo base_url(); ?>/assets/frontend/img/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="<?php echo base_url(); ?>/assets/frontend/img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="<?php echo base_url(); ?>/assets/frontend/img/apple-touch-icon-144x144-precomposed.png">
+    <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/frontend/img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="<?php echo base_url(); ?>assets/frontend/img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="<?php echo base_url(); ?>assets/frontend/img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="<?php echo base_url(); ?>assets/frontend/img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="<?php echo base_url(); ?>assets/frontend/img/apple-touch-icon-144x144-precomposed.png">
 
     <!-- BASE CSS -->
-    <link href="<?php echo base_url(); ?>/assets/frontend/css/base.css" rel="stylesheet" type="text/css" media="all" >
+    <link href="<?php echo base_url(); ?>assets/frontend/css/base.css" rel="stylesheet" type="text/css" media="all" >
 
     <!-- Google web fonts -->
    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
@@ -33,31 +33,29 @@
    <link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
 
     <!-- REVOLUTION SLIDER CSS -->
-    <link href="<?php echo base_url(); ?>/assets/frontend/rs-plugin/css/settings.css" rel="stylesheet" type="text/css" media="all" >
-    <link href="<?php echo base_url(); ?>/assets/frontend/css/extralayers.css" rel="stylesheet" type="text/css" media="all" >
-    <link href="<?php echo base_url(); ?>/assets/frontend/css/slider-pro.min.css" rel="stylesheet" type="text/css" media="all" >
-    <link href="<?php echo base_url(); ?>/assets/frontend/css/date_time_picker.css" rel="stylesheet" type="text/css" media="all" >
-    <link href="<?php echo base_url(); ?>/assets/frontend/css/animate.css" rel="stylesheet" type="text/css" media="all" >
-    <link href="<?php echo base_url(); ?>/assets/frontend/css/carouselpart.css" rel="stylesheet" type="text/css" media="all" >
+    <link href="<?php echo base_url(); ?>assets/frontend/rs-plugin/css/settings.css" rel="stylesheet" type="text/css" media="all" >
+    <link href="<?php echo base_url(); ?>assets/frontend/css/extralayers.css" rel="stylesheet" type="text/css" media="all" >
+    <link href="<?php echo base_url(); ?>assets/frontend/css/slider-pro.min.css" rel="stylesheet" type="text/css" media="all" >
+    <link href="<?php echo base_url(); ?>assets/frontend/css/date_time_picker.css" rel="stylesheet" type="text/css" media="all" >
+    <link href="<?php echo base_url(); ?>assets/frontend/css/animate.css" rel="stylesheet" type="text/css" media="all" >
+    <link href="<?php echo base_url(); ?>assets/frontend/css/carouselpart.css" rel="stylesheet" type="text/css" media="all" >
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <script type='text/javascript' src='<?php echo base_url(); ?>/assets/frontend/js/jquery/jquery-migrate.min.js'></script>
-    <script type='text/javascript' src='<?php echo base_url(); ?>/assets/frontend/js/theia-sticky-sidebar.js'></script>
-    <link href="<?php echo base_url(); ?>/assets/frontend/css/detailscarousel.css" rel="stylesheet" type="text/css" media="all" >
-    <script type='text/javascript' src='<?php echo base_url(); ?>/assets/frontend/js/detailspage.js'></script>
+    <script type='text/javascript' src='<?php echo base_url(); ?>assets/frontend/js/jquery/jquery-migrate.min.js'></script>
+    <script type='text/javascript' src='<?php echo base_url(); ?>assets/frontend/js/theia-sticky-sidebar.js'></script>
+    <link href="<?php echo base_url(); ?>assets/frontend/css/detailscarousel.css" rel="stylesheet" type="text/css" media="all" >
+    <script type='text/javascript' src='<?php echo base_url(); ?>assets/frontend/js/detailspage.js'></script>
 
 
 
     
       <script src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyA-hMJfrFKuq7zQy30m0GBdzKSMl9qcxIo"></script>
 
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/frontend/style.css">
-    
 
 
     <!--[if lt IE 9]>
-      <script src="<?php echo base_url(); ?>/assets/frontend/js/html5shiv.min.js"></script>
-      <script src="<?php echo base_url(); ?>/assets/frontend/js/respond.min.js"></script>
+      <script src="<?php echo base_url(); ?>assets/frontend/js/html5shiv.min.js"></script>
+      <script src="<?php echo base_url(); ?>assets/frontend/js/respond.min.js"></script>
     <![endif]-->
 <style type="text/css">
     
@@ -99,7 +97,7 @@
             <div class="row">
                 <div class="col-md-3 col-sm-3 col-xs-3">
                      <div id="logo_home">
-                    	<!--<img src="<?php echo base_url(); ?>/assets/frontend/images/logo.jpg" width="160" height="34" alt="City tours" data-retina="true" class="logo_sticky">-->
+                    	<!--<img src="<?php echo base_url(); ?>assets/frontend/images/logo.jpg" width="160" height="34" alt="City tours" data-retina="true" class="logo_sticky">-->
                         <a href="<?php echo site_url().'home';      ?>">
                             <span class="logo-title">Book4Holiday</span>
                         </a>
@@ -109,7 +107,7 @@
                     <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
                     <div class="main-menu">
                         <div id="header_menu">
-                            <!--<img src="<?php echo base_url(); ?>/assets/frontend/img/logo_sticky.png" width="160" height="34" alt="City tours" data-retina="true">-->
+                            <!--<img src="<?php echo base_url(); ?>assets/frontend/img/logo_sticky.png" width="160" height="34" alt="City tours" data-retina="true">-->
                             <a href="<?php echo site_url().'home';      ?>">
                                 <span style="color: Black;font-size: 30px;">Book4Holiday</span>
                            </a>
@@ -200,19 +198,19 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=" icon-basket-1"></i>Cart (0) </a>
                                 <ul class="dropdown-menu" id="cart_items">
                                     <li>
-                                        <div class="image"><img src="<?php echo base_url(); ?>/assets/frontend/images/slides/1.jpg" alt="Image"></div>
+                                        <div class="image"><img src="<?php echo base_url(); ?>assets/frontend/images/slides/1.jpg" alt="Image"></div>
                                         <strong>
 										<a href="#">Louvre museum</a>1x $36.00 </strong>
                                         <a href="#" class="action"><i class="icon-trash"></i></a>
                                     </li>
                                     <li>
-                                        <div class="image"><img src="<?php echo base_url(); ?>/assets/frontend/images/slides/2.jpg" alt="Image"></div>
+                                        <div class="image"><img src="<?php echo base_url(); ?>assets/frontend/images/slides/2.jpg" alt="Image"></div>
                                         <strong>
 										<a href="#">Versailles tour</a>2x $36.00 </strong>
                                         <a href="#" class="action"><i class="icon-trash"></i></a>
                                     </li>
                                     <li>
-                                        <div class="image"><img src="<?php echo base_url(); ?>/assets/frontend/images/slides/3.jpg" alt="Image"></div>
+                                        <div class="image"><img src="<?php echo base_url(); ?>assets/frontend/images/slides/3.jpg" alt="Image"></div>
                                         <strong>
 										<a href="#">Versailles tour</a>1x $36.00 </strong>
                                         <a href="#" class="action"><i class="icon-trash"></i></a>
