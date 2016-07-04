@@ -175,13 +175,18 @@ class Frontend extends CI_Controller {
                           $searchterm = $this->input->post('searchterm');
                           $searchdate = $this->input->post('date');
 
-                          $searchdate = date('Y-m-d', strtotime($searchdate));
-                         if ($searchtype!='' || $searchterm!='' || $searchdate!='') {
+                          
+                         if ($searchtype!='' || $searchterm!='') {
                           //echo "true"."<br>";
                           //echo $searchterm."<br>";
+
                                $this->session->set_userdata('searchtype',$searchtype);
                                $this->session->set_userdata('searchterm',$searchterm);
-                               $this->session->set_userdata('searchdate',$searchdate);
+                               if($searchdate!=''){
+                                $searchdate = date('Y-m-d', strtotime($searchdate));
+                                $this->session->set_userdata('searchdate',$searchdate);
+                               }
+                               
                                //echo "session in search term is: ".$this->session->set_userdata('searchterm')."<br>";
                                
                           }
@@ -194,6 +199,7 @@ class Frontend extends CI_Controller {
                               //get latest 6 events to load on index page
                                 $this->session->set_flashdata('error-msg','<div class="alert alert-success text-center">Please select a date</div>');
                                   $data['events']= $this->FrontEndModel->getLatestSixEvents();
+
 
                                   $this->load->view('frontend/header');
                                   $this->load->view('frontend/index',$data);
@@ -1807,7 +1813,7 @@ public function getPackageAmountAndSetMarkUp(){
                     //$this->form_validation->set_rules("email", "Email", "trim|required|valid_email|callback_validate_email[$mobile]");
                     $this->form_validation->set_rules("email", "Email", "trim|required");
                     $this->form_validation->set_rules("password", "password", "trim|required|matches[cpassword]");
-                    $this->form_validation->set_rules("cpassword", "cpassword", "trim|required");
+                    $this->form_validation->set_rules("cpassword", "Confirm Password", "trim|required");
                     $this->form_validation->set_rules("mobile", "mobile", "trim|required|min_length[10]|max_length[10]");
 
                     if ($this->form_validation->run() == FALSE)

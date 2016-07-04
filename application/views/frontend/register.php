@@ -19,28 +19,28 @@
                                     Register For This Site
                                 </div>
                                 <div class="form-group">
-                                    <label>Name</label>
+                                    <label>Name*</label>
                                     <input type="text" name="name" class=" form-control" placeholder="Name" value="<?php echo set_value('name'); ?>" required>
                                     <span class="text-danger"><?php echo form_error('name'); ?></span>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label>Email</label>
+                                    <label>Email*</label>
                                     <input type="email" name="email" class=" form-control" placeholder="Email" value="<?php echo set_value('email'); ?>" required>
                                     <span class="text-danger"><?php echo form_error('email'); ?></span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Mobile</label>
+                                    <label>Mobile*</label>
                                     <input type="tel" name="mobile" class=" form-control" placeholder="Mobile" value="<?php echo set_value('mobile'); ?>" required>
                                     <span class="text-danger"><?php echo form_error('mobile'); ?></span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Password</label>
+                                    <label>Password*</label>
                                     <input type="password" name="password" class=" form-control" placeholder="Password" required >
                                     <span class="text-danger"><?php echo form_error('password'); ?></span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Confirm Password</label>
+                                    <label>Confirm Password*</label>
                                     <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password" required>
                                     <span class="text-danger"><?php echo form_error('cpassword'); ?></span>
                                 </div>

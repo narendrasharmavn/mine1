@@ -1,72 +1,4 @@
-<script>
-
-         var icon = new google.maps.MarkerImage("<?php echo base_url().'assets/marker/'  ?>green.png",
-        new google.maps.Size(32, 40), new google.maps.Point(0, 0),
-        new google.maps.Point(16, 32));
-        var center = null;
-        var map = null;
-        var currentPopup;
-        var bounds = new google.maps.LatLngBounds();
-
-        function addMarker(lat, lng, info)
-        {
-            var pt = new google.maps.LatLng(lat, lng);
-            bounds.extend(pt);
-            var marker = new google.maps.Marker(
-            {
-                position: pt,
-                icon: icon,
-                map: map
-            });
-            var popup = new google.maps.InfoWindow(
-            {
-                content: info,
-                maxWidth: 300
-            });
-
-            google.maps.event.addListener(marker, "click", function()
-            {
-                if (currentPopup != null)
-                {
-                    currentPopup.close();
-                    currentPopup = null;
-                }
-                popup.open(map, marker);
-                currentPopup = popup;
-            });
-            google.maps.event.addListener(popup, "closeclick", function()
-            {
-                map.panTo(center);
-                currentPopup = null;
-            });
-        }
-
-        function loadMap()
-        {
-            map = new google.maps.Map(document.getElementById("map"), {
-            center: new google.maps.LatLng(0, 0),
-            zoom: 0,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            mapTypeControl: false,
-            mapTypeControlOptions:
-            {
-                style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
-            },
-            navigationControl: true,
-            navigationControlOptions:
-            {
-                style: google.maps.NavigationControlStyle.SMALL
-            }
-            });
-            <?php foreach($getdata->result() as $k) { //you could replace this with your while loop query ?>
-                addMarker(<?php echo $k->latitude; ?>, <?php echo $k->longitude; ?>, '<?php echo $k->resortname; ?>');
-            <?php } ?>
-            center = bounds.getCenter();
-            map.fitBounds(bounds);
-        }
-
-
- </script>
+<?php $last_id=0; ?>
 <script type="text/javascript">
       //paste this code under head tag or in a seperate js file.
       // Wait for window load
@@ -76,14 +8,9 @@
       });
     </script>
 
-<div class="row">
+<div class="row" style="margin-top:60px;">
                   <div class="se-pre-con"></div>  
-                    <div class="col-md-12">
-                       
-                        <div id="map" class="map"></div>
-
-      
-                    </div>
+                    
                 </div>
 
     <!-- content starts here -->
@@ -233,7 +160,7 @@
             <div class="tour-list row add-clearfix" id="results">
 
             <?php 
-
+                    if(count($getdata->result())>0){
                     foreach ($getdata->result() as $k) {
                          $resorttitleurl = str_replace(" ", "-", $k->resortname);
                     $sql = "SELECT  min(adultprice) as minprice from tblpackages WHERE resortid='$k->resortid'";
@@ -280,6 +207,10 @@
 
                           $last_id = $k->resortid;
                     }
+
+                }else{
+                    echo '<div class="alert alert-danger" role="alert">No results over your choosen Criteria</div>';
+                }
 
                      ?>
 
@@ -440,10 +371,6 @@ $(document).ready(function() {
             }
         });
     });
-
-
-
-    loadMap();
 
     function sortpriceforresorts()
     {

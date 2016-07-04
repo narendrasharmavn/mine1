@@ -1,73 +1,4 @@
-
-<script>
-
-         var icon = new google.maps.MarkerImage("<?php echo base_url().'assets/marker/'  ?>green.png",
-        new google.maps.Size(32, 40), new google.maps.Point(0, 0),
-        new google.maps.Point(16, 32));
-        var center = null;
-        var map = null;
-        var currentPopup;
-        var bounds = new google.maps.LatLngBounds();
-
-        function addMarker(lat, lng, info)
-        {
-            var pt = new google.maps.LatLng(lat, lng);
-            bounds.extend(pt);
-            var marker = new google.maps.Marker(
-            {
-                position: pt,
-                icon: icon,
-                map: map
-            });
-            var popup = new google.maps.InfoWindow(
-            {
-                content: info,
-                maxWidth: 300
-            });
-
-            google.maps.event.addListener(marker, "click", function()
-            {
-                if (currentPopup != null)
-                {
-                    currentPopup.close();
-                    currentPopup = null;
-                }
-                popup.open(map, marker);
-                currentPopup = popup;
-            });
-            google.maps.event.addListener(popup, "closeclick", function()
-            {
-                map.panTo(center);
-                currentPopup = null;
-            });
-        }
-
-        function loadMap()
-        {
-            map = new google.maps.Map(document.getElementById("map"), {
-            center: new google.maps.LatLng(0, 0),
-            zoom: 0,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            mapTypeControl: false,
-            mapTypeControlOptions:
-            {
-                style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
-            },
-            navigationControl: true,
-            navigationControlOptions:
-            {
-                style: google.maps.NavigationControlStyle.SMALL
-            }
-            });
-            <?php foreach($getdata->result() as $k) { //you could replace this with your while loop query ?>
-                addMarker(<?php echo $k->latitude; ?>, <?php echo $k->longitude; ?>, '<?php echo $k->eventname; ?>');
-            <?php } ?>
-            center = bounds.getCenter();
-            map.fitBounds(bounds);
-        }
-
-
- </script>
+<?php $last_id=0; ?>
 <script type="text/javascript">
       //paste this code under head tag or in a seperate js file.
       // Wait for window load
@@ -77,14 +8,9 @@
       });
     </script>
 
-<div class="row">
+<div class="row" style="margin-top:60px;">
                   <div class="se-pre-con"></div>  
-                    <div class="col-md-12">
-                       
-                        <div id="map" class="map"></div>
-
-      
-                    </div>
+                    
                 </div>
 
     <!-- content starts here -->
@@ -201,7 +127,7 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-3 col-xs-6">
                         <div class="styled-select-filters">
-                            <select name="sort_date" id="sort_date"  onchange="showEventsDatePrice()">
+                        <select name="sort_date" id="sort_date"  onchange="showEventsDatePrice()">
                                 <option value="" selected="">Sort by Date</option>
                                 <option value="today">Today</option>
                                 <option value="tomorrow">Tomorrow</option>
@@ -231,7 +157,8 @@
             <div class="tour-list row add-clearfix" id="results">
                
             <?php 
-
+                    //echo "count is: ".count($getdata->result());
+                    if(count($getdata->result())>0){
                     foreach ($getdata->result() as $k) {
                           //echo $k->eventname."<br>";
                          $eventtitleurl = str_replace(" ", "-", $k->eventname);
@@ -280,6 +207,9 @@
 
                           $last_id = $k->eventid;
                     }
+                }else{
+                    echo '<div class="alert alert-danger" role="alert">No results over your choosen Criteria</div>';
+                }
 
                      ?>
 </div>
@@ -381,6 +311,48 @@ Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur i
 var limit = 4; // limit items per page
 
 
+function showEventsDatePrice()
+    {
+        
+       var price = $('#sort_price').val();
+       //alert(price);
+        $('#sessionvalue').val(0);
+       var date = $('#sort_date').val();
+       //alert(date);
+
+       $.ajax({
+        type: "POST",
+        url: '<?php echo site_url("frontend/sortpricedateforevents")?>',
+        data: {
+           date:date,
+           price:price
+        },
+        success: function(data) {
+            if(data.trim()!='')
+            {
+              $('#results').html(data);
+              
+            }else{
+               $('#results').addClass("animated slideInUp"); 
+               $('#results').html('<div class="alert alert-danger" role="alert">No results over your choosen filters</div>');
+            } 
+            console.log(data);
+        },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+                console.log(xhr.responseText);
+             
+            }
+        });
+
+
+        
+    }
+
+
+
+
 
 $(document).ready(function() {
         var totalrecord = 0;
@@ -443,46 +415,10 @@ $(document).ready(function() {
     });
     
 
-    loadMap();
+    
 
 
-    function showEventsDatePrice()
-    {
-       var price = $('#sort_price').val();
-       //alert(price);
-        $('#sessionvalue').val(0);
-       var date = $('#sort_date').val();
-       //alert(date);
-
-       $.ajax({
-        type: "POST",
-        url: '<?php echo site_url("frontend/sortpricedateforevents")?>',
-        data: {
-           date:date,
-           price:price
-        },
-        success: function(data) {
-            if(data.trim()!='')
-            {
-              $('#results').html(data);
-              
-            }else{
-               $('#results').addClass("animated slideInUp"); 
-               $('#results').html('<div class="alert alert-danger" role="alert">No results over your choosen filters</div>');
-            } 
-            console.log(data);
-        },
-            error: function (xhr, ajaxOptions, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
-                console.log(xhr.responseText);
-             
-            }
-        });
-
-
-        
-    }
+    
 
 
 </script>
