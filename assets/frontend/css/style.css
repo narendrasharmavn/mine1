@@ -52,7 +52,7 @@ i.color_4{color:#f7941d;}
 .chromeframe a{color:#ed1c24;}
 
 /*-------- 1.1 Typography --------*/
-body {background:#f9f9f9; font-size:12px; line-height:20px; font-family:"Montserrat", Arial, sans-serif; color:#565a5c;-webkit-font-smoothing: antialiased; overflow-x: hidden !important; }
+body {background:#eee; font-size:12px; line-height:20px; font-family:"Montserrat", Arial, sans-serif; color:#565a5c;-webkit-font-smoothing: antialiased; overflow-x: hidden !important; }
 
 h1, h2, h3, h4, h5, h6{-webkit-font-smoothing:antialiased; color:#333;}
 h3{ font-size:22px;}
@@ -76,7 +76,7 @@ h2 b, h3 b, h4 b, h5 b, h6 b{color:#e04f67; font-weight: inherit;}
 
 /*General links color*/
 a {color: #51bce6;text-decoration: none;-webkit-transition: all 0.2s ease;transition: all 0.2s ease; outline:none;}
-a:hover,a:focus {color: #111;text-decoration: none; outline:none;}
+a:hover,a:focus {color: #000;text-decoration: none; outline:none;}
 
 p {margin: 0 0 20px 0;text-align:justify;}
 
@@ -402,13 +402,13 @@ background-color: #9dbb29;
   padding-bottom:0;
 }
 
-nav{ margin-top:20px}
-.sticky nav{ margin-top:10px}
+nav{ margin-top:0px}
+.sticky nav{ margin-top:0px}
 .sticky #logo{ margin-top:0; margin-bottom:10px;}
 
-ul#top_tools{flist-style:none; padding:0; position:absolute; right:15px; top:0; z-index:999;}
+ul#top_tools{flist-style:none; padding:0; position:absolute; right:15px; top:17px; z-index:999;}
 ul#top_tools a{ color:#fff;}
-.sticky ul#top_tools a{ color:#333; }
+.sticky ul#top_tools a{ color:#FFF; }
 ul#top_tools li{display:inline-block; padding:0 10px;}
 
 #top_line{
@@ -962,6 +962,7 @@ video {
   visibility: hidden;
   width: 100px;
 }
+
 .nav-searchfield-outer {
   border:none; 
   background: #fff; 
@@ -2038,6 +2039,8 @@ a.btn_collapse{
   color:#fff;
 }
 /* Carousel */
+.carousel { margin-top:33px; }
+
 .carousel .item{
   margin: 3px;
 }
@@ -2540,7 +2543,7 @@ margin-top: 35px;
     color: #333 !important;
     height: 55px !important;
     border-radius: 3px !important;
-	
+	margin-top:15px;
 }
 /* Input form style */   
 .form-control {
@@ -3883,8 +3886,9 @@ font-weight:400;
     font-size: 13px;
     display: block;
     line-height: 20px;
-    padding: 0px 12px 15px 12px;}
-      
+    padding: 17px 12px 20px 12px;}
+ 
+.main-menu ul li a:hover  { background-color:#6d8416; } 
 /*First level styles */     
 .main-menu > div > ul > li > a {color: #fff; padding: 0 12px 15px  12px; font-size:13px;}
 .sticky .main-menu > div > ul > li > a {color: #333;}
@@ -4164,5 +4168,8 @@ a#close_in {display:block;position:absolute;right:15px;top:10px;width:20px;heigh
 #logo_home{
 	    margin-top: 17px;
 	}   
+
+
+
 
 
