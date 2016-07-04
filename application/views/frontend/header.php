@@ -46,12 +46,7 @@
     <link href="<?php echo base_url(); ?>assets/frontend/css/detailscarousel.css" rel="stylesheet" type="text/css" media="all" >
     <script type='text/javascript' src='<?php echo base_url(); ?>assets/frontend/js/detailspage.js'></script>
 
-
-
-    
-      <script src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyA-hMJfrFKuq7zQy30m0GBdzKSMl9qcxIo"></script>
-
-
+    <script src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyA-hMJfrFKuq7zQy30m0GBdzKSMl9qcxIo"></script>
 
     <!--[if lt IE 9]>
       <script src="<?php echo base_url(); ?>assets/frontend/js/html5shiv.min.js"></script>
@@ -60,7 +55,7 @@
 <style type="text/css">
     
  .my{
-        display: block !important;
+    display: block !important;
     font-size: 13px;
     color: gray;
     padding-bottom: 5px;
@@ -97,13 +92,13 @@
             <div class="row">
                 <div class="col-md-3 col-sm-3 col-xs-3">
                      <div id="logo_home">
-                    	<!--<img src="<?php echo base_url(); ?>assets/frontend/images/logo.jpg" width="160" height="34" alt="City tours" data-retina="true" class="logo_sticky">-->
+                        <!--<img src="<?php echo base_url(); ?>assets/frontend/images/logo.jpg" width="160" height="34" alt="City tours" data-retina="true" class="logo_sticky">-->
                         <a href="<?php echo site_url().'home';      ?>">
                             <span class="logo-title">Book4Holiday</span>
                         </a>
                     </div>
                 </div>
-                <nav class="col-md-9 col-sm-9 col-xs-9" >
+                <nav class="col-md-9 col-sm-9 col-xs-9">
                     <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
                     <div class="main-menu">
                         <div id="header_menu">
@@ -111,10 +106,25 @@
                             <a href="<?php echo site_url().'home';      ?>">
                                 <span style="color: Black;font-size: 30px;">Book4Holiday</span>
                            </a>
+                    <!--Added mobile view starts-->   
+                           <div class="col-xs-12 hidden-lg hidden-md"">
+                           <div class="col-xs-1"></div>
+                           <div class="col-xs-5">
+                           <a href="<?php echo site_url().'login'; ?>" class="show-submenu">Sign In</a>
+                           </div>
+                           <div class="col-xs-5">
+                           <a href="<?php echo site_url().'register'; ?>" class="show-submenu">Register</a>
+                           </div>
+                           <div class="col-xs-1"></div>
+                           </div>   
+                           <div class="hidden-lg hidden-md">&nbsp;</div>
+                    <!--Added mobile view ends-->      
                         </div>
                         <a href="#" class="open_close" id="close_in"><i class="icon_set_1_icon-77"></i></a>
                         <ul id="menu-menu-1" class="menu">
-                            <li >
+                            
+
+                            <li>
                                 <a href="<?php echo site_url().'home';?>" class="show-submenu">Home </a>
                                 
                             </li>
@@ -138,7 +148,7 @@
                                 <a href="<?php echo site_url().'resorts/zoo/1'; ?>" class="show-submenu">Book Zoo Tickets </a>
                                 
                             </li>
-							<li>
+                            <li>
                               
                             </li>
 
@@ -146,7 +156,7 @@
                     </div><!-- End main-menu -->
                     <ul id="top_tools">
                         <li>
-                            <div class="dropdown dropdown-search">
+                            <div class="dropdown dropdown-search  hidden-xs">
                               <ul id="top_links">
                         <?php
                             if (!$this->session->userdata('holidayCustomerName')) {
@@ -200,19 +210,19 @@
                                     <li>
                                         <div class="image"><img src="<?php echo base_url(); ?>assets/frontend/images/slides/1.jpg" alt="Image"></div>
                                         <strong>
-										<a href="#">Louvre museum</a>1x $36.00 </strong>
+                                        <a href="#">Louvre museum</a>1x $36.00 </strong>
                                         <a href="#" class="action"><i class="icon-trash"></i></a>
                                     </li>
                                     <li>
                                         <div class="image"><img src="<?php echo base_url(); ?>assets/frontend/images/slides/2.jpg" alt="Image"></div>
                                         <strong>
-										<a href="#">Versailles tour</a>2x $36.00 </strong>
+                                        <a href="#">Versailles tour</a>2x $36.00 </strong>
                                         <a href="#" class="action"><i class="icon-trash"></i></a>
                                     </li>
                                     <li>
                                         <div class="image"><img src="<?php echo base_url(); ?>assets/frontend/images/slides/3.jpg" alt="Image"></div>
                                         <strong>
-										<a href="#">Versailles tour</a>1x $36.00 </strong>
+                                        <a href="#">Versailles tour</a>1x $36.00 </strong>
                                         <a href="#" class="action"><i class="icon-trash"></i></a>
                                     </li>
                                     <li>

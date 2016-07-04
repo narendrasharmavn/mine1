@@ -56,12 +56,13 @@ class Frontend extends CI_Controller {
           'qualityreview' => $qualityrating,
           'review' => $reviewtext,
           'customerid' => $this->session->userdata('holidayCustomerId'),
-          'resortname' => $resortname
+          'resortname' => $resortid,
+          'status' => 1
           );
 
         $this->db->insert('resortreviews', $data);
-        $url = 'frontend/showResortDetails/'.$resortid;
-       //echo $url;
+        $url = 'resorts/'.$resortname.'/'.$resortid;
+        //echo $url;
         ?>
         <script>
           alert("Thank you for the review");

@@ -1,20 +1,24 @@
-<?php  $query = $this->db->query("SELECT * FROM tblsliders WHERE status=1"); ?>
+<?php
+    $query = $this->db->query("SELECT * FROM tblsliders WHERE status=1");
 
+
+
+
+?>
 
     <!-- Slider -->
     <div class="tp-banner-container">
       <!-- ForNext Slider -->
-    <div class="container-fluid">
+    <div class="container margin_60">
     <div class="row">
         <!-- Carousel -->
-        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-		<div class="featured-overlay hidden-sm hidden-xs">
+        <div class="col-md-3 hidden-sm hidden-xs">
                                 <a id="close-form" href="#" class="button close open-close-btn"><i class="icon_close_alt2"></i></a>
-								<div class="main_titlee">
+                                <div class="main_titlee">
                              <h3 style="color:white;">Search 4 Holiday</h3>
                             
                         </div>
-							   <div class="featured-overlay-inner">
+                               <div class="featured-overlay-inner">
                                        <?php echo $this->session->flashdata('error-msg'); ?>
                                                 <?php  
 
@@ -24,25 +28,25 @@
                                         
                                             <div class="destination-field">
                                              <div class="row">
-											 
+                                             
                                        
                        
                         <input type="hidden" name="post_type" value="tour">
                         
-												<div class="col-md-12">
-													<div class="form-group">
-														
-														<select class="form-control search-form-slider searchtype" id="searchtype" name="searchtype" required>
-															<option value="" selected="">Search For</option>
-															<option value="resortname" <?php echo  set_select('searchtype', 'resortname'); ?>>Resort Name</option>
-														   <option value="eventname" <?php echo  set_select('searchtype', 'eventname'); ?>>Event Name</option>
-														   <option value="places" <?php echo  set_select('searchtype', 'places'); ?>>Places</option>
-														   
-														 </select>
-														 <span class="text-danger searchtypeerror"><?php echo form_error('searchtype'); ?></span>
-														</div>
-												</div>
-												<div class="col-md-12">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        
+                                                        <select class="form-control search-form-slider searchtype" id="searchtype" name="searchtype" required>
+                                                            <option value="" selected="">Search For</option>
+                                                            <option value="resortname" <?php echo  set_select('searchtype', 'resortname'); ?>>Resort Name</option>
+                                                           <option value="eventname" <?php echo  set_select('searchtype', 'eventname'); ?>>Event Name</option>
+                                                           <option value="places" <?php echo  set_select('searchtype', 'places'); ?>>Places</option>
+                                                           
+                                                         </select>
+                                                         <span class="text-danger searchtypeerror"><?php echo form_error('searchtype'); ?></span>
+                                                        </div>
+                                                </div>
+                                                <div class="col-md-12">
                                 <div class="form-group">
                                    
                                     <input type="text" class="form-control search-form-slider" name="searchterm" id="searchterm" placeholder="Enter Keywords" value="<?php echo set_value('searchterm'); ?>" required>
@@ -65,17 +69,17 @@
                                     <button type="submit" class="btn_1 green searchnowbutton"><i class="icon-search"></i>Search now</button>
                                 </div>
                             </div>
-												</div>
-												
+                                                </div>
+                                                
                                             </div>
                                         </div>                                            
                                          
                                     </form><!-- /form.location-search -->
-                                     
-
 
                                 </div><!-- /.featured-overlay-inner -->
                             </div>
+        <div id="carousel-example-generic" class="carousel slide col-md-9" data-ride="carousel">
+        
             <!-- Indicators -->
             <ol class="carousel-indicators">
             <?php
@@ -156,13 +160,13 @@ $i++;
                 
                 
             </div>
-            <!-- Controls -->
+            <!-- Controls 
             <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
             <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
                 <span class="glyphicon glyphicon-chevron-right"></span>
-            </a>
+            </a>-->
         </div><!-- /carousel -->
         </div>
     </div>
@@ -179,7 +183,7 @@ $i++;
                                         <?php echo $this->session->flashdata('error-msg'); ?>
                                                 <?php  
 
-                                                    echo form_open('search-results',array('class' => 'searchform','id'=>'search-tour-form','method'=>'post','role' => 'search','novalidate'=>'novalidate'));
+                                                    echo form_open('search-results',array('class' => 'searchform','id'=>'search-tour-form','method'=>'post','role' => 'search'));
                                                 ?>
                        
                         <input type="hidden" name="post_type" value="tour">
@@ -193,7 +197,7 @@ $i++;
                             <div class="col-md-3">
                                 <div class="form-group">
                                     
-                                    <select class="form-control searchtype" name="searchtype">
+                                    <select class="form-control searchtype" name="searchtype" required>
                                         <option value="" selected="">Search For</option>
                                         <option value="resortname" <?php echo  set_select('searchtype', 'resortname'); ?>>Resort Name</option>
                                        <option value="eventname" <?php echo  set_select('searchtype', 'eventname'); ?>>Event Name</option>
@@ -206,7 +210,7 @@ $i++;
                             <div class="col-md-3">
                                 <div class="form-group">
                                    
-                                    <input type="text" class="form-control" name="searchterm" placeholder="Enter Keywords" value="<?php echo set_value('searchterm'); ?>">
+                                    <input type="text" class="form-control" name="searchterm" placeholder="Enter Keywords" value="<?php echo set_value('searchterm'); ?>" required>
                                     <span class="text-danger"><?php echo form_error('searchterm'); ?></span>
                                 </div>
                             </div>
@@ -241,8 +245,11 @@ if (count($events->result())>0) {
     
         <div class="main_title">
             <h2>Latest Events</h2>
-         </div>
+           
+        </div>
 
+        
+        
         <div class="row">
 
         <?php
@@ -345,10 +352,10 @@ if (count($query->result())>0) {
                     <p>
                         <a href="<?php echo site_url().'places/'.$placetitleurl.'/'.$k->plid; ?>"><img src="<?php echo base_url(); ?>/assets/places/<?php echo $photoname; ?>" alt="Pic" width="800" height="450" style="min-height: 200px;" class="img-responsive"></a>
                   </p>
-				  <div class="place_title">
+                  <div class="place_title">
                     <h3><a href="<?php echo site_url().'places/'.$placetitleurl.'/'.$k->plid; ?>"><?php echo $placename; ?></a></h3>
 </div>                   
-				   <p>
+                   <p>
                         <?php echo $pdescription; ?>
                     </p>
                 </div>
@@ -359,7 +366,10 @@ if (count($query->result())>0) {
             <p class="text-center add_bottom_30">
             <a href="<?php echo site_url().'placesall' ?>" class="btn_1 green medium"><i class="icon-eye-7"></i>View all Places  </a>
         </p>
-         
+
+           
+            
+            
         </div><!-- End container -->
     </div><!-- End white_bg -->
    
@@ -426,7 +436,6 @@ $('.searchnowbutton').click(function(event) {
 */
 
 </script>
-
 
         </body>
 

@@ -283,7 +283,18 @@ if ($this->session->userdata('holidayCustomerName')) {
             <a href="#" class="btn_1 add_bottom_15" data-toggle="modal" data-target="#myReview">Leave a review</a>
         </div>
         <div class="col-md-9">
-            <div id="general_rating">0 Reviews                          <div class="rating"><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i></div>
+            <div id="general_rating">
+            <?php
+            $reviewsquery = $this->db->query("SELECT rr.*,c.name from resortreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortname='$resortid' ORDER BY rr.rrid DESC");
+
+
+
+            echo count($reviewsquery->result());
+
+
+            ?>
+
+             Reviews                          <div class="rating"><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i></div>
             </div>
             <div class="row" id="rating_summary">
                 <div class="col-md-6">
@@ -326,7 +337,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                             <label><i class="icon-calendar-7"></i> Select a date</label>
                             <input type="hidden" value="" id="packageid">
                             <input type="hidden" value="<?php echo $resortResults->vendorid; ?>" id="vendorid">
-                            <input class="form-control datepickerj" ID="DATEPICKERJ" type="text" name="date">
+                            <input class="form-control datepickerj" id="datepickerj" type="text" name="date">
                         </div>
                     </div>
                 </div>
@@ -453,14 +464,6 @@ if ($this->session->userdata('holidayCustomerName')) {
             </div><!-- end of row -->
 
 
-           
-            
-
-            
-
-
-
-
 <!--Reviews Start-->
                 
                 <div class="row">
@@ -472,8 +475,7 @@ if ($this->session->userdata('holidayCustomerName')) {
 
                     <?php
 
-                        $reviewsquery = $this->db->query("SELECT rr.*,c.name from resortreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortname='$resortid' ORDER BY rr.rrid DESC LIMIT 8");
-                        //echo "SELECT er.*,c.name from eventreviews er LEFT JOIN tblcustomers c ON er.customerid=c.customer_id WHERE er.status=1 AND er.resortoreventname='$eventid' ORDER BY er.rid DESC LIMIT 4";
+                       $reviewsquery = $this->db->query("SELECT rr.*,c.name from resortreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortname='$resortid' ORDER BY rr.rrid DESC LIMIT 8");
 
                         foreach ($reviewsquery->result() as $k) {
                          
@@ -838,44 +840,15 @@ $('.book-now').on('click',function(){
 
 
 
-    if ($('#datepickerj').datepick('getDate') == "") {
+    if ($('#datepickerj').val() == "") {
     alert("Please Select a Date");
     //return false;
 }else if($('.total-cost').text()==0 || $('.total-cost').text()==''){
     alert("Please book atleast one ticket. Total cannot be zero "+$('.total-cost').text());
 }else{
 
-    var d = new Date($('#datepickerj').datepick('getDate'));
-    var n = d.toISOString();
-    var n = n.split('T');
-    //alert("clicked"+n[0]);
-
     
-    
-    var EffectiveDate = n[0];
-var Today = new Date();
-var dd = Today.getDate();
-var mm = Today.getMonth() + 1; //January is 0!
-var yyyy = Today.getFullYear();
-if (dd < 10) {
-    dd = '0' + dd
-}
-if (mm < 10) {
-    mm = '0' + mm
-}
-var Today = yyyy + '-' + mm + '-' + dd;
-
-dateFirst = EffectiveDate.split('-');
-dateSecond = Today.split('-');
-var value = new Date(dateFirst[2], dateFirst[1], dateFirst[0]);
-var current = new Date(dateSecond[2], dateSecond[1], dateSecond[0]);
-
-
- if (value < current) {
-        alert("Date should not be less than Present Date!");
-       // return false;
-    }else{
-
+ 
         var packageid = $('#packageid').val();
         var vendorid = $('#vendorid').val();
         var totalcost = $('.total-cost').html();
@@ -886,14 +859,14 @@ var current = new Date(dateSecond[2], dateSecond[1], dateSecond[0]);
         var numberofchildren = $('.children-number').html();
         var servicetax = $('#servicetax').html();
         var kidsmealqty = $("#kidsmeal").val();
-
+        var dateofvisit = $('#datepickerj').val();
         //alert(numberofadults);
 
         $.ajax({
         type: "POST",
         url: '<?php echo site_url("frontend/confirmbookings")?>',
         data: {
-            dateofvisit:value,
+            dateofvisit: dateofvisit,
             packageid:packageid,
             vendorid:vendorid,
             totalcost:totalcost,
@@ -927,7 +900,7 @@ var current = new Date(dateSecond[2], dateSecond[1], dateSecond[0]);
 
     
 
-    }
+   
 
     }
    

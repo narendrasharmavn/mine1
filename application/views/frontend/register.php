@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Mobile*</label>
-                                    <input type="tel" name="mobile" class=" form-control" placeholder="Mobile" value="<?php echo set_value('mobile'); ?>" required>
+                                    <input type="tel" name="mobile" class=" form-control" placeholder="Mobile" value="<?php echo set_value('mobile'); ?>" maxlength="10" required>
                                     <span class="text-danger"><?php echo form_error('mobile'); ?></span>
                                 </div>
                                 <div class="form-group">
