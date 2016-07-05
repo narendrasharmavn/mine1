@@ -229,13 +229,12 @@ $i++;
                                      <span class="text-danger"><?php echo form_error('searchtype'); ?></span>
                                     </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
+                            <div class="form-group">
                                    
-                                    <input type="text" class="form-control" name="searchterm" placeholder="Enter Keywords" value="<?php echo set_value('searchterm'); ?>" required>
-                                    <span class="text-danger"><?php echo form_error('searchterm'); ?></span>
+                                    <input type="text" class="form-control search-form-slider" name="searchterm" id="searchterm" placeholder="Enter Keywords" value="<?php echo set_value('searchterm'); ?>" required>
+                                    <span class="text-danger searchtermerror"><?php echo form_error('searchterm'); ?></span>
+                                    <span class="search-results-autofill"></span>
                                 </div>
-                            </div>
                             
                         
                             <div class="col-md-12 datefield">
@@ -443,7 +442,7 @@ $('.searchtype').on('change',function(){
 });
 
 
-$('#searchterm').on('keyup',function () {
+$('.search-form-slider').on('keyup',function () {
     if (this.value.length>=3) {
 
 var searchtype = $('#searchtype').val();
