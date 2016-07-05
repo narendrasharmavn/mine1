@@ -43,6 +43,64 @@ class Frontend extends CI_Controller {
       $this->load->view('frontend/placesdetails');
     }
 
+    public function autofillsearch(){
+      $searchtype = $this->input->post('searchtype');
+      $searchterm = $this->input->post('searchterm');
+      if($searchtype!=''){
+
+      }else{
+
+       $searchResult =  $this->FrontEndModel->getAutoFillSearchDataEvents($searchterm);
+
+       if(count($searchResult->result())>0){
+            echo '<div><div class="category-headings">Events</div><div>';
+            foreach ($searchResult->result() as $k) {
+              $evename = str_replace(' ','-',$k->eventname);
+               echo '<div class="list-items"><a href="'.site_url().'eventdetails/'.$evename.'/'.$k->eventid.'">'.$k->eventname.'</a></div>';
+            }
+            echo '</div>';
+            echo '</div>';
+        }
+
+
+        //resorts
+        $searchResultResort =  $this->FrontEndModel->getAutoFillSearchDataResorts($searchterm);
+
+       if(count($searchResultResort->result())>0){
+            echo '<div ><div class="category-headings">Resorts</div><div>';
+            foreach ($searchResultResort->result() as $k) {
+              $resortname = str_replace(' ','-',$k->resortname);
+               echo '<div class="list-items"><a href="'.site_url().'resorts/'.$resortname.'/'.$k->resortid.'">'.$k->resortname.'</a></div>';
+            }
+            echo '</div>';
+            echo '</div>';
+        }
+
+        //places
+        $searchResultPlaces =  $this->FrontEndModel->getAutoFillSearchDataPlaces($searchterm);
+
+       if(count($searchResultPlaces->result())>0){
+            echo '<div ><div class="category-headings">Places</div><div>';
+            foreach ($searchResultPlaces->result() as $k) {
+              $placename = str_replace(' ','-',$k->place);
+               echo '<div class="list-items"><a href="'.site_url().'places/'.$placename.'/'.$k->plid.'">'.$k->place.'</a></div>';
+            }
+            echo '</div>';
+            echo '</div>';
+        }
+
+        $placescount = count($searchResultPlaces->result());
+        $eventscount = count($searchResult->result());
+        $resortcount = count($searchResultResort->result());
+        if($eventscount==0 && $resortcount==0 && $placescount==0){
+          echo '<div ><div class="category-headings">No Results found</div>';
+        }
+
+
+
+      }
+    }
+
     public function submitresortreview(){
       $resortid = $this->input->post('resortid');
 

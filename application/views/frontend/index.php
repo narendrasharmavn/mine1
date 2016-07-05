@@ -1,10 +1,31 @@
 <?php
     $query = $this->db->query("SELECT * FROM tblsliders WHERE status=1");
-
-
-
-
 ?>
+<style>
+.search-results-autofill ul{
+    list-style:none;
+
+}
+
+
+.category-headings{
+    background-color: rgba(239, 25, 14, 0.68);
+    padding: 6px;
+    border-radius: 2px;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+}
+
+.list-items{
+    padding: 6px;
+    background-color: rgba(208, 198, 187, 0.35);
+    
+
+}
+.list-items:hover{
+    background-color: rgb(157, 187, 41);
+}
+</style>
 
     <!-- Slider -->
     <div class="tp-banner-container">
@@ -51,6 +72,7 @@
                                    
                                     <input type="text" class="form-control search-form-slider" name="searchterm" id="searchterm" placeholder="Enter Keywords" value="<?php echo set_value('searchterm'); ?>" required>
                                     <span class="text-danger searchtermerror"><?php echo form_error('searchterm'); ?></span>
+                                    <span class="search-results-autofill"></span>
                                 </div>
                             </div>
                             
@@ -420,6 +442,41 @@ $('.searchtype').on('change',function(){
 
 });
 
+
+$('#searchterm').on('keyup',function () {
+    if (this.value.length>=3) {
+
+var searchtype = $('#searchtype').val();
+
+        $.ajax({
+        type: "POST",
+        url: '<?php echo site_url("frontend/autofillsearch")?>',
+        data: {
+           searchtype:searchtype,
+           searchterm: this.value
+
+        },
+        success: function(res) {
+
+                console.log(res);
+                
+                $('.search-results-autofill').html(res);
+        },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                    console.log(xhr.responseText);
+                 
+                }
+        });
+       
+
+
+
+    }else{
+        $('.search-results-autofill').html('');
+    }
+});
 /*
 
 $('.searchnowbutton').click(function(event) {

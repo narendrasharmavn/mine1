@@ -14,6 +14,37 @@ class FrontEndModel extends CI_Model {
     }
 
 
+    public function getAutoFillSearchDataEvents($searchterm){
+
+      $query = $this->db->query("SELECT eventid,eventname FROM tblevents WHERE location LIKE '%$searchterm%' OR eventname LIKE '%$searchterm%' OR description LIKE '%$searchterm%' LIMIT 4");
+
+      return $query;
+
+
+
+    }
+
+    public function getAutoFillSearchDataResorts($searchterm){
+
+      $query = $this->db->query("SELECT resortid,resortname FROM tblresorts WHERE location LIKE '%$searchterm%' OR resortname LIKE '%$searchterm%' OR description LIKE '%$searchterm%' LIMIT 4");
+
+      return $query;
+
+
+
+    }
+
+    public function getAutoFillSearchDataPlaces($searchterm){
+
+      $query = $this->db->query("SELECT plid,place FROM tblplaces WHERE address LIKE '%$searchterm%' OR place LIKE '%$searchterm%' OR city LIKE '%$searchterm%' OR description LIKE '%$searchterm%' OR otherinfo LIKE '%$searchterm%' LIMIT 4");
+
+      return $query;
+
+
+
+    }
+
+
 
     public function getpriceresults_resort()
     {   
