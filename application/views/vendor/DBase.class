@@ -1,0 +1,91 @@
+<?php
+
+Class DBase{
+	public function authenticateUser($conn,$username,$password)
+	{
+		//echo $user
+		$sql = "SELECT * FROM users WHERE username='$username' AND password='$password' AND utype='admin'";
+		$result = mysqli_query($conn, $sql);
+
+		if (mysqli_num_rows($result) > 0) {
+		  return "true";
+		} else {
+		    return "false";
+		}
+
+		mysqli_close($conn);
+	}
+
+	public function saveCategories($conn,$category,$status,$username){
+
+		$daattee = date("Y-m-d h:m:s");
+		$sql = "INSERT INTO categories (catname, status, insby, inson)
+		VALUES ('$category', '$status', '$username','$daattee')";
+
+		if (mysqli_query($conn, $sql)) {
+		    return "true";
+		} else {
+		    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		}
+
+		mysqli_close($conn);
+
+	}
+
+	public function getCategoryNames($conn){
+		$sql = "SELECT * FROM categories";
+		$result = mysqli_query($conn, $sql);
+		$category = array();
+		if (mysqli_num_rows($result) > 0) {
+		    // output data of each row
+		    while($row = mysqli_fetch_array($result)) {
+		       $category[]= $row;
+		    }
+		    return $category;
+		} else {
+		    echo "0 results";
+		}
+
+		mysqli_close($conn);
+
+	}
+
+	public function getCategoryNameBasedOnId($conn,$categoryid){
+		$sql = "SELECT catname FROM categories WHERE catid='$categoryid'";
+		$result = mysqli_query($conn, $sql);
+		$categoryname;
+		if (mysqli_num_rows($result) > 0) {
+		    // output data of each row
+		    while($row = mysqli_fetch_assoc($result)) {
+		       $categoryname= $row['catname'];
+		    }
+		    return $categoryname;
+		} else {
+		    echo "0 results";
+		}
+
+		mysqli_close($conn);
+
+	}
+
+	public function saveVideosIntoTable($conn,$categoryid, $categoryName,$type,$title,$description,$url,$price,$status,$date,$time,$fileName,$username){
+
+
+		$scheduledOn = $date." ".$time;
+		
+		$todayDate = date("Y-m-d h:m:s");
+		$sql = "INSERT INTO videos (catid, type, catname, title, description, url, price, thumbnailimg, status, inson, insby,scheduledon)
+		VALUES ('$categoryid', '$type', '$categoryName','$title','$description','$url','$price','$fileName','$status','$todayDate','$username','$scheduledOn')";
+
+		if (mysqli_query($conn, $sql)) {
+		    return "true";
+		} else {
+		    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		}
+
+		mysqli_close($conn);
+
+	}
+}
+
+?>
