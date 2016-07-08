@@ -1,86 +1,11 @@
 <?php
     $query = $this->db->query("SELECT * FROM tblsliders WHERE status=1");
 ?>
-<style>
-.search-results-autofill ul{
-    list-style:none;
 
-}
-
-
-.category-headings{
-    background-color: rgb(121, 121, 118);
-    padding: 6px;
-    /* border-radius: 2px; */
-    border-top: 1px solid;
-    border-bottom: 1px solid;
-    text-align: left;
-}
-
-.list-items{
-    text-align: left;
-
-    padding: 6px 0px 2px 17px;
-    background-color: #fffae9;
-    
-
-}
-.list-items a { color: #2a3305 !important; }
-.list-items:hover{
-    background-color: #ffedb4;
-}
-.li:first-child:hover {
-    background: black;
-}
-</style>
 
         <!-- Slider -->
     <div class="tp-banner-container">
-      <!-- ForNext Slider -->
-      <div id="jssor_1" style="position: relative; margin: 0 auto; top: 55px; left: 0px; width: 1300px; height: 500px; overflow: hidden; visibility: hidden;">
-        <!-- Loading Screen -->
-        <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
-            <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
-            <div style="position:absolute;display:block;background:url('img/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
-        </div>
-        <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 1300px; height: 500px; overflow: hidden;">
-            <div data-p="225.00" style="display: none;">
-                <img data-u="image" src="<?php echo base_url(); ?>assets/sliderimages/2.jpg" />
-                <div style="position: absolute; top: 180px; left: 230px; width: 480px; height: 120px; font-size: 50px; color: #ffffff; line-height:38px;">Some Text Comes Here</div>
-                <div style="position: absolute; top: 300px; left: 330px; width: 480px; height: 120px; font-size: 30px; color: #ffffff; line-height: 38px;">Some Caption Comes Here</div>
-               
-                
-            </div>
-            <div data-p="225.00" style="display: none;">
-                <img data-u="image" src="<?php echo base_url(); ?>assets/sliderimages/4.jpg" />
-            </div>
-            <div data-p="225.00" data-po="80% 55%" style="display: none;">
-                <img data-u="image" src="<?php echo base_url(); ?>assets/sliderimages/8.jpg" />
-            </div>
-			<div data-p="225.00" data-po="80% 55%" style="display: none;">
-                <img data-u="image" src="<?php echo base_url(); ?>assets/sliderimages/10.jpg" />
-            </div>
-            <a data-u="ad" href="http://www.jssor.com" style="display:none">Bootstrap Carousel</a>
-        
-        </div>
-        <!-- Bullet Navigator -->
-        <div data-u="navigator" class="jssorb05" style="bottom:16px;right:16px;" data-autocenter="1">
-            <!-- bullet navigator item prototype -->
-            <div data-u="prototype" style="width:16px;height:16px;"></div>
-        </div>
-        <!-- Arrow Navigator -->
-        <span data-u="arrowleft" class="jssora22l" style="top:0px;left:12px;width:40px;height:58px;" data-autocenter="2"></span>
-        <span data-u="arrowright" class="jssora22r" style="top:0px;right:12px;width:40px;height:58px;" data-autocenter="2"></span>
-    </div>
-    <script>
-        jssor_1_slider_init();
-    </script>
-    <div class="container margin_60" style="background:#ccc;">
-    
-    
-    <div class="row">
-        <!-- Carousel -->
-        <div class="featured-overlay hidden-sm hidden-xs">
+<div class="featured-overlay hidden-sm hidden-xs">
                                 <a id="close-form" href="#" class="button close open-close-btn"><i class="icon_close_alt2"></i></a>
                                 
                                <div class="featured-overlay-inner">
@@ -145,6 +70,57 @@
 
                                 </div><!-- /.featured-overlay-inner -->
                             </div>
+      <!-- ForNext Slider -->
+      <div id="jssor_1" class="jssor_1">
+        <!-- Loading Screen -->
+        <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
+            <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
+            <div style="position:absolute;display:block;background:url('img/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
+        </div>
+        <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 1300px; height: 500px; overflow: hidden;">
+            <div data-p="225.00" style="display: none;">
+                <img data-u="image" src="<?php echo base_url(); ?>assets/sliderimages/2.jpg" />
+                <div class="slider-title">Some Text Comes Here</div>
+                <div style="slider-cap">Some Caption Comes Here</div>
+               
+                
+            </div>
+            <div data-p="225.00" style="display: none;">
+                <img data-u="image" src="<?php echo base_url(); ?>assets/sliderimages/4.jpg" />
+<div class="slider-title">Some Text Comes Here</div>
+                <div style="slider-cap">Some Caption Comes Here</div>
+            </div>
+            <div data-p="225.00" data-po="80% 55%" style="display: none;">
+                <img data-u="image" src="<?php echo base_url(); ?>assets/sliderimages/8.jpg" />
+<div class="slider-title">Some Text Comes Here</div>
+                <div style="slider-cap">Some Caption Comes Here</div>
+            </div>
+			<div data-p="225.00" data-po="80% 55%" style="display: none;">
+                <img data-u="image" src="<?php echo base_url(); ?>assets/sliderimages/10.jpg" />
+<div class="slider-title">Some Text Comes Here</div>
+                <div style="slider-cap">Some Caption Comes Here</div>
+            </div>
+            <a data-u="ad" href="http://www.jssor.com" style="display:none">Bootstrap Carousel</a>
+        
+        </div>
+        <!-- Bullet Navigator -->
+        <div data-u="navigator" class="jssorb05" style="bottom:16px;right:16px;" data-autocenter="1">
+            <!-- bullet navigator item prototype -->
+            <div data-u="prototype" style="width:16px;height:16px;"></div>
+        </div>
+        <!-- Arrow Navigator -->
+        <span data-u="arrowleft" class="jssora22l" style="top:0px;left:12px;width:40px;height:58px;" data-autocenter="2"></span>
+        <span data-u="arrowright" class="jssora22r" style="top:0px;right:12px;width:40px;height:58px;" data-autocenter="2"></span>
+    </div>
+    <script>
+        jssor_1_slider_init();
+    </script>
+    <div class="container margin_60" style="background:#ccc;">
+    
+    
+    <div class="row">
+        <!-- Carousel -->
+        
                             
         <div id="carousel-example-generic" class="carousel slide col-md-9 hidden-lg hidden-md" data-ride="carousel">
         
@@ -311,8 +287,7 @@ if (count($events->result())>0) {
     <div class="container margin_60">
     
         <div class="main_title">
-            <h2>Latest Events</h2>
-           
+            <h2 class="bar_title"><span>Latest Events</span></h2> 
         </div>
 
         
@@ -326,8 +301,8 @@ if (count($events->result())>0) {
                 $eventtitleurl = str_replace(" ", "-", $k->eventname);
 
                                               ?>
-<div class="col-md-3 col-sm-6 wow zoomIn" data-wow-delay="0.1s">
-                <div class="tour_container  events-thumb">
+<div class="col-md-3 col-sm-6 text-center events-thumb wow zoomIn" data-wow-delay="0.1s">
+                <div class="">
                     <div class="img_container">
                         <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
                         <img src="<?php echo base_url().'assets/eventimages/'.$k->photoname; ?>" alt="Image" style="min-height:200px;" class="img-responsive">
@@ -350,7 +325,9 @@ if (count($events->result())>0) {
                             </a>
 							
                         </h3>
-						<p style="padding: 5px;"><?php echo $k->description; ?></p>
+						<p style="padding: 5px;"><?php
+						
+						echo substr($k->description,0,100); ?></p>
                       <!--  <div class="rating">
                             <i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i><small>(75)</small>
                         </div> end rating -->
@@ -374,9 +351,7 @@ if (count($events->result())>0) {
             <a href="<?php echo site_url().'eventsall' ?>" class="btn_1 green medium"><i class="icon-eye-7"></i>View all Events  </a>
         </p>
         
-        <hr>
-        
-        
+       
 
          <?php
 
@@ -398,7 +373,7 @@ if (count($query->result())>0) {
     
     
             <div class="main_title">
-                <h2>Other <span>Popular</span> Places in Hyderabad</h2>
+                <h2 class="bar_title"><span>Popular Places in Hyderabad</span></h2>
                 
             </div>
 
@@ -426,7 +401,7 @@ if (count($query->result())>0) {
                     <h3><a href="<?php echo site_url().'places/'.$placetitleurl.'/'.$k->plid; ?>"><?php echo $placename; ?></a></h3>
 </div>                   
                    <p style="padding: 5px;">
-                        <?php echo $pdescription; ?>
+                        <?php echo substr($pdescription,0,100); ?>
                     </p>
                 </div>
                 
@@ -458,37 +433,26 @@ if (count($query->result())>0) {
 
 <script type="text/javascript">
 
-$('document').ready(function(){
-    
 
-   $( ".datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
 
+/*
+
+$('.searchnowbutton').click(function(event) {
     var searchType = $('.searchtype').val();
-    if (searchType=="eventname") {
-        $('.datefield').show();
-    } else {
-        $('.datefield').hide();    
-    }
+    var searchterm = $('.searchterm').val();
+    var datepickerj = $('.datepickerj').val();
 
-
+    //alert(datepickerj);
     
-
-
+    
 });
 
 
-$('.searchtype').on('change',function(){
-    //alert(this.value);
-    if (this.value=="eventname") {
-        $('.datefield').show();
-        $(".datefield").rules("add", "required");
-    } else {
-        $('.datefield').hide();
-        $(".datefield").rules("remove", "required"); 
-    }
+*/
 
-});
-
+function myFunctionFocusOut(){
+    $('.search-results-autofill').html('');
+}
 
 $('.search-form-slider1').on('keyup',function () {
     if (this.value.length>=3) {
@@ -524,33 +488,46 @@ var searchtype = $('#searchtype').val();
         $('.search-results-autofill').html('');
     }
 });
-/*
 
-$('.searchnowbutton').click(function(event) {
+$('document').ready(function(){
+    
+
+   $( ".datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
+
     var searchType = $('.searchtype').val();
-    var searchterm = $('.searchterm').val();
-    var datepickerj = $('.datepickerj').val();
+    if (searchType=="eventname") {
+        $('.datefield').show();
+    } else {
+        $('.datefield').hide();    
+    }
 
-    //alert(datepickerj);
+
     
-    
+
+
 });
 
 
-*/
+$('.searchtype').on('change',function(){
+    //alert(this.value);
+    if (this.value=="eventname") {
+        $('.datefield').show();
+        $(".datefield").rules("add", "required");
+    } else {
+        $('.datefield').hide();
+        $(".datefield").rules("remove", "required"); 
+    }
 
-function myFunctionFocusOut(){
-    $('.search-results-autofill').html('');
-}
-
-
-
+});
 
 $("#search-book-toggle").click(function(){
     $(".featured-overlay").toggle();
 	
 	//$("#li-search-book-toggle").css("background-color":"#ebd6bb");
 });
+
+
+
 
 </script>
 

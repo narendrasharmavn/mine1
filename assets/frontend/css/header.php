@@ -179,11 +179,13 @@
 <![endif]-->
 
     <div id="preloader">
-<div id="loader">
-    <div id="box"></div>
-    <div id="hill"></div>
-</div>
-        
+        <div class="sk-spinner sk-spinner-wave">
+            <div class="sk-rect1"></div>
+            <div class="sk-rect2"></div>
+            <div class="sk-rect3"></div>
+            <div class="sk-rect4"></div>
+            <div class="sk-rect5"></div>
+        </div>
     </div>
     <!-- End Preload -->
 
@@ -228,13 +230,11 @@
                         <a href="#" class="open_close" id="close_in"><i class="icon_set_1_icon-77"></i></a>
                         <ul id="menu-menu-1" class="menu">
                             
-<?php
-if($this->uri->segment(1)=='home' || $this->uri->segment(1)==''){
-?>
+
                             <li style="background:#196bad;" id="li-search-book-toggle">
-                                <a href="#" class="show-submenu" style="color:white;" id="search-book-toggle" >Search</a>
+                                <a href="#" class="show-submenu" style="color:white;" id="search-book-toggle" >Book</a>
                                 
-  <?php } ?>                          </li>
+                            </li>
 							<li>
                                 <a href="<?php echo site_url().'home';?>" class="show-submenu">Home </a>
                                 
@@ -280,7 +280,7 @@ if($this->uri->segment(1)=='home' || $this->uri->segment(1)==''){
                                     <!-- End Dropdown access -->
                             </li>
                             
-                           <li><a href="<?php echo site_url().'register'; ?>" id="access_link1">Register</a></li>
+                           <li><a href="<?php echo site_url().'register'; ?>">Register</a></li>
 
                                 <?php
 
@@ -349,4 +349,68 @@ if($this->uri->segment(1)=='home' || $this->uri->segment(1)==''){
             </div>
         </div><!-- container -->
     </header><!-- End Header -->
-	
+	<div class="featured-overlay hidden-sm hidden-xs">
+                                <a id="close-form" href="#" class="button close open-close-btn"><i class="icon_close_alt2"></i></a>
+                                
+                               <div class="featured-overlay-inner">
+                                       <?php echo $this->session->flashdata('error-msg'); ?>
+                                                <?php  
+
+                                                    echo form_open('search-results',array('id'=>'searchform','method'=>'post','role' => 'search','class' => 'searchform'));
+                                                ?>   
+                                        <div class="search-field">
+                                        
+                                            <div class="destination-field">
+                                             <div class="row">
+                                             
+                                       
+                       
+                        <input type="hidden" name="post_type" value="tour">
+                         
+                                             <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        
+                                                        <select class="form-control search-form-slider searchtype" id="searchtype" name="searchtype" required>
+                                                            <option value="" selected="">Search For</option>
+                                                            <option value="resortname" <?php echo  set_select('searchtype', 'resortname'); ?>>Resort Name</option>
+                                                           <option value="eventname" <?php echo  set_select('searchtype', 'eventname'); ?>>Event Name</option>
+                                                           <option value="places" <?php echo  set_select('searchtype', 'places'); ?>>Places</option>
+                                                           
+                                                         </select>
+                                                         <span class="text-danger searchtypeerror"><?php echo form_error('searchtype'); ?></span>
+                                                        </div>
+                                                </div>
+												<div class="col-md-12 datefield">
+													<div class="form-group">
+														
+														<input class="form-control search-form-slider datepickerj" type="text" name="date" id="date" placeholder="Select date">
+														<span class="text-danger datepickerjerror"><?php echo form_error('date'); ?></span>
+													</div>
+												</div>
+                                                <div class="col-md-12">
+<div class="form-group">
+      <!-- /btn-group -->
+     <input type="text" class="form-control search-form-slider1" style="height:35px;font-size:14px;" name="searchterm" id="searchterm" placeholder="Resorts, Events or Places " value="<?php echo set_value('searchterm'); ?>" autocomplete="off" required>
+                                    
+    </div><!-- /input-group -->
+<span class="text-danger searchtermerror"><?php echo form_error('searchterm'); ?></span>
+                                    <span class="search-results-autofill"></span>
+                               
+                            </div>
+                            
+                            <div class="col-md-12 col-sm-3 col-xs-6">
+                                <div class="form-group">
+                                   
+                                
+                                    <button type="submit" class="btn_1 green searchnowbutton"><i class="icon-search"></i>Search now</button>
+                                </div>
+                            </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>                                            
+                                         
+                                    </form><!-- /form.location-search -->
+
+                                </div><!-- /.featured-overlay-inner -->
+                            </div>

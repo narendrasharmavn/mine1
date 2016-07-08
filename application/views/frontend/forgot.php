@@ -13,7 +13,7 @@
                                 <div class="form-group">
                                     Please enter your registered email. We will send you the password to your Registered Mobile Number                                </div>
                                 <div class="form-group">
-                                    <label>E-mail</label>
+                                    <label>E-mail <span style="color:red;">*</span></label>
                                     <input type="email" name="email" class="form-control" placeholder="Enter E-mail" value="<?php echo set_value('email'); ?>" required>
                                     <span class="text-danger"><?php echo form_error('email'); ?></span>
                                 </div>
@@ -21,7 +21,7 @@
                                 
                                 <br>
                                 <div style="text-align:center">
-                                    <a href="<?php echo site_url().'login'; ?>" class="underline">Login / </a>
+                                    <a href="<?php echo site_url().'login'; ?>" class="underline">Login | </a>
                                     <a href="<?php echo site_url().'register'; ?>" class="underline">Sign Up</a>
                                 </div>
                             </form>

@@ -36,8 +36,8 @@
                     <ul>
                         <li><a href="#">About us</a></li>
                         <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Login</a></li>
-                        <li><a href="#">Register</a></li>
+                        <li><a href="<?php echo site_url().'login'; ?>">Login</a></li>
+                        <li><a href="<?php echo site_url().'register'; ?>">Register</a></li>
                          <li><a href="#">Blog</a></li>
                     </ul>
                 </div>
@@ -48,8 +48,8 @@
                         <li><a href="#">Kids Day Out</a></li>
                         <li><a href="#">Adventutre</a></li>
                         <li><a href="#">Day Events</a></li>
-                         <li><a href="#">Places</a></li>
-                         <li><a href="#">Book Zoo Tickets</a></li>
+                         <li><a href="<?php echo site_url().'placesall' ?>">Places</a></li>
+                         <li><a href="<?php echo site_url().'resorts/zoo/1'; ?>">Book Zoo Tickets</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2 col-sm-3">

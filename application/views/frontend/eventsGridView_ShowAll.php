@@ -244,14 +244,14 @@
                  $row =$query2->row();
                           ?>
                           
-        <div class="col-md-3 col-sm-3 wow zoomIn animated events-thumb" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
+        <div class="col-md-4 col-sm-4 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
 
     
                   
                             <div class="tour_container">
                                 <div class="img_container">
                                     <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> " target="_blank">
-                                    <img width="400" height="267" src="<?php  echo base_url().'assets/eventimages/'.$k->photoname;   ?>  " style="min-height:200px;">         <!-- <div class="ribbon top_rated"></div> -->
+                                    <img width="400" height="267" src="<?php  echo base_url().'assets/eventimages/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->
                                     <div class="short_info">
                                         <i class="icon_set_1_icon-4"></i><?php echo $k->eventname;   ?> 
                                         <span class="price"><span><sup>Rs.</sup><?php echo $row->minprice;   ?></span></span>
@@ -263,7 +263,6 @@
                                     <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
                                         <h3 ><?php echo $k->eventname;   ?>  </h3>
                                     </a>
-                                    <p ><?php echo $k->description;   ?>  </p>
                                   <!--  <div class="rating">
                                         <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
                                     </div> end rating -->
