@@ -454,42 +454,21 @@ function myFunctionFocusOut(){
     $('.search-results-autofill').html('');
 }
 
+/*
 $('.search-form-slider1').on('keyup',function () {
-    if (this.value.length>=3) {
-
-var searchtype = $('#searchtype').val();
-
-        $.ajax({
-        type: "POST",
-        url: '<?php echo site_url("frontend/autofillsearch")?>',
-        data: {
-           searchtype:searchtype,
-           searchterm: this.value
-
-        },
-        success: function(res) {
-
-                console.log(res);
-                
-                $('.search-results-autofill').html(res);
-        },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                    console.log(xhr.responseText);
-                 
-                }
-        });
-       
+   
+  //alert(this.value);
 
 
 
-    }else{
-        $('.search-results-autofill').html('');
-    }
+
 });
 
+*/
+
 $('document').ready(function(){
+
+
     
 
    $( ".datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
@@ -500,6 +479,28 @@ $('document').ready(function(){
     } else {
         $('.datefield').hide();    
     }
+
+
+
+    $( ".search-form-slider1" ).autocomplete({
+      source:function(request, response) {
+        
+        $.ajax({
+            type: "POST",
+            url: '<?php echo site_url("frontend/autofillsearch/")?>',
+            data: {
+                searchtype : $('#searchtype').val(),
+                searchdate : $('#date').val() ,
+                searchterm : $('.search-form-slider1').val()
+            },
+            success: function(data) {
+                console.log("jquery ajax autocomplete test "+data);
+                response(JSON.parse(data));
+            }
+        });
+    },
+      min_length: 3
+    });
 
 
     

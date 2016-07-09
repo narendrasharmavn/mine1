@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-md-12 col-xs-12">
                     <div class="col-md-8 col-xs-12">
-                        <h3 style="color:#fff; background-color:#3cf; padding:20px;">Share Your Contact Details</h3>
+                        <h3 style="color: #ffffff;background-color: #2474b7; padding:20px;">Share Your Contact Details</h3>
                         <form class="form-inline" action="<?php echo base_url().'merchant/';  ?>submit.php" method="post" id="theForm" style="background-color:#eee; padding:25px;">
 
                         <input type="hidden" name="amount" class=" form-control" placeholder="Password" value="<?php echo $this->session->userdata('totalcost') ?>" readonly>
@@ -59,21 +59,23 @@
                               if ($this->session->userdata('holidayEmail')) {
                                  echo '<button type="submit" class="btn btn-primary">Pay</button>';
                               }else{
-                                echo '<button type="button" id="pay" class="btn btn-primary">Pay</button>';
+                                echo '<button type="button" id="pay" class="btn btn-primary">Pay</button>
+								<button type="button" id="pay" class="btn btn-danger">Cancel</button>';
                               }
                               ?>
                               
                             </form>
                     </div>
-                    <div class="col-md-4 col-xs-12" style="background-color:#eee; margin-top:20px;">
-                        <h3 style="color:#3cf;">ORDER SUMMARY</h3>
+                    <div class="col-md-4 col-xs-12" style="margin-top:20px;">
+                        <h3 style="color:#3b0032;">ORDER SUMMARY</h3>
                             			
-<table>
+<table style="font-size:14px;line-height: 1.5em;background-color: transparent;">
 	<tr><td width="150">Adults (<?php echo $this->session->userdata('numberofadults');  ?>)</td><td width="15"> : </td><td>Rs.<?php echo $this->session->userdata('adultpriceperticket')*$this->session->userdata('numberofadults');  ?></td></tr>
 	<tr><td width="150">Children (<?php echo $this->session->userdata('numberofchildren');  ?>)</td><td width="15"> : </td><td>Rs.<?php echo $this->session->userdata('numberofchildren')*$this->session->userdata('childpriceperticket');  ?></td></tr>
+	<tr><td width="150">Kid Meal (<?php echo $this->session->userdata('kidsmealqty');  ?>)</td><td width="15"> : </td><td>Rs.<?php echo $this->session->userdata('kidsmealqty')*$this->session->userdata('kidsmealprice');  ?></td></tr>
 	<tr><td width="150">Service Tax</td><td width="15"> : </td><td>Rs. <?php echo $this->session->userdata('servicetax');  ?></td></tr>
 	<tr><td width="150">Date of Visit</td><td width="15"> : </td><td><?php echo $this->session->userdata('dateofvisit');  ?></td></tr>
-	<tr style="font-weight: bold;font-size: 16px;"><strong><td width="150">Total</td><td width="15"> : </td><td>Rs. <?php echo $this->session->userdata('totalcost');  ?></td></strong></tr>
+	<tr style="font-weight: bold;font-size: 20px;"><strong><td width="150">Total</td><td width="15"> : </td><td>Rs. <?php echo $this->session->userdata('totalcost');  ?></td></strong></tr>
 </table>
                     </div>
                 </div>

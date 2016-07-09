@@ -124,6 +124,7 @@
         <div class="col-md-12" id="single_tour_desc">
 
          <div class="container-fluid">
+		 
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
             
               <!-- Wrapper for slides -->

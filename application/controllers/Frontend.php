@@ -45,60 +45,112 @@ class Frontend extends CI_Controller {
 
     public function autofillsearch(){
       $searchtype = $this->input->post('searchtype');
+      $searchdate = $this->input->post('searchdate');
       $searchterm = $this->input->post('searchterm');
-      if($searchtype!=''){
+      $data = array();
+      //echo $searchtype."<br>";
+      //echo $searchdate."<br>";
+     // echo $searchterm."<br>";
+      if($searchtype=='resortname'){
+        //echo "amaer";
+       //resorts
+        $searchResultResort =  $this->FrontEndModel->getAutoFillSearchDataResorts($searchterm);
 
-      }else{
-
-       $searchResult =  $this->FrontEndModel->getAutoFillSearchDataEvents($searchterm);
-
-       if(count($searchResult->result())>0){
-            echo '<div><div class="category-headings">Events</div><div>';
-            foreach ($searchResult->result() as $k) {
-              $evename = str_replace(' ','-',$k->eventname);
-               echo '<div class="list-items"><a href="'.site_url().'eventdetails/'.$evename.'/'.$k->eventid.'">'.$k->eventname.'</a></div>';
+       if(count($searchResultResort->result())>0){
+            
+            foreach ($searchResultResort->result() as $k) {
+              
+              
+              array_push($data, $k->resortname);
             }
-            echo '</div>';
-            echo '</div>';
+            
         }
 
+
+
+  }else if($searchtype=='eventname'){
+
+    $searchResult =  $this->FrontEndModel->getAutoFillSearchDataEventsWithDates($searchterm,$searchdate);
+       
+       if(count($searchResult->result())>0){
+            
+            foreach ($searchResult->result() as $k) {
+             
+              array_push($data, $k->eventname);
+            }
+           
+        }
+
+
+
+  }else if($searchtype=='places'){
+
+    //places
+        $searchResultPlaces =  $this->FrontEndModel->getAutoFillSearchDataPlaces($searchterm);
+
+       if(count($searchResultPlaces->result())>0){
+            
+            foreach ($searchResultPlaces->result() as $k) {
+              
+              array_push($data, $k->place);
+            }
+        }
+
+    
+  }else{
+
+       $searchResult =  $this->FrontEndModel->getAutoFillSearchDataEvents($searchterm);
+       
+       if(count($searchResult->result())>0){
+            //echo '<div><div class="category-headings">Events</div><div>';
+            foreach ($searchResult->result() as $k) {
+              //$evename = str_replace(' ','-',$k->eventname);
+               //echo '<div class="list-items"><a href="'.site_url().'eventdetails/'.$evename.'/'.$k->eventid.'">'.$k->eventname.'</a></div>';
+              array_push($data, $k->eventname);
+            }
+            //echo '</div>';
+            //echo '</div>';
+        }
+        
 
         //resorts
         $searchResultResort =  $this->FrontEndModel->getAutoFillSearchDataResorts($searchterm);
 
        if(count($searchResultResort->result())>0){
-            echo '<div ><div class="category-headings">Resorts</div><div>';
+            //echo '<div ><div class="category-headings">Resorts</div><div>';
             foreach ($searchResultResort->result() as $k) {
-              $resortname = str_replace(' ','-',$k->resortname);
-               echo '<div class="list-items"><a href="'.site_url().'resorts/'.$resortname.'/'.$k->resortid.'">'.$k->resortname.'</a></div>';
+              //$resortname = str_replace(' ','-',$k->resortname);
+               //echo '<div class="list-items"><a href="'.site_url().'resorts/'.$resortname.'/'.$k->resortid.'">'.$k->resortname.'</a></div>';
+              array_push($data, $k->resortname);
             }
-            echo '</div>';
-            echo '</div>';
+            //echo '</div>';
+            //echo '</div>';
         }
 
         //places
         $searchResultPlaces =  $this->FrontEndModel->getAutoFillSearchDataPlaces($searchterm);
 
        if(count($searchResultPlaces->result())>0){
-            echo '<div ><div class="category-headings">Places</div><div>';
+            
             foreach ($searchResultPlaces->result() as $k) {
-              $placename = str_replace(' ','-',$k->place);
-               echo '<div class="list-items"><a href="'.site_url().'places/'.$placename.'/'.$k->plid.'">'.$k->place.'</a></div>';
+              
+              array_push($data, $k->place);
             }
-            echo '</div>';
-            echo '</div>';
         }
 
         $placescount = count($searchResultPlaces->result());
         $eventscount = count($searchResult->result());
         $resortcount = count($searchResultResort->result());
         if($eventscount==0 && $resortcount==0 && $placescount==0){
-          echo '<div ><div class="category-headings">No Results found</div>';
+          //echo '<div ><div class="category-headings">No Results found</div>';
+          array_push($data, 'no results found');
         }
 
-
+       
 
       }
+
+       echo json_encode($data);
     }
 
     public function submitresortreview(){
@@ -217,8 +269,7 @@ class Frontend extends CI_Controller {
       
                     $this->form_validation->set_rules("searchtype", "searchtype", "trim|required");
                     $this->form_validation->set_rules("searchterm", "searchterm", "trim|required");
-                    //$this->form_validation->set_rules("date", "date", "trim|required|callback_validate_date");
-
+                   
                      if ($this->form_validation->run() == FALSE)
                     {  
                         //get latest 6 events to load on index page
@@ -644,6 +695,15 @@ redirect('frontend/index');
         //echo $sql."<br>";
 
         $query2 = $this->db->query($sql);
+        if(count($query2->result())==1){
+         // echo '<pre>';
+         // print_r($query2->result());
+         // echo '</pre>';
+
+          $resortname = str_replace(' ','-',$query2->result()[0]->resortname);
+          $resortid =  $query2->result()[0]->resortid;
+          redirect('resorts/'.$resortname.'/'.$resortid);
+        }
         $data['getdata'] = $query2;
 
         $this->session->set_userdata('limitcount',0);
@@ -937,6 +997,15 @@ redirect('frontend/index');
         //echo $sql."<br>";
 
         $query2 = $this->db->query($sql);
+        if(count($query2->result())==1){
+         // echo '<pre>';
+         // print_r($query2->result());
+         // echo '</pre>';
+          
+          $place = str_replace(' ','-',$query2->result()[0]->place);
+          $plid =  $query2->result()[0]->plid;
+          redirect('places/'.$place.'/'.$plid);
+        }
         $data['getdata'] = $query2;
         
         $data['pagination'] = $this->pagination->create_links();
@@ -1057,13 +1126,23 @@ redirect('frontend/index');
 
         $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
-        $sql = "SELECT e.*,ep.* FROM tblevents e LEFT JOIN tbleventphotos ep ON e.eventid=ep.eventid WHERE e.status=1 AND (e.fromdate>='".$this->session->userdata('searchdate')."' OR e.todate='".$this->session->userdata('searchdate')."') AND ( e.location LIKE '%".$this->session->userdata('searchterm')."%' OR e.eventname LIKE '%".$this->session->userdata('searchterm')."%' OR e.description LIKE '%".$this->session->userdata('searchterm')."%' ) GROUP by ep.photoname limit 4";
+        $sql = "SELECT e.*,ep.* FROM tblevents e LEFT JOIN tbleventphotos ep ON e.eventid=ep.eventid WHERE e.status=1 AND (e.todate>='".$this->session->userdata('searchdate')."') AND ( e.location LIKE '%".$this->session->userdata('searchterm')."%' OR e.eventname LIKE '%".$this->session->userdata('searchterm')."%' OR e.description LIKE '%".$this->session->userdata('searchterm')."%' ) GROUP by ep.photoname limit 4";
 
         $this->session->set_userdata('limitcount',0);
         
        //echo $sql."<br>";
 
         $query2 = $this->db->query($sql);
+        //echo count($query2->result())."<br>";
+        if(count($query2->result())==1){
+         // echo '<pre>';
+         // print_r($query2->result());
+         // echo '</pre>';
+
+          $eventname =  str_replace(' ','-',$query2->result()[0]->eventname);
+          $eventid =  $query2->result()[0]->eventid;
+          redirect('eventdetails/'.$eventname.'/'.$eventid);
+        }
         $data['getdata'] = $query2;
         
         $data['pagination'] = $this->pagination->create_links();
@@ -1075,8 +1154,8 @@ redirect('frontend/index');
         $data['total_data'] = ceil($numberOfRows/$content_per_page); 
        
 
-        $this->load->view('frontend/header'); 
-        $this->load->view('frontend/eventsGridView',$data); 
+      $this->load->view('frontend/header'); 
+       $this->load->view('frontend/eventsGridView',$data); 
 
       
     }
@@ -1729,7 +1808,7 @@ redirect('frontend/index');
 
     }
 
-    public function showEventDetails($eventname,$eventid){
+    public function showEventDetails($eventname='',$eventid=''){
 
 
       $data['eventid'] = $eventid;

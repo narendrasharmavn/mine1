@@ -1,4 +1,4 @@
-<div class="anim hidden-sm hidden-xs">
+<div class="anim hidden-sm hidden-xs hidden-lg">
 <!--<blockquote class="oval-thought">
         <p>Hi.. How can I help you :-)</p>
       </blockquote>-->

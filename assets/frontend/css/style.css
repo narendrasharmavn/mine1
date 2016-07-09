@@ -389,7 +389,7 @@ background: #ebd6bb;
     font-family: "fontello";
     font-size: 14px;
     position: absolute;
-    left: 0;
+    left: 70px;
     top: 0;
 }
 .slider-title{position: absolute;top: 180px;left: 500px;width: 600px;height: 85px;font-size: 50px;color: #ffffff;line-height: 63px;}
@@ -408,7 +408,7 @@ position: absolute;
     -moz-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
     transition: all 0.2s ease;
-    position: absolute;
+    position: fixed;
     overflow: hidden;
     top: 8%;
     left: 10.55%;
