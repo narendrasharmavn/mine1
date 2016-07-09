@@ -1,3 +1,47 @@
+<style>
+            /****** ratingg Starts *****/
+            @import url(http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+            fieldset, label { margin: 0; padding: 0; }
+            body{ margin: 20px; }
+            h1 { font-size: 1.5em; margin: 10px; }
+
+            .ratingg { 
+                border: none;
+                float: left;
+            }
+
+            .ratingg > input { display: none; } 
+            .ratingg > label:before { 
+                margin: 5px;
+                font-size: 1.25em;
+                font-family: FontAwesome;
+                display: inline-block;
+                content: "\f005";
+            }
+
+            .ratingg > .half:before { 
+                content: "\f089";
+                position: absolute;
+            }
+
+            .ratingg > label { 
+                color: #ddd; 
+                float: right; 
+            }
+
+            .ratingg > input:checked ~ label, 
+            .ratingg:not(:checked) > label:hover,  
+            .ratingg:not(:checked) > label:hover ~ label { color: #FFD700;  }
+
+            .ratingg > input:checked + label:hover, 
+            .ratingg > input:checked ~ label:hover,
+            .ratingg > label:hover ~ input:checked ~ label, 
+            .ratingg > input:checked ~ label:hover ~ label { color: #FFED85;  }     
+
+
+            /* Downloaded from http://devzone.co.in/ */
+        </style>
  <?php
           $todaysDate = date('Y-m-d');
 
@@ -497,7 +541,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                                     
                                     <div id="rating_summary">
                                         <ul>
-                                            <li>Price
+                                            <li>Rating
                                                 <div class="rating">
                                                 <?php
 
@@ -521,30 +565,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                                                     
                                                 </div>
                                             </li>   
-                                            <li>Quality
-                                                <div class="rating">
-
-                                                <?php
-
-                                                
-                                              
-                                                    $i=0;
-                                                    //echo "quality review is: ".;
-                                                    for ($j=$k->qualityreview; $j > 0 ; $j--) { 
-                                                        
-                                                        echo '<i class="icon-smile voted"></i>';
-                                                        $i++;
-                                                    }
-
-                                                    for ($a=$i; $a < 5; $a++) { 
-                                                        echo '<i class="icon-smile"></i>';
-                                                    }
-                                                    
-
-                                                ?>
-                                                    
-                                                </div>
-                                            </li>
+                                            
                                         </ul>
                                     </div>
                                 
@@ -606,34 +627,28 @@ if ($this->session->userdata('holidayCustomerName')) {
                 <input type="hidden" name="resortid" value="<?php echo $this->uri->segment(3, 0); ?>">
                     
                     <div class="row">
+
+                        
                                                   
                         <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Price</label>
-                                    <select class="form-control" name="pricerating" required>
-                                        <option value="">Please review</option>
-                                        <option value="1">Low</option>
-                                        <option value="2">Sufficient</option>
-                                        <option value="3">Good</option>
-                                        <option value="4">Excellent</option>
-                                        <option value="5">Super</option>
-                                    </select>
+                                    <label>Rate Us</label>
+                                    <fieldset id='demo1' class="ratingg">
+                                <input class="stars" type="radio" id="star5" name="pricerating" value="5" />
+                                <label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                                <input class="stars" type="radio" id="star4" name="pricerating" value="4" />
+                                <label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                                <input class="stars" type="radio" id="star3" name="pricerating" value="3" />
+                                <label class = "full" for="star3" title="Meh - 3 stars"></label>
+                                <input class="stars" type="radio" id="star2" name="pricerating" value="2" />
+                                <label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                                <input class="stars" type="radio" id="star1" name="pricerating" value="1" />
+                                <label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+
+                            </fieldset>
                                 </div>
                             </div>
-                                                    <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Quality</label>
-                                    <select class="form-control" name="qualityrating" required>
-                                        <option value="">Please review</option>
-                                        <option value="1">Low</option>
-                                        <option value="2">Sufficient</option>
-                                        <option value="3">Good</option>
-                                        <option value="4">Excellent</option>
-                                        <option value="5">Super</option>
-                                    </select>
-                                </div>
-                            </div>
-                                            </div>
+                 </div>
                     <!-- End row -->
                     <div class="form-group">
                         <textarea name="reviewtext" id="review_text" class="form-control" style="height:100px;" placeholder="Write your review" required></textarea>
@@ -908,6 +923,12 @@ $('.book-now').on('click',function(){
 
 
 });
+
+$(':radio').change(
+  function(){
+    $('.choice').text( this.value + ' stars' );
+  } 
+)
 
 
 </script>

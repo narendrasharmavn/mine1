@@ -158,12 +158,13 @@ class Frontend extends CI_Controller {
 
         $resortname = $this->input->post('resortname');
         $pricerating = $this->input->post('pricerating');
-        $qualityrating = $this->input->post('qualityrating');
+        //$qualityrating = $this->input->post('qualityrating');
         $reviewtext = $this->input->post('reviewtext');
+
+        echo "price rating".$pricerating."<br>";
 
         $data = array(
           'pricereview' => $pricerating,
-          'qualityreview' => $qualityrating,
           'review' => $reviewtext,
           'customerid' => $this->session->userdata('holidayCustomerId'),
           'resortname' => $resortid,
@@ -1001,7 +1002,7 @@ redirect('frontend/index');
          // echo '<pre>';
          // print_r($query2->result());
          // echo '</pre>';
-          
+
           $place = str_replace(' ','-',$query2->result()[0]->place);
           $plid =  $query2->result()[0]->plid;
           redirect('places/'.$place.'/'.$plid);
