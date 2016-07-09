@@ -425,7 +425,8 @@ class Frontend extends CI_Controller {
       $childpriceperticket = $this->input->post('childpriceperticket');
       $numberofadults = $this->input->post('numberofadults');
       $numberofchildren = $this->input->post('numberofchildren');
-      $servicetax = $this->input->post('servicetax');
+      $calculatedinternetcharges = $this->input->post('calculatedinternetcharges');
+      $calculatedservicetax = $this->input->post('calculatedservicetax');
       $kidsmealqty = $this->input->post('kidsmealqty');
 
 
@@ -436,16 +437,33 @@ class Frontend extends CI_Controller {
       //calculate kids meal price
       $kidsmealprice = $kidsmealqty * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->kidsmealprice;
 
-      $subtotal = $adultprice + $childrenprice;
+      $subtotal = $adultprice + $childrenprice + $kidsmealprice;
       $serviceTaxFromDB = $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->servicetax;
       //now calculate service tax
-       $calculatedServiceTax = ($subtotal*$serviceTaxFromDB)/100;
+       $calculatedInternetCharges = ($subtotal*$serviceTaxFromDB)/100;
+       //now calculate service tax over internet charges
+       $calculatedServiceTax = ($calculatedInternetCharges*15) / 100;
        //add sub total , calculated service tax and kids meal price
-       $total = $subtotal+$calculatedServiceTax+$kidsmealprice;
+       $total = ceil($subtotal+$calculatedServiceTax+$calculatedInternetCharges);
 
-      $noOfTickets = ($numberofadults)+($numberofchildren);
+
+       $noOfTickets = ($numberofadults)+($numberofchildren);
+
+       
 
       
+      $this->session->set_userdata('packageid',$packageid);
+      $this->session->set_userdata('totalcost',$total);
+      $this->session->set_userdata('adultpriceperticket',$adultprice);
+      $this->session->set_userdata('childpriceperticket',$childrenprice);
+      $this->session->set_userdata('kidsmealprice',$kidsmealprice);
+      $this->session->set_userdata('numberofadults',$numberofadults);
+      $this->session->set_userdata('numberofchildren',$numberofchildren);
+      $this->session->set_userdata('kidsmealqty',$kidsmealqty);
+      $this->session->set_userdata('servicetax',$calculatedServiceTax);
+      $this->session->set_userdata('internetcharges',$calculatedInternetCharges);
+      $this->session->set_userdata('vendorid',$vendorid);
+      $this->session->set_userdata('dateofvisit',$dateofvisit);
 
       $bookingsdata = array(
           'dateofvisit' => $this->session->userdata('dateofvisit'),
@@ -465,19 +483,6 @@ class Frontend extends CI_Controller {
 
       );
 
-      
-      $this->session->set_userdata('packageid',$packageid);
-      $this->session->set_userdata('totalcost',$total);
-      $this->session->set_userdata('adultpriceperticket',$adultprice);
-      $this->session->set_userdata('childpriceperticket',$childrenprice);
-      $this->session->set_userdata('kidsmealprice',$kidsmealprice);
-      $this->session->set_userdata('numberofadults',$numberofadults);
-      $this->session->set_userdata('numberofchildren',$numberofchildren);
-      $this->session->set_userdata('kidsmealqty',$kidsmealqty);
-      $this->session->set_userdata('servicetax',$calculatedServiceTax);
-      $this->session->set_userdata('vendorid',$vendorid);
-      $this->session->set_userdata('dateofvisit',$dateofvisit);
-
 
      if ($this->session->userdata('holidayEmail')) {
        # code...
@@ -493,6 +498,7 @@ class Frontend extends CI_Controller {
           'numberofadults'=> $this->session->userdata('numberofadults'),
           'numberofchildren'=> $this->session->userdata('numberofchildren'),
           'servicetax'=> $this->session->userdata('servicetax'),
+          'internetcharges'=> $this->session->userdata('internetcharges'),
           'customerid' => $this->session->userdata('holidayCustomerId'),
           'status' => 'unpaid',
           'bookingid' => $this->session->userdata('bookingsid'),

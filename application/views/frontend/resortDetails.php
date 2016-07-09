@@ -3,8 +3,8 @@
             @import url(http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
             fieldset, label { margin: 0; padding: 0; }
-            body{ margin: 20px; }
-            h1 { font-size: 1.5em; margin: 10px; }
+           
+            
 
             .ratingg { 
                 border: none;
@@ -447,9 +447,16 @@ if ($this->session->userdata('holidayCustomerName')) {
                 </tr>
                 <tr>
                     <td>
-                        Service Tax                    </td>
+                        Internet Handling Charges                    </td>
                     <td class="text-right" >
-                        % <span id="servicetax">0</span> (per ticket)
+                        % <span id="internetcharges">0</span> (per ticket)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Service tax                    </td>
+                    <td class="text-right" >
+                        % <span id="servicetax">15</span> 
                     </td>
                 </tr>
                                 <tr>
@@ -469,6 +476,8 @@ if ($this->session->userdata('holidayCustomerName')) {
                                 <span class="kidsmeal-number">0</span> *  Rs . <span class="kidsmealprice">50</span> 
                              + 
                          </span>
+                          Rs. <span class="calculated-internetcharges">0</span> (Internet Charges)
+                          +
                           Rs. <span class="calculated-servicetax">0</span> (Service Tax)
                                             </td>
                 </tr>
@@ -777,17 +786,27 @@ function update_tour_price() {
     
     price_per_child=parseInt($('.childprice').html());
     kids_meal_price=parseInt($('.kidsmealprice').html());
-    exchange_rate=parseInt($('#servicetax').html());
+    var internetcharges=parseInt($('#internetcharges').html());
+    var servicetax = parseInt($('#servicetax').html());
 
-    var kidsmealtotal = kidsmealqty*kids_meal_price;
-    console.log(price_per_person);
-    var price = +( (adults * price_per_person + children * price_per_child) ).toFixed(2);
-    var calculatedServiceTax = (price *exchange_rate)/100;
-    $('.calculated-servicetax').html(calculatedServiceTax);
+    //var kidsmealtotal = kidsmealqty*kids_meal_price;
+    var price =0;
+    price = +( (adults * price_per_person + children * price_per_child +  kidsmealqty*kids_meal_price) );
+    price = Math.ceil(price);
+    console.log("price is: "+price);
+    var calculatedinternetcharges = (price * internetcharges ) /100;
+    console.log("calculated internet charges are : "+calculatedinternetcharges);
+    $('.calculated-internetcharges').html(calculatedinternetcharges);
+    var calculatedservicetax = (calculatedinternetcharges * servicetax ) /100;
+    console.log("calculated service tax over internet charges are : "+calculatedservicetax);
+    $('.calculated-servicetax').html(calculatedservicetax);
+
+
+
     $('.child-amount').toggleClass( 'hide', children < 1 );
     var total_price = $('.total-cost').text().replace(/[\d\.\,]+/g, price);
-    console.log("calculate service tax is:"+calculatedServiceTax);
-    $('.total-cost').text(price+calculatedServiceTax+kidsmealtotal);
+    var total_calculated_cost = price+calculatedservicetax+calculatedinternetcharges;
+    $('.total-cost').text(Math.ceil(total_calculated_cost));
 }
 
 
@@ -811,7 +830,7 @@ function bookthispackage(packageId){
     $('.children-number').html(0);
     $('.childprice').html(0);
     $('.total-cost').html(0);
-    $('.calculated-servicetax').html(0);
+    $('.calculated-internetcharges').html(0);
    
     //$('#children-number').val(0);
    // $('#children-number').val(0);
@@ -826,7 +845,7 @@ var kidsmealprice = $('#'+kmp).val();
 
 $('.adultprice').html($('#'+adultPriceId).val());
 $('.childprice').html($('#'+childPriceId).val());
-$('#servicetax').html($('#'+serviceTaxId).val());
+$('#internetcharges').html($('#'+serviceTaxId).val());
 
 $('.kidsmealprice').html(kidsmealprice);
 
@@ -873,7 +892,8 @@ $('.book-now').on('click',function(){
         var childpriceperticket = $('.childprice').html();
         var numberofadults = $('.adults-number').html();
         var numberofchildren = $('.children-number').html();
-        var servicetax = $('#servicetax').html();
+        var calculated_service_tax = $('.calculated-servicetax').html();
+        var calculated_internet_charges = $('.calculated-internetcharges').html();
         var kidsmealqty = $("#kidsmeal").val();
         var dateofvisit = $('#datepickerj').val();
         //alert(numberofadults);
@@ -890,7 +910,8 @@ $('.book-now').on('click',function(){
             childpriceperticket:childpriceperticket,
             numberofadults:numberofadults,
             numberofchildren:numberofchildren,
-            servicetax:servicetax,
+            calculatedservicetax:calculated_service_tax,
+            calculatedinternetcharges:calculated_internet_charges,
             kidsmealqty:kidsmealqty
 
         },

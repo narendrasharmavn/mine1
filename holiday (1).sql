@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2016 at 01:59 PM
+-- Generation Time: Jul 09, 2016 at 03:48 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.5.35
 
@@ -157,14 +157,8 @@ CREATE TABLE `tblbookings` (
 --
 
 INSERT INTO `tblbookings` (`bookingid`, `bookingtype`, `bookingtypeid`, `date`, `dateofvisit`, `userid`, `quantity`, `amount`, `booking_status`, `payment_status`, `ticketnumber`, `packageid`, `visitorstatus`, `vendorid`, `childqty`, `kidsmealqty`) VALUES
-(1, '', NULL, '2016-06-28', '0000-00-00', 5, 1, '548.9', 'pending', 'pending', '20160628033225', '1', 'absent', 1, 0, 0),
-(2, '', NULL, '2016-06-28', '0000-00-00', 5, 1, '82', 'pending', 'pending', '20160628041407', '1', 'absent', 1, 1, 0),
-(3, '', NULL, '2016-06-28', '0000-00-00', 11, 1, '82', 'pending', 'pending', '20160628061954', '1', 'absent', 1, 1, NULL),
-(4, '', NULL, '2016-06-28', '0000-00-00', 12, 1, '82', 'pending', 'pending', '20160628062101', '1', 'absent', 1, 1, NULL),
-(5, '', NULL, '2016-06-28', '0000-00-00', 13, 1, '82', 'pending', 'pending', '20160628062152', '1', 'absent', 1, 1, NULL),
-(6, '', NULL, '2016-06-28', '0000-00-00', NULL, 1, '82', 'pending', 'pending', '20160628062336', '1', 'absent', 1, 1, NULL),
-(7, '', NULL, '2016-06-28', '0000-00-00', 13, 1, '82', 'pending', 'pending', '20160628062435', '1', 'absent', 1, 1, 1),
-(8, '', NULL, '2016-07-04', '0000-00-00', 5, 1, '33', 'pending', 'pending', '20160704080158', '1', 'absent', 1, 1, 0);
+(1, '', NULL, '2016-07-09', '0000-00-00', 5, 1, '88.085', 'pending', 'pending', '20160709070703', '1', 'absent', 1, 1, 1),
+(2, '', NULL, '2016-07-09', '0000-00-00', 5, 1, '89', 'pending', 'pending', '20160709071350', '1', 'absent', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -211,7 +205,7 @@ CREATE TABLE `tblcustomers` (
 --
 
 INSERT INTO `tblcustomers` (`customer_id`, `name`, `username`, `password`, `number`, `dateofcreation`) VALUES
-(5, 'Tedx', 'sainikhil013@gmail.com', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', '7893514850', '2016-06-14'),
+(5, 'Tedxx', 'sainikhil013@gmail.com', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', '7893514850', '2016-06-14'),
 (13, 'Guest', 'amar@fornextit.com', '547a7b8b974ac386240a097627c318ce6d8d3e4b59a94bf895459e9e441ffc82c9157c225787a4206cbafc2d3287db515a4c729cf32dba7c64e20bbd5e1dd551', '8686709131', '2016-06-28'),
 (14, 'satyapradeep', 'satya@gmail.com', 'fb131bc57a477c8c9d068f1ee5622ac304195a77164ccc2d75d82dfe1a727ba8d674ed87f96143b2b416aacefb555e3045c356faa23e6d21de72b85822e39fdd', '4444444444', '2016-07-04');
 
@@ -361,6 +355,7 @@ CREATE TABLE `tblpayments` (
   `numberofchildren` varchar(5) NOT NULL,
   `noofkidsmeal` int(5) DEFAULT '0',
   `servicetax` varchar(5) NOT NULL,
+  `internetcharges` decimal(10,2) NOT NULL,
   `transaction_id` varchar(150) DEFAULT NULL,
   `referenceno` varchar(45) DEFAULT NULL,
   `transdate` date DEFAULT NULL,
@@ -384,13 +379,9 @@ CREATE TABLE `tblpayments` (
 -- Dumping data for table `tblpayments`
 --
 
-INSERT INTO `tblpayments` (`paymentid`, `bookingid`, `customerid`, `packageid`, `totalcost`, `adultpriceperticket`, `childpriceperticket`, `kidsmealprice`, `numberofadults`, `numberofchildren`, `noofkidsmeal`, `servicetax`, `transaction_id`, `referenceno`, `transdate`, `amount`, `response`, `banktransaction`, `transactiondescription`, `authorizationcode`, `discriminator`, `cardnumber`, `billingphone`, `billingemail`, `udf9`, `mmp_txn`, `mer_txn`, `transactiontime`, `status`) VALUES
-(1, NULL, 'sainikhil013@gmail.com', 1, '548.9', '499', '0', '0.00', '1', '0', 0, '10', NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-06-28 10:02:25', 'unpaid'),
-(2, '1', 'sainikhil013@gmail.com', 1, '82', '20', '10', '0.00', '1', '1', 0, '10', NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-06-28 10:44:07', 'unpaid'),
-(3, '5', '13', 1, '82', '20', '10', NULL, '1', '1', NULL, '10', NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-06-28 12:51:52', 'unpaid'),
-(4, '6', '13', 1, '82', '20', '10', '49.00', '1', '1', 1, '3', NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-06-28 12:53:36', 'unpaid'),
-(5, '7', '13', 1, '82', '20', '10', '49.00', '1', '1', 1, '3', NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-06-28 12:54:35', 'unpaid'),
-(6, '8', '5', 1, '33', '20', '10', '0.00', '1', '1', 0, '3', NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-04 14:31:58', 'unpaid');
+INSERT INTO `tblpayments` (`paymentid`, `bookingid`, `customerid`, `packageid`, `totalcost`, `adultpriceperticket`, `childpriceperticket`, `kidsmealprice`, `numberofadults`, `numberofchildren`, `noofkidsmeal`, `servicetax`, `internetcharges`, `transaction_id`, `referenceno`, `transdate`, `amount`, `response`, `banktransaction`, `transactiondescription`, `authorizationcode`, `discriminator`, `cardnumber`, `billingphone`, `billingemail`, `udf9`, `mmp_txn`, `mer_txn`, `transactiontime`, `status`) VALUES
+(1, '1', '5', 1, '88.08', '20', '10', '49.00', '1', '1', 1, '1.185', '7.90', NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-09 13:37:03', 'unpaid'),
+(2, '2', '5', 1, '89', '20', '10', '49.00', '1', '1', 1, '1.185', '7.90', NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-09 13:43:51', 'unpaid');
 
 -- --------------------------------------------------------
 
@@ -879,7 +870,7 @@ ALTER TABLE `smssettings`
 -- AUTO_INCREMENT for table `tblbookings`
 --
 ALTER TABLE `tblbookings`
-  MODIFY `bookingid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `bookingid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tblcities`
 --
@@ -924,7 +915,7 @@ ALTER TABLE `tblpackages`
 -- AUTO_INCREMENT for table `tblpayments`
 --
 ALTER TABLE `tblpayments`
-  MODIFY `paymentid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `paymentid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tblplaces`
 --

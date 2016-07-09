@@ -73,7 +73,8 @@
 	<tr><td width="150">Adults (<?php echo $this->session->userdata('numberofadults');  ?>)</td><td width="15"> : </td><td>Rs.<?php echo $this->session->userdata('adultpriceperticket')*$this->session->userdata('numberofadults');  ?></td></tr>
 	<tr><td width="150">Children (<?php echo $this->session->userdata('numberofchildren');  ?>)</td><td width="15"> : </td><td>Rs.<?php echo $this->session->userdata('numberofchildren')*$this->session->userdata('childpriceperticket');  ?></td></tr>
 	<tr><td width="150">Kid Meal (<?php echo $this->session->userdata('kidsmealqty');  ?>)</td><td width="15"> : </td><td>Rs.<?php echo $this->session->userdata('kidsmealqty')*$this->session->userdata('kidsmealprice');  ?></td></tr>
-	<tr><td width="150">Service Tax</td><td width="15"> : </td><td>Rs. <?php echo $this->session->userdata('servicetax');  ?></td></tr>
+	<tr><td width="150">Internet Handling Charges</td><td width="15"> : </td><td>Rs. <?php echo $this->session->userdata('internetcharges');  ?></td></tr>
+  <tr><td width="150">Service Tax</td><td width="15"> : </td><td>Rs. <?php echo $this->session->userdata('servicetax');  ?></td></tr>
 	<tr><td width="150">Date of Visit</td><td width="15"> : </td><td><?php echo $this->session->userdata('dateofvisit');  ?></td></tr>
 	<tr style="font-weight: bold;font-size: 20px;"><strong><td width="150">Total</td><td width="15"> : </td><td>Rs. <?php echo $this->session->userdata('totalcost');  ?></td></strong></tr>
 </table>
