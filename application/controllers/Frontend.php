@@ -68,7 +68,7 @@ class Frontend extends CI_Controller {
 
 
 
-  }else if($searchtype=='eventname'){
+  }else if($searchtype=='eventname' && $searchdate!=''){
 
     $searchResult =  $this->FrontEndModel->getAutoFillSearchDataEventsWithDates($searchterm,$searchdate);
        
@@ -98,7 +98,7 @@ class Frontend extends CI_Controller {
 
     
   }else{
-
+          /*
        $searchResult =  $this->FrontEndModel->getAutoFillSearchDataEvents($searchterm);
        
        if(count($searchResult->result())>0){
@@ -146,7 +146,7 @@ class Frontend extends CI_Controller {
           array_push($data, 'no results found');
         }
 
-       
+       */
 
       }
 

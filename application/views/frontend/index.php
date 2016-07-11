@@ -49,7 +49,7 @@
      <input type="text" class="form-control search-form-slider1" style="height:35px;font-size:14px;" name="searchterm" id="searchterm" placeholder="Resorts, Events or Places " value="<?php echo set_value('searchterm'); ?>" autocomplete="off" required>
                                     
     </div><!-- /input-group -->
-<span class="text-danger searchtermerror"><?php echo form_error('searchterm'); ?></span>
+<span class="text-danger searchtermerror" style="color:#ebd6bb;"><?php echo form_error('searchterm'); ?></span>
                                     <span class="search-results-autofill"></span>
                                
                             </div>
@@ -454,22 +454,28 @@ function myFunctionFocusOut(){
     $('.search-results-autofill').html('');
 }
 
-/*
+
 $('.search-form-slider1').on('keyup',function () {
    
-  //alert(this.value);
+        searchtype = $('#searchtype').val();
+        searchdate = $('#date').val() ;
+        searchterm = this.value;
+        if(searchtype==''){
+            $('.searchtermerror').text('Please select type of search for autofill to work');
+        }else if(searchtype=='eventname' && searchdate==''){
+            $('.searchtermerror').text('Please select a date');
+        }else{
+            $('.searchtermerror').text('');
+        }
 
 
 
 
 });
 
-*/
+
 
 $('document').ready(function(){
-
-
-    
 
    $( ".datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
 
@@ -511,6 +517,7 @@ $('document').ready(function(){
 
 $('.searchtype').on('change',function(){
     //alert(this.value);
+    $('.searchtermerror').text('');
     if (this.value=="eventname") {
         $('.datefield').show();
         $(".datefield").rules("add", "required");
