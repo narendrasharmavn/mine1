@@ -508,7 +508,103 @@ class Frontend extends CI_Controller {
       );
     
         $this->db->insert('tblpayments',$paymentsdata); 
-        $this->session->set_userdata('paytmentsid',$this->db->insert_id());
+        $this->session->set_userdata('paymentsid',$this->db->insert_id());
+      
+      echo "true";
+    
+      }else{
+        echo "false";
+      }
+
+    }
+
+
+    public function confirmbookingsevents(){
+
+      $packageid = $this->input->post('packageid');
+      $dateofvisit = $this->input->post('dateofvisit');
+      $vendorid = $this->input->post('vendorid');
+      $totalcost = $this->input->post('totalcost');
+      $adultpriceperticket = $this->input->post('adultpriceperticket');
+      $childpriceperticket = $this->input->post('childpriceperticket');
+      $numberofadults = $this->input->post('numberofadults');
+      $numberofchildren = $this->input->post('numberofchildren');
+     
+      $calculatedservicetax = $this->input->post('calculatedservicetax');
+      
+
+
+      //calcluate number of adults price
+      $adultprice = $numberofadults * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->adultprice;
+      //calculate number of children price
+      $childrenprice = $numberofchildren * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->childprice;
+      
+
+      $subtotal = $adultprice + $childrenprice;
+      $serviceTaxFromDB = $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->servicetax;
+      //now calculate service tax
+      $calculatedServiceTax = ($subtotal*$serviceTaxFromDB)/100;
+       //add sub total , calculated service tax 
+       $total = ceil($subtotal+$calculatedServiceTax);
+
+       $noOfTickets = ($numberofadults)+($numberofchildren);
+
+       
+
+      
+      $this->session->set_userdata('packageid',$packageid);
+      $this->session->set_userdata('totalcost',$total);
+      $this->session->set_userdata('adultpriceperticket',$adultprice);
+      $this->session->set_userdata('childpriceperticket',$childrenprice);
+      
+      $this->session->set_userdata('numberofadults',$numberofadults);
+      $this->session->set_userdata('numberofchildren',$numberofchildren);
+      
+      $this->session->set_userdata('servicetax',$calculatedServiceTax);
+      
+      $this->session->set_userdata('vendorid',$vendorid);
+      $this->session->set_userdata('dateofvisit',$dateofvisit);
+
+      $bookingsdata = array(
+          'dateofvisit' => $this->session->userdata('dateofvisit'),
+          'date'=>date('Y-m-d'),
+          'userid' => $this->session->userdata('holidayCustomerId'),
+          'quantity' => $this->session->userdata('numberofadults'),
+          'booking_status' => 'pending',
+          'packageid'=>$this->session->userdata('packageid'),
+          'amount'=>$this->session->userdata('totalcost'),
+          'payment_status'=>'pending',
+          'ticketnumber' => date('Ymdhis'),
+          'visitorstatus' => 'absent',
+          'vendorid' => $this->session->userdata('vendorid'),
+          'childqty' => $this->session->userdata('numberofchildren')
+
+
+      );
+
+
+     if ($this->session->userdata('holidayEmail')) {
+       # code...
+     
+        $this->db->insert('tblbookings',$bookingsdata); 
+        $this->session->set_userdata('bookingsid',$this->db->insert_id());
+
+        $paymentsdata = array(
+          'packageid'=> $this->session->userdata('packageid'),
+          'totalcost'=> $this->session->userdata('totalcost'),
+          'adultpriceperticket'=> $this->session->userdata('adultpriceperticket'),
+          'childpriceperticket'=> $this->session->userdata('childpriceperticket'),
+          'numberofadults'=> $this->session->userdata('numberofadults'),
+          'numberofchildren'=> $this->session->userdata('numberofchildren'),
+          'servicetax'=> $this->session->userdata('servicetax'),
+          'customerid' => $this->session->userdata('holidayCustomerId'),
+          'status' => 'unpaid',
+          'bookingid' => $this->session->userdata('bookingsid')
+
+      );
+    
+        $this->db->insert('tblpayments',$paymentsdata); 
+        $this->session->set_userdata('paymentsid',$this->db->insert_id());
       
       echo "true";
     
@@ -519,7 +615,19 @@ class Frontend extends CI_Controller {
     }
 
 
-    public function confirm(){
+    public function confirm($selectiontype=''){
+
+      if($selectiontype=="events"){
+
+        $packageid = $this->session->userdata('packageid');
+
+    $data['eventResults'] =  $this->FrontEndModel->getResortDetailsBasedOnPackageIdAndEventsTable($packageid);
+
+      $this->load->view('frontend/header');
+     $this->load->view('frontend/confirmevents',$data);
+
+
+      }else{
 
       $packageid = $this->session->userdata('packageid');
 
@@ -527,6 +635,8 @@ class Frontend extends CI_Controller {
 
       $this->load->view('frontend/header');
      $this->load->view('frontend/confirm',$data);
+
+     }
 
     }
 

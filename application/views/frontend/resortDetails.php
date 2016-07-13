@@ -876,7 +876,7 @@ $('.book-now').on('click',function(){
 
 
     if ($('#datepickerj').val() == "") {
-    //alert("Please Select a Date");
+        alert("Please Select a Date");
     //return false;
 }else if($('.total-cost').text()==0 || $('.total-cost').text()==''){
     alert("Please book atleast one ticket. Total cannot be zero "+$('.total-cost').text());

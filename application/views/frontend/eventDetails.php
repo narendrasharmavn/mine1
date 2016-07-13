@@ -11,6 +11,8 @@
 
             $packages = $this->db->query("SELECT * from tblpackages WHERE eventid='$eventid' AND status=1 AND expirydate>='$todaysDate'");
 
+            //echo "SELECT * from tblpackages WHERE eventid='$eventid' AND status=1 AND expirydate>='$todaysDate'"."<br>";
+
          
 
         ?>
@@ -198,7 +200,8 @@
                 <div class="col-md-9">
 
                 <?php
-                if (count($packages->result())<1) {
+                //echo "count is :".count($packages->result());
+                if (count($packages->result())<0) {
                     echo 'No Packages';
                 } else {
                     # code...
@@ -412,7 +415,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group">
                             <label><i class="icon-calendar-7"></i> Select a date</label>
-                            <input class="form-control" id="datepickerj" type="text" name="date">
+                            <input type="text" class="form-control" id="datepickerj" name="date">
                             <input type="hidden" value="" id="packageid">
                             <input type="hidden" value="<?php echo $eventResults->vendorid; ?>" id="vendorid">
                         </div>
@@ -480,19 +483,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                 </tbody>
                 </table>
                 <button type="button" class="btn_full book-now">Book now</button>
-                            <?php
-                            if (!$this->session->userdata('holidayCustomerName')) {
-
-                                ?>
-
-                                 
-                                                        <a href="<?php echo site_url().'login'; ?>" class="btn_full_outline">login</a>
-
-                                <?php
-
-                            }
-                                           
-                        ?>
+                            
                                                   
                                                        
 
@@ -593,10 +584,10 @@ var exchange_rate = 1;
     exchange_rate = 1;
 
 
-//$(document).ready(function(){
+$(document).ready(function(){
  //$('.carousel').carousel({interval: 2000});
     //loadMap();
-     $('#datepickerj').datepick({dateFormat: 'yyyy-mm-dd'});
+    $( "#datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
 
      $('.theiaStickySidebar').hide();
      //document.getElementsByClassName("book-now").disabled = true
@@ -663,7 +654,7 @@ var exchange_rate = 1;
     $('#booking-form').validate({
         rules: validation_rules
     });
-//});
+});
 
 function update_tour_price() {
     var adults = $('input#adults').val();
@@ -742,61 +733,30 @@ $('.theiaStickySidebar').show();
 
 $('.book-now').on('click',function(){
 
- if ($('#datepickerj').datepick('getDate') == "") {
+ if ($('#datepickerj').val() == "") {
     alert("Please Select a Date");
     //return false;
 }else if($('.total-cost').text()==0 || $('.total-cost').text()==''){
     alert("Please book atleast one ticket. Total cannot be zero "+$('.total-cost').text());
 }else{
 
-    var d = new Date($('#datepickerj').datepick('getDate'));
-    var n = d.toISOString();
-    var n = n.split('T');
-    //alert("clicked"+n[0]);
-
-    
-    
-    var EffectiveDate = n[0];
-var Today = new Date();
-var dd = Today.getDate();
-var mm = Today.getMonth() + 1; //January is 0!
-var yyyy = Today.getFullYear();
-if (dd < 10) {
-    dd = '0' + dd
-}
-if (mm < 10) {
-    mm = '0' + mm
-}
-var Today = yyyy + '-' + mm + '-' + dd;
-
-dateFirst = EffectiveDate.split('-');
-dateSecond = Today.split('-');
-var value = new Date(dateFirst[2], dateFirst[1], dateFirst[0]);
-var current = new Date(dateSecond[2], dateSecond[1], dateSecond[0]);
-
-
- if (value < current) {
-        alert("Date should not be less than Present Date!");
-       // return false;
-    }else{
-
         var packageid = $('#packageid').val();
         var vendorid = $('#vendorid').val();
         var totalcost = $('.total-cost').html();
-
         var adultpriceperticket = $('.adultprice').html();
         var childpriceperticket = $('.childprice').html();
         var numberofadults = $('.adults-number').html();
         var numberofchildren = $('.children-number').html();
-        var servicetax = $('#servicetax').html();
+        var calculated_service_tax = $('.calculated-servicetax').html();
+        var dateofvisit = $('#datepickerj').val();
 
         //alert(numberofadults);
 
         $.ajax({
         type: "POST",
-        url: '<?php echo site_url("frontend/confirmbookings")?>',
+        url: '<?php echo site_url("frontend/confirmbookingsevents")?>',
         data: {
-            dateofvisit:value,
+            dateofvisit: dateofvisit,
             packageid:packageid,
             vendorid:vendorid,
             totalcost:totalcost,
@@ -804,20 +764,18 @@ var current = new Date(dateSecond[2], dateSecond[1], dateSecond[0]);
             childpriceperticket:childpriceperticket,
             numberofadults:numberofadults,
             numberofchildren:numberofchildren,
-            servicetax:servicetax
-
+            calculatedservicetax:calculated_service_tax
         },
         success: function(res) {
 
-                    if (res.trim()=="true") {
-                        window.location.href="<?php echo site_url().'/frontend/confirmevents'; ?>";
-                    } else if(res.trim()=="false") {
-                         alert("Please login to book tickets");
-                         window.location.href="<?php echo site_url().'/frontend/loginForm'; ?>";
-                    }else{
-                        console.log(res);
-                    }        //$('#email').html(res);
-        },
+            if (res.trim()=="true") {
+                    window.location.href="<?php echo site_url().'frontend/confirm/events'; ?>";
+                } else if(res.trim()=="false") {
+                    window.location.href="<?php echo site_url().'frontend/confirm/events'; ?>";
+                }else{
+                    console.log(res);
+                }
+         },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr.status);
                     console.log(thrownError);
@@ -829,7 +787,7 @@ var current = new Date(dateSecond[2], dateSecond[1], dateSecond[0]);
 
     
 
-    }
+   // }
 
     }
    

@@ -70,6 +70,20 @@
                         <h3 style="color:#3b0032;">ORDER SUMMARY</h3>
                             			
 <table style="font-size:14px;line-height: 1.5em;background-color: transparent;">
+<tr>
+    <td width="150">Package Name
+    </td>
+    <td width="15"> : 
+    </td>
+    <td>
+    <?php
+
+     echo $this->db->get_where('tblpackages' , array('packageid' =>$this->session->userdata('packageid')))->row()->packagename;
+
+      ?>
+      
+    </td>
+  </tr>
 	<tr><td width="150">Adults (<?php echo $this->session->userdata('numberofadults');  ?>)</td><td width="15"> : </td><td>Rs.<?php echo $this->session->userdata('adultpriceperticket')*$this->session->userdata('numberofadults');  ?></td></tr>
 	<tr><td width="150">Children (<?php echo $this->session->userdata('numberofchildren');  ?>)</td><td width="15"> : </td><td>Rs.<?php echo $this->session->userdata('numberofchildren')*$this->session->userdata('childpriceperticket');  ?></td></tr>
 	<tr><td width="150">Kid Meal (<?php echo $this->session->userdata('kidsmealqty');  ?>)</td><td width="15"> : </td><td>Rs.<?php echo $this->session->userdata('kidsmealqty')*$this->session->userdata('kidsmealprice');  ?></td></tr>

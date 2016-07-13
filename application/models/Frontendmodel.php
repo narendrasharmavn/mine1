@@ -719,6 +719,14 @@ public function validateEmail($email){
         }
 
 
+    public function   getResortDetailsBasedOnPackageIdAndEventsTable($packageid)
+    {
+            $processedResults = $this->db->query("SELECT * FROM tblpackages p left join tblevents e on p.eventid=e.eventid WHERE packageid='$packageid' ");
+            $row = $processedResults->row();
+            return $row;
+
+        }
+
      public function   getEventDetailsBasedOnPackageId($packageid)
     {
             $processedResults = $this->db->query("SELECT * FROM tblpackages p left join tblevents e on p.eventid=e.eventid WHERE packageid='$packageid' ");
