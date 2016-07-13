@@ -54,7 +54,7 @@
                 <td>Rs. <span><?php echo $k->amount;   ?></span></td>
            
                 
-                <td><a href="<?php echo site_url().'invoice/'.$k->packagename.'/'.$k->bookingid ?>" target='_blank'>View Ticket</a></td>
+                <td><a href="<?php echo site_url().'invoice/'.$k->bookingid ?>" target='_blank'>View Ticket</a></td>
             </tr>
             <?php 
         }

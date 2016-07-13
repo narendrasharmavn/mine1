@@ -757,6 +757,12 @@ public function validateEmail($email){
        
         return $query->num_rows();
     }
+
+    public function getAllSuccessfulOrdersOfUser($customerid){
+
+      $query = $this->db->query("SELECT b.*,p FROM tblbookings b LEFT INNER JOIN tblpackages p ON b.packageid=p.packageid WHERE userid='$customerid' AND booking_status='booked'");
+
+    }
     
 
     public function getResortDataBasedOnResortId($resortId){

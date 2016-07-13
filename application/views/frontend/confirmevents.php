@@ -27,12 +27,12 @@
                                 <label for="exampleInputName2">Mobile</label> &nbsp; &nbsp;
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
-                                    echo '<input type="tel" name="udf1" class="form-control" id="mobile" placeholder="Enter Your mobile">';
+                                    echo '<input type="tel" name="udf1" class="form-control" id="mobile" placeholder="Enter Your mobile" required>';
                                  }else{
                                     ?>
                                     <input type="tel" name="udf3" class="form-control" id="mobile" placeholder="Enter Your mobile" value="<?php
                                     echo $this->db->get_where('tblcustomers' , array('customer_id' =>$this->session->userdata('holidayCustomerId')))->row()->number;
-                                       ?>">
+                                       ?>" required>
 
                                     <?php
                                  }
@@ -44,10 +44,10 @@
                                 <label for="exampleInputEmail2">Email</label> &nbsp; &nbsp;
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
-                                    echo '<input type="email" name="udf2" class="form-control" id="email" placeholder="abcd@example.com">';
+                                    echo '<input type="email" name="udf2" class="form-control" id="email" placeholder="abcd@example.com" required>';
                                  }else{
                                     ?>
-                                    <input type="email" name="udf2" class="form-control" id="email" placeholder="abcd@example.com" value="<?php echo $this->session->userdata('holidayEmail');  ?>">
+                                    <input type="email" name="udf2" class="form-control" id="email" placeholder="abcd@example.com" value="<?php echo $this->session->userdata('holidayEmail');  ?>" required>
 
                                     <?php
                                  }
@@ -213,7 +213,7 @@ $('#pay').on('click',function(){
 
         $.ajax({
         type: "POST",
-        url: '<?php echo site_url("frontend/nosessionhandler")?>',
+        url: '<?php echo site_url("frontend/nosessionhandlerevents")?>',
         data: {
             mobile:mobile,
             email:email

@@ -415,6 +415,83 @@ class Frontend extends CI_Controller {
 
     }
 
+
+
+    public function nosessionhandlerevents(){
+
+      $mobile = $this->input->post('mobile');
+      $email = $this->input->post('email');
+
+      $numberOfRows = $this->FrontEndModel->checkIfCustomerEmailOrMobileExists($email,$mobile);
+
+      if ($numberOfRows>0) {
+        echo "Email Or Phone exists with us. Please use a different one";
+        # code...
+      }else{
+
+        $customerData = array(
+
+          'name' => 'Guest',
+          'username' => $email,
+          'password' => hash('sha512',rand(9999,99999)),
+          'number' => $mobile,
+          'dateofcreation' => date('Y-m-d')
+
+
+          );
+
+        $this->db->insert('tblcustomers',$customerData);
+        $customerid = $this->db->insert_id();
+
+        $this->session->set_userdata('holidayEmail',$email);
+        $this->session->set_userdata('holidayCustomerName',$email);
+        $this->session->set_userdata('holidayCustomerId',$customerid);
+
+      $bookingsdata = array(
+          'dateofvisit' => $this->session->userdata('dateofvisit'),
+          'date'=>date('Y-m-d'),
+          'userid' => $customerid,
+          'quantity' => $this->session->userdata('numberofadults'),
+          'booking_status' => 'pending',
+          'packageid'=>$this->session->userdata('packageid'),
+          'amount'=>$this->session->userdata('totalcost'),
+          'payment_status'=>'pending',
+          'ticketnumber' => date('Ymdhis'),
+          'visitorstatus' => 'absent',
+          'vendorid' => $this->session->userdata('vendorid'),
+          'childqty' => $this->session->userdata('numberofchildren')
+
+
+      );
+
+      $this->db->insert('tblbookings',$bookingsdata);
+      $this->session->set_userdata('bookingsid',$this->db->insert_id());
+
+        $paymentsdata = array(
+          'packageid'=> $this->session->userdata('packageid'),
+          'totalcost'=> $this->session->userdata('totalcost'),
+          'adultpriceperticket'=> $this->session->userdata('adultpriceperticket'),
+          'childpriceperticket'=> $this->session->userdata('childpriceperticket'),
+          'numberofadults'=> $this->session->userdata('numberofadults'),
+          'numberofchildren'=> $this->session->userdata('numberofchildren'),
+          'servicetax'=> $this->session->userdata('servicetax'),
+          'customerid' => $this->session->userdata('holidayCustomerId'),
+          'status' => 'unpaid',
+          'bookingid' => $this->session->userdata('bookingsid')
+
+      );
+
+         $this->db->insert('tblpayments',$paymentsdata); 
+        $this->session->set_userdata('paytmentsid',$this->db->insert_id());
+      
+      echo "true";
+
+
+      }
+
+
+    }
+
     public function confirmbookings(){
 
       $packageid = $this->input->post('packageid');
@@ -2543,7 +2620,9 @@ tickets on the go<br>
 
     public function myorders(){
 
-
+      
+      //$customerid= $this->session->userdata('holidayCustomerId');
+      // $data['myorders']= $this->FrontEndModel->getAllSuccessfulOrdersOfUser($customerid);
       $this->load->view('frontend/header');
       $this->load->view('frontend/myorders');
 
