@@ -1,6 +1,9 @@
+
+
 <?php
     $query = $this->db->query("SELECT * FROM tblsliders WHERE status=1");
 ?>
+
 
 
         <!-- Slider -->
