@@ -72,6 +72,9 @@ $route['search-results'] = 'frontend/indexsearch';
 $route['confirm-booking'] = 'frontend/confirm';
 $route['places/(:any)/(:num)'] = 'frontend/placesdetails';
 $route['forgot-password'] = 'frontend/forgotForm';
+$route['forgotpassword'] = 'frontend/forgotpassword';
+
+
 
 $route['guest-login'] = 'frontend/guestLoginForm';
 $route['guestlogin_error'] = 'frontend/submitGuestlogin';

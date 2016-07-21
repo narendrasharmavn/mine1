@@ -1,4 +1,49 @@
- <?php
+ <style>
+            /****** ratingg Starts *****/
+            @import url(http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+            fieldset, label { margin: 0; padding: 0; }
+           
+            
+
+            .ratingg { 
+                border: none;
+                float: left;
+            }
+
+            .ratingg > input { display: none; } 
+            .ratingg > label:before { 
+                margin: 5px;
+                font-size: 1.25em;
+                font-family: FontAwesome;
+                display: inline-block;
+                content: "\f005";
+            }
+
+            .ratingg > .half:before { 
+                content: "\f089";
+                position: absolute;
+            }
+
+            .ratingg > label { 
+                color: #ddd; 
+                float: right; 
+            }
+
+            .ratingg > input:checked ~ label, 
+            .ratingg:not(:checked) > label:hover,  
+            .ratingg:not(:checked) > label:hover ~ label { color: #FFD700;  }
+
+            .ratingg > input:checked + label:hover, 
+            .ratingg > input:checked ~ label:hover,
+            .ratingg > label:hover ~ input:checked ~ label, 
+            .ratingg > input:checked ~ label:hover ~ label { color: #FFED85;  }     
+
+
+            /* Downloaded from http://devzone.co.in/ */
+        </style>
+
+        <?php
         $photoName = "";
 
         $query2 = $this->db->query("SELECT * from tbleventphotos WHERE eventid='$eventid'");
@@ -152,7 +197,7 @@
 		<div class="col-md-8 col-sm-8">
                         <h1><?php echo $eventResults->eventname; ?></h1>
                         <span><?php echo $eventResults->location; ?></span>
-                        <span class="rating"><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small></span>
+                        
 					
             <div class="row">
                 <div class="col-md-3">
@@ -201,7 +246,7 @@
 
                 <?php
                 //echo "count is :".count($packages->result());
-                if (count($packages->result())<0) {
+                if (count($packages->result())==0) {
                     echo 'No Packages';
                 } else {
                     # code...
@@ -283,10 +328,9 @@ if ($this->session->userdata('holidayCustomerName')) {
             <div class="row" id="rating_summary">
                 <div class="col-md-6">
                     <ul>
-                        <li>Price                                        <div class="rating"><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i></div>
+                        <li>Rating                                        <div class="rating"><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i></div>
                         </li>
-                        <li>Quality                                     <div class="rating"><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i><i class="icon-smile"></i></div>
-                        </li>
+                        
                                                         </ul>
                 </div>
                
@@ -314,6 +358,8 @@ if ($this->session->userdata('holidayCustomerName')) {
                         $reviewsquery = $this->db->query("SELECT er.*,c.name from eventreviews er LEFT JOIN tblcustomers c ON er.customerid=c.customer_id WHERE er.status=1 AND er.resortoreventname='$eventid' ORDER BY er.rid DESC LIMIT 4");
                         //echo "SELECT er.*,c.name from eventreviews er LEFT JOIN tblcustomers c ON er.customerid=c.customer_id WHERE er.status=1 AND er.resortoreventname='$eventid' ORDER BY er.rid DESC LIMIT 4";
 
+                        if(count($reviewsquery->result())>0){
+
                         foreach ($reviewsquery->result() as $k) {
                          
                          ?>
@@ -333,7 +379,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                                     
                                     <div id="rating_summary">
                                         <ul>
-                                            <li>Price
+                                            <li>Rating
                                                 <div class="rating">
                                                 <?php
 
@@ -357,30 +403,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                                                     
                                                 </div>
                                             </li>   
-                                            <li>Quality
-                                                <div class="rating">
-
-                                                <?php
-
-                                                
-                                              
-                                                    $i=0;
-                                                    //echo "quality review is: ".;
-                                                    for ($j=$k->qualityreview; $j > 0 ; $j--) { 
-                                                        
-                                                        echo '<i class="icon-smile voted"></i>';
-                                                        $i++;
-                                                    }
-
-                                                    for ($a=$i; $a < 5; $a++) { 
-                                                        echo '<i class="icon-smile"></i>';
-                                                    }
-                                                    
-
-                                                ?>
-                                                    
-                                                </div>
-                                            </li>
+                                            
                                         </ul>
                                     </div>
                                 
@@ -392,6 +415,9 @@ if ($this->session->userdata('holidayCustomerName')) {
                             </div>
                          <?php
                         }
+                    }else{
+                        echo "No Reviews";
+                    }
                     ?>
 
                     </div>
@@ -409,6 +435,7 @@ if ($this->session->userdata('holidayCustomerName')) {
 			 <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; top: 80px; z-index: 100; left: 889.5px;">
                             <div class="box_style_1 expose overone">
             <h3 class="inner" id="bookingscroll">- Booking -</h3>
+                
                         <form method="get" id="booking-form" action="place-your-order-2/" novalidate="novalidate">
                 <input type="hidden" name="tour_id" value="213">
                                 <div class="row">
@@ -482,6 +509,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                 </tr>
                 </tbody>
                 </table>
+                <div id="book-selection-error" style="background-color: rgb(235, 214, 187);color: #9c0000;padding: 10px;margin-bottom:3px;"> Please select a date</div>
                 <button type="button" class="btn_full book-now">Book now</button>
                             
                                                   
@@ -498,6 +526,8 @@ if ($this->session->userdata('holidayCustomerName')) {
 </div>
 
 
+
+
 <!--review Modal-->
 
     <div class="modal fade" id="myReview" tabindex="-1" role="dialog" aria-labelledby="myReviewLabel" aria-hidden="true">
@@ -508,42 +538,36 @@ if ($this->session->userdata('holidayCustomerName')) {
                 <h4 class="modal-title" id="myReviewLabel">Write your review</h4>
             </div>
             <div class="modal-body">
-            <?php          
+                <?php          
     echo form_open('Frontend/submiteventreview',array('id'=>'review-form','method'=>'post'));
 ?>
 
-                <input type="hidden" name="eventname" value="<?php echo $eventResults->eventname; ?>">
+               <input type="hidden" name="eventname" value="<?php echo $eventResults->eventname; ?>">
                 <input type="hidden" name="eventid" value="<?php echo $this->uri->segment(3, 0); ?>">
                     
                     <div class="row">
+
+                        
                                                   
                         <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Price</label>
-                                    <select class="form-control" name="pricerating" required>
-                                        <option value="">Please review</option>
-                                        <option value="1">Low</option>
-                                        <option value="2">Sufficient</option>
-                                        <option value="3">Good</option>
-                                        <option value="4">Excellent</option>
-                                        <option value="5">Super</option>
-                                    </select>
+                                    <label>Rate Us</label>
+                                    <fieldset id='demo1' class="ratingg">
+                                <input class="stars" type="radio" id="star5" name="pricerating" value="5" />
+                                <label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                                <input class="stars" type="radio" id="star4" name="pricerating" value="4" />
+                                <label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                                <input class="stars" type="radio" id="star3" name="pricerating" value="3" />
+                                <label class = "full" for="star3" title="Meh - 3 stars"></label>
+                                <input class="stars" type="radio" id="star2" name="pricerating" value="2" />
+                                <label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                                <input class="stars" type="radio" id="star1" name="pricerating" value="1" />
+                                <label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+
+                            </fieldset>
                                 </div>
                             </div>
-                                                    <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Quality</label>
-                                    <select class="form-control" name="qualityrating" required>
-                                        <option value="">Please review</option>
-                                        <option value="1">Low</option>
-                                        <option value="2">Sufficient</option>
-                                        <option value="3">Good</option>
-                                        <option value="4">Excellent</option>
-                                        <option value="5">Super</option>
-                                    </select>
-                                </div>
-                            </div>
-                                            </div>
+                 </div>
                     <!-- End row -->
                     <div class="form-group">
                         <textarea name="reviewtext" id="review_text" class="form-control" style="height:100px;" placeholder="Write your review" required></textarea>
@@ -587,6 +611,7 @@ var exchange_rate = 1;
 $(document).ready(function(){
  //$('.carousel').carousel({interval: 2000});
     //loadMap();
+    $('#book-selection-error').hide();
     $( "#datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
 
      $('.theiaStickySidebar').hide();
@@ -734,10 +759,15 @@ $('.theiaStickySidebar').show();
 $('.book-now').on('click',function(){
 
  if ($('#datepickerj').val() == "") {
-    alert("Please Select a Date");
+    $('#book-selection-error').show();
+    //alert("Please Select a Date");
+    $('#book-selection-error').html('Please select a date');
     //return false;
 }else if($('.total-cost').text()==0 || $('.total-cost').text()==''){
-    alert("Please book atleast one ticket. Total cannot be zero "+$('.total-cost').text());
+    //alert("Please book atleast one ticket. Total cannot be zero "+$('.total-cost').text());
+    $('#book-selection-error').show();
+    //alert("Please Select a Date");
+    $('#book-selection-error').html('Please book atleast one ticket. Total cannot be zero');
 }else{
 
         var packageid = $('#packageid').val();
@@ -794,6 +824,12 @@ $('.book-now').on('click',function(){
 
 
 });
+
+$(':radio').change(
+  function(){
+    $('.choice').text( this.value + ' stars' );
+  } 
+)
 
 
 </script>

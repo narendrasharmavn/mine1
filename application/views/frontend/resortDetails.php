@@ -225,7 +225,7 @@
                     <div class="col-md-12 col-sm-8">
                         <h1><?php echo $resortResults->resortname; ?></h1>
                         <span><?php echo $resortResults->location; ?></span>
-                        <span class="rating"><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small></span>
+                        
                     </div>
                     <div class="col-md-4 col-sm-4">
                       

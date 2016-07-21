@@ -191,19 +191,19 @@ class Frontend extends CI_Controller {
 
         $eventname = $this->input->post('eventname');
         $pricerating = $this->input->post('pricerating');
-        $qualityrating = $this->input->post('qualityrating');
+        //$qualityrating = $this->input->post('qualityrating');
         $reviewtext = $this->input->post('reviewtext');
 
         $data = array(
           'pricereview' => $pricerating,
-          'qualityreview' => $qualityrating,
           'review' => $reviewtext,
           'customerid' => $this->session->userdata('holidayCustomerId'),
           'resortoreventname' => $eventname
           );
 
         $this->db->insert('eventreviews', $data);
-        $url = 'frontend/showEventDetails/'.$eventid;
+        $eventname = str_replace(" ","-",$eventname);
+        $url = 'eventdetails/'.$eventname.'/'.$eventid;
        ?>
         <script>
           alert("Thank you for the review");
@@ -281,10 +281,10 @@ class Frontend extends CI_Controller {
                         //validation fails
 
                     }else{
-                            //all validations correct
-                         $searchtype = $this->input->post('searchtype');
-                          $searchterm = $this->input->post('searchterm');
-                          $searchdate = $this->input->post('date');
+                        //all validations correct
+                        $searchtype = $this->input->post('searchtype');
+                        $searchterm = addslashes($this->input->post('searchterm'));
+                        $searchdate = $this->input->post('date');
 
                           
                          if ($searchtype!='' || $searchterm!='') {

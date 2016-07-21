@@ -1,3 +1,10 @@
+<style>
+    .alert{
+        background-color: #2875b8;
+        color:black;
+    }
+
+</style>
 <section id="hero" class="login">
         <div class="container">
             <div class="row">

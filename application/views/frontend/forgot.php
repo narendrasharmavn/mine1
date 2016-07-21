@@ -7,7 +7,7 @@
                         
                         <?php       
 
-    echo form_open('forgot-password',array('id'=>'editstates','method'=>'post'));
+    echo form_open('forgotpassword',array('id'=>'editstates','method'=>'post'));
 ?>
                            
                                 <div class="form-group">

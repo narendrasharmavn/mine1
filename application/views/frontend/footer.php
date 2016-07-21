@@ -29,7 +29,7 @@
                 <div class="col-md-4 col-sm-3">
                     <h3>Need help?</h3>
                     <a href="tel://004542344599" id="phone">+91 1231313131</a>
-                    <a href="#" id="email_footer">help@book4holiday.com</a>
+                    <a href="mailto:help@book4holiday.com" id="email_footer">help@book4holiday.com</a>
                 </div>
                 <div class="col-md-3 col-sm-3">
                     <h3>About</h3>

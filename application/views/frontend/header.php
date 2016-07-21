@@ -168,6 +168,9 @@
     padding-bottom: 5px;
 
     }
+  #minheight{
+    min-height: 400px;
+  }
 </style>
 
 </head>
@@ -212,7 +215,7 @@
                                 <span style="color: Black;font-size: 30px;">Book4Holiday</span>
                            </a>
                     <!--Added mobile view starts-->   
-                           <div class="col-xs-12 hidden-lg hidden-md"">
+                           <div class="col-xs-12 hidden-lg hidden-md">
                            <div class="col-xs-1"></div>
                            <div class="col-xs-5">
                            <a href="<?php echo site_url().'login'; ?>" class="show-submenu">Sign In</a>
@@ -259,92 +262,37 @@ if($this->uri->segment(1)=='home' || $this->uri->segment(1)==''){
                                 <a href="<?php echo site_url().'resorts/zoo/1'; ?>" class="show-submenu">Book Zoo Tickets </a>
                                 
                             </li>
-                            <li>
-                              
-                            </li>
-
-                        </ul>
-                    </div><!-- End main-menu -->
-                    <ul id="top_tools">
-                        <li>
-                            <div class="dropdown dropdown-search  hidden-xs">
-                              <ul id="top_links">
-                        <?php
-                            if (!$this->session->userdata('holidayCustomerName')) {
-
-                                ?>
-
-                                <li>
-                                <div class="dropdown dropdown-access">
-                                    <a href="<?php echo site_url().'login'; ?>" class="dropdown-toggle" id="access_link">Sign in</a>
-                                    <!-- End Dropdown access -->
-                            </li>
+                            <li>&nbsp;</li>
                             
-                           <li><a href="<?php echo site_url().'register'; ?>" id="access_link1">Register</a></li>
-
+                            <li>
                                 <?php
-
+                                if (!$this->session->userdata('holidayCustomerName')) {
+                               ?>
+                                <a href="<?php echo site_url().'login'; ?>" class="show-submenu"><i class="fa fa-user" aria-hidden="true"></i> Sign In</a>
+                            
+                            <li >
+                                <a href="<?php echo site_url().'register'; ?>" class="show-submenu"><i class="fa fa-user-plus" aria-hidden="true"></i> Register</a>
+                            </li>
+                            <?php
+         
                             }else{
-                                echo ' <li><a href="#"  class="dropdown-toggle" data-toggle="dropdown" id="access_link">Welcome</a>
+                                echo ' <li><a href="#"  class="dropdown-toggle show-submenu" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i> Welcome '.$this->session->userdata('holidayCustomerName').'</a>
                                 
-                                    <div class="dropdown-menu">
-                                        
-                                        <div class="login-or">
-                                            <ul class="my-account-ul">
-                                            <a href="'.site_url().'my-account"><li class="my my-account-ul-li">My Account</li></a>
-                                            <a href="'.site_url().'my-orders"><li class="my my-account-ul-li">My Orders</li></a>
-                                            <a href="'.site_url().'logout'.'"><li class="my my-account-ul-li" >Logout</li></a>
-                                            </ul>
-                                        </div>
-                                        
-                                       
-                                       
-                                       
-                                    </div>
-                                </div>
-
+                                    <ul class="dropdown-menu">
+                                        <li><a href="'.site_url().'my-account">My Account</a></li>
+                                        <li><a href="'.site_url().'my-orders">My Orders</a></li>
+                                        <li><a href="'.site_url().'logout'.'">Logout</a></li>
+                                    </ul>   
                                 </li>';
                                 
                             }
                                            
                         ?>
-
-                        </ul>    
-                                </div>
-                            </div>
                         </li>
-                        <!--
-                        <li>
-                            <div class="dropdown dropdown-cart">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=" icon-basket-1"></i>Cart (0) </a>
-                                <ul class="dropdown-menu" id="cart_items">
-                                    <li>
-                                        <div class="image"><img src="<?php echo base_url(); ?>assets/frontend/images/slides/1.jpg" alt="Image"></div>
-                                        <strong>
-                                        <a href="#">Louvre museum</a>1x $36.00 </strong>
-                                        <a href="#" class="action"><i class="icon-trash"></i></a>
-                                    </li>
-                                    <li>
-                                        <div class="image"><img src="<?php echo base_url(); ?>assets/frontend/images/slides/2.jpg" alt="Image"></div>
-                                        <strong>
-                                        <a href="#">Versailles tour</a>2x $36.00 </strong>
-                                        <a href="#" class="action"><i class="icon-trash"></i></a>
-                                    </li>
-                                    <li>
-                                        <div class="image"><img src="<?php echo base_url(); ?>assets/frontend/images/slides/3.jpg" alt="Image"></div>
-                                        <strong>
-                                        <a href="#">Versailles tour</a>1x $36.00 </strong>
-                                        <a href="#" class="action"><i class="icon-trash"></i></a>
-                                    </li>
-                                    <li>
-                                        <div>Total: <span>$120.00</span></div>
-                                        <a href="cart.html" class="button_drop">Go to cart</a>
-                                        <a href="payment.html" class="button_drop outline">Check out</a>
-                                    </li>
-                                </ul>
-                            </div>--><!-- End dropdown-cart-->
-                        </li>
-                    </ul>
+                        </ul>
+                    </div><!-- End main-menu -->
+                    
+                    
                 </nav>
             </div>
         </div><!-- container -->
