@@ -29,7 +29,7 @@
                                 
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
-                                    echo '<input type="tel" name="udf1" class="form-control" id="mobile" placeholder="Enter Your mobile" required>';
+                                    echo '<input type="tel" name="udf3" class="form-control" id="mobile" placeholder="Enter Your mobile" required>';
                                  }else{
                                     ?>
                                     <input type="tel" name="udf3" class="form-control" id="mobile" placeholder="Enter Your mobile" value="<?php
