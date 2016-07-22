@@ -1,6 +1,6 @@
 
 
-<div id="position" style="margin-top:110px;">
+<div id="position" style="margin-top:57px;">
                     <div class="container"><ul><li><a href="<?php echo site_url().'home';?>" title="Home">Home</a></li><li class="active">Booking Confirmation Tour</li></ul></div>
                 </div>
 
@@ -23,11 +23,15 @@
             <?php
             $query = $this->db->query("SELECT * from tblbookings b LEFT JOIN tblpackages p ON b.packageid=p.packageid LEFT join tblcustomers c ON b.userid=c.customer_id WHERE b.userid='".$this->session->userdata('holidayCustomerId')."' and b.booking_status='booked' and b.payment_status='paid' ORDER BY b.date DESC");
 
+            if(count($query->result())>0){
+
+            
+
             ?>
-           <table class="table confirm">
+           <table class="table table-striped confirm">
            <thead>
                 <td><strong>Date</strong></td>
-                <td><strong>ticket Number</strong></td>
+                <td><strong>Ticket Number</strong></td>
                 <td><strong>Packagename</strong></td>
                 <td><strong>Adults</strong></td>
                 <td><strong>Child</strong></td>
@@ -62,6 +66,15 @@
            
             </tbody>
             </table>
+            <?php
+
+
+        }else{
+            echo "<h3>No Orders Found</h3>";
+        }
+
+
+        ?>
         </div><!--End step -->
 
         

@@ -1,3 +1,6 @@
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+        async defer>
+    </script>
 <style>
     .alert{
         background-color: #2875b8;
@@ -5,6 +8,13 @@
     }
 
 </style>
+<script type="text/javascript">
+      var onloadCallback = function() {
+        grecaptcha.render('html_element', {
+          'sitekey' : '6LewvSUTAAAAAD8SQuVQ45j2WgB6fM59artFNFAF'
+        });
+      };
+    </script>
 <section id="hero" class="login">
         <div class="container">
             <div class="row">
@@ -51,7 +61,8 @@
                                     <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password" required>
                                     <span class="text-danger"><?php echo form_error('cpassword'); ?></span>
                                 </div>
-                                
+                                <div class="g-recaptcha" data-sitekey="6LewvSUTAAAAAD8SQuVQ45j2WgB6fM59artFNFAF"></div>
+      
                                 <button type="submit" class="btn_full">Create an account</button>
                                 <br>Already a member? <a href="<?php echo site_url().'login'; ?>">Login</a>
                             </form>

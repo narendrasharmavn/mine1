@@ -345,8 +345,8 @@ class Frontend extends CI_Controller {
       $numberOfRows = $this->FrontEndModel->checkIfCustomerEmailOrMobileExists($email,$mobile);
 
       if ($numberOfRows>0) {
-        echo "Email Or Phone exists with us. Please use a different one";
-        # code...
+       echo "Email Or Phone exists with us. Please login ";
+        echo '<a href="'.site_url().'login">here</a>';
       }else{
 
         $customerData = array(
@@ -425,7 +425,8 @@ class Frontend extends CI_Controller {
       $numberOfRows = $this->FrontEndModel->checkIfCustomerEmailOrMobileExists($email,$mobile);
 
       if ($numberOfRows>0) {
-        echo "Email Or Phone exists with us. Please use a different one";
+        echo "Email Or Phone exists with us. Please login ";
+        echo '<a href="'.site_url().'login">here</a>';
         # code...
       }else{
 
@@ -444,7 +445,7 @@ class Frontend extends CI_Controller {
         $customerid = $this->db->insert_id();
 
         $this->session->set_userdata('holidayEmail',$email);
-        $this->session->set_userdata('holidayCustomerName',$email);
+        $this->session->set_userdata('holidayCustomerName','Guest');
         $this->session->set_userdata('holidayCustomerId',$customerid);
 
       $bookingsdata = array(
@@ -461,8 +462,7 @@ class Frontend extends CI_Controller {
           'vendorid' => $this->session->userdata('vendorid'),
           'childqty' => $this->session->userdata('numberofchildren')
 
-
-      );
+       );
 
       $this->db->insert('tblbookings',$bookingsdata);
       $this->session->set_userdata('bookingsid',$this->db->insert_id());
@@ -606,6 +606,7 @@ class Frontend extends CI_Controller {
       $childpriceperticket = $this->input->post('childpriceperticket');
       $numberofadults = $this->input->post('numberofadults');
       $numberofchildren = $this->input->post('numberofchildren');
+      $calculatedinternetcharges = $this->input->post('calculatedinternetcharges');
      
       $calculatedservicetax = $this->input->post('calculatedservicetax');
       
@@ -618,11 +619,14 @@ class Frontend extends CI_Controller {
       
 
       $subtotal = $adultprice + $childrenprice;
-      $serviceTaxFromDB = $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->servicetax;
-      //now calculate service tax
-      $calculatedServiceTax = ($subtotal*$serviceTaxFromDB)/100;
+      $internethandlingcharges = $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->servicetax;
+      //now calculate internet handling charges
+      $calculatedInternetCharges = ($subtotal*$internethandlingcharges)/100;
+
+      //now calculate service tax of 15 % over internet charges
+      $calculatedServiceTax = ($calculatedInternetCharges*15)/100;
        //add sub total , calculated service tax 
-       $total = ceil($subtotal+$calculatedServiceTax);
+       $total = ceil($subtotal+$calculatedInternetCharges+$calculatedServiceTax);
 
        $noOfTickets = ($numberofadults)+($numberofchildren);
 
@@ -636,7 +640,7 @@ class Frontend extends CI_Controller {
       
       $this->session->set_userdata('numberofadults',$numberofadults);
       $this->session->set_userdata('numberofchildren',$numberofchildren);
-      
+      $this->session->set_userdata('internetcharges',$calculatedInternetCharges);
       $this->session->set_userdata('servicetax',$calculatedServiceTax);
       
       $this->session->set_userdata('vendorid',$vendorid);
@@ -673,6 +677,7 @@ class Frontend extends CI_Controller {
           'childpriceperticket'=> $this->session->userdata('childpriceperticket'),
           'numberofadults'=> $this->session->userdata('numberofadults'),
           'numberofchildren'=> $this->session->userdata('numberofchildren'),
+          'internetcharges'=> $this->session->userdata('internetcharges'),
           'servicetax'=> $this->session->userdata('servicetax'),
           'customerid' => $this->session->userdata('holidayCustomerId'),
           'status' => 'unpaid',
@@ -696,9 +701,9 @@ class Frontend extends CI_Controller {
 
       if($selectiontype=="events"){
 
-        $packageid = $this->session->userdata('packageid');
+  $packageid = $this->session->userdata('packageid');
 
-    $data['eventResults'] =  $this->FrontEndModel->getResortDetailsBasedOnPackageIdAndEventsTable($packageid);
+  $data['eventResults'] =  $this->FrontEndModel->getResortDetailsBasedOnPackageIdAndEventsTable($packageid);
 
       $this->load->view('frontend/header');
      $this->load->view('frontend/confirmevents',$data);
@@ -2040,6 +2045,11 @@ redirect('frontend/index');
         $this->load->view('frontend/register');
     }
 
+    public function registrationsuccess(){
+      $this->load->view('frontend/header');
+        $this->load->view('frontend/registrationsuccess');
+    }
+
     public function myAccount(){
       //get details of user
       
@@ -2378,7 +2388,7 @@ tickets on the go<br>
                             
 
                              $this->load->view('frontend/header');
-                             redirect('frontend/loginForm');
+                             redirect('frontend/registrationsuccess');
                             
 
 

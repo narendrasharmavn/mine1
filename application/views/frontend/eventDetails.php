@@ -1,6 +1,6 @@
  <style>
             /****** ratingg Starts *****/
-            @import url(http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+           
 
             fieldset, label { margin: 0; padding: 0; }
            
@@ -312,6 +312,7 @@
             <?php
 
 if ($this->session->userdata('holidayCustomerName')) {
+
     
 
 
@@ -320,19 +321,51 @@ if ($this->session->userdata('holidayCustomerName')) {
 <div class="row">
         <div class="col-md-3">
             <h3>Reviews</h3>
+            <?php
+            $reviewsquery = $this->db->query("SELECT rr.*,c.name from eventreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortoreventname='$eventid' ORDER BY rr.rid DESC");
+
+           
+            $reviewsum= $this->db->query("SELECT sum(pricereview) as sumr from eventreviews where resortoreventname='$eventid'");
+            foreach($reviewsum->result() as $sum)
+            {
+                $sum=$sum->sumr;
+            }
+            $tot=count($reviewsquery->result());
+            //echo count($reviewsquery->result());
+            $avg=$sum/$tot;
+            //echo "Avg=".$avg;
+
+            ?>
+
             <a href="#" class="btn_1 add_bottom_15" data-toggle="modal" data-target="#myReview">Leave a review</a>
         </div>
         <div class="col-md-9">
-            <div id="general_rating">0 Reviews                          <div class="rating"><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i></div>
+            <div id="general_rating"><?php echo $tot;  ?> Reviews  
+                <div class="rating">
+                    <?php
+
+                         echo "<ul class='codexworld_rating_widget'>";
+                                                    $i=0;
+                                                    //echo "review is: ".$k->pricereview."<br>";
+                                                    for ($j=$avg; $j > 0 ; $j--) { 
+                                                        
+                                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px -28px;"></li>';
+                                                        $i++;
+                                                    }
+
+                                                    for ($a=$i; $a < 5; $a++) { 
+                                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px 0px;"></li>';
+                                                    }
+                                                    
+                                                    echo "</ul>";
+                                              
+
+
+                        ?>
+                </div>
             </div>
             <div class="row" id="rating_summary">
-                <div class="col-md-6">
-                    <ul>
-                        <li>Rating                                        <div class="rating"><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i></div>
-                        </li>
-                        
-                                                        </ul>
-                </div>
+                
                
             </div><!-- End row -->
             <hr>
@@ -381,23 +414,23 @@ if ($this->session->userdata('holidayCustomerName')) {
                                         <ul>
                                             <li>Rating
                                                 <div class="rating">
-                                                <?php
+                                               <?php
 
                                                 
-                                              
+                                               echo "<ul class='codexworld_rating_widget'>";
                                                     $i=0;
                                                     //echo "review is: ".$k->pricereview."<br>";
                                                     for ($j=$k->pricereview; $j > 0 ; $j--) { 
                                                         
-                                                        echo '<i class="icon-smile voted"></i>';
+                                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px -28px;"></li>';
                                                         $i++;
                                                     }
 
                                                     for ($a=$i; $a < 5; $a++) { 
-                                                        echo '<i class="icon-smile"></i>';
+                                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px 0px;"></li>';
                                                     }
                                                     
-
+                                                    echo "</ul>";
                                                 ?>
                                                     
                                                     
@@ -483,14 +516,22 @@ if ($this->session->userdata('holidayCustomerName')) {
                        <span id="childprice">0</span>
                     </td>
                 </tr>
-                <tr>
+                 <tr>
                     <td>
-                        Service Tax                    </td>
+                        Internet Handling Charges                    </td>
                     <td class="text-right" >
-                        % <span id="servicetax">0</span> (per ticket)
+                        % <span id="internetcharges">0</span> (per ticket)
                     </td>
                 </tr>
-                                <tr>
+                <tr>
+                    <td>
+                        Service tax        
+                    </td>
+                    <td class="text-right">
+                        % <span id="servicetax">15</span> 
+                    </td>
+                </tr>
+                <tr>
                     <td>
                         Total amount                    </td>
                     <td class="text-right">
@@ -498,8 +539,9 @@ if ($this->session->userdata('holidayCustomerName')) {
                         Rs. <span class="adultprice">0</span>                                                   <span class="child-amount hide"> + <span class="children-number">0</span>x 
                             Rs. <span class="childprice">0</span>  
 
-                        </span> +  Rs. <span class="calculated-servicetax">0</span> (Service Tax)
-                                            </td>
+                        </span> +  Rs. <span class="calculated-internetcharges">0</span> (Internet Handling Charges)
+                        +  <span> Rs . <span class="calculated-servicetax">0</span> (Service Tax)</span>
+                    </td>
                 </tr>
                 <tr class="total">
                     <td>
@@ -692,16 +734,24 @@ function update_tour_price() {
     price_per_person=parseInt($('.adultprice').html());
     
     price_per_child=parseInt($('.childprice').html());
-    exchange_rate=parseInt($('#servicetax').html());
+    internet_charges=parseInt($('#internetcharges').html());
+
+    var service_tax = parseInt($('#servicetax').html());
 
     console.log(price_per_person);
-    var price = +( (adults * price_per_person + children * price_per_child) ).toFixed(2);
-    var calculatedServiceTax = (price *exchange_rate)/100;
-    $('.calculated-servicetax').html(calculatedServiceTax);
+    var price = +( (adults * price_per_person + children * price_per_child) );
+    price = Math.ceil(price);
+    var calculatedInternetCharges = (price *internet_charges)/100;
+
+    //calculate service tax based on internet handling charges
+    var calculatedservicetax = (service_tax *calculatedInternetCharges)/100;
+    console.log("calculate service tax is:"+calculatedservicetax);
+    $('.calculated-servicetax').html(calculatedservicetax);
+    $('.calculated-internetcharges').html(calculatedInternetCharges);
     $('.child-amount').toggleClass( 'hide', children < 1 );
     var total_price = $('.total-cost').text().replace(/[\d\.\,]+/g, price);
-    console.log("calculate service tax is:"+calculatedServiceTax);
-    $('.total-cost').text(price+calculatedServiceTax);
+    
+    $('.total-cost').text(Math.ceil(price+calculatedInternetCharges+calculatedservicetax));
 }
 
 
@@ -738,7 +788,7 @@ var serviceTaxId = packageId+"servicetax";
 
 $('.adultprice').html($('#'+adultPriceId).val());
 $('.childprice').html($('#'+childPriceId).val());
-$('#servicetax').html($('#'+serviceTaxId).val());
+$('#internetcharges').html($('#'+serviceTaxId).val());
 
 $('html, body').animate({
     scrollTop: 350
@@ -777,6 +827,7 @@ $('.book-now').on('click',function(){
         var childpriceperticket = $('.childprice').html();
         var numberofadults = $('.adults-number').html();
         var numberofchildren = $('.children-number').html();
+        var calculated_internet_charges = $('.calculated-internetcharges').html();
         var calculated_service_tax = $('.calculated-servicetax').html();
         var dateofvisit = $('#datepickerj').val();
 
@@ -794,6 +845,7 @@ $('.book-now').on('click',function(){
             childpriceperticket:childpriceperticket,
             numberofadults:numberofadults,
             numberofchildren:numberofchildren,
+            calculatedinternetcharges:calculated_internet_charges,
             calculatedservicetax:calculated_service_tax
         },
         success: function(res) {

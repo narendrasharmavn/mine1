@@ -60,6 +60,7 @@ $route['trustees'] = 'frontend/trustees';
 
 $route['register'] = 'frontend/registerForm';
 $route['register-error'] = 'frontend/register';
+$route['register-success'] = 'frontend/registrationsuccess';
 
 
 
@@ -69,7 +70,8 @@ $route['eventsall'] = 'frontend/eventsGridView_ShowAll';
 
 $route['search-results'] = 'frontend/indexsearch';
 
-$route['confirm-booking'] = 'frontend/confirm';
+$route['confirm-booking-resorts'] = 'frontend/confirm';
+$route['confirm-booking-events'] = 'frontend/confirm/events';
 $route['places/(:any)/(:num)'] = 'frontend/placesdetails';
 $route['forgot-password'] = 'frontend/forgotForm';
 $route['forgotpassword'] = 'frontend/forgotpassword';

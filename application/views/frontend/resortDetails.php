@@ -1,6 +1,6 @@
  <style>
             /****** ratingg Starts *****/
-            @import url(http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+          
 
             fieldset, label { margin: 0; padding: 0; }
            
@@ -315,21 +315,50 @@ if ($this->session->userdata('holidayCustomerName')) {
 <div class="row">
         <div class="col-md-3">
             <h3>Reviews</h3>
+            <?php
+            $reviewsquery = $this->db->query("SELECT rr.*,c.name from resortreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortname='$resortid' ORDER BY rr.rrid DESC");
+
+            //$result=$reviewsquery->result();
+            $reviewsum= $this->db->query("SELECT sum(pricereview) as sumr from resortreviews where resortname='$resortid'");
+            foreach($reviewsum->result() as $sum)
+            {
+                $sum=$sum->sumr;
+            }
+            $tot=count($reviewsquery->result());
+            //echo count($reviewsquery->result());
+            $avg=$sum/$tot;
+            //echo "Avg=".$avg;
+
+            ?>
+
             <a href="#" class="btn_1 add_bottom_15" data-toggle="modal" data-target="#myReview">Leave a review</a>
         </div>
         <div class="col-md-9">
-            <div id="general_rating">0 Reviews                          <div class="rating"><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i></div>
+            <div id="general_rating"><?php echo $tot; ?> Reviews   
+                   <div class="rating">
+                        <?php
+
+                         echo "<ul class='codexworld_rating_widget'>";
+                                                    $i=0;
+                                                    //echo "review is: ".$k->pricereview."<br>";
+                                                    for ($j=$avg; $j > 0 ; $j--) { 
+                                                        
+                                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px -28px;"></li>';
+                                                        $i++;
+                                                    }
+
+                                                    for ($a=$i; $a < 5; $a++) { 
+                                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px 0px;"></li>';
+                                                    }
+                                                    
+                                                    echo "</ul>";
+                                              
+
+
+                        ?>
+                   </div>
             </div>
-            <div class="row" id="rating_summary">
-                <div class="col-md-6">
-                    <ul>
-                        <li>Rating                                        <div class="rating"><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i></div>
-                        </li>
-                        
-                                                        </ul>
-                </div>
-               
-            </div><!-- End row -->
+            
             <hr>
             <div class="guest-reviews">
                                         </div>
@@ -379,20 +408,20 @@ if ($this->session->userdata('holidayCustomerName')) {
                                                 <?php
 
                                                 
-                                              
+                                               echo "<ul class='codexworld_rating_widget'>";
                                                     $i=0;
                                                     //echo "review is: ".$k->pricereview."<br>";
                                                     for ($j=$k->pricereview; $j > 0 ; $j--) { 
                                                         
-                                                        echo '<i class="icon-smile voted"></i>';
+                                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px -28px;"></li>';
                                                         $i++;
                                                     }
 
                                                     for ($a=$i; $a < 5; $a++) { 
-                                                        echo '<i class="icon-smile"></i>';
+                                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px 0px;"></li>';
                                                     }
                                                     
-
+                                                    echo "</ul>";
                                                 ?>
                                                     
                                                     
@@ -544,6 +573,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                 </tr>
                 </tbody>
                 </table>
+                <div id="book-selection-error" style="background-color: rgb(235, 214, 187);color: #9c0000;padding: 10px;margin-bottom:3px;"> Please select a date</div>
                 <button type="button" class="btn_full book-now">Book now</button>
                             
                                                   
@@ -656,7 +686,7 @@ var exchange_rate = 1;
 
      $('.theiaStickySidebar').hide();
      //document.getElementsByClassName("book-now").disabled = true
-
+     $('#book-selection-error').hide();
     var available_days = [];
     var today = new Date();
     var tour_start_date = new Date( 0 );
@@ -828,14 +858,16 @@ $('.book-now').on('click',function(){
 
 
     if ($('#datepickerj').val() == "") {
-        alert("Please Select a Date");
-    //return false;
+        $('#book-selection-error').show();
+    //alert("Please Select a Date");
+    $('#book-selection-error').html('Please select a date');
 }else if($('.total-cost').text()==0 || $('.total-cost').text()==''){
-    alert("Please book atleast one ticket. Total cannot be zero "+$('.total-cost').text());
+    //alert("Please book atleast one ticket. Total cannot be zero "+$('.total-cost').text());
+    $('#book-selection-error').show();
+    //alert("Please Select a Date");
+    $('#book-selection-error').html('Please book atleast one ticket. Total cannot be zero');
 }else{
 
-    
- 
         var packageid = $('#packageid').val();
         var vendorid = $('#vendorid').val();
         var totalcost = $('.total-cost').html();
@@ -870,10 +902,10 @@ $('.book-now').on('click',function(){
         success: function(res) {
 
                 if (res.trim()=="true") {
-                    window.location.href="<?php echo site_url().'frontend/confirm'; ?>";
+                    window.location.href="<?php echo site_url().'confirm-booking-resorts'; ?>";
                 } else if(res.trim()=="false") {
                     //alert("Please login to book tickets");
-                     window.location.href="<?php echo site_url().'frontend/confirm'; ?>";
+                     window.location.href="<?php echo site_url().'confirm-booking-resorts'; ?>";
                 }else{
                     console.log(res);
                 }        //$('#email').html(res);

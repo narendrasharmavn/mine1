@@ -6,7 +6,8 @@
                 <div class="col-md-12 col-xs-12">
                     <div class="col-md-8 col-xs-12">
                         <h3 style="color: #ffffff;background-color: #2474b7; padding:20px;">Share Your Contact Details</h3>
-                        <form class="form-inline" action="<?php echo base_url().'merchant/';  ?>submit.php" method="post" id="theForm" style="background-color:#eee; padding:25px;">
+                        
+                        <form class="form-inline" action="<?php echo base_url().'merchant/';  ?>submit.php" method="post" id="payment-form" style="background-color:#eee; padding:25px;">
 
                         <input type="hidden" name="amount" class=" form-control" placeholder="Password" value="<?php echo $this->session->userdata('totalcost') ?>" readonly>
                                     <INPUT TYPE="hidden" NAME="udf3" value="NSE">
@@ -22,9 +23,10 @@
                                     <input type="hidden" name="bookingid" value="<?php echo  rand(10000,1000000); ?>"/>
 
 
-                            
+                            <div id="errordiv"></div>
                               <div class="form-group">
-                                <label for="exampleInputName2">Mobile</label> &nbsp; &nbsp;
+                                <label for="exampleInputName2" class="control-label">Mobile</label> 
+                                
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
                                     echo '<input type="tel" name="udf1" class="form-control" id="mobile" placeholder="Enter Your mobile" required>';
@@ -58,9 +60,11 @@
                               <?php
                               if ($this->session->userdata('holidayEmail')) {
                                  echo '<button type="submit" class="btn btn-primary">Pay</button>';
+                                 echo '<input type="hidden" name="sessioncheck" value="yes" >';
                               }else{
-                                echo '<button type="button" id="pay" class="btn btn-primary">Pay</button>
-								<button type="button" id="pay" class="btn btn-danger">Cancel</button>';
+                                echo '<button type="submit" id="pay" class="btn btn-primary">Pay</button>
+								<button type="button" id="cancel" class="btn btn-danger">Cancel</button>';
+                echo '<input type="hidden" name="sessioncheck" value="no" >';
                               }
                               ?>
                               
@@ -105,6 +109,18 @@
      Rs.<?php echo $this->session->userdata('numberofchildren')*$this->session->userdata('childpriceperticket');  ?>
     </td>
   </tr>
+  <tr>
+    <td width="150">
+      Internet Handling Charges
+    </td>
+    <td width="15">
+       :
+    </td>
+    <td>
+      Rs. <?php echo $this->session->userdata('internetcharges');  ?>
+    </td>
+    
+  </tr>
 	
   <tr>
     <td width="150">
@@ -116,7 +132,9 @@
     <td>
       Rs. <?php echo $this->session->userdata('servicetax');  ?>
     </td>
+
   </tr>
+
 	<tr>
     <td width="150">
       Date of Visit
@@ -158,46 +176,90 @@
      include 'scripts.php';
       ?>
 
- <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+
   
 <script type="text/javascript">
 
 $('document').ready(function(){
     //alert("hello");
-    $('#datepickerj').datepick({dateFormat: 'yyyy-mm-dd'});
-    //$('#inlineDatepicker').datepick({onSelect: showDate});
-    //$('#datetimepicker4').datetimepicker();
-
-    var searchType = $('#searchtype').val();
-    if (searchType=="eventname") {
-        //$('.datefield').show();
-        $('#datepickerj').prop('disabled', false);
-        //$(this).text(enable ? 'Disable' : 'Enable'). 
-        //siblings('.is-datepick').datepick(enable ? 'enable' : 'disable'); 
-        //$(".datefield").attr("enabled", "enabled"); 
+    // Setup form validation on the #register-form element
+    $("#payment-form").validate({
+      //by default the error elements is a <label>
+      errorElement: "div",
+      errorPlacement: function(error, element) {
+     error.appendTo('div#errordiv');
+     //console.log("error is : "+JSON.stringify(error));
+     //alert(JSON.stringify(error));
+     //console.log("element  is : "+JSON.stringify(element));
+     //$('div#errordiv').html(error[0].innerHTML);
+   },
+    
+        // Specify the validation rules
+        rules: {
+           udf2: {
+                required: true
+            },
+            udf1: {
+                required: true
+            }
+        },
         
-    } else {
-        $('.datefield').show();
-         //$(".datefield").attr("disabled", "disabled");
-         $('#datepickerj').prop('disabled', true);
-    }
+        // Specify the validation error messages
+        messages: {
+            udf2: "Please enter a valid email address",
+            udf1: "Please enter a Mobile Number"
+        },
+        
+        
+        submitHandler: function(form) {
+              var session_check = $('input[name="sessioncheck"]').val();
+              var mobile = $('#mobile').val();
+              var email = $('#email').val()
+              //alert(session_check);
+              if (session_check=="yes") {
+                form.submit();
+              }else{
+
+                //ajax submit
+
+                    $.ajax({
+                    type: "POST",
+                    url: '<?php echo site_url("frontend/nosessionhandlerevents")?>',
+                    data: {
+                        mobile:mobile,
+                        email:email
+                      },
+                    success: function(res) {
+                        if (res.trim()=="true") {
+                            form.submit();
+                        }else{
+                           $('div#errordiv').html(res.trim());
+                        }
+                        
+                    },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                console.log(xhr.status);
+                                console.log(thrownError);
+                                console.log(xhr.responseText);
+                             
+                            }
+                    });
+
+                    //end of ajax submit
+
+
+              }
+               // 
+          }
+        
+    });
+    
 });
 
 
-$('#searchtype').on('change',function(){
-    //alert(this.value);
-    if(this.value=='eventname'){
-       // $('.datefield').show();
-       //  $(".datefield").attr("enabled", "enabled");
-       $('#datepickerj').prop('disabled', false);
-    }else{
-       // $('.datefield').show();
-        // $(".datefield").attr("disabled", "disabled");
-        $('#datepickerj').prop('disabled', true);
-    }
 
-});
 
+/*
 
 $('#pay').on('click',function(){
     //alert("pay clicked");
@@ -242,7 +304,9 @@ $('#pay').on('click',function(){
 
 
 });
+*/
 
+ 
 
 
 </script>

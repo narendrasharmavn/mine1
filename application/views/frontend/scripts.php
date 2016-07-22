@@ -11,7 +11,7 @@
 
 
       
-    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+   
 
     <script src="<?php echo base_url(); ?>assets/frontend/js/common_scripts_min.js"></script>
     <script src="<?php echo base_url(); ?>assets/frontend/js/functions.js"></script>
