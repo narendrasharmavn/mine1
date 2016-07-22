@@ -103,7 +103,7 @@
                     $placetitleurl = str_replace(" ", "-", $k->place);
             ?>
 
-                             <div class="col-md-4 col-sm-6 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
+                             <div class="col-md-4 col-sm-6 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; min-height:390px; animation-delay: 0.1s; animation-name: zoomIn;">
 
                     
     <div class="tour_container">
