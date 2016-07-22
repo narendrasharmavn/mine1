@@ -1,4 +1,4 @@
-<style>
+ <style>
             /****** ratingg Starts *****/
             @import url(http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
@@ -42,18 +42,21 @@
 
             /* Downloaded from http://devzone.co.in/ */
         </style>
- <?php
+
+        <?php
           $todaysDate = date('Y-m-d');
 
             $packages = $this->db->query("SELECT * from tblpackages WHERE resortid='$resortid' AND status=1 AND expirydate>='$todaysDate'");
+
+            //echo "SELECT * from tblpackages WHERE resortid='$resortid' AND status=1 AND expirydate>='$todaysDate'";
 
          
 
         ?>
 
-        <script>
+ <script>
 
-    var icon = new google.maps.MarkerImage("http://maps.google.com/mapfiles/ms/micons/blue.png",
+        var icon = new google.maps.MarkerImage("http://maps.google.com/mapfiles/ms/micons/blue.png",
         new google.maps.Size(32, 32), new google.maps.Point(0, 0),
         new google.maps.Point(16, 32));
         var center = null;
@@ -126,62 +129,38 @@
             });
         </script>
 
-        <?php
-        $photoName = "";
-
-        $query = $this->db->query("SELECT * from tblresorphotos WHERE resortid='$resortid'");
-
-        foreach ($query->result() as $k) {
-              $photoName=$k->photoname;
-        }
-
-
-      
-
-        ?>
- <!--<section class="parallax-window" data-parallax="scroll" data-image-src="<?php echo base_url(); ?>assets/resortimages/<?php echo $photoName; ?>" data-natural-width="1400" data-natural-height="500">
-        <div class="parallax-content-2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-sm-8">
-                        <h1><?php echo $resortResults->resortname; ?></h1>
-                        <span><?php echo $resortResults->location; ?></span>
-                        <span class="rating"><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small></span>
-                    </div>
-                    <div class="col-md-4 col-sm-4">
-                      
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-     
-    
+       
+ 
         <div class="collapse" id="collapseMap">
-           <!-- <div id="map" class="map"></div> -->
+           <!-- <div id="mapp" class="map"></div>-->
         </div>
         <div id="toTop"></div>
         
         <div id="overlay" class="over"><i class="icon-spin3 animate-spin"></i></div>
         <div class="container margin_60" style="transform: none;">
     <div class="row" style="transform: none;">
-        <div class="col-md-12" id="single_tour_desc">
+        
 
-         <div class="container-fluid">
-		 
+            
+
+ <div class="container-fluid">
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
             
               <!-- Wrapper for slides -->
               <div class="carousel-inner">
                <?php
               $i=0;
+           
               $query = $this->db->query("SELECT * from tblresorphotos WHERE resortid='$resortid' order by rphotoid DESC limit 6");
-               foreach ($query->result() as $k) {
+                foreach ($query->result() as $k) {
                 if($i==0){
                 ?>
                 <div class="item active">
                   <img src="<?php echo base_url();?>assets/resortimages/<?php echo $k->photoname ;?>">
-                   
+                   <!--<div class="carousel-caption">
+                    <h3>Headline</h3>
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. <a href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank" class="label label-danger">Bootstrap 3 - Carousel Collection</a></p>
+                  </div>-->
                 </div><!-- End Item -->
                  <?php 
                     }
@@ -190,7 +169,10 @@
                         ?>
                         <div class="item">
                   <img src="<?php echo base_url();?>assets/resortimages/<?php echo $k->photoname ;?>">
-                   
+                   <!--<div class="carousel-caption">
+                    <h3>Headline</h3>
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. <a href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank" class="label label-danger">Bootstrap 3 - Carousel Collection</a></p>
+                  </div>-->
                 </div>
                         <?php
 
@@ -200,77 +182,88 @@
                  ?>
               </div><!-- End Carousel Inner -->
 
-<!--
-                <ul class="nav nav-pills nav-justified hidden-xs">
-                    <?php
-              $i=0;
-              $query = $this->db->query("SELECT * from tblresorphotos WHERE resortid='$resortid' order by rphotoid DESC limit 6");
-               foreach ($query->result() as $k) {
-                ?>
-                  <li data-target="#myCarousel" data-slide-to="<?php echo $i ;?>"><a href="#" class="detialsbar"><img src="<?php echo base_url();?>assets/resortimages/<?php echo $k->photoname ;?>" class="img-thumbnail"></a></li>
-                 <?php
-                 $i++;
-                  } 
-                  ?>   
-                </ul>
--->
+
+
 
             </div><!-- End Carousel -->
-
-            </div>            
-            
-            <div class="row">
-                <div class="col-md-8">
-				<div class="row">
-                    <div class="col-md-12 col-sm-8">
+        </div>     
+        <div class="col-md-8 col-sm-8">
                         <h1><?php echo $resortResults->resortname; ?></h1>
                         <span><?php echo $resortResults->location; ?></span>
                         
-                    </div>
-                    <div class="col-md-4 col-sm-4">
-                      
-                    </div>
+                    
+            <div class="row">
+                <div class="col-md-3">
+                    <h3>Description</h3>
                 </div>
-                <hr>
-                    <div class="col-md-3">
-                        <h3>Description</h3>
-                    </div>
-                    <div class="col-md-9">
-                        <h4><?php echo $resortResults->resortname;  ?></h4>
-                        <?php echo $resortResults->description;  ?>
-
-                            
-                    </div>
-					 <!--Map code starts here-->
-                         
+                <div class="col-md-9">
+                    <h4><?php echo $resortResults->resortname;  ?></h4>
+<?php echo $resortResults->description;  ?>
 
 <div class="row">
-<div class="col-md-12">
+<!--<div class="col-sm-6 one-half">
+
+            <ul class="list_ok">
+                    <li>Lorem ipsum dolor sit amet</li>
+                    <li>No scripta electram necessitatibus sit</li>
+                    <li>Quidam percipitur instructior an eum</li>
+                    <li>Ut est saepe munere ceteros</li>
+                    <li>No scripta electram necessitatibus sit</li>
+                    <li>Quidam percipitur instructior an eum</li>
+            </ul>
+
+</div>
+
+
+<div class="col-sm-6 one-half">
+
+<ul class="list_ok">
+    <li>Lorem ipsum dolor sit amet</li>
+    <li>No scripta electram necessitatibus sit</li>
+    <li>Quidam percipitur instructior an eum</li>
+    <li>No scripta electram necessitatibus sit</li>
+</ul>
+
+</div>
+-->
+</div>  
+            </div>
+            </div>
+
 <hr>
-    <div class="col-md-3">
+ <div class="row">
+                <div class="col-md-3">
                     <h3>Packages</h3>
-    </div>
+                </div>
                 <div class="col-md-9">
 
                 <?php
-
+                //echo "count is :".count($packages->result());
+                if (count($packages->result())==0) {
+                    echo 'No Packages';
+                } else {
+                    # code...
+                
+                
+                     $photoName = "";
                 foreach ($packages->result() as $k) {
+                    $photoName=$k->packageimage;
             ?>
              <div class="strip_all_tour_list wow fadeIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
     <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-4">
                       
                         <div class="img_list">
-                <a href="<?php echo site_url().'resorts/'.$k->packagename.'/'.$k->packageid;?>">
-                    <!-- <div class="ribbon popular" ></div> -->
-                    <img width="330" height="220" src="<?php echo base_url(); ?>assets/resortimages/<?php echo $photoName; ?>" class="attachment-330x220 wp-post-image" alt="tour_box_1">                   <div class="short_info"><i class="icon_set_1_icon-4"></i><?php //echo $k->eventname;   ?> </div>                </a>
+                <a href="<?php echo $k->packageid;   ?>">
+                    
+                    <img width="330" height="220" src="<?php echo base_url(); ?>assets/resortimages/<?php echo $photoName; ?>" class="attachment-330x220 wp-post-image" alt="tour_box_1">                   <div class="short_info"><i class="icon_set_1_icon-4"></i><?php //echo $k->resortname;   ?> </div>                </a>
             </div>
         </div>
         <div class="clearfix visible-xs-block"></div>
         <div class="col-lg-5 col-md-5 col-sm-6">
             <div class="tour_list_desc">
-             <!--   <div class="rating"><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small></div>-->
-                <h4><?php echo $k->packagename;   ?></h4>
+             
+                <h3><?php echo $k->packagename;   ?></h3>
                 <p><?php echo $k->description;   ?></p>
             </div>
         </div>
@@ -292,27 +285,26 @@
     </div>
 </div>
 
+  <?php
+                        }
 
-
-
-            <?php
                         }
 
 
                 ?>
 
-               
-
-
-
-               
-                </div>
-
+             
                 </div>
             </div>
-			
-			
-       <?php
+        
+<!--map starts from here-->
+           
+
+<!--map ends from here-->
+
+            <hr>
+
+            <?php
 
 if ($this->session->userdata('holidayCustomerName')) {
     
@@ -321,33 +313,19 @@ if ($this->session->userdata('holidayCustomerName')) {
             ?>
             
 <div class="row">
-    <div class="col-md-12">
-     <hr>
         <div class="col-md-3">
             <h3>Reviews</h3>
             <a href="#" class="btn_1 add_bottom_15" data-toggle="modal" data-target="#myReview">Leave a review</a>
         </div>
         <div class="col-md-9">
-            <div id="general_rating">
-            <?php
-            $reviewsquery = $this->db->query("SELECT rr.*,c.name from resortreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortname='$resortid' ORDER BY rr.rrid DESC");
-
-
-
-            echo count($reviewsquery->result());
-
-
-            ?>
-
-             Reviews                          <div class="rating"><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i></div>
+            <div id="general_rating">0 Reviews                          <div class="rating"><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i></div>
             </div>
             <div class="row" id="rating_summary">
                 <div class="col-md-6">
                     <ul>
-                        <li>Price                                        <div class="rating"><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i></div>
+                        <li>Rating                                        <div class="rating"><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i></div>
                         </li>
-                        <li>Quality                                     <div class="rating"><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i><i class="icon-smile"></i></div>
-                        </li>
+                        
                                                         </ul>
                 </div>
                
@@ -356,21 +334,98 @@ if ($this->session->userdata('holidayCustomerName')) {
             <div class="guest-reviews">
                                         </div>
         </div>
-        </div>
  </div>
 
 <?php
 }
 ?>
+        
+        <!--Reviews Start-->
+                
+                <div class="row">
+                    <div class="col-md-3 col-xs-12">
+                        <h3>User Reviews</h3>
+                    </div>
+                    <div class="col-md-9 col-xs-12">
 
-            <!--Map code ends here -->
+                    <?php
 
+                        $reviewsquery = $this->db->query("SELECT rr.*,c.name from resortreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortname='$resortid' ORDER BY rr.rrid DESC LIMIT 8");
+
+
+                        if(count($reviewsquery->result())>0){
+
+                        foreach ($reviewsquery->result() as $k) {
+                         
+                         ?>
+
+                         <div id="general_rating"><?php echo $k->name; ?> 
+                            
+                        </div>
+                       
+                            <div class="col-md-12 col-xs-12" id="rating_summary" style="padding-left: 0px;padding-right: 0px;">
+                                <ul>
+                                    <li style="text-align:justify;"><?php echo $k->review; ?>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-12" style="margin-bottom: 10px;">
+                                <div class="col-md-6" style="padding-left:0px;">
+                                    
+                                    <div id="rating_summary">
+                                        <ul>
+                                            <li>Rating
+                                                <div class="rating">
+                                                <?php
+
+                                                
+                                              
+                                                    $i=0;
+                                                    //echo "review is: ".$k->pricereview."<br>";
+                                                    for ($j=$k->pricereview; $j > 0 ; $j--) { 
+                                                        
+                                                        echo '<i class="icon-smile voted"></i>';
+                                                        $i++;
+                                                    }
+
+                                                    for ($a=$i; $a < 5; $a++) { 
+                                                        echo '<i class="icon-smile"></i>';
+                                                    }
+                                                    
+
+                                                ?>
+                                                    
+                                                    
+                                                </div>
+                                            </li>   
+                                            
+                                        </ul>
+                                    </div>
+                                
+                                </div>
+                            
+                            </div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                         <?php
+                        }
+                    }else{
+                        echo "No Reviews";
+                    }
+                    ?>
+
+                    </div>
+                   
                 </div>
-               <aside class="col-md-4" id="sidebar" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
-               
-
-                    
-
+                         
+        <!--Reviews End-->
+     
+        </div><!--End  single_tour_desc-->
+  <div class="col-md-4">
+ 
+                <aside class="col-md-12 aside-panel" id="sidebar">
+            
                                         <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; top: 80px; z-index: 100; left: 889.5px;">
                             <div class="box_style_1 expose overone">
             <h3 class="inner" id="bookingscroll">- Booking -</h3>
@@ -497,125 +552,21 @@ if ($this->session->userdata('holidayCustomerName')) {
                                                                     </form>
                     </div><!--/box_style_1 -->
                                                 </div>
-												<div class="row">
+                                                <div class="row">
                 <div class="col-md-12">
                 <hr>
-				<h3>Location</h3>
+                <h3>Location</h3>
                     <div id="map" class="map"></div>
-				</div>
+                </div>
 
-            </div> 
-                    
+            </div>           
         </aside>
-
-
+         
+    </div><!--End row -->
     </div><!--End row -->
 </div>
 
 
-                
-            
-            </div><!-- end of row -->
-
-
-<!--Reviews Start-->
-                
-                <div class="row">
-
-                    <div class="col-md-3 col-xs-12">
-                        <h3>User Reviews</h3>
-                    </div>
-                    <div class="col-md-9 col-xs-12">
-
-                    <?php
-
-                       $reviewsquery = $this->db->query("SELECT rr.*,c.name from resortreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortname='$resortid' ORDER BY rr.rrid DESC LIMIT 8");
-
-                        foreach ($reviewsquery->result() as $k) {
-                         
-                         ?>
-
-                         <div id="general_rating"><?php echo $k->name; ?> 
-                            
-                        </div>
-                       
-                            <div class="col-md-12 col-xs-12" id="rating_summary" style="padding-left: 0px;padding-right: 0px;">
-                                <ul>
-                                    <li style="text-align:justify;"><?php echo $k->review; ?>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-12" style="margin-bottom: 10px;">
-                                <div class="col-md-6" style="padding-left:0px;">
-                                    
-                                    <div id="rating_summary">
-                                        <ul>
-                                            <li>Rating
-                                                <div class="rating">
-                                                <?php
-
-                                                
-                                              
-                                                    $i=0;
-                                                    //echo "review is: ".$k->pricereview."<br>";
-                                                    for ($j=$k->pricereview; $j > 0 ; $j--) { 
-                                                        
-                                                        echo '<i class="icon-smile voted"></i>';
-                                                        $i++;
-                                                    }
-
-                                                    for ($a=$i; $a < 5; $a++) { 
-                                                        echo '<i class="icon-smile"></i>';
-                                                    }
-                                                    
-
-                                                ?>
-                                                    
-                                                    
-                                                </div>
-                                            </li>   
-                                            
-                                        </ul>
-                                    </div>
-                                
-                                </div>
-                            
-                            </div>
-                            
-                            <div class="col-md-12">
-                                <hr>
-                            </div>
-
-
-                         <?php
-
-
-
-                        }
-
-
-                    ?>
-
-                    
-
-                    
-                    </div>
-                    
-                 
-                    
-                </div>
-                
-                
-                
-        <!--Reviews End-->
-
-            
-  
-
-            
-        </div><!--End  single_tour_desc-->
-
-                
 
 
 <!--review Modal-->
@@ -675,6 +626,7 @@ if ($this->session->userdata('holidayCustomerName')) {
 <!--review Modal-->
 
 
+
   <?php
      include 'footer.php';
       ?>
@@ -686,7 +638,7 @@ if ($this->session->userdata('holidayCustomerName')) {
      include 'scripts.php';
       ?>
 
-      <script>
+   <script>
 $ = jQuery.noConflict();
 var price_per_person = 0;
 var price_per_child = 0;
@@ -953,7 +905,6 @@ $(':radio').change(
 
 
 </script>
-       
 
 </body>
 
