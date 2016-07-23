@@ -29,10 +29,10 @@
                                 
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
-                                    echo '<input type="tel" name="customername" class="form-control" id="mobile" placeholder="Enter Your name" required>';
+                                    echo '<input type="tel" name="customername" class="form-control" id="customername" placeholder="Enter Your name" required>';
                                  }else{
                                     ?>
-                                    <input type="tel" name="customername" class="form-control" id="mobile" placeholder="Enter Your name" value="<?php
+                                    <input type="tel" name="customername" class="form-control" id="customername" placeholder="Enter Your name" value="<?php
                                     echo $this->session->userdata('holidayCustomerName');
                                        ?>" required>
 
@@ -229,6 +229,9 @@ $('document').ready(function(){
     
         // Specify the validation rules
         rules: {
+          customername:{
+            required:true
+          },
            udf2: {
                 required: true
             },
@@ -239,6 +242,9 @@ $('document').ready(function(){
         
         // Specify the validation error messages
         messages: {
+          customername:{
+            required:'Name cannot be blank'
+          },
             udf2: "Please enter a valid email address",
             udf3: "Please enter a Mobile Number"
         },

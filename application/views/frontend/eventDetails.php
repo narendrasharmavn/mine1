@@ -1,8 +1,7 @@
  <style>
             /****** ratingg Starts *****/
-           
 
-            fieldset, label { margin: 0; padding: 0; }
+    fieldset, label { margin: 0; padding: 0; }
            
             
 

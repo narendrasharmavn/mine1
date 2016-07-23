@@ -1,4 +1,48 @@
-<?php
+ <style>
+            /****** ratingg Starts *****/
+
+    fieldset, label { margin: 0; padding: 0; }
+           
+            
+
+            .ratingg { 
+                border: none;
+                float: left;
+            }
+
+            .ratingg > input { display: none; } 
+            .ratingg > label:before { 
+                margin: 5px;
+                font-size: 1.25em;
+                font-family: FontAwesome;
+                display: inline-block;
+                content: "\f005";
+            }
+
+            .ratingg > .half:before { 
+                content: "\f089";
+                position: absolute;
+            }
+
+            .ratingg > label { 
+                color: #ddd; 
+                float: right; 
+            }
+
+            .ratingg > input:checked ~ label, 
+            .ratingg:not(:checked) > label:hover,  
+            .ratingg:not(:checked) > label:hover ~ label { color: #FFD700;  }
+
+            .ratingg > input:checked + label:hover, 
+            .ratingg > input:checked ~ label:hover,
+            .ratingg > label:hover ~ input:checked ~ label, 
+            .ratingg > input:checked ~ label:hover ~ label { color: #FFED85;  }     
+
+
+            /* Downloaded from http://devzone.co.in/ */
+        </style>
+
+        <?php
 
     $placeid = $this->uri->segment(3, 0); 
     $getplacename = $this->db->query("SELECT * FROM tblplaces WHERE plid='$placeid'");
@@ -226,22 +270,55 @@ if ($this->session->userdata('holidayCustomerName')) {
 <div class="row">
         <div class="col-md-3">
             <h3>Reviews</h3>
+            <?php
+            $reviewsquery = $this->db->query("SELECT rr.*,c.name from placereviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.placeid='$placeid' ORDER BY rr.prid DESC");
+
+//echo "SELECT rr.*,c.name from eventreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortoreventname='$eventid' ORDER BY rr.rid DESC";
+           
+            $reviewsum= $this->db->query("SELECT sum(pricereview) as sumr from placereviews where placeid='$placeid'");
+            foreach($reviewsum->result() as $sum)
+            {
+                $sum=$sum->sumr;
+            }
+            $tot=count($reviewsquery->result());
+            //echo count($reviewsquery->result());
+            if($tot>0){
+                $avg=$sum/$tot;
+            }else{
+                $avg = 0;
+            }
+            
+            //echo "Avg=".$avg;
+
+            ?>
+
             <a href="#" class="btn_1 add_bottom_15" data-toggle="modal" data-target="#myReview">Leave a review</a>
         </div>
         <div class="col-md-9">
-            <div id="general_rating">0 Reviews                          <div class="rating"><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i></div>
-            </div>
-            <div class="row" id="rating_summary">
-                <div class="col-md-6">
-                    <ul>
-                        <li>Price                                        <div class="rating"><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i></div>
-                        </li>
-                        <li>Quality                                     <div class="rating"><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i><i class="icon-smile"></i></div>
-                        </li>
-                                                        </ul>
+            <div id="general_rating"><?php echo $tot;  ?> Reviews  
+                <div class="rating">
+                    <?php
+
+                         echo "<ul class='codexworld_rating_widget'>";
+                                                    $i=0;
+                                                    //echo "review is: ".$k->pricereview."<br>";
+                                                    for ($j=$avg; $j > 0 ; $j--) { 
+                                                        
+                                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px -28px;"></li>';
+                                                        $i++;
+                                                    }
+
+                                                    for ($a=$i; $a < 5; $a++) { 
+                                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px 0px;"></li>';
+                                                    }
+                                                    
+                                                    echo "</ul>";
+                                              
+
+
+                        ?>
                 </div>
-               
-            </div><!-- End row -->
+            </div>
             <hr>
             <div class="guest-reviews">
                                         </div>
@@ -253,7 +330,7 @@ if ($this->session->userdata('holidayCustomerName')) {
 ?>
                 
     
-    <!--Reviews Start-->
+  <!--Reviews Start-->
                 
                 <div class="row">
                     <div class="col-md-3 col-xs-12">
@@ -263,8 +340,10 @@ if ($this->session->userdata('holidayCustomerName')) {
 
                     <?php
 
-                        $reviewsquery = $this->db->query("SELECT rr.*,c.name from placereviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.placeid='$placeid' ORDER BY rr.prid DESC LIMIT 8");
+                        $reviewsquery = $this->db->query("SELECT er.*,c.name from placereviews er LEFT JOIN tblcustomers c ON er.customerid=c.customer_id WHERE er.status=1 AND er.placeid='$placeid' ORDER BY er.prid DESC LIMIT 4");
                         //echo "SELECT er.*,c.name from eventreviews er LEFT JOIN tblcustomers c ON er.customerid=c.customer_id WHERE er.status=1 AND er.resortoreventname='$eventid' ORDER BY er.rid DESC LIMIT 4";
+
+                        if(count($reviewsquery->result())>0){
 
                         foreach ($reviewsquery->result() as $k) {
                          
@@ -285,86 +364,51 @@ if ($this->session->userdata('holidayCustomerName')) {
                                     
                                     <div id="rating_summary">
                                         <ul>
-                                            <li>Price
+                                            <li>Rating
                                                 <div class="rating">
-                                                <?php
+                                               <?php
 
                                                 
-                                              
+                                               echo "<ul class='codexworld_rating_widget'>";
                                                     $i=0;
                                                     //echo "review is: ".$k->pricereview."<br>";
                                                     for ($j=$k->pricereview; $j > 0 ; $j--) { 
                                                         
-                                                        echo '<i class="icon-smile voted"></i>';
+                                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px -28px;"></li>';
                                                         $i++;
                                                     }
 
                                                     for ($a=$i; $a < 5; $a++) { 
-                                                        echo '<i class="icon-smile"></i>';
+                                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px 0px;"></li>';
                                                     }
                                                     
-
+                                                    echo "</ul>";
                                                 ?>
                                                     
                                                     
                                                 </div>
                                             </li>   
-                                            <li>Quality
-                                                <div class="rating">
-
-                                                <?php
-
-                                                
-                                              
-                                                    $i=0;
-                                                    //echo "quality review is: ".;
-                                                    for ($j=$k->qualityreview; $j > 0 ; $j--) { 
-                                                        
-                                                        echo '<i class="icon-smile voted"></i>';
-                                                        $i++;
-                                                    }
-
-                                                    for ($a=$i; $a < 5; $a++) { 
-                                                        echo '<i class="icon-smile"></i>';
-                                                    }
-                                                    
-
-                                                ?>
-                                                    
-                                                </div>
-                                            </li>
+                                            
                                         </ul>
                                     </div>
                                 
                                 </div>
                             
                             </div>
-                            
                             <div class="col-md-12">
                                 <hr>
                             </div>
-
-
                          <?php
-
-
-
                         }
-
-
+                    }else{
+                        echo "No Reviews";
+                    }
                     ?>
 
-                    
-
-                    
                     </div>
-                    
-                 
-                    
+                   
                 </div>
-                
-                
-                
+                         
         <!--Reviews End-->
 
             
@@ -418,7 +462,6 @@ if ($this->session->userdata('holidayCustomerName')) {
 </div>
 
 
-
 <!--review Modal-->
 
     <div class="modal fade" id="myReview" tabindex="-1" role="dialog" aria-labelledby="myReviewLabel" aria-hidden="true">
@@ -429,44 +472,40 @@ if ($this->session->userdata('holidayCustomerName')) {
                 <h4 class="modal-title" id="myReviewLabel">Write your review</h4>
             </div>
             <div class="modal-body">
-            <?php          
+                   <?php          
     echo form_open('Frontend/submitplacereview',array('id'=>'review-form','method'=>'post'));
 ?>
 
-                <input type="hidden" name="placename" value="<?php echo $row->place; ?>">
+            <input type="hidden" name="placename" value="<?php echo $row->place; ?>">
                 <input type="hidden" name="placeid" value="<?php echo $this->uri->segment(3, 0); ?>">
                     
+                    
                     <div class="row">
+
+                        
                                                   
                         <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Price</label>
-                                    <select class="form-control" name="pricerating" required>
-                                        <option value="">Please review</option>
-                                        <option value="1">Low</option>
-                                        <option value="2">Sufficient</option>
-                                        <option value="3">Good</option>
-                                        <option value="4">Excellent</option>
-                                        <option value="5">Super</option>
-                                    </select>
+                                    <label style="float: left;">Rate Us</label>
+                                    <fieldset id='demo1' class="ratingg">
+                                <input class="stars" type="radio" id="star5" name="pricerating" value="5" />
+                                <label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                                <input class="stars" type="radio" id="star4" name="pricerating" value="4" />
+                                <label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                                <input class="stars" type="radio" id="star3" name="pricerating" value="3" />
+                                <label class = "full" for="star3" title="Meh - 3 stars"></label>
+                                <input class="stars" type="radio" id="star2" name="pricerating" value="2" />
+                                <label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                                <input class="stars" type="radio" id="star1" name="pricerating" value="1" />
+                                <label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+
+                            </fieldset>
                                 </div>
                             </div>
-                                                    <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Quality</label>
-                                    <select class="form-control" name="qualityrating" required>
-                                        <option value="">Please review</option>
-                                        <option value="1">Low</option>
-                                        <option value="2">Sufficient</option>
-                                        <option value="3">Good</option>
-                                        <option value="4">Excellent</option>
-                                        <option value="5">Super</option>
-                                    </select>
-                                </div>
-                            </div>
-                                            </div>
+                 </div>
                     <!-- End row -->
                     <div class="form-group">
+                    <label>Subject</label>
                         <textarea name="reviewtext" id="review_text" class="form-control" style="height:100px;" placeholder="Write your review" required></textarea>
                     </div>
                     <input type="submit" value="Submit" class="btn_1" id="submit-review">

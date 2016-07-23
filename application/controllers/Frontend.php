@@ -227,7 +227,6 @@ class Frontend extends CI_Controller {
 
         $data = array(
           'pricereview' => $pricerating,
-          'qualityreview' => $qualityrating,
           'review' => $reviewtext,
           'customerid' => $this->session->userdata('holidayCustomerId'),
           'placeid' => $placeid
