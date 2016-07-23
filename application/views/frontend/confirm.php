@@ -137,6 +137,7 @@ $('document').ready(function(){
             },
             udf3: {
                 required: true,
+                number:true,
                 minlength: 10,
                 maxlength:10
             }
@@ -150,6 +151,7 @@ $('document').ready(function(){
             },
            udf3: {
               required: 'Mobile number cannot be blank',
+              number:'Please input only numbers',
               minlength:'Please enter valid Phone number',
               maxlength:'Please enter 10 digit mobile number'
             }

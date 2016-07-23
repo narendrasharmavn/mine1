@@ -236,7 +236,10 @@ $('document').ready(function(){
                 required: true
             },
             udf3: {
-                required: true
+                required: true,
+                number:true,
+                minlength: 10,
+                maxlength:10
             }
         },
         
@@ -246,7 +249,12 @@ $('document').ready(function(){
             required:'Name cannot be blank'
           },
             udf2: "Please enter a valid email address",
-            udf3: "Please enter a Mobile Number"
+            udf3: {
+              required: 'Mobile number cannot be blank',
+              number:'Please input only numbers',
+              minlength:'Please enter valid Phone number',
+              maxlength:'Please enter 10 digit mobile number'
+            }
         },
         
         
