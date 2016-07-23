@@ -7,6 +7,8 @@
         color:black;
     }
 
+
+
 </style>
 <script type="text/javascript">
       var onloadCallback = function() {
@@ -63,7 +65,7 @@
                                 </div>
                                 <div class="g-recaptcha" data-sitekey="6LewvSUTAAAAAD8SQuVQ45j2WgB6fM59artFNFAF"></div>
       
-                                <button type="submit" class="btn_full">Create an account</button>
+                                <button type="submit" class="btn_1 green btn_full">Create an account</button>
                                 <br>Already a member? <a href="<?php echo site_url().'login'; ?>">Login</a>
                             </form>
 
@@ -104,7 +106,8 @@
 }, "Your Passwords Must Match");
 
         $("#register-form").validate({
-      //by default the error elements is a <label>
+      
+      /*
       errorElement: "div",
       errorPlacement: function(error, element) {
      error.appendTo('div#errordiv');
@@ -113,6 +116,7 @@
      //console.log("element  is : "+JSON.stringify(element));
      //$('div#errordiv').html(error[0].innerHTML);
    },
+   */
     
         // Specify the validation rules
         rules: {

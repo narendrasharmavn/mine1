@@ -1,4 +1,3 @@
-
 <script>
 
          var icon = new google.maps.MarkerImage("<?php echo base_url().'assets/marker/'  ?>green.png",
@@ -222,9 +221,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6 hidden-xs text-right">
-                        <a href="<?php echo site_url().'/frontend/eventsGridView'; ?>" class="bt_filters" title="Grid View"><i class="icon-th"></i></a>
-                        <a href="<?php echo site_url().'/frontend/eventsListView'; ?>" class="bt_filters" title="List View"><i class="icon-list"></i></a>
-                    </div>
+                             </div>
                 </div>
             </div><!--End tools -->
             
@@ -244,11 +241,11 @@
                  $row =$query2->row();
                           ?>
                           
-        <div class="col-md-4 col-sm-4 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
+        <div class="col-md-4 col-sm-4 events-thumb1 text-center wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
 
     
                   
-                            <div class="tour_container">
+                            <div class="">
                                 <div class="img_container">
                                     <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> " target="_blank">
                                     <img width="400" height="267" src="<?php  echo base_url().'assets/eventimages/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->

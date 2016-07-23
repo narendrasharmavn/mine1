@@ -32,7 +32,7 @@
                                     <input type="checkbox" name="rememberme" tabindex="3" value="forever" id="rememberme" class="pull-left"> <label for="rememberme" class="pl-8">Remember my details</label>
                                     <div class="small pull-right"><a href="<?php echo site_url().'forgot-password'; ?>">Forgot password?</a></div>
                                 </div>
-                                <button type="submit" class="btn_full">Sign in</button>
+                                <button type="submit" class="btn_1 green btn_full">Sign in</button>
                                 <input type="hidden" name="redirect_to" value="">
                                                                     <br>Don't have an account? 
                                     <a href="<?php echo site_url().'register'; ?>" class="">Register</a>
@@ -59,6 +59,7 @@
 
         $("#login-form").validate({
       //by default the error elements is a <label>
+      /*
       errorElement: "div",
       errorPlacement: function(error, element) {
      error.appendTo('div#errordiv');
@@ -67,6 +68,13 @@
      //console.log("element  is : "+JSON.stringify(element));
      //$('div#errordiv').html(error[0].innerHTML);
    },
+   */
+   framework: 'bootstrap',
+   icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
     
         // Specify the validation rules
         rules: {

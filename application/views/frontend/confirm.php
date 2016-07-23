@@ -123,11 +123,13 @@ $('document').ready(function(){
     // Setup form validation on the #register-form element
     $("#payment-form").validate({
       //by default the error elements is a <label>
+      
       errorElement: "div",
       errorPlacement: function(error, element) {
      error.appendTo('div#errordiv');
      
    },
+
     
         // Specify the validation rules
         rules: {

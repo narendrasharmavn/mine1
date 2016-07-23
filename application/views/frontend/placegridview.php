@@ -103,10 +103,10 @@
                     $placetitleurl = str_replace(" ", "-", $k->place);
             ?>
 
-                             <div class="col-md-4 col-sm-6 wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; min-height:390px; animation-delay: 0.1s; animation-name: zoomIn;">
+                             <div class="col-md-3 col-sm-6 places-thumb1 text-center wow zoomIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: zoomIn;">
 
                     
-    <div class="tour_container">
+    <div class="">
         <div class="img_container">
             <a href="<?php echo site_url().'places/'.$placetitleurl.'/'.$k->plid; ?>">
             <img width="400" height="267" src="<?php  echo base_url().'assets/places/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->

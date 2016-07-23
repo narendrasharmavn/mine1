@@ -48,6 +48,7 @@
 
         $("#editstates").validate({
       //by default the error elements is a <label>
+      /*
       errorElement: "div",
       errorPlacement: function(error, element) {
      error.appendTo('div#errordiv');
@@ -56,6 +57,7 @@
      //console.log("element  is : "+JSON.stringify(element));
      //$('div#errordiv').html(error[0].innerHTML);
    },
+   */
     
         // Specify the validation rules
         rules: {

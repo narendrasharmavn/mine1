@@ -1,5 +1,4 @@
 
-
 <?php
     $query = $this->db->query("SELECT * FROM tblsliders WHERE status=1");
 ?>
@@ -118,7 +117,7 @@
     <script>
         jssor_1_slider_init();
     </script>
-    <div class="container margin_60" style="background:#ccc;">
+    <div class="container margin_61" style="background:#ccc;">
     
     
     <div class="row">

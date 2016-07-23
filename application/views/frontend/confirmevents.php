@@ -218,6 +218,7 @@ $('document').ready(function(){
     // Setup form validation on the #register-form element
     $("#payment-form").validate({
       //by default the error elements is a <label>
+     
       errorElement: "div",
       errorPlacement: function(error, element) {
      error.appendTo('div#errordiv');
@@ -226,6 +227,7 @@ $('document').ready(function(){
      //console.log("element  is : "+JSON.stringify(element));
      //$('div#errordiv').html(error[0].innerHTML);
    },
+
     
         // Specify the validation rules
         rules: {

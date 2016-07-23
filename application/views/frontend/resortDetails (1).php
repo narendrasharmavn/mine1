@@ -1,7 +1,8 @@
  <style>
             /****** ratingg Starts *****/
+          
 
-    fieldset, label { margin: 0; padding: 0; }
+            fieldset, label { margin: 0; padding: 0; }
            
             
 
@@ -43,19 +44,11 @@
         </style>
 
         <?php
-        $photoName = "";
+          $todaysDate = date('Y-m-d');
 
-        $query2 = $this->db->query("SELECT * from tbleventphotos WHERE eventid='$eventid'");
+            $packages = $this->db->query("SELECT * from tblpackages WHERE resortid='$resortid' AND status=1 AND expirydate>='$todaysDate'");
 
-        foreach ($query2->result() as $k) {
-              $photoName=$k->photoname;
-        }
-
-            $todaysDate = date('Y-m-d');
-
-            $packages = $this->db->query("SELECT * from tblpackages WHERE eventid='$eventid' AND status=1 AND expirydate>='$todaysDate'");
-
-            //echo "SELECT * from tblpackages WHERE eventid='$eventid' AND status=1 AND expirydate>='$todaysDate'"."<br>";
+            //echo "SELECT * from tblpackages WHERE resortid='$resortid' AND status=1 AND expirydate>='$todaysDate'";
 
          
 
@@ -123,7 +116,7 @@
             });
           
 
-                addMarker(<?php echo $eventResults->latitude;  ?>, <?php echo $eventResults->longitude;  ?>, '<?php echo $eventResults->eventname;  ?>');
+                addMarker(<?php echo $resortResults->latitude;  ?>, <?php echo $resortResults->longitude;  ?>, '<?php echo $resortResults->resortname;  ?>');
            
             center = bounds.getCenter();
             map.fitBounds(bounds);
@@ -144,44 +137,42 @@
         <div id="toTop"></div>
         
         <div id="overlay" class="over"><i class="icon-spin3 animate-spin"></i></div>
-		 <div class="container-fluid">
+        
  <?php
               $i=0;
-              $query = $this->db->query("SELECT * from tbleventphotos WHERE eventid='$eventid' order by photoid DESC limit 6");
-               foreach ($query->result() as $k) {
+           
+              $query = $this->db->query("SELECT * from tblresorphotos WHERE resortid='$resortid' order by rphotoid DESC limit 6");
+                foreach ($query->result() as $k) {
                 if($i==0){
                 ?>
                 
-                  <img src="<?php echo base_url();?>assets/eventimages/<?php echo $k->photoname ;?>" class="img-responsive" style="width:100%;height:370px;">
+                  <img src="<?php echo base_url();?>assets/resortimages/<?php echo $k->photoname ;?>" class="img-responsive" style="width:100%;height:370px;">
                    <!--<div class="carousel-caption">
                     <h3>Headline</h3>
                     <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. <a href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank" class="label label-danger">Bootstrap 3 - Carousel Collection</a></p>
                   </div>-->
                 <!-- End Item -->
                  <?php 
-				}
                     }
-					?>
-        </div>
+                }
+                ?>
         <div class="container margin_60" style="transform: none;">
     <div class="row" style="transform: none;">
         
 
-            
-
-     
-		<div class="col-md-8 col-sm-8">
-                        <h1><?php echo $eventResults->eventname; ?></h1>
-                        <span><?php echo $eventResults->location; ?></span>
+              
+        <div class="col-md-8 col-sm-8">
+                        <h1><?php echo $resortResults->resortname; ?></h1>
+                        <span><?php echo $resortResults->location; ?></span>
                         
-					
+                    
             <div class="row">
                 <div class="col-md-3">
                     <h3>Description</h3>
                 </div>
                 <div class="col-md-9">
-                    <h4><?php echo $eventResults->eventname;  ?></h4>
-<?php echo $eventResults->description;  ?>
+                    <h4><?php echo $resortResults->resortname;  ?></h4>
+<?php echo $resortResults->description;  ?>
 
 <div class="row">
 <!--<div class="col-sm-6 one-half">
@@ -228,8 +219,9 @@
                     # code...
                 
                 
-
+                     $photoName = "";
                 foreach ($packages->result() as $k) {
+                    $photoName=$k->packageimage;
             ?>
              <div class="strip_all_tour_list wow fadeIn animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
     <div class="row">
@@ -238,27 +230,28 @@
                         <div class="img_list">
                 <a href="<?php echo $k->packageid;   ?>">
                     
-                    <img width="330" height="220" src="<?php echo base_url(); ?>assets/eventimages/<?php echo $photoName; ?>" class="attachment-330x220 wp-post-image" alt="tour_box_1">                   <div class="short_info"><i class="icon_set_1_icon-4"></i><?php //echo $k->eventname;   ?> </div>                </a>
+                    <img width="330" height="220" src="<?php echo base_url(); ?>assets/resortimages/<?php echo $photoName; ?>" class="attachment-330x220 wp-post-image" alt="tour_box_1">                   <div class="short_info"><i class="icon_set_1_icon-4"></i><?php //echo $k->resortname;   ?> </div>                </a>
             </div>
         </div>
         <div class="clearfix visible-xs-block"></div>
         <div class="col-lg-5 col-md-5 col-sm-6">
             <div class="tour_list_desc">
              
-                <h3><?php echo $k->packagename;   ?></h3>
+                <h4><?php echo $k->packagename;   ?></h4>
                 <p><?php echo $k->description;   ?></p>
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-2">
             <div class="price_list">
                 <div>
-                    <span>Rs. <?php echo $k->adultprice;   ?></span><small>(Adult)</small>
-                     <span>Rs. <?php echo $k->childprice;   ?></span><small>(Kids)</small>
+                    <span>Rs. <?php echo $k->adultprice;   ?><small>(Adult)</small></span>
+                     <span>Rs. <?php echo $k->childprice;   ?><small>(Kids)</small></span>
                      <input type="hidden" id="<?php echo $k->packageid.'adultprice';   ?>" value="<?php echo $k->adultprice;   ?>">
                      <input type="hidden" id="<?php echo $k->packageid.'childprice';   ?>" value="<?php echo $k->childprice;   ?>">
                      <input type="hidden" id="<?php echo $k->packageid.'servicetax';   ?>" value="<?php echo $k->servicetax;   ?>">
+                     <input type="hidden" id="<?php echo $k->packageid.'kidsmealprice';   ?>" value="<?php echo $k->kidsmealprice;   ?>">
 
-                    <p><button onclick="bookthispackage(<?php echo $k->packageid;   ?>)" class="btn_1">Book</a></p>
+                    <p><button onclick="bookthispackage(<?php echo $k->packageid;   ?>)" class="btn_1">Book Now</a></p>
                 </div>
             </div>
 
@@ -277,7 +270,7 @@
              
                 </div>
             </div>
-		
+        
 <!--map starts from here-->
            
 
@@ -288,7 +281,6 @@
             <?php
 
 if ($this->session->userdata('holidayCustomerName')) {
-
     
 
 
@@ -298,11 +290,10 @@ if ($this->session->userdata('holidayCustomerName')) {
         <div class="col-md-3">
             <h3>Reviews</h3>
             <?php
-            $reviewsquery = $this->db->query("SELECT rr.*,c.name from eventreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortoreventname='$eventid' ORDER BY rr.rid DESC");
+            $reviewsquery = $this->db->query("SELECT rr.*,c.name from resortreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortname='$resortid' ORDER BY rr.rrid DESC");
 
-//echo "SELECT rr.*,c.name from eventreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortoreventname='$eventid' ORDER BY rr.rid DESC";
-           
-            $reviewsum= $this->db->query("SELECT sum(pricereview) as sumr from eventreviews where resortoreventname='$eventid'");
+            //$result=$reviewsquery->result();
+            $reviewsum= $this->db->query("SELECT sum(pricereview) as sumr from resortreviews where resortname='$resortid'");
             foreach($reviewsum->result() as $sum)
             {
                 $sum=$sum->sumr;
@@ -317,9 +308,9 @@ if ($this->session->userdata('holidayCustomerName')) {
             <a href="#" class="btn_1 add_bottom_15" data-toggle="modal" data-target="#myReview">Leave a review</a>
         </div>
         <div class="col-md-9">
-            <div id="general_rating"><?php echo $tot;  ?> Reviews  
-                <div class="rating">
-                    <?php
+            <div id="general_rating"><?php echo $tot; ?> Reviews   
+                   <div class="rating">
+                        <?php
 
                          echo "<ul class='codexworld_rating_widget'>";
                                                     $i=0;
@@ -339,12 +330,9 @@ if ($this->session->userdata('holidayCustomerName')) {
 
 
                         ?>
-                </div>
+                   </div>
             </div>
-            <div class="row" id="rating_summary">
-                
-               
-            </div><!-- End row -->
+            
             <hr>
             <div class="guest-reviews">
                                         </div>
@@ -365,8 +353,8 @@ if ($this->session->userdata('holidayCustomerName')) {
 
                     <?php
 
-                        $reviewsquery = $this->db->query("SELECT er.*,c.name from eventreviews er LEFT JOIN tblcustomers c ON er.customerid=c.customer_id WHERE er.status=1 AND er.resortoreventname='$eventid' ORDER BY er.rid DESC LIMIT 4");
-                        //echo "SELECT er.*,c.name from eventreviews er LEFT JOIN tblcustomers c ON er.customerid=c.customer_id WHERE er.status=1 AND er.resortoreventname='$eventid' ORDER BY er.rid DESC LIMIT 4";
+                        $reviewsquery = $this->db->query("SELECT rr.*,c.name from resortreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortname='$resortid' ORDER BY rr.rrid DESC LIMIT 8");
+
 
                         if(count($reviewsquery->result())>0){
 
@@ -391,7 +379,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                                         <ul>
                                             <li>Rating
                                                 <div class="rating">
-                                               <?php
+                                                <?php
 
                                                 
                                                echo "<ul class='codexworld_rating_widget'>";
@@ -440,21 +428,19 @@ if ($this->session->userdata('holidayCustomerName')) {
   <div class="col-md-4">
  
                 <aside class="col-md-12 aside-panel" id="sidebar">
-             <div class="col-md-12" style="margin-top:25px;color:black;font-size:13px;">
-			  </div>
-			 <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; top: 80px; z-index: 100; left: 889.5px;">
+            
+                                        <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; top: 80px; z-index: 100; left: 889.5px;">
                             <div class="box_style_1 expose overone">
             <h3 class="inner" id="bookingscroll">- Booking -</h3>
-                
                         <form method="get" id="booking-form" action="place-your-order-2/" novalidate="novalidate">
                 <input type="hidden" name="tour_id" value="213">
                                 <div class="row">
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group">
                             <label><i class="icon-calendar-7"></i> Select a date</label>
-                            <input type="text" class="form-control" id="datepickerj" name="date">
                             <input type="hidden" value="" id="packageid">
-                            <input type="hidden" value="<?php echo $eventResults->vendorid; ?>" id="vendorid">
+                            <input type="hidden" value="<?php echo $resortResults->vendorid; ?>" id="vendorid">
+                            <input class="form-control datepickerj" id="datepickerj" type="text" name="date" required>
                         </div>
                     </div>
                 </div>
@@ -476,6 +462,23 @@ if ($this->session->userdata('holidayCustomerName')) {
                         </div>
                     </div>
                                     </div>
+                    <div class="row kids">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>Add Kid Meal Rs.<span class="kidsmealprice">50<span> per Kid</label>
+                                <div class="numbers-row" data-min="0">
+                                    <input type="text" value="0" id="kidsmeal" class="qty2 form-control" name="kids">
+                                <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                              
+                                
+                            </div>
+                        </div>
+                    
+                    </div>
                 <br>
                 <table class="table table_summary">
                 <tbody>
@@ -493,7 +496,14 @@ if ($this->session->userdata('holidayCustomerName')) {
                        <span id="childprice">0</span>
                     </td>
                 </tr>
-                 <tr>
+                <tr class="kids">
+                    <td>
+                        Kids Meal (Rs. <span class="kidsmealprice">50</span>)                   </td>
+                    <td class="text-right kidsmeal-number" >
+                       <span id="kidsmealqty">0</span>
+                    </td>
+                </tr>
+                <tr>
                     <td>
                         Internet Handling Charges                    </td>
                     <td class="text-right" >
@@ -502,23 +512,32 @@ if ($this->session->userdata('holidayCustomerName')) {
                 </tr>
                 <tr>
                     <td>
-                        Service tax        
-                    </td>
-                    <td class="text-right">
+                        Service tax                    </td>
+                    <td class="text-right" >
                         % <span id="servicetax">15</span> 
                     </td>
                 </tr>
-                <tr>
+                                <tr>
                     <td>
                         Total amount                    </td>
                     <td class="text-right">
                         <span class="adults-number" >0</span>x 
                         Rs. <span class="adultprice">0</span>                                                   <span class="child-amount hide"> + <span class="children-number">0</span>x 
-                            Rs. <span class="childprice">0</span>  
+                            Rs. <span class="childprice">0</span> 
 
-                        </span> +  Rs. <span class="calculated-internetcharges">0</span> (Internet Handling Charges)
-                        +  <span> Rs . <span class="calculated-servicetax">0</span> (Service Tax)</span>
-                    </td>
+
+                        </span>
+
+
+                            +  
+                        <span class="kids">
+                                <span class="kidsmeal-number">0</span> *  Rs . <span class="kidsmealprice">50</span> 
+                             + 
+                         </span>
+                          Rs. <span class="calculated-internetcharges">0</span> (Internet Charges)
+                          +
+                          Rs. <span class="calculated-servicetax">0</span> (Service Tax)
+                                            </td>
                 </tr>
                 <tr class="total">
                     <td>
@@ -537,9 +556,16 @@ if ($this->session->userdata('holidayCustomerName')) {
                                                                     </form>
                     </div><!--/box_style_1 -->
                                                 </div>
-          <div id="map" class="map"></div>          
+                                                <div class="row">
+                <div class="col-md-12">
+                <hr>
+                <h3>Location</h3>
+                    <div id="map" class="map"></div>
+                </div>
+
+            </div>           
         </aside>
-		 
+         
     </div><!--End row -->
     </div><!--End row -->
 </div>
@@ -557,12 +583,12 @@ if ($this->session->userdata('holidayCustomerName')) {
                 <h4 class="modal-title" id="myReviewLabel">Write your review</h4>
             </div>
             <div class="modal-body">
-                <?php          
-    echo form_open('Frontend/submiteventreview',array('id'=>'review-form','method'=>'post'));
+            <?php          
+    echo form_open('Frontend/submitresortreview',array('id'=>'review-form','method'=>'post'));
 ?>
 
-               <input type="hidden" name="eventname" value="<?php echo $eventResults->eventname; ?>">
-                <input type="hidden" name="eventid" value="<?php echo $this->uri->segment(3, 0); ?>">
+                <input type="hidden" name="resortname" value="<?php echo $resortResults->resortname; ?>">
+                <input type="hidden" name="resortid" value="<?php echo $this->uri->segment(3, 0); ?>">
                     
                     <div class="row">
 
@@ -617,7 +643,7 @@ if ($this->session->userdata('holidayCustomerName')) {
      include 'scripts.php';
       ?>
 
-      <script>
+   <script>
 $ = jQuery.noConflict();
 var price_per_person = 0;
 var price_per_child = 0;
@@ -628,15 +654,14 @@ var exchange_rate = 1;
     exchange_rate = 1;
 
 
-$(document).ready(function(){
+//$(document).ready(function(){
  //$('.carousel').carousel({interval: 2000});
     //loadMap();
-    $('#book-selection-error').hide();
-    $( "#datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
+     $( ".datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
 
      $('.theiaStickySidebar').hide();
      //document.getElementsByClassName("book-now").disabled = true
-
+     $('#book-selection-error').hide();
     var available_days = [];
     var today = new Date();
     var tour_start_date = new Date( 0 );
@@ -691,6 +716,10 @@ $(document).ready(function(){
         $('.children-number').html( $(this).val() );
         update_tour_price();
     });
+    $('input#kidsmeal').on('change', function(){
+        $('.kidsmeal-number').html( $(this).val() );
+        update_tour_price();
+    });
     var validation_rules = {};
     if ( $('input.date-pick').length ) {
         validation_rules.date = { required: true};
@@ -699,10 +728,11 @@ $(document).ready(function(){
     $('#booking-form').validate({
         rules: validation_rules
     });
-});
+//});
 
 function update_tour_price() {
     var adults = $('input#adults').val();
+    var kidsmealqty = $('input#kidsmeal').val();
     var children = 0;
     if ( $('input#children').length ) {
         children = $('input#children').val();
@@ -712,24 +742,28 @@ function update_tour_price() {
     price_per_person=parseInt($('.adultprice').html());
     
     price_per_child=parseInt($('.childprice').html());
-    internet_charges=parseInt($('#internetcharges').html());
+    kids_meal_price=parseInt($('.kidsmealprice').html());
+    var internetcharges=parseInt($('#internetcharges').html());
+    var servicetax = parseInt($('#servicetax').html());
 
-    var service_tax = parseInt($('#servicetax').html());
-
-    console.log(price_per_person);
-    var price = +( (adults * price_per_person + children * price_per_child) );
+    //var kidsmealtotal = kidsmealqty*kids_meal_price;
+    var price =0;
+    price = +( (adults * price_per_person + children * price_per_child +  kidsmealqty*kids_meal_price) );
     price = Math.ceil(price);
-    var calculatedInternetCharges = (price *internet_charges)/100;
-
-    //calculate service tax based on internet handling charges
-    var calculatedservicetax = (service_tax *calculatedInternetCharges)/100;
-    console.log("calculate service tax is:"+calculatedservicetax);
+    console.log("price is: "+price);
+    var calculatedinternetcharges = (price * internetcharges ) /100;
+    console.log("calculated internet charges are : "+calculatedinternetcharges);
+    $('.calculated-internetcharges').html(calculatedinternetcharges);
+    var calculatedservicetax = (calculatedinternetcharges * servicetax ) /100;
+    console.log("calculated service tax over internet charges are : "+calculatedservicetax);
     $('.calculated-servicetax').html(calculatedservicetax);
-    $('.calculated-internetcharges').html(calculatedInternetCharges);
+
+
+
     $('.child-amount').toggleClass( 'hide', children < 1 );
     var total_price = $('.total-cost').text().replace(/[\d\.\,]+/g, price);
-    
-    $('.total-cost').text(Math.ceil(price+calculatedInternetCharges+calculatedservicetax));
+    var total_calculated_cost = price+calculatedservicetax+calculatedinternetcharges;
+    $('.total-cost').text(Math.ceil(total_calculated_cost));
 }
 
 
@@ -753,7 +787,7 @@ function bookthispackage(packageId){
     $('.children-number').html(0);
     $('.childprice').html(0);
     $('.total-cost').html(0);
-    $('.calculated-servicetax').html(0);
+    $('.calculated-internetcharges').html(0);
    
     //$('#children-number').val(0);
    // $('#children-number').val(0);
@@ -761,6 +795,8 @@ function bookthispackage(packageId){
 var adultPriceId = packageId+"adultprice";
 var childPriceId = packageId+"childprice";
 var serviceTaxId = packageId+"servicetax";
+var kmp = packageId+"kidsmealprice";
+var kidsmealprice = $('#'+kmp).val();
 
 //alert($('#'+serviceTaxId).val());
 
@@ -768,10 +804,19 @@ $('.adultprice').html($('#'+adultPriceId).val());
 $('.childprice').html($('#'+childPriceId).val());
 $('#internetcharges').html($('#'+serviceTaxId).val());
 
+$('.kidsmealprice').html(kidsmealprice);
+
+if (kidsmealprice>0) {
+    $(".kids").show();
+}else{
+    $(".kids").hide();
+}
+
 $('html, body').animate({
-    scrollTop: 350
+    scrollTop: 500
     
 }, 1000);
+
 
 $(".over").css("display", "block");
 $(".animate-spin").css("display", "none");
@@ -779,18 +824,18 @@ $(".overone").css("z-index", '100');
 
 $('.theiaStickySidebar').show();
 
-
-   
+ 
 
 }
 
 $('.book-now').on('click',function(){
 
- if ($('#datepickerj').val() == "") {
-    $('#book-selection-error').show();
+
+
+    if ($('#datepickerj').val() == "") {
+        $('#book-selection-error').show();
     //alert("Please Select a Date");
     $('#book-selection-error').html('Please select a date');
-    //return false;
 }else if($('.total-cost').text()==0 || $('.total-cost').text()==''){
     //alert("Please book atleast one ticket. Total cannot be zero "+$('.total-cost').text());
     $('#book-selection-error').show();
@@ -801,19 +846,20 @@ $('.book-now').on('click',function(){
         var packageid = $('#packageid').val();
         var vendorid = $('#vendorid').val();
         var totalcost = $('.total-cost').html();
+
         var adultpriceperticket = $('.adultprice').html();
         var childpriceperticket = $('.childprice').html();
         var numberofadults = $('.adults-number').html();
         var numberofchildren = $('.children-number').html();
-        var calculated_internet_charges = $('.calculated-internetcharges').html();
         var calculated_service_tax = $('.calculated-servicetax').html();
+        var calculated_internet_charges = $('.calculated-internetcharges').html();
+        var kidsmealqty = $("#kidsmeal").val();
         var dateofvisit = $('#datepickerj').val();
-
         //alert(numberofadults);
 
         $.ajax({
         type: "POST",
-        url: '<?php echo site_url("frontend/confirmbookingsevents")?>',
+        url: '<?php echo site_url("frontend/confirmbookings")?>',
         data: {
             dateofvisit: dateofvisit,
             packageid:packageid,
@@ -823,19 +869,22 @@ $('.book-now').on('click',function(){
             childpriceperticket:childpriceperticket,
             numberofadults:numberofadults,
             numberofchildren:numberofchildren,
+            calculatedservicetax:calculated_service_tax,
             calculatedinternetcharges:calculated_internet_charges,
-            calculatedservicetax:calculated_service_tax
+            kidsmealqty:kidsmealqty
+
         },
         success: function(res) {
 
-            if (res.trim()=="true") {
-                    window.location.href="<?php echo site_url().'frontend/confirm/events'; ?>";
+                if (res.trim()=="true") {
+                    window.location.href="<?php echo site_url().'confirm-booking-resorts'; ?>";
                 } else if(res.trim()=="false") {
-                    window.location.href="<?php echo site_url().'frontend/confirm/events'; ?>";
+                    //alert("Please login to book tickets");
+                     window.location.href="<?php echo site_url().'confirm-booking-resorts'; ?>";
                 }else{
                     console.log(res);
-                }
-         },
+                }        //$('#email').html(res);
+        },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr.status);
                     console.log(thrownError);
@@ -847,7 +896,7 @@ $('.book-now').on('click',function(){
 
     
 
-   // }
+   
 
     }
    
@@ -863,7 +912,6 @@ $(':radio').change(
 
 
 </script>
-       
 
 </body>
 
