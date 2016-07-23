@@ -125,6 +125,7 @@
             },
             mobile: {
                 required: true,
+                number:true,
                 minlength:10,
                 maxlength:10
             },
@@ -149,6 +150,7 @@
             },
             mobile: {
                 required: 'Mobile cannot be blank',
+                number:'Mobile number should contain numbers',
                 minlength:'Mobile should be 10 digit',
                 maxlength:'Mobile should be 10 digit'
             },
