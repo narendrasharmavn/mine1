@@ -1,4 +1,4 @@
-     
+
     <!--Checkout Starts-->
     
         <div class="container" style="margin-top:65px;min-height:450px;">
@@ -10,7 +10,7 @@
                         <form class="form-inline" action="<?php echo base_url().'merchant/';  ?>submit.php" method="post" id="payment-form" style="background-color:#eee; padding:25px;">
 
                         <input type="hidden" name="amount" class=" form-control" placeholder="Password" value="<?php echo $this->session->userdata('totalcost') ?>" readonly>
-                                    <INPUT TYPE="hidden" NAME="udf3" value="NSE">
+                                    <INPUT TYPE="hidden" NAME="udf1" value="NSE">
                                     <INPUT TYPE="hidden" NAME="udf4" value="NSE">
                                     
                                     <INPUT TYPE="hidden" NAME="product" value="NSE">
@@ -61,6 +61,7 @@
                               if ($this->session->userdata('holidayEmail')) {
                                  echo '<button type="submit" class="btn btn-primary">Pay</button>';
                                  echo '<input type="hidden" name="sessioncheck" value="yes" >';
+                                 echo '<button type="button" id="cancel" class="btn btn-danger">Cancel</button>';
                               }else{
                                 echo '<button type="submit" id="pay" class="btn btn-primary">Pay</button>
 								<button type="button" id="cancel" class="btn btn-danger">Cancel</button>';
@@ -199,7 +200,7 @@ $('document').ready(function(){
            udf2: {
                 required: true
             },
-            udf1: {
+            udf3: {
                 required: true
             }
         },
@@ -207,7 +208,7 @@ $('document').ready(function(){
         // Specify the validation error messages
         messages: {
             udf2: "Please enter a valid email address",
-            udf1: "Please enter a Mobile Number"
+            udf3: "Please enter a Mobile Number"
         },
         
         

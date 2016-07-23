@@ -4166,3 +4166,11 @@ ul.posts-line .post .title {
         padding-bottom: 56.25%;
     }
 }
+
+#errordiv > .error{
+            background-color: #d9534f;
+    color: white;
+    padding: 5px;
+    margin-bottom: 2px;
+    text-align: center;
+       }

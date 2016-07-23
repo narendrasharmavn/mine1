@@ -301,6 +301,7 @@ if ($this->session->userdata('holidayCustomerName')) {
             <?php
             $reviewsquery = $this->db->query("SELECT rr.*,c.name from eventreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortoreventname='$eventid' ORDER BY rr.rid DESC");
 
+//echo "SELECT rr.*,c.name from eventreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortoreventname='$eventid' ORDER BY rr.rid DESC";
            
             $reviewsum= $this->db->query("SELECT sum(pricereview) as sumr from eventreviews where resortoreventname='$eventid'");
             foreach($reviewsum->result() as $sum)
@@ -529,7 +530,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                 </tbody>
                 </table>
                 <div id="book-selection-error" style="background-color: rgb(235, 214, 187);color: #9c0000;padding: 10px;margin-bottom:3px;"> Please select a date</div>
-                <button type="button" class="btn_full book-now">Book now</button>
+                <button type="button" class="btn_full book-now">Proceed</button>
                             
                                                   
                                                        
@@ -570,7 +571,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                                                   
                         <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Rate Us</label>
+                                    <label style="float: left;">Rate Us</label>
                                     <fieldset id='demo1' class="ratingg">
                                 <input class="stars" type="radio" id="star5" name="pricerating" value="5" />
                                 <label class = "full" for="star5" title="Awesome - 5 stars"></label>
@@ -589,6 +590,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                  </div>
                     <!-- End row -->
                     <div class="form-group">
+                    <label>Subject</label>
                         <textarea name="reviewtext" id="review_text" class="form-control" style="height:100px;" placeholder="Write your review" required></textarea>
                     </div>
                     <input type="submit" value="Submit" class="btn_1" id="submit-review">

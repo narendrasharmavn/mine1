@@ -61,6 +61,7 @@ $route['trustees'] = 'frontend/trustees';
 $route['register'] = 'frontend/registerForm';
 $route['register-error'] = 'frontend/register';
 $route['register-success'] = 'frontend/registrationsuccess';
+$route['otp-check'] = 'frontend/otpcheck';
 
 
 

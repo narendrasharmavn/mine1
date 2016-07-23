@@ -13,7 +13,7 @@
 
     <script src="https://use.fontawesome.com/3ad883fb7d.js"></script>
 
-
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/frontend/css/style.css">
   <!--  <script src="<?php echo base_url(); ?>assets/frontend/fontawesome/fonts.js"></script>-->
 
     <!-- Favicons-->

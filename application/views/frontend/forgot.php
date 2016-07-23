@@ -9,7 +9,7 @@
 
     echo form_open('forgotpassword',array('id'=>'editstates','method'=>'post'));
 ?>
-                           
+                                <div id="errordiv"></div>
                                 <div class="form-group">
                                     Please enter your registered email. We will send you the password to your Registered Mobile Number                                </div>
                                 <div class="form-group">

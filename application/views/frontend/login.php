@@ -7,26 +7,26 @@
                             
                         </div>
                         
-
+                        
                           <?php      
                             
                              echo $this->session->flashdata('error-msg'); 
-
-                                echo form_open('login_error',array('name'=>'registerform','method'=>'post'));
+                             echo $this->session->flashdata('register-success'); 
+                                echo form_open('login_error',array('name'=>'registerform','method'=>'post', 'id' => 'login-form'));
                             ?>
-                          
+                          <div id="errordiv"></div>
                  <div class="form-group">
                                     Please login to your account.   
                   </div>
                                 <div class="form-group">
                                     <label>Email<span style="color:red;">*</span></label>
-                                    <input type="text" name="email" class="form-control" placeholder="Email" value="<?php echo set_value('email'); ?>" required>
-                                    <span class="text-danger"><?php echo form_error('email'); ?></span>
+                                    <input type="text" name="email" class="form-control" placeholder="Email" value="<?php echo set_value('email'); ?>" >
+                                    <span class="text-danger email-danger"><?php echo form_error('email'); ?></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Password<span style="color:red;">*</span></label>
-                                    <input type="password" name="password" class="form-control" placeholder="Password" required>
-                                    <span class="text-danger"><?php echo form_error('password'); ?></span>
+                                    <input type="password" name="password" class="form-control" placeholder="Password" >
+                                    <span class="text-danger password-danger"><?php echo form_error('password'); ?></span>
                                 </div>
                                 <div class="form-group">
                                     <input type="checkbox" name="rememberme" tabindex="3" value="forever" id="rememberme" class="pull-left"> <label for="rememberme" class="pl-8">Remember my details</label>
@@ -54,5 +54,49 @@
       ?>
 
       </body>
+      <script>
+  $("document").ready(function(){
+
+        $("#login-form").validate({
+      //by default the error elements is a <label>
+      errorElement: "div",
+      errorPlacement: function(error, element) {
+     error.appendTo('div#errordiv');
+     //console.log("error is : "+JSON.stringify(error));
+     //alert(JSON.stringify(error));
+     //console.log("element  is : "+JSON.stringify(element));
+     //$('div#errordiv').html(error[0].innerHTML);
+   },
+    
+        // Specify the validation rules
+        rules: {
+           email: {
+                required: true,
+                email: true
+            },
+            password: {
+                required: true
+            }
+        },
+        
+        // Specify the validation error messages
+        messages: {
+            email: {
+                required: "Email address cannot be blank",
+                email: 'Please enter valid email address'
+            },
+            password: "Please enter a password"
+        },
+        
+        
+        submitHandler: function(form) {
+                form.submit();
+          }
+        
+    });
+
+        
+    });
+      </script>
 
 </html>

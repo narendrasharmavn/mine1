@@ -1,4 +1,4 @@
-     
+
     <!--Checkout Starts-->
     
         <div class="container" style="margin-top:65px;min-height:450px;">
@@ -9,7 +9,7 @@
                         <form class="form-inline" action="<?php echo base_url().'merchant/';  ?>submit.php" method="post" id="payment-form" style="background-color:#eee; padding:25px;">
 
                         <input type="hidden" name="amount" class=" form-control" placeholder="Password" value="<?php echo $this->session->userdata('totalcost') ?>" readonly>
-                                    <INPUT TYPE="hidden" NAME="udf3" value="NSE">
+                                    <INPUT TYPE="hidden" NAME="udf1" value="NSE">
                                     <INPUT TYPE="hidden" NAME="udf4" value="NSE">
                                     
                                     <INPUT TYPE="hidden" NAME="product" value="NSE">
@@ -60,6 +60,7 @@
                               if ($this->session->userdata('holidayEmail')) {
                                  echo '<button type="submit" class="btn btn-primary">Pay</button>';
                                  echo '<input type="hidden" name="sessioncheck" value="yes" >';
+                                 echo '<button type="button" id="cancel" class="btn btn-danger">Cancel</button>';
                               }else{
                                 echo '<button type="submit" id="pay" class="btn btn-primary">Pay</button>
 								                 <button type="button" id="cancel" class="btn btn-danger">Cancel</button>';
@@ -125,26 +126,33 @@ $('document').ready(function(){
       errorElement: "div",
       errorPlacement: function(error, element) {
      error.appendTo('div#errordiv');
-     //console.log("error is : "+JSON.stringify(error));
-     //alert(JSON.stringify(error));
-     //console.log("element  is : "+JSON.stringify(element));
-     //$('div#errordiv').html(error[0].innerHTML);
+     
    },
     
         // Specify the validation rules
         rules: {
            udf2: {
-                required: true
+                required: true,
+                email: true
             },
-            udf1: {
-                required: true
+            udf3: {
+                required: true,
+                minlength: 10,
+                maxlength:10
             }
         },
         
         // Specify the validation error messages
         messages: {
-            udf2: "Please enter a valid email address",
-            udf1: "Please enter a Mobile Number"
+            udf2: {
+              required: 'Email cannot be blank',
+              email:'Please enter valid email address'
+            },
+           udf3: {
+              required: 'Mobile number cannot be blank',
+              minlength:'Please enter valid Phone number',
+              maxlength:'Please enter 10 digit mobile number'
+            }
         },
         
         

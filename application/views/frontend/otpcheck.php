@@ -27,7 +27,7 @@
 
                         <?php      
                             
-                             echo $this->session->flashdata('reg-error-msg'); 
+                             echo $this->session->flashdata('error-msg'); 
 
                                 echo form_open('register-error',array('name'=>'registerform','method'=>'post','id' => 'register-form'));
                             ?>

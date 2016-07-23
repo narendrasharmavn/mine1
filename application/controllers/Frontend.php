@@ -168,7 +168,7 @@ class Frontend extends CI_Controller {
           'review' => $reviewtext,
           'customerid' => $this->session->userdata('holidayCustomerId'),
           'resortname' => $resortid,
-          'status' => 1
+          'status' => 0
           );
 
         $this->db->insert('resortreviews', $data);
@@ -198,7 +198,7 @@ class Frontend extends CI_Controller {
           'pricereview' => $pricerating,
           'review' => $reviewtext,
           'customerid' => $this->session->userdata('holidayCustomerId'),
-          'resortoreventname' => $eventname
+          'resortoreventname' => $eventid
           );
 
         $this->db->insert('eventreviews', $data);
@@ -2385,10 +2385,10 @@ tickets on the go<br>
                             mail($to, $subject, $message, $headers);
 
                             //user email ends here //
-                            
+                            $this->session->set_flashdata('register-success','<div class=alert alert-success text-center>You are successfully registered</div>');
 
                              $this->load->view('frontend/header');
-                             redirect('frontend/registrationsuccess');
+                             redirect('login');
                             
 
 

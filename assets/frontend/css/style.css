@@ -52,7 +52,7 @@ i.color_4{color:#f7941d;}
 .chromeframe a{color:#ed1c24;}
 
 /*-------- 1.1 Typography --------*/
-body {background: url(../images/body_bg.jpg);
+body {background: white;
     background-repeat: repeat;font-size:12px; line-height:20px; font-family:"Montserrat", Arial, sans-serif; color:#565a5c;-webkit-font-smoothing: antialiased; overflow-x: hidden !important; }
 
 h1, h2, h3, h4, h5, h6{font-family: 'Kaushan Script', cursive; color:#333;}
@@ -1188,6 +1188,7 @@ ul#cat_nav i {
   background:#eee;
   padding:5px;
   margin-bottom:15px;
+  margin-top:15px;
 }
 
 /* Map */
@@ -1551,7 +1552,7 @@ a#modify_col_bt .icon_set_1_icon-78{
 }
 .table.table_summary tr.total{
   color:#e04f67;
-  font-size:20px;
+  font-size:17px;
   font-weight:bold;
   text-transform:uppercase;
 }
@@ -2843,6 +2844,7 @@ ul.page-numbers > li > span:focus {
 
 /* Margin tools */
 .margin_60 {padding-top:40px; padding-bottom:0px;background: transparent;
+min-height:400px;
    }
 .margin_top_60 {padding-top:60px;}
 .margin_bottom_60 {padding-bottom:60px;}
@@ -2923,6 +2925,7 @@ ul.page-numbers > li > span:focus {
   position:relative;
   overflow: hidden;
   border:1px solid #fff;
+      min-height: 270px;
 }
 .tour_container .tour_title{
   padding:15px;
@@ -4494,6 +4497,14 @@ background-repeat:repeat
 	    margin-top: 17px ;
 		margin-left: 26px ;
 	}  
+
+  #errordiv > .error{
+            background-color: #d9534f;
+    color: white;
+    padding: 5px;
+    margin-bottom: 2px;
+    text-align: center;
+       }
 
 
 
