@@ -24,6 +24,24 @@
 
 
                             <div id="errordiv"></div>
+                            <div class="form-group">
+                                <label for="exampleInputName2" class="control-label">Name</label> 
+                                
+                                <?php
+                                 if (!$this->session->userdata('holidayCustomerName')) {
+                                    echo '<input type="tel" name="customername" class="form-control" id="mobile" placeholder="Enter Your name" required>';
+                                 }else{
+                                    ?>
+                                    <input type="tel" name="customername" class="form-control" id="mobile" placeholder="Enter Your name" value="<?php
+                                    echo $this->session->userdata('holidayCustomerName');
+                                       ?>" required>
+
+                                    <?php
+                                 }
+
+                                ?>
+                                
+                              </div>
                               <div class="form-group">
                                 <label for="exampleInputName2" class="control-label">Mobile</label> 
                                 
@@ -69,6 +87,19 @@
                               }
                               ?>
                               
+                            </form>
+                            <form class="otp-form">
+
+                                <div class="form-group">
+                                <label for="exampleInputName2" class="control-label">Mobile</label> 
+                               
+                                    <input type="text" name="otp" class="form-control" id="otp" placeholder="Enter OTP here" required>
+                                
+                                  <button type="submit" id="otp" class="btn btn-primary">Check OTP</button>
+
+                                
+                              </div>
+
                             </form>
                     </div>
                     <div class="col-md-4 col-xs-12" style="margin-top:20px;">
@@ -182,6 +213,7 @@
 <script type="text/javascript">
 
 $('document').ready(function(){
+  $('.otp-form').hide();
     //alert("hello");
     // Setup form validation on the #register-form element
     $("#payment-form").validate({

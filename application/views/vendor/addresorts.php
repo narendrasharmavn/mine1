@@ -86,8 +86,13 @@
 														  <span class="text-danger"><?php echo form_error('longitude'); ?></span>
 										                </div>
 									                </div>
-									                <div>&nbsp;</div>
-									                <div>&nbsp;</div>
+									                <div class="form-group">
+										                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Banner Image</label>
+										                <div class="col-sm-7">
+										                    <input type="file" id="packageimage" name="userfile">
+														  <span class="text-danger"><?php echo form_error('event'); ?></span>
+										                </div>
+									                </div>
 			                                        <div>&nbsp;</div>
 						                        </div>	
 						                    </div>

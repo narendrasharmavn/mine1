@@ -14,7 +14,7 @@
                                     Please enter your registered email. We will send you the password to your Registered Mobile Number                                </div>
                                 <div class="form-group">
                                     <label>E-mail <span style="color:red;">*</span></label>
-                                    <input type="email" name="email" class="form-control" placeholder="Enter E-mail" value="<?php echo set_value('email'); ?>" required>
+                                    <input type="email" name="email" class="form-control" placeholder="Enter E-mail" value="<?php echo set_value('email'); ?>" >
                                     <span class="text-danger"><?php echo form_error('email'); ?></span>
                                 </div>
                                 <button type="submit" class="btn_full">Get New Password</button>
@@ -42,5 +42,46 @@
       ?>
 
       </body>
+
+      <script>
+  $("document").ready(function(){
+
+        $("#editstates").validate({
+      //by default the error elements is a <label>
+      errorElement: "div",
+      errorPlacement: function(error, element) {
+     error.appendTo('div#errordiv');
+     //console.log("error is : "+JSON.stringify(error));
+     //alert(JSON.stringify(error));
+     //console.log("element  is : "+JSON.stringify(element));
+     //$('div#errordiv').html(error[0].innerHTML);
+   },
+    
+        // Specify the validation rules
+        rules: {
+           email: {
+                required: true,
+                email: true
+            }
+        },
+        
+        // Specify the validation error messages
+        messages: {
+            email: {
+                required: "Email address cannot be blank",
+                email: 'Please enter valid email address'
+            }
+        },
+        
+        
+        submitHandler: function(form) {
+                form.submit();
+          }
+        
+    });
+
+        
+    });
+      </script>
 
 </html>

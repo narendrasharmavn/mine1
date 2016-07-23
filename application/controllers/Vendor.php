@@ -49,54 +49,58 @@ class Vendor extends CI_Controller {
   }
   public function updateticket()
   {
-$tckno=$this->input->post('ticketno');
-$vdata = array(
+    $tckno=$this->input->post('ticketno');
+    $vdata = array(
           'visitorstatus'=>'visited'
           
       );
 
- $this->db->where('ticketnumber', $tckno);
-        $this->db->update('tblbookings', $vdata); 
-            echo "true";
+    $this->db->where('ticketnumber', $tckno);
+    $this->db->update('tblbookings', $vdata); 
+    echo "true";
   }
 
 	public function addevents()
-    {
-      if (!$this->session->userdata('username')) 
-       redirect('admin/login');
-        //get vendors data
-        $vendorid = $this->session->userdata('vendorid');
-        $data['results'] = $this->VendorModel->getEventsData($vendorid);
-        $this->load->view('vendor/addevents',$data);
-    }
+  {
+    if (!$this->session->userdata('username')) 
+     redirect('admin/login');
+      //get vendors data
+      $vendorid = $this->session->userdata('vendorid');
+      $data['results'] = $this->VendorModel->getEventsData($vendorid);
+      $this->load->view('vendor/addevents',$data);
+  }
+
+  public function validate_bannerimageEvent() 
+      {
+        $config['upload_path']   = './assets/eventimages';
+        $config['allowed_types'] = 'gif|jpg|png';
+      
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('userfile'))
+        {
+            $this->form_validation->set_message('validate_image',$this->upload->display_errors());
+            return false;
+        } else {
+            $imageInformation = $this->upload->data();
+            $this->imagename = $imageInformation['file_name'];
+            $this->filepath = $imageInformation['file_path'];
+            return true;
+
+        }
+      }
 
      public function submiteventdata(){
       if (!$this->session->userdata('username')) 
        redirect('admin/login');
 
-            $vendorid = $this->session->userdata('vendorid');
-   			    $eventodate = $this->input->post('eventodate');
-            $evenfromdate = $this->input->post('evenfromdate');
-            $location = $this->input->post('location');
-            $totime = $this->input->post('totime');
-            $fromtime = $this->input->post('fromtime');
-            $eventname = $this->input->post('eventname');
-            $description = $this->input->post('description');
-            $eventtype = $this->input->post('eventtype');
-            $cost = $this->input->post('cost');
-            $latitude = $this->input->post('latitude');
-            $longitude = $this->input->post('longitude');
-
-
-
         //set rules for vendor form data
         
-        $this->form_validation->set_rules('eventdate', 'Event Date', 'required');
+        
         $this->form_validation->set_rules('location', 'Location', 'required');
-        $this->form_validation->set_rules('time', 'Time', 'required');
+        
         $this->form_validation->set_rules('eventname', 'Event Name', 'required');
         $this->form_validation->set_rules('description', 'Description', 'required');
-
+        $this->form_validation->set_rules('userfile','Product Image','callback_validate_bannerimageEvent');
         $vendorid = $this->session->userdata('vendorid');
         
         
@@ -104,16 +108,41 @@ $vdata = array(
         if ($this->form_validation->run() == FALSE)
         {   
             
-            $this->load->view('vendor/addevents');
+          $data['results'] = $this->VendorModel->getEventsData($vendorid);
+          $this->load->view('vendor/addevents',$data);
 
         }else{
            
-            
+            $vendorid = $this->session->userdata('vendorid');
+            //echo $vendorid."<br>";
+            $eventodate = $this->input->post('eventodate');
+            //echo $eventodate."<br>";
+            $evenfromdate = $this->input->post('evenfromdate');
+            //echo $evenfromdate."<br>";
+            $location = $this->input->post('location');
+            //echo $location."<br>";
+            $totime = $this->input->post('totime');
+            //echo $totime."<br>";
+            $fromtime = $this->input->post('fromtime');
+            //echo $fromtime."<br>";
+            $eventname = $this->input->post('eventname');
+            //echo $eventname."<br>";
+            $description = $this->input->post('description');
+            //echo $description."<br>";
+            $eventtype = $this->input->post('eventtype');
+            //echo $eventtype."<br>";
+            $cost = $this->input->post('cost');
+            //echo $cost."<br>";
+            $latitude = $this->input->post('latitude');
+            //echo $latitude."<br>";
+            $longitude = $this->input->post('longitude');
+            //echo $longitude."<br>";
+            //print_r($this->imagename)."<br>";
+            //print_r($this->filepath)."<br>";
             
 
             
             
-                $time = $eventdate." ".$time;
                
                 $data = array(
                    'vendorid' => $vendorid,
@@ -125,7 +154,8 @@ $vdata = array(
                    'eventname' => $eventname,
                    'description' => $description,
                    'eventtype' => $eventtype,
-                   
+                   'bannerimage' => $this->imagename,
+                   'bannerimagepath' => $this->filepath,
                    'latitude' => $latitude,
                    'longitude' => $longitude,
                    'status' => 1
@@ -133,9 +163,10 @@ $vdata = array(
 
                 );
 
-                echo $this->db->insert('tblevents', $data);
+                $this->db->insert('tblevents', $data);
                 $this->session->set_flashdata('success','<div class="alert alert-success text-center">Record Inserted Successfully</div>');
-                $this->load->view('vendor/addevents');
+                redirect('vendor/addevents');
+                
             }
             
 
@@ -296,6 +327,26 @@ $vdata = array(
       $this->load->view('vendor/addresorts');
     }
 
+    public function validate_bannerimageResort() 
+      {
+        $config['upload_path']   = './assets/resortimages';
+        $config['allowed_types'] = 'gif|jpg|png';
+      
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('userfile'))
+        {
+            $this->form_validation->set_message('validate_image',$this->upload->display_errors());
+            return false;
+        } else {
+            $imageInformation = $this->upload->data();
+            $this->imagename = $imageInformation['file_name'];
+            $this->filepath = $imageInformation['file_path'];
+            return true;
+
+        }
+      }
+
+
     public function submitresortsdata(){
 
         if (!$this->session->userdata('username')) 
@@ -307,6 +358,7 @@ $vdata = array(
         $this->form_validation->set_rules('location', 'Location', 'required');
         
         $this->form_validation->set_rules('description', 'Description', 'required');
+        $this->form_validation->set_rules('userfile','Product Image','callback_validate_bannerimageResort');
 
         if ($this->form_validation->run() == FALSE)
         {   
@@ -331,6 +383,8 @@ $vdata = array(
                    'resortname' => $resortname,
                    'location' => $location,
                    'description' => $description,
+                   'bannerimage' => $this->imagename,
+                   'bannerimagepath' => $this->filepath,
                    'createdby' => $this->session->userdata('username'),
                    'createdon' => date('Y-m-d h:i:s'),
                    'status' => 1
@@ -339,7 +393,7 @@ $vdata = array(
 
                 $this->db->insert('tblresorts', $data);
                 $this->session->set_flashdata('success','<div class="alert alert-success text-center">Resort Inserted Successfully</div>');
-                $this->load->view('vendor/addresorts');
+                redirect('vendor/addresorts');
             }
 
 

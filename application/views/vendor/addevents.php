@@ -86,6 +86,14 @@
 										                </div>
 									                </div>
 
+									                <div class="form-group">
+										                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Banner Image</label>
+										                <div class="col-sm-7">
+										                    <input type="file" id="packageimage" name="userfile">
+														  <span class="text-danger"><?php echo form_error('event'); ?></span>
+										                </div>
+									                </div>
+
 						                        </div>
 						                        <div class="col-md-5">
 
@@ -116,6 +124,14 @@
 										                </div>
 									                </div>
 
+									                 <div class="form-group">
+										                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Longitude</label>
+										                <div class="col-sm-7">
+										                  <input type="text" class="form-control" name="longitude" id="fname" placeholder="Longitude" value="<?php echo set_value('longitude'); ?>">
+														  <span class="text-danger"><?php echo form_error('longitude'); ?></span>
+										                </div>
+									                </div>
+
 									                <div class="form-group">
 										                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Choose event type</label>
 										                <div class="col-sm-7 col-xs-7">
@@ -129,13 +145,7 @@
 										                </div>
 									                </div>
 
-									                <div class="form-group">
-										                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Longitude</label>
-										                <div class="col-sm-7">
-										                  <input type="text" class="form-control" name="longitude" id="fname" placeholder="Longitude" value="<?php echo set_value('longitude'); ?>">
-														  <span class="text-danger"><?php echo form_error('longitude'); ?></span>
-										                </div>
-									                </div>
+									               
 
                                                     <div>&nbsp;</div>
 									                <div>&nbsp;</div>
