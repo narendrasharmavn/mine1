@@ -81,7 +81,7 @@
                   <div class="se-pre-con"></div>  
                     <div class="col-md-12">
                        
-                        <div id="map" class="map"></div>
+                        <!--<div id="map" class="map"></div>-->
 
       
                     </div>

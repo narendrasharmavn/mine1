@@ -137,56 +137,30 @@
         <div id="toTop"></div>
         
         <div id="overlay" class="over"><i class="icon-spin3 animate-spin"></i></div>
-        <div class="container margin_60" style="transform: none;">
-    <div class="row" style="transform: none;">
-        
-
-            
-
- <div class="container-fluid">
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            
-              <!-- Wrapper for slides -->
-              <div class="carousel-inner">
-               <?php
+		
+ <?php
               $i=0;
            
               $query = $this->db->query("SELECT * from tblresorphotos WHERE resortid='$resortid' order by rphotoid DESC limit 6");
                 foreach ($query->result() as $k) {
                 if($i==0){
                 ?>
-                <div class="item active">
-                  <img src="<?php echo base_url();?>assets/resortimages/<?php echo $k->photoname ;?>">
+                
+                  <img src="<?php echo base_url();?>assets/resortimages/<?php echo $k->photoname ;?>" class="img-responsive" style="width:100%;height:370px;">
                    <!--<div class="carousel-caption">
                     <h3>Headline</h3>
                     <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. <a href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank" class="label label-danger">Bootstrap 3 - Carousel Collection</a></p>
                   </div>-->
-                </div><!-- End Item -->
+                <!-- End Item -->
                  <?php 
                     }
-                    else
-                    {
-                        ?>
-                        <div class="item">
-                  <img src="<?php echo base_url();?>assets/resortimages/<?php echo $k->photoname ;?>">
-                   <!--<div class="carousel-caption">
-                    <h3>Headline</h3>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. <a href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank" class="label label-danger">Bootstrap 3 - Carousel Collection</a></p>
-                  </div>-->
-                </div>
-                        <?php
+				}
+				?>
+        <div class="container margin_60" style="transform: none;">
+    <div class="row" style="transform: none;">
+        
 
-                    }
-                    $i++;
-                }
-                 ?>
-              </div><!-- End Carousel Inner -->
-
-
-
-
-            </div><!-- End Carousel -->
-        </div>     
+              
         <div class="col-md-8 col-sm-8">
                         <h1><?php echo $resortResults->resortname; ?></h1>
                         <span><?php echo $resortResults->location; ?></span>
@@ -263,15 +237,15 @@
         <div class="col-lg-5 col-md-5 col-sm-6">
             <div class="tour_list_desc">
              
-                <h3><?php echo $k->packagename;   ?></h3>
+                <h4><?php echo $k->packagename;   ?></h4>
                 <p><?php echo $k->description;   ?></p>
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-2">
             <div class="price_list">
                 <div>
-                    <span>Rs. <?php echo $k->adultprice;   ?></span><small>(Adult)</small>
-                     <span>Rs. <?php echo $k->childprice;   ?></span><small>(Kids)</small>
+                    <span>Rs. <?php echo $k->adultprice;   ?><small>(Adult)</small></span>
+                     <span>Rs. <?php echo $k->childprice;   ?><small>(Kids)</small></span>
                      <input type="hidden" id="<?php echo $k->packageid.'adultprice';   ?>" value="<?php echo $k->adultprice;   ?>">
                      <input type="hidden" id="<?php echo $k->packageid.'childprice';   ?>" value="<?php echo $k->childprice;   ?>">
                      <input type="hidden" id="<?php echo $k->packageid.'servicetax';   ?>" value="<?php echo $k->servicetax;   ?>">

@@ -74,7 +74,7 @@
                                 </div><!-- /.featured-overlay-inner -->
                             </div>
       <!-- ForNext Slider -->
-      <div id="jssor_1" class="jssor_1">
+      <div id="jssor_1" class="jssor_1 hidden-sm hidden-xs">
         <!-- Loading Screen -->
         <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
             <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
@@ -152,55 +152,91 @@ $i++;
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
                 <?php
-            $i=0;
-            foreach ($query->result() as $k) {
-                if($i==1){
+            //$i=0;
+            //foreach ($query->result() as $k) {
+            //    if($i==1){
                     ?>
 
                     <div class="item active">
-                    <img src="<?php echo base_url(); ?>/assets/sliderimages/<?php echo $k->image; ?>" alt="<?php echo $k->image; ?>">
+                    <img src="<?php echo base_url(); ?>assets/sliderimages/2.jpg" alt="<?php //echo $k->image; ?>">
                                         <div class="header-text hidden-xs">
                         <div class="col-md-12 text-center">
                             <h2>
-                                <span>Welcome to <strong><?php echo $k->title; ?></strong></span>
+                                <span>Welcome to <strong><?php //echo $k->title; ?></strong></span>
                             </h2>
                             <br>
                             <h3>
-                                <span><?php echo $k->subtitle; ?></span>
+                                <span><?php //echo $k->subtitle; ?></span>
                             </h3>
                             <br>
                             <div class="">
-                                <a class="btn btn-danger btn-sm btn-min-block" href="<?php echo $k->link; ?>"><?php echo $k->name; ?></a></div>
+                                <a class="btn btn-danger btn-sm btn-min-block" href="<?php //echo $k->link; ?>"><?php //echo $k->name; ?></a></div>
                         </div>
                     </div><!-- /header-text -->
                 </div>
 
                     <?php
-}else{
+//}else{
     ?>
 <div class="item">
-                    <img src="<?php echo base_url(); ?>/assets/sliderimages/<?php echo $k->image; ?>" alt="<?php echo $k->image; ?>">
+                    <img src="<?php echo base_url(); ?>assets/sliderimages/4.jpg" alt="<?php //echo $k->image; ?>">
                     <!-- Static Header -->
                     <div class="header-text hidden-xs">
                         <div class="col-md-12 text-center">
                             <h2>
-                                <span>Welcome to <strong><?php echo $k->title; ?></strong></span>
+                                <span>Some Text Comes Here<strong><?php //echo $k->title; ?></strong></span>
                             </h2>
                             <br>
                             <h3>
-                                <span><?php echo $k->subtitle; ?></span>
+                                <span><?php //echo $k->subtitle; ?></span>
                             </h3>
                             <br>
                             <div class="">
-                                <a class="btn btn-danger btn-sm btn-min-block" href="<?php echo $k->link; ?>"><?php echo $k->name; ?></a></div>
+                                <a class="btn btn-danger btn-sm btn-min-block" href="<?php //echo $k->link; ?>"><?php //echo $k->name; ?></a></div>
+                        </div>
+                    </div><!-- /header-text -->
+                </div>
+				<div class="item">
+                    <img src="<?php echo base_url(); ?>assets/sliderimages/8.jpg" alt="<?php //echo $k->image; ?>">
+                    <!-- Static Header -->
+                    <div class="header-text hidden-xs">
+                        <div class="col-md-12 text-center">
+                            <h2>
+                                <span>Some Text Comes Here<strong><?php //echo $k->title; ?></strong></span>
+                            </h2>
+                            <br>
+                            <h3>
+                                <span><?php //echo $k->subtitle; ?></span>
+                            </h3>
+                            <br>
+                            <div class="">
+                                <a class="btn btn-danger btn-sm btn-min-block" href="<?php //echo $k->link; ?>"><?php //echo $k->name; ?></a></div>
+                        </div>
+                    </div><!-- /header-text -->
+                </div>
+				<div class="item">
+                    <img src="<?php echo base_url(); ?>assets/sliderimages/10.jpg" alt="<?php //echo $k->image; ?>">
+                    <!-- Static Header -->
+                    <div class="header-text hidden-xs">
+                        <div class="col-md-12 text-center">
+                            <h2>
+                                <span>Some Text Comes Here<strong><?php //echo $k->title; ?></strong></span>
+                            </h2>
+                            <br>
+                            <h3>
+                                <span><?php //echo $k->subtitle; ?></span>
+                            </h3>
+                            <br>
+                            <div class="">
+                                <a class="btn btn-danger btn-sm btn-min-block" href="<?php //echo $k->link; ?>"><?php //echo $k->name; ?></a></div>
                         </div>
                     </div><!-- /header-text -->
                 </div>
     <?php
-}
+//}
 
-$i++;
-            }
+//$i++;
+  //          }
             ?>
 
               
@@ -230,8 +266,8 @@ $i++;
                                         <?php echo $this->session->flashdata('error-msg'); ?>
                                                 <?php  
 
-                                                    echo form_open('search-results',array('class' => 'searchform','id'=>'search-tour-form','method'=>'post','role' => 'search'));
-                                                ?>
+                                                         echo form_open('search-results',array('id'=>'searchform','method'=>'post','role' => 'search','class' => 'searchform'));
+                                            ?>
                        
                         <input type="hidden" name="post_type" value="tour">
                         <div class="main_title">
@@ -240,43 +276,52 @@ $i++;
                         </div>
                        
                         <div class="row">
-                        <div class="col-md-1"></div>
-                            <div class="col-md-3">
-                                <div class="form-group">
+                           <input type="hidden" name="post_type" value="tour">
+                         
+                                             <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        
+                                                        <select class="form-control search-form-slider searchtype" id="searchtype1" name="searchtype" required>
+                                                            <option value="" selected="">Search For</option>
+                                                            <option value="resortname" <?php echo  set_select('searchtype', 'resortname'); ?>>Resort Name</option>
+                                                           <option value="eventname" <?php echo  set_select('searchtype', 'eventname'); ?>>Event Name</option>
+                                                           <option value="places" <?php echo  set_select('searchtype', 'places'); ?>>Places</option>
+                                                           
+                                                         </select>
+                                                         <span class="text-danger searchtypeerror"><?php echo form_error('searchtype'); ?></span>
+                                                        </div>
+                                                </div>
+												<div class="col-md-12 datefield">
+													<div class="form-group">
+														
+														<input class="form-control search-form-slider datepickerj" type="text" name="date" id="date1" placeholder="Select date">
+														<span class="text-danger datepickerjerror"><?php echo form_error('date'); ?></span>
+													</div>
+												</div>
+                                                <div class="col-md-12">
+<div class="form-group">
+      <!-- /btn-group -->
+     <input type="text" class="form-control search-form-slider2" style="height:35px;font-size:14px;" name="searchterm" id="searchterm" placeholder="Resorts, Events or Places " value="<?php echo set_value('searchterm'); ?>" autocomplete="off" required>
                                     
-                                    <select class="form-control searchtype" name="searchtype" required>
-                                        <option value="" selected="">Search For</option>
-                                        <option value="resortname" <?php echo  set_select('searchtype', 'resortname'); ?>>Resort Name</option>
-                                       <option value="eventname" <?php echo  set_select('searchtype', 'eventname'); ?>>Event Name</option>
-                                       <option value="places" <?php echo  set_select('searchtype', 'places'); ?>>Places</option>
-                                       
-                                     </select>
-                                     <span class="text-danger"><?php echo form_error('searchtype'); ?></span>
-                                    </div>
-                            </div>
-                            <div class="form-group">
-                                   
-                                    <input type="text" class="form-control search-form-slider" name="searchterm" id="searchterm" placeholder="Enter Keywords" value="<?php echo set_value('searchterm'); ?>" required>
-                                    <span class="text-danger searchtermerror"><?php echo form_error('searchterm'); ?></span>
+    </div><!-- /input-group -->
+<span class="text-danger searchtermerror" style="color:#ebd6bb;"><?php echo form_error('searchterm'); ?></span>
                                     <span class="search-results-autofill"></span>
-                                </div>
-                            
-                        
-                            <div class="col-md-12 datefield">
-                                <div class="form-group">
-                                    
-                                    <input class="form-control search-form-slider datepickerj" type="text" name="date" placeholder="Select date">
-                                    <span class="text-danger"><?php echo form_error('date'); ?></span>
-                                </div>
+                               
                             </div>
-                            <div class="col-md-2 col-sm-3 col-xs-6">
+                            
+                            <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-group">
                                    
                                 
                                     <button type="submit" class="btn_1 green searchnowbutton"><i class="icon-search"></i>Search now</button>
                                 </div>
                             </div>
-                            <div class="col-md-1"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>                                            
+                                         
+                                    </form><!-- /form.location-search -->
                             
                             
             </div>
@@ -475,6 +520,25 @@ $('.search-form-slider1').on('keyup',function () {
 
 
 });
+$('.search-form-slider2').on('keyup',function () {
+   
+        searchtype = $('#searchtype1').val();
+		
+        searchdate = $('#date1').val() ;
+		//alert(searchdate);
+        searchterm = this.value;
+        if(searchtype==''){
+            $('.searchtermerror').text('Please select type of search for autofill to work');
+        }else if(searchtype=='eventname' && searchdate==''){
+            $('.searchtermerror').text('Please select a date');
+        }else{
+            $('.searchtermerror').text('');
+        }
+
+
+
+
+});
 
 
 
@@ -501,6 +565,25 @@ $('document').ready(function(){
                 searchtype : $('#searchtype').val(),
                 searchdate : $('#date').val() ,
                 searchterm : $('.search-form-slider1').val()
+            },
+            success: function(data) {
+                console.log("jquery ajax autocomplete test "+data);
+                response(JSON.parse(data));
+            }
+        });
+    },
+      min_length: 3
+    });
+	$( ".search-form-slider2" ).autocomplete({
+      source:function(request, response) {
+        
+        $.ajax({
+            type: "POST",
+            url: '<?php echo site_url("frontend/autofillsearch/")?>',
+            data: {
+                searchtype : $('#searchtype1').val(),
+                searchdate : $('#date1').val() ,
+                searchterm : $('.search-form-slider2').val()
             },
             success: function(data) {
                 console.log("jquery ajax autocomplete test "+data);

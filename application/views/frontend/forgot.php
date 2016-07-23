@@ -21,8 +21,8 @@
                                 
                                 <br>
                                 <div style="text-align:center">
-                                    <a href="<?php echo site_url().'login'; ?>" class="underline">Login | </a>
-                                    <a href="<?php echo site_url().'register'; ?>" class="underline">Sign Up</a>
+                                    <a href="<?php echo site_url().'login'; ?>" class="underline">Sign In | </a>
+                                    <a href="<?php echo site_url().'register'; ?>" class="underline">Register</a>
                                 </div>
                             </form>
 

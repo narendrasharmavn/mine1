@@ -145,55 +145,32 @@
         <div id="toTop"></div>
         
         <div id="overlay" class="over"><i class="icon-spin3 animate-spin"></i></div>
+		 <div class="container-fluid">
+ <?php
+              $i=0;
+              $query = $this->db->query("SELECT * from tbleventphotos WHERE eventid='$eventid' order by photoid DESC limit 6");
+               foreach ($query->result() as $k) {
+                if($i==0){
+                ?>
+                
+                  <img src="<?php echo base_url();?>assets/eventimages/<?php echo $k->photoname ;?>" class="img-responsive" style="width:100%;height:370px;">
+                   <!--<div class="carousel-caption">
+                    <h3>Headline</h3>
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. <a href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank" class="label label-danger">Bootstrap 3 - Carousel Collection</a></p>
+                  </div>-->
+                <!-- End Item -->
+                 <?php 
+				}
+                    }
+					?>
+        </div>
         <div class="container margin_60" style="transform: none;">
     <div class="row" style="transform: none;">
         
 
             
 
- <div class="container-fluid">
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            
-              <!-- Wrapper for slides -->
-              <div class="carousel-inner">
-               <?php
-              $i=0;
-              $query = $this->db->query("SELECT * from tbleventphotos WHERE eventid='$eventid' order by photoid DESC limit 6");
-               foreach ($query->result() as $k) {
-                if($i==0){
-                ?>
-                <div class="item active">
-                  <img src="<?php echo base_url();?>assets/eventimages/<?php echo $k->photoname ;?>">
-                   <!--<div class="carousel-caption">
-                    <h3>Headline</h3>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. <a href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank" class="label label-danger">Bootstrap 3 - Carousel Collection</a></p>
-                  </div>-->
-                </div><!-- End Item -->
-                 <?php 
-                    }
-                    else
-                    {
-                        ?>
-                        <div class="item">
-                  <img src="<?php echo base_url();?>assets/eventimages/<?php echo $k->photoname ;?>">
-                   <!--<div class="carousel-caption">
-                    <h3>Headline</h3>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. <a href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank" class="label label-danger">Bootstrap 3 - Carousel Collection</a></p>
-                  </div>-->
-                </div>
-                        <?php
-
-                    }
-                    $i++;
-                }
-                 ?>
-              </div><!-- End Carousel Inner -->
-
-
-
-
-            </div><!-- End Carousel -->
-        </div>     
+     
 		<div class="col-md-8 col-sm-8">
                         <h1><?php echo $eventResults->eventname; ?></h1>
                         <span><?php echo $eventResults->location; ?></span>
