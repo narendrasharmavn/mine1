@@ -1,6 +1,3 @@
-<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
-        async defer>
-    </script>
 <style>
     .alert{
         background-color: #2875b8;
@@ -10,13 +7,7 @@
 
 
 </style>
-<script type="text/javascript">
-      var onloadCallback = function() {
-        grecaptcha.render('html_element', {
-          'sitekey' : '6LewvSUTAAAAAD8SQuVQ45j2WgB6fM59artFNFAF'
-        });
-      };
-    </script>
+
 <section id="hero" class="login">
         <div class="container">
             <div class="row">
@@ -63,12 +54,31 @@
                                     <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password" required>
                                     <span class="text-danger"><?php echo form_error('cpassword'); ?></span>
                                 </div>
-                                <div class="g-recaptcha" data-sitekey="6LewvSUTAAAAAD8SQuVQ45j2WgB6fM59artFNFAF"></div>
+                                
+                            
       
                                 <button type="submit" class="btn_1 green btn_full">Create an account</button>
-                                <br>Already a member? <a href="<?php echo site_url().'login'; ?>">Login</a>
-                            </form>
+                                
 
+                                
+                            </form>
+                            <form id="otp-form">
+
+                            <div class="otp-view">
+                                    <div class="form-group">
+                                        <label>OTP<span style="color:red;">*</span></label>
+                                        <input type="text" name="otp" class="form-control" placeholder="Enter your OTP here" required>
+                                        <span class="text-danger"><?php echo form_error('otp'); ?></span>
+                                    </div>
+
+                                    <button type="submit" class="btn_1 green btn_full">Check OTP</button>
+                                    
+                            </div>
+        
+                            </form>
+                            <button type="button" class="btn_1 green re-enter-details">Re-enter details again</button>
+
+                            <br>Already a member? <a href="<?php echo site_url().'login'; ?>">Login</a>
                         
                     </div>
                 </div>
@@ -90,6 +100,8 @@
       <script>
   $("document").ready(function(){
 
+    $(".otp-view").hide();
+
     jQuery.validator.addMethod( 'passwordMatch', function(value, element) {
     
     // The two password inputs
@@ -107,17 +119,7 @@
 
         $("#register-form").validate({
       
-      /*
-      errorElement: "div",
-      errorPlacement: function(error, element) {
-     error.appendTo('div#errordiv');
-     //console.log("error is : "+JSON.stringify(error));
-     //alert(JSON.stringify(error));
-     //console.log("element  is : "+JSON.stringify(element));
-     //$('div#errordiv').html(error[0].innerHTML);
-   },
-   */
-    
+     
         // Specify the validation rules
         rules: {
            email: {
@@ -170,13 +172,129 @@
         
         
         submitHandler: function(form) {
-                form.submit();
+                //form.submit();
+
+//ajax code
+
+
+$.ajax({
+        type: "POST",
+        url: '<?php echo site_url("register-error")?>',
+        data: {
+            name: $('input[name="name"]').val(),
+            email: $('input[name="email"]').val(),
+            mobile: $('input[name="mobile"]').val()
+              },
+        success: function(res) {
+
+                if (res.trim()=="true") {
+                    //window.location.href="<?php echo site_url().'frontend/confirm'; ?>";
+                    $('.otp-view').show();
+                    $('#register-form').hide();
+                    $('#errordiv').html('We have sent an OTP to your mobile. Please check and input it');
+                } else if(res.trim()=="false") {
+                    //alert("Please login to book tickets");
+                     //window.location.href="<?php echo site_url().'frontend/confirm'; ?>";
+                     $('#errordiv').html('Email Id or Phone Number exists with us. Please use a different one');
+                }else{
+                    console.log(res);
+                }        //$('#email').html(res);
+        },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                    console.log(xhr.responseText);
+                 
+                }
+        });
+
+
+//ajax code
+       
+
+
+
           }
         
     });
 
         
     });
+
+
+
+
+
+
+  $("#otp-form").validate({
+      
+   
+        // Specify the validation rules
+        rules: {
+           otp: {
+                required: true,
+                number:true
+            }
+        },
+        
+        // Specify the validation error messages
+        messages: {
+            otp: {
+                required: 'OTP cannot be blank',
+                number:'OTP should contain only numbers'
+            }
+        },
+        
+        
+        submitHandler: function(form) {
+                //form.submit();
+                //ajax code
+
+                $.ajax({
+        type: "POST",
+        url: '<?php echo site_url("frontend/register_confirm")?>',
+        data: {
+            name: $('input[name="name"]').val(),
+                    email: $('input[name="email"]').val(),
+                    mobile: $('input[name="mobile"]').val(),
+                    password:$('input[name="password"]').val(),
+                    otp: $('input[name="otp"]').val()
+
+        },
+        success: function(res) {
+
+                if (res.trim()=="true") {
+                            window.location.href="<?php echo site_url().'frontend/login'; ?>";
+                        }else if(res.trim()=="falsefalse") {
+                            //alert("Please login to book tickets");
+                             //window.location.href="<?php echo site_url().'frontend/confirm'; ?>";
+                             $('#errordiv').html('OTP is wrong. Please try again');
+                        }else{
+                            console.log(res);
+                        }       //$('#email').html(res);
+        },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                    console.log(xhr.responseText);
+                 
+                }
+        });
+
+
+//alert("all clear");
+                //ajax code
+
+          }
+        
+    });
+
+$('.re-enter-details').on('click', function() {
+    //hide otp and show form
+    $('.otp-view').hide();
+    $('#register-form').show();
+});
+
       </script>
 
 </html>

@@ -2147,30 +2147,51 @@ public function getPackageAmountAndSetMarkUp(){
                     $password = $this->input->post('password');
                     $cpassword = $this->input->post('cpassword');
                     $mobile = $this->input->post('mobile');
-                    $url = $this->input->post('url');
-                    
-                    
-                    $this->form_validation->set_rules("name", "Name", "trim|required");
-                    //$this->form_validation->set_rules("email", "Email", "trim|required|valid_email|callback_validate_email[$mobile]");
-                    $this->form_validation->set_rules("email", "Email", "trim|required");
-                    $this->form_validation->set_rules("password", "password", "trim|required|matches[cpassword]");
-                    $this->form_validation->set_rules("cpassword", "Confirm Password", "trim|required");
-                    $this->form_validation->set_rules("mobile", "mobile", "trim|required|min_length[10]|max_length[10]");
+                    //$url = $this->input->post('url');
 
-                    if ($this->form_validation->run() == FALSE)
-                    {  
-                        $this->load->view('frontend/header');
-                        $this->load->view('frontend/register');
-
-                    }else{
-                            //all validations correct
-                       
                             //first check if user exists or not
                   $result =  $this->FrontEndModel->checkIfCustomerEmailOrMobileExists($email,$mobile);
                            //echo $result;
                            if($result<1){
-                            //insert
-                            $convertedpassword = hash('sha512', $_POST['password']);
+                            $randNumber = rand(9999,99999);
+                            $this->session->set_userdata('register-mobile-OTP',$randNumber);
+                            
+                            $msg = 'Your OTP is: '.$randNumber;
+
+                             //$this->sendsms($mobile,$msg);
+
+                            echo "true";
+
+                           }else{
+                            //$this->session->set_flashdata('error-msg','<div class=alert alert-success text-center>Email Or Phone Exists with us! Please use different one</div>');
+                              //$this->load->view('frontend/header');
+                             //$this->load->view('frontend/register');
+                            echo "false";
+                            
+                           }
+
+    }
+
+
+
+ public function register_confirm(){
+
+                    
+                    $name = $this->input->post('name');
+                    $email = $this->input->post('email');
+                    $password = $this->input->post('password');
+                    $cpassword = $this->input->post('cpassword');
+                    $mobile = $this->input->post('mobile');
+                    $otp = $this->input->post('otp');
+                    //$url = $this->input->post('url');
+
+                    
+
+                            $OTP_CHECK = $this->session->userdata('register-mobile-OTP');
+                            if($OTP_CHECK==$otp){
+
+                              //insert
+                            $convertedpassword = hash('sha512', $password);
                     
                             $data = array(
                                'name' => $name ,
@@ -2182,7 +2203,7 @@ public function getPackageAmountAndSetMarkUp(){
 
                             $this->db->insert('tblcustomers', $data);
 
-                            $this->sendsms($mobile,'Thank you for the Registration. From Book4Holiday');
+                            //$this->sendsms($mobile,'Thank you for the Registration. From Book4Holiday');
                             
                             // send mail to user //
 
@@ -2386,24 +2407,23 @@ tickets on the go<br>
                             //user email ends here //
                             $this->session->set_flashdata('register-success','<div class=alert alert-success text-center>You are successfully registered</div>');
 
-                             $this->load->view('frontend/header');
-                             redirect('login');
+                             //$this->load->view('frontend/header');
+                             //redirect('login');
+
+                              echo "true";
+
+                            }else{
+                             
+                              //echo "amardeep";
+                               echo "false";
+                               echo "false";
+                            }
+
                             
 
-
-                           }else{
-                            $this->session->set_flashdata('error-msg','<div class=alert alert-success text-center>Email Or Phone Exists with us! Please use different one</div>');
-                              $this->load->view('frontend/header');
-                             $this->load->view('frontend/register');
-                            
-                           }
-
-                            
-                        }
-
-
+                           
+                           
     }
-
 
 
 
