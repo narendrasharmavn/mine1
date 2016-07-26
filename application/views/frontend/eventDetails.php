@@ -495,7 +495,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                 </tr>
                  <tr>
                     <td>
-                        Internet Handling Charges                    </td>
+                        Internet and Handling Charges                    </td>
                     <td class="text-right" >
                         % <span id="internetcharges">0</span> (per ticket)
                     </td>
@@ -505,7 +505,23 @@ if ($this->session->userdata('holidayCustomerName')) {
                         Service tax        
                     </td>
                     <td class="text-right">
-                        % <span id="servicetax">15</span> 
+                         <span id="servicetax">0.14</span> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Swachh Bharath   
+                    </td>
+                    <td class="text-right">
+                        <span id="swachhbharath">0.005</span> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Krishi Kalyan Cess   
+                    </td>
+                    <td class="text-right">
+                        <span id="kkcess">0.005</span> 
                     </td>
                 </tr>
                 <tr>
@@ -516,8 +532,10 @@ if ($this->session->userdata('holidayCustomerName')) {
                         Rs. <span class="adultprice">0</span>                                                   <span class="child-amount hide"> + <span class="children-number">0</span>x 
                             Rs. <span class="childprice">0</span>  
 
-                        </span> +  Rs. <span class="calculated-internetcharges">0</span> (Internet Handling Charges)
-                        +  <span> Rs . <span class="calculated-servicetax">0</span> (Service Tax)</span>
+                        </span> +  Rs. <span class="calculated-internetcharges">0</span> (Internet & Handling Charges)
+                        +  <span> Rs . <span class="calculated-servicetax">0</span> (Service Tax)</span> 
+                        +  <span> Rs . <span class="calculated-swachhbharath">0</span> (Swachh Bharath)</span>
+                        +  <span> Rs . <span class="calculated-kkcess">0</span> (Krishi Kalyan Cess)</span>
                     </td>
                 </tr>
                 <tr class="total">
@@ -714,7 +732,12 @@ function update_tour_price() {
     price_per_child=parseInt($('.childprice').html());
     internet_charges=parseInt($('#internetcharges').html());
 
-    var service_tax = parseInt($('#servicetax').html());
+    var service_tax = 14;
+
+    var swachhbharath = 0.5;
+
+    var kkcess = 0.5;
+
 
     console.log(price_per_person);
     var price = +( (adults * price_per_person + children * price_per_child) );
@@ -723,13 +746,22 @@ function update_tour_price() {
 
     //calculate service tax based on internet handling charges
     var calculatedservicetax = (service_tax *calculatedInternetCharges)/100;
+
+    //calculate Swachh Bharath tax based on internet handling charges
+    var calculatedswachhbharath = (swachhbharath *calculatedInternetCharges)/100;
+
+    //calculate Krish Kalyan Cess based on internet handling charges
+    var calculatedkkcess = (kkcess *calculatedInternetCharges)/100;
+
     console.log("calculate service tax is:"+calculatedservicetax);
     $('.calculated-servicetax').html(calculatedservicetax);
     $('.calculated-internetcharges').html(calculatedInternetCharges);
+    $('.calculated-swachhbharath').html(calculatedswachhbharath.toFixed(2));
+    $('.calculated-kkcess').html(calculatedkkcess.toFixed(2));
     $('.child-amount').toggleClass( 'hide', children < 1 );
     var total_price = $('.total-cost').text().replace(/[\d\.\,]+/g, price);
     
-    $('.total-cost').text(Math.ceil(price+calculatedInternetCharges+calculatedservicetax));
+    $('.total-cost').text(Math.ceil(price+calculatedInternetCharges+calculatedservicetax+calculatedswachhbharath+calculatedkkcess));
 }
 
 

@@ -4524,10 +4524,14 @@ background-repeat:repeat
 
   #errordiv > .error{
             background-color: #d9534f;
-    color: white;
+    color: tomato;
     padding: 5px;
     margin-bottom: 2px;
     text-align: center;
+       }
+
+       .error{
+        color:tomato;
        }
 
  form .error,form .error:focus{

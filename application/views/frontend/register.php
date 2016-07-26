@@ -68,15 +68,15 @@
                                     <div class="form-group">
                                         <label>OTP<span style="color:red;">*</span></label>
                                         <input type="text" name="otp" class="form-control" placeholder="Enter your OTP here" required>
-                                        <span class="text-danger"><?php echo form_error('otp'); ?></span>
+                                        <span class="text-danger otp-error"><?php echo form_error('otp'); ?></span>
                                     </div>
 
-                                    <button type="submit" class="btn_1 green btn_full">Check OTP</button>
+                                    <button type="button" class="btn_1 green btn_full check_otp">Check OTP</button>
                                     
                             </div>
         
                             </form>
-                            <button type="button" class="btn_1 green re-enter-details">Re-enter details again</button>
+                            <button type="button" class="btn_1 green re-enter-details otp-view">Re-enter details again</button>
 
                             <br>Already a member? <a href="<?php echo site_url().'login'; ?>">Login</a>
                         
@@ -188,13 +188,12 @@ $.ajax({
         success: function(res) {
 
                 if (res.trim()=="true") {
-                    //window.location.href="<?php echo site_url().'frontend/confirm'; ?>";
+                    //console.log("inside true "+res.trim());
                     $('.otp-view').show();
                     $('#register-form').hide();
                     $('#errordiv').html('We have sent an OTP to your mobile. Please check and input it');
                 } else if(res.trim()=="false") {
-                    //alert("Please login to book tickets");
-                     //window.location.href="<?php echo site_url().'frontend/confirm'; ?>";
+                    //console.log("inside false "+res.trim());
                      $('#errordiv').html('Email Id or Phone Number exists with us. Please use a different one');
                 }else{
                     console.log(res);
@@ -226,33 +225,20 @@ $.ajax({
 
 
 
-  $("#otp-form").validate({
-      
-   
-        // Specify the validation rules
-        rules: {
-           otp: {
-                required: true,
-                number:true
-            }
-        },
-        
-        // Specify the validation error messages
-        messages: {
-            otp: {
-                required: 'OTP cannot be blank',
-                number:'OTP should contain only numbers'
-            }
-        },
-        
-        
-        submitHandler: function(form) {
-                //form.submit();
+$('.check_otp').on('click', function() {
+    var pattern = /^\d+$/;
+
+    if ($('input[name="otp"]').val()=='') {
+        $('.otp-error').html('OTP cannot be blank');
+    }else if(!pattern.test($('input[name="otp"]').val())){
+         $('.otp-error').html('OTP should contain only numbers');
+    }else{
+        $('.otp-error').html('');
                 //ajax code
 
-                $.ajax({
+    $.ajax({
         type: "POST",
-        url: '<?php echo site_url("frontend/register_confirm")?>',
+        url: '<?php echo site_url("frontend/registerconfirm")?>',
         data: {
             name: $('input[name="name"]').val(),
                     email: $('input[name="email"]').val(),
@@ -262,16 +248,17 @@ $.ajax({
 
         },
         success: function(res) {
+            //console.log($.trim(res));
+            if ($.trim(res)=="true") {
+                window.location.href="<?php echo site_url().'login'; ?>";
+            }else if($.trim(res)=="false11-book"){
+                 $('.otp-error').text('OTP is wrong. Please try again');
+                 console.log('OTP is wrong. Please try again');
+            }else{
+                console.log("else part "+res);
+            }
 
-                if (res.trim()=="true") {
-                            window.location.href="<?php echo site_url().'frontend/login'; ?>";
-                        }else if(res.trim()=="falsefalse") {
-                            //alert("Please login to book tickets");
-                             //window.location.href="<?php echo site_url().'frontend/confirm'; ?>";
-                             $('#errordiv').html('OTP is wrong. Please try again');
-                        }else{
-                            console.log(res);
-                        }       //$('#email').html(res);
+                              //$('#email').html(res);
         },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr.status);
@@ -286,7 +273,7 @@ $.ajax({
                 //ajax code
 
           }
-        
+
     });
 
 $('.re-enter-details').on('click', function() {

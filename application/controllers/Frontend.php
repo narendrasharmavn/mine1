@@ -508,23 +508,35 @@ class Frontend extends CI_Controller {
 
       //calcluate number of adults price
       $adultprice = $numberofadults * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->adultprice;
+      //echo $adultprice;
       //calculate number of children price
       $childrenprice = $numberofchildren * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->childprice;
+      
       //calculate kids meal price
       $kidsmealprice = $kidsmealqty * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->kidsmealprice;
-
+      //echo $kidsmealprice;
       $subtotal = $adultprice + $childrenprice + $kidsmealprice;
+      //echo $subtotal;
       $serviceTaxFromDB = $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->servicetax;
       //now calculate service tax
-       $calculatedInternetCharges = ($subtotal*$serviceTaxFromDB)/100;
-       //now calculate service tax over internet charges
-       $calculatedServiceTax = ($calculatedInternetCharges*15) / 100;
-       //add sub total , calculated service tax and kids meal price
-       $total = ceil($subtotal+$calculatedServiceTax+$calculatedInternetCharges);
+      $calculatedInternetCharges = ($subtotal*$serviceTaxFromDB)/100;
+      //echo $calculatedInternetCharges;
+      //now calculate service tax over internet charges
+      $calculatedServiceTax = ($calculatedInternetCharges*14) / 100;
+      //echo $calculatedServiceTax;
+       //now calculate Swachh Bharath tax over internet charges
+      $calculatedSwachhBharath = ($calculatedInternetCharges*0.5) / 100;
+      //echo $calculatedSwachhBharath;
+       //now calculate Krishi Kalyan Cess over internet charges
+      $calculatedKkCess = ($calculatedInternetCharges*0.5) / 100;
+      //echo $calculatedKkCess;
 
+      //add sub total , calculated service tax and kids meal price
+      $total = ceil($subtotal+$calculatedServiceTax+$calculatedInternetCharges+$calculatedSwachhBharath+$calculatedKkCess);
+      //echo $total;
 
-       $noOfTickets = ($numberofadults)+($numberofchildren);
-
+      $noOfTickets = ($numberofadults)+($numberofchildren);
+      
        
 
       
@@ -538,6 +550,8 @@ class Frontend extends CI_Controller {
       $this->session->set_userdata('kidsmealqty',$kidsmealqty);
       $this->session->set_userdata('servicetax',$calculatedServiceTax);
       $this->session->set_userdata('internetcharges',$calculatedInternetCharges);
+      $this->session->set_userdata('swachhbharath',$calculatedSwachhBharath);
+      $this->session->set_userdata('kkcess',$calculatedKkCess);
       $this->session->set_userdata('vendorid',$vendorid);
       $this->session->set_userdata('dateofvisit',$dateofvisit);
 
@@ -575,6 +589,8 @@ class Frontend extends CI_Controller {
           'numberofchildren'=> $this->session->userdata('numberofchildren'),
           'servicetax'=> $this->session->userdata('servicetax'),
           'internetcharges'=> $this->session->userdata('internetcharges'),
+          'swachhbharath'=> $this->session->userdata('swachhbharath'),
+          'krishkalyancess'=> $this->session->userdata('kkcess'),
           'customerid' => $this->session->userdata('holidayCustomerId'),
           'status' => 'unpaid',
           'bookingid' => $this->session->userdata('bookingsid'),
@@ -594,8 +610,8 @@ class Frontend extends CI_Controller {
 
     }
 
-
-    public function confirmbookingsevents(){
+    
+   public function confirmbookingsevents(){
 
       $packageid = $this->input->post('packageid');
       $dateofvisit = $this->input->post('dateofvisit');
@@ -613,9 +629,11 @@ class Frontend extends CI_Controller {
 
       //calcluate number of adults price
       $adultprice = $numberofadults * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->adultprice;
+      //echo $adultprice;
+      
       //calculate number of children price
       $childrenprice = $numberofchildren * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->childprice;
-      
+      //echo $childrenprice;
 
       $subtotal = $adultprice + $childrenprice;
       $internethandlingcharges = $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->servicetax;
@@ -623,9 +641,17 @@ class Frontend extends CI_Controller {
       $calculatedInternetCharges = ($subtotal*$internethandlingcharges)/100;
 
       //now calculate service tax of 15 % over internet charges
-      $calculatedServiceTax = ($calculatedInternetCharges*15)/100;
-       //add sub total , calculated service tax 
-       $total = ceil($subtotal+$calculatedInternetCharges+$calculatedServiceTax);
+      $calculatedServiceTax = ($calculatedInternetCharges*14)/100;
+
+      //now calculate Swachh Bharath tax of 0.05 % over internet charges
+      $calculatedSwachhBharat = ($calculatedInternetCharges*0.5)/100;
+
+      //now calculate Krish Kalyan Cess tax of 0.05 % over internet charges
+      $calculatedKkCess = ($calculatedInternetCharges*0.5)/100;
+
+
+      //add sub total , calculated service tax 
+       $total = ceil($subtotal+$calculatedInternetCharges+$calculatedServiceTax+$calculatedSwachhBharat+$calculatedKkCess);
 
        $noOfTickets = ($numberofadults)+($numberofchildren);
 
@@ -641,6 +667,8 @@ class Frontend extends CI_Controller {
       $this->session->set_userdata('numberofchildren',$numberofchildren);
       $this->session->set_userdata('internetcharges',$calculatedInternetCharges);
       $this->session->set_userdata('servicetax',$calculatedServiceTax);
+      $this->session->set_userdata('swachhbharath',$calculatedSwachhBharat);
+      $this->session->set_userdata('kkcess',$calculatedKkCess);
       
       $this->session->set_userdata('vendorid',$vendorid);
       $this->session->set_userdata('dateofvisit',$dateofvisit);
@@ -678,6 +706,8 @@ class Frontend extends CI_Controller {
           'numberofchildren'=> $this->session->userdata('numberofchildren'),
           'internetcharges'=> $this->session->userdata('internetcharges'),
           'servicetax'=> $this->session->userdata('servicetax'),
+          'swachhbharath'=> $this->session->userdata('swachhbharath'),
+          'krishkalyancess'=> $this->session->userdata('kkcess'),
           'customerid' => $this->session->userdata('holidayCustomerId'),
           'status' => 'unpaid',
           'bookingid' => $this->session->userdata('bookingsid')
@@ -2158,7 +2188,7 @@ public function getPackageAmountAndSetMarkUp(){
                             
                             $msg = 'Your OTP is: '.$randNumber;
 
-                             //$this->sendsms($mobile,$msg);
+                             $this->sendsms($mobile,$msg);
 
                             echo "true";
 
@@ -2174,7 +2204,7 @@ public function getPackageAmountAndSetMarkUp(){
 
 
 
- public function register_confirm(){
+ public function registerconfirm(){
 
                     
                     $name = $this->input->post('name');
@@ -2188,6 +2218,8 @@ public function getPackageAmountAndSetMarkUp(){
                     
 
                             $OTP_CHECK = $this->session->userdata('register-mobile-OTP');
+                            //echo $OTP_CHECK."<BR>";
+                            //echo $otp."<BR>";
                             if($OTP_CHECK==$otp){
 
                               //insert
@@ -2198,12 +2230,13 @@ public function getPackageAmountAndSetMarkUp(){
                                'username' => $email ,
                                'password' => $convertedpassword,
                                'number' => $mobile,
-                               'dateofcreation' => date('Y-m-d')
+                               'dateofcreation' => date('Y-m-d'),
+                               'regtype'=> 'registration'
                             );
 
                             $this->db->insert('tblcustomers', $data);
 
-                            //$this->sendsms($mobile,'Thank you for the Registration. From Book4Holiday');
+                            $this->sendsms($mobile,'Thank you for the Registration. From Book4Holiday');
                             
                             // send mail to user //
 
@@ -2413,23 +2446,13 @@ tickets on the go<br>
                               echo "true";
 
                             }else{
-                             
-                              //echo "amardeep";
-                               echo "false";
-                               echo "false";
-                            }
-
-                            
-
-                           
-                           
+                              echo "false11-book";
+                              //echo "false1";
+                           }
+                      
     }
 
 
-
-    
-
-    
     public function validate_email(){
 
       $email = $this->input->post('email');

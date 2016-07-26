@@ -115,32 +115,29 @@
     <?php
 
      echo $this->db->get_where('tblpackages' , array('packageid' =>$this->session->userdata('packageid')))->row()->packagename;
-
+     
+     $adultpriceperticket = $this->session->userdata('adultpriceperticket');
+     $childpriceperticket = $this->session->userdata('childpriceperticket');
+     $ticketcost = $adultpriceperticket+$childpriceperticket;
+     $servicetax = $this->session->userdata('servicetax');
+     $swachhbharath = $this->session->userdata('swachhbharath');
+     $kkcess = $this->session->userdata('kkcess');
+     $taxes = floatval($servicetax+$swachhbharath+$kkcess);
       ?>
       
     </td>
   </tr>
 	<tr>
-    <td width="150">Adults (<?php echo $this->session->userdata('numberofadults');  ?>)
+    <td width="150">Ticket Cost
     </td>
     <td width="15"> : 
     </td>
     <td>
-    Rs.<?php echo $this->session->userdata('adultpriceperticket')*$this->session->userdata('numberofadults');  ?>
+    Rs.<?php echo $ticketcost;  ?>
       
     </td>
   </tr>
-	<tr>
-    <td width="150">
-      Children (<?php echo $this->session->userdata('numberofchildren');  ?>)
-    </td>
-    <td width="15">
-     :
-    </td>
-    <td>
-     Rs.<?php echo $this->session->userdata('numberofchildren')*$this->session->userdata('childpriceperticket');  ?>
-    </td>
-  </tr>
+	
   <tr>
     <td width="150">
       Internet Handling Charges
@@ -156,17 +153,18 @@
 	
   <tr>
     <td width="150">
-      Service Tax
+      Taxes
     </td>
     <td width="15">
        :
     </td>
     <td>
-      Rs. <?php echo $this->session->userdata('servicetax');  ?>
+      Rs. <?php echo $taxes; ?>
     </td>
 
   </tr>
 
+  
 	<tr>
     <td width="150">
       Date of Visit
