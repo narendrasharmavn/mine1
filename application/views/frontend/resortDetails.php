@@ -506,7 +506,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                 </tr>
                 <tr>
                     <td>
-                        Internet Handling Charges                    </td>
+                        Internet & Handling Charges                    </td>
                     <td class="text-right" >
                         % <span id="internetcharges">0</span> (per ticket)
                     </td>
@@ -515,7 +515,23 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <td>
                         Service tax                    </td>
                     <td class="text-right" >
-                        % <span id="servicetax">15</span> 
+                        <span id="servicetax">0.14</span> 
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Swachh Bharath                     </td>
+                    <td class="text-right" >
+                        <span id="servicetax">0.005</span> 
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Krishi Kalyan Cess                    </td>
+                    <td class="text-right" >
+                        <span id="servicetax">0.005</span> 
                     </td>
                 </tr>
                                 <tr>
@@ -523,7 +539,8 @@ if ($this->session->userdata('holidayCustomerName')) {
                         Total amount                    </td>
                     <td class="text-right">
                         <span class="adults-number" >0</span>x 
-                        Rs. <span class="adultprice">0</span>                                                   <span class="child-amount hide"> + <span class="children-number">0</span>x 
+                        Rs. <span class="adultprice">0</span>                                                   
+                        <span class="child-amount"> + <span class="children-number">0</span>x 
                             Rs. <span class="childprice">0</span> 
 
 
@@ -538,6 +555,10 @@ if ($this->session->userdata('holidayCustomerName')) {
                           Rs. <span class="calculated-internetcharges">0</span> (Internet Charges)
                           +
                           Rs. <span class="calculated-servicetax">0</span> (Service Tax)
+                          +
+                          Rs. <span class="calculated-swachhbharath">0</span> (Swachh Bharath)
+                          +
+                          Rs. <span class="calculated-kkcess">0</span> (Krishi Kalyan Cess)
                                             </td>
                 </tr>
                 <tr class="total">
@@ -549,7 +570,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                 </tbody>
                 </table>
                 <div id="book-selection-error" style="background-color: rgb(235, 214, 187);color: #9c0000;padding: 10px;margin-bottom:3px;"> Please select a date</div>
-                <button type="button" class="btn_1 green btn_full book-now">Proceed</button>
+                <button type="button" class="btn_full book-now">Proceed</button>
                             
                                                   
                                                        
@@ -741,30 +762,50 @@ function update_tour_price() {
 
 
     price_per_person=parseInt($('.adultprice').html());
-    
     price_per_child=parseInt($('.childprice').html());
     kids_meal_price=parseInt($('.kidsmealprice').html());
     var internetcharges=parseInt($('#internetcharges').html());
-    var servicetax = parseInt($('#servicetax').html());
+
+    var service_tax = 14;
+    var swachhbharath = 0.5;
+    var kkcess = 0.5;
+    
+    
 
     //var kidsmealtotal = kidsmealqty*kids_meal_price;
     var price =0;
     price = +( (adults * price_per_person + children * price_per_child +  kidsmealqty*kids_meal_price) );
     price = Math.ceil(price);
     console.log("price is: "+price);
-    var calculatedinternetcharges = (price * internetcharges ) /100;
+
+    var calculatedinternetcharges = (price * internetcharges )/100;
     console.log("calculated internet charges are : "+calculatedinternetcharges);
     $('.calculated-internetcharges').html(calculatedinternetcharges);
-    var calculatedservicetax = (calculatedinternetcharges * servicetax ) /100;
+
+
+    var calculatedservicetax = (service_tax * calculatedinternetcharges)/100;
+    //alert(calculatedservicetax);
+    //calculate Swachh Bharath tax based on internet handling charges
+    var calculatedswachhbharath = (swachhbharath * calculatedinternetcharges)/100;
+    console.log("calculated Swachh Bharath are : "+calculatedswachhbharath);
+    //alert(calculatedswachhbharath);
+    //calculate Krish Kalyan Cess based on internet handling charges
+    var calculatedkkcess = (kkcess * calculatedinternetcharges)/100;
+    console.log("calculated Krish Kalyan Cess are : "+calculatedkkcess);
+    //alert(calculatedkkcess);
+
     console.log("calculated service tax over internet charges are : "+calculatedservicetax);
+    console.log("calculated Swachh Bharath tax over internet charges are : "+calculatedswachhbharath);
+    console.log("calculated Krish Kalyan Cess tax over internet charges are : "+calculatedkkcess);
     $('.calculated-servicetax').html(calculatedservicetax);
-
-
+    $('.calculated-swachhbharath').html(calculatedswachhbharath.toFixed(2));
+    $('.calculated-kkcess').html(calculatedkkcess.toFixed(2));
 
     $('.child-amount').toggleClass( 'hide', children < 1 );
     var total_price = $('.total-cost').text().replace(/[\d\.\,]+/g, price);
-    var total_calculated_cost = price+calculatedservicetax+calculatedinternetcharges;
+    var total_calculated_cost = price+calculatedservicetax+calculatedinternetcharges+calculatedswachhbharath+calculatedkkcess;
     $('.total-cost').text(Math.ceil(total_calculated_cost));
+    console.log("calculated totalcost"+Math.ceil(total_calculated_cost));
 }
 
 
@@ -857,7 +898,6 @@ $('.book-now').on('click',function(){
         var kidsmealqty = $("#kidsmeal").val();
         var dateofvisit = $('#datepickerj').val();
         var currenturl = $('#currenturl').val();
-        
         //alert(numberofadults);
 
         $.ajax({
