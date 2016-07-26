@@ -257,8 +257,9 @@
                      <input type="hidden" id="<?php echo $k->packageid.'adultprice';   ?>" value="<?php echo $k->adultprice;   ?>">
                      <input type="hidden" id="<?php echo $k->packageid.'childprice';   ?>" value="<?php echo $k->childprice;   ?>">
                      <input type="hidden" id="<?php echo $k->packageid.'servicetax';   ?>" value="<?php echo $k->servicetax;   ?>">
+                     <input type="hidden" id="currenturl" value="<?php echo $this->uri->segment(1, 0).'/'.$this->uri->segment(2, 0).'/'.$this->uri->segment(3, 0); ?>">
 
-                    <p><button onclick="bookthispackage(<?php echo $k->packageid;   ?>)" class="btn_1">Book</a></p>
+                    <p><button onclick="bookthispackage(<?php echo $k->packageid;   ?>)" class="btn_1" id="pbook">Book Now</a></p>
                 </div>
             </div>
 
@@ -774,6 +775,8 @@ function showmap()
 
 function bookthispackage(packageId){
 
+    $("#pbook").css("background", "grey");
+    $("#pbook").css("color", "white");
     $('#packageid').val(packageId);
     //reset all values
     $('#adults').val(0);
@@ -840,6 +843,7 @@ $('.book-now').on('click',function(){
         var calculated_internet_charges = $('.calculated-internetcharges').html();
         var calculated_service_tax = $('.calculated-servicetax').html();
         var dateofvisit = $('#datepickerj').val();
+        var currenturl = $('#currenturl').val();
 
         //alert(numberofadults);
 
@@ -856,7 +860,8 @@ $('.book-now').on('click',function(){
             numberofadults:numberofadults,
             numberofchildren:numberofchildren,
             calculatedinternetcharges:calculated_internet_charges,
-            calculatedservicetax:calculated_service_tax
+            calculatedservicetax:calculated_service_tax,
+            currenturl:currenturl
         },
         success: function(res) {
 

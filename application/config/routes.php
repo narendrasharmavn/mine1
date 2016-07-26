@@ -50,6 +50,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
+
+
 $route['home'] = "frontend/index";
 $route['admin'] = "admin/index";
 $route['default_controller'] = 'frontend';
@@ -105,5 +107,5 @@ $route['resorts'] = 'frontend/resortsGridView';
 $route['placesall'] = "frontend/placegridview";
 
 
-$route['404_override'] = '';
+$route['404_override'] = 'frontend/errorfourzerofourfunction';
 $route['translate_uri_dashes'] = FALSE;

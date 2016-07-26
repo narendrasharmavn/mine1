@@ -33,7 +33,7 @@
                             ?>
                             
                                 <div class="form-group">
-                                    Successfully Registered Please Login <a href="<?php echo site_url().'login'; ?>">Here</a>
+                                    404 Page Not found 
                                 </div>
                                
       

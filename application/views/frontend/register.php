@@ -36,8 +36,8 @@
                                 
                                 <div class="form-group">
                                     <label>Email<span style="color:red;">*</span></label>
-                                    <input type="email" name="email" class=" form-control" placeholder="Email" value="<?php echo set_value('email'); ?>" required>
-                                    <span class="text-danger"><?php echo form_error('email'); ?></span>
+                                    <input type="email" name="email" class=" form-control" placeholder="Email" onchange="emailvalidation()" value="<?php echo set_value('email'); ?>" required>
+                                    <span class="text-danger emailvalidation"><?php echo form_error('email'); ?></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Mobile<span style="color:red;">*</span></label>
@@ -281,6 +281,39 @@ $('.re-enter-details').on('click', function() {
     $('.otp-view').hide();
     $('#register-form').show();
 });
+
+function emailvalidation()
+    {
+        var useremail = $('input[name="email"]').val();
+        //alert(useremail);
+
+        $.ajax({
+            type: "POST",
+            url: '<?php echo base_url()."emailvalidation/"?>example.php',
+            data: {
+                useremail:useremail
+            },
+            success: function(res) {
+                console.log('validation email : '+res);
+                if($.trim(res)=='bool(true)')
+                {
+                    console.log('email is valid');
+                    $('.emailvalidation').html('Email is valid');
+                    document.getElementById("emailvalidation").style.color = "green";
+                }else{
+                   console.log('email is not valid');
+                   $('.emailvalidation').html('Email is not valid');
+                   document.getElementById("emailvalidation").style.color = "red";
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                    console.log(xhr.responseText);
+            }          
+        });
+    }
+
 
       </script>
 

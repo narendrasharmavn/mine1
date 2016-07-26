@@ -260,6 +260,13 @@
                                     <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
                                         <h3 ><?php echo $k->eventname;   ?>  </h3>
                                     </a>
+                                    <p>
+
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">From : <?php echo $k->todate; ?></a> 
+                                        &nbsp;
+                                        &nbsp;
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">To : <?php echo $k->fromdate; ?></a>
+                                    </p>                  
                                   <!--  <div class="rating">
                                         <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
                                     </div> end rating -->

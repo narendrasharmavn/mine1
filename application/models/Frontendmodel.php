@@ -663,7 +663,7 @@ class FrontEndModel extends CI_Model {
     }
 
     public function checkIfCustomerEmailOrMobileExists($email,$mobile){
-        $processedResults = $this->db->query("SELECT name FROM tblcustomers WHERE username='$email' OR number='$mobile'");
+        $processedResults = $this->db->query("SELECT name FROM tblcustomers WHERE regtype='registration' AND (username='$email' OR number='$mobile')");
         return $processedResults->num_rows();
 
     }
@@ -677,7 +677,7 @@ public function validateEmail($email){
     }
     
     public function checkIfCustomerIsValid($email,$password){
-        $processedResults = $this->db->query("SELECT name FROM tblcustomers WHERE username='$email' AND password='$password'");
+        $processedResults = $this->db->query("SELECT name FROM tblcustomers WHERE username='$email' AND password='$password' AND regtype='registration'");
         return $processedResults->num_rows();
 
     }

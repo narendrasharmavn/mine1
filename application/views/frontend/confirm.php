@@ -6,7 +6,7 @@
                 <div class="col-md-12 col-xs-12">
                     <div class="col-md-8 col-xs-12">
                         <h3 style="color: #ffffff;background-color: #2474b7; padding:20px;">Share Your Contact Details</h3>
-                        <form class="form-inline" action="<?php echo base_url().'merchant/';  ?>submit.php" method="post" id="payment-form" style="background-color:#eee; padding:25px;">
+                        <form class="form-horizontal" action="<?php echo base_url().'merchant/';  ?>submit.php" method="post" id="payment-form" style="background-color:#eee; padding:25px;">
 
                         <input type="hidden" name="amount" class=" form-control" placeholder="Password" value="<?php echo $this->session->userdata('totalcost') ?>" readonly>
                                     <INPUT TYPE="hidden" NAME="udf1" value="NSE">
@@ -23,6 +23,24 @@
 
 
                             <div id="errordiv"></div>
+                            <div class="form-group">
+                                <label for="exampleInputName2" class="control-label">Name</label> 
+                                
+                                <?php
+                                 if (!$this->session->userdata('holidayCustomerName')) {
+                                    echo '<input type="text" name="customername" class="form-control" id="customername" placeholder="Enter Your name" required>';
+                                 }else{
+                                    ?>
+                                    <input type="text" name="customername" class="form-control" id="customername" placeholder="Enter Your name" value="<?php
+                                    echo $this->session->userdata('holidayCustomerName');
+                                       ?>" required>
+
+                                    <?php
+                                 }
+
+                                ?>
+                                
+                              </div>
                               <div class="form-group">
                                 <label for="exampleInputName2">Mobile</label> &nbsp; &nbsp;
                                 <?php
@@ -44,11 +62,11 @@
                                 <label for="exampleInputEmail2">Email</label> &nbsp; &nbsp;
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
-                                    echo '<input type="email" name="udf2" class="form-control" id="email" placeholder="abcd@example.com">';
+                                    echo '<input type="email" name="udf2" class="form-control" id="email" onchange="emailvalidation()"  placeholder="abcd@example.com">';
 
                                  }else{
                                     ?>
-                                    <input type="email" name="udf2" class="form-control" id="email" placeholder="abcd@example.com" value="<?php echo $this->session->userdata('holidayEmail');  ?>">
+                                    <input type="email" name="udf2" class="form-control" id="email" placeholder="abcd@example.com" onchange="emailvalidation()" value="<?php echo $this->session->userdata('holidayEmail');  ?>">
 
                                     <?php
                                  }
@@ -60,15 +78,43 @@
                               if ($this->session->userdata('holidayEmail')) {
                                  echo '<button type="submit" class="btn btn-primary">Pay</button>';
                                  echo '<input type="hidden" name="sessioncheck" value="yes" >';
-                                 echo '<button type="button" id="cancel" class="btn btn-danger">Cancel</button>';
+                                 echo '<button type="button" id="cancel" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Cancel</button>';
                               }else{
                                 echo '<button type="submit" id="pay" class="btn btn-primary">Pay</button>
-								                 <button type="button" id="cancel" class="btn btn-danger">Cancel</button>';
+								                 <button type="button" id="cancel" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Cancel</button>';
                                     echo '<input type="hidden" name="sessioncheck" value="no" >';
                               }
                               ?>
-                              
+  
+                          <input type="hidden" name="currenturl" value="<?php echo $this->session->userdata('currenturl'); ?>">
+              
                             </form>
+
+
+                            <!--otp here -->
+
+                            <form class="form-horizontal" method="post" id="otp-form" style="background-color:#eee; padding:25px;">
+                              <?php
+                                 if (!$this->session->userdata('holidayCustomerName')) {
+                                  ?>
+
+                              <div class="form-group otp-view">
+                                <label for="exampleInputName2" class="control-label">Enter OTP here</label> 
+                                
+                                
+                                    <input type="text" name="otp" class="form-control" id="customername" placeholder="Enter Your OTP" required>
+                                    <span class="otp-error error"></span>
+                                    <button type="button" class="btn btn-danger otp-check">Check My OTP</button>
+                                    <button type="button" class="btn btn-danger re-enter-details">Edit Details</button>
+                                
+                                
+                              </div>
+                              <?php
+
+                           }  
+                            ?>
+                            </form>
+                            <!--otp here -->
                     </div>
                     <div class="col-md-4 col-xs-12" style="margin-top:20px;">
                         <h3 style="color:#3b0032;">ORDER SUMMARY</h3>
@@ -107,6 +153,27 @@
         </div>      
         <div>&nbsp;</div>
     <!--Checkout Ends-->
+
+    <!-- set up the modal to start hidden and fade in and out -->
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- dialog body -->
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        Do you really want to cancel the booking?
+      </div>
+      <!-- dialog buttons -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary close-modal">Close</button>
+        <button type="button" class="btn btn-warning cancel-booking">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Pop up ends here -->
     
    <?php
     include 'footer.php';
@@ -124,22 +191,23 @@
 <script type="text/javascript">
 
 $('document').ready(function(){
+
+  $('.otp-view').hide();
+
+  jQuery.validator.addMethod("lettersonly", function(value, element) {
+  return this.optional(element) || /^[a-z]+$/i.test(value);
+}, "Letters only please"); 
     
     // Setup form validation on the #register-form element
     $("#payment-form").validate({
-      //by default the error elements is a <label>
-      
-      errorElement: "div",
-      errorPlacement: function(error, element) {
-     error.appendTo('div#errordiv');
-     
-   },
-
-    
         // Specify the validation rules
         rules: {
+          customername:{
+          required:  true,
+          lettersonly:true
+          },
            udf2: {
-                required: true,
+                required:true,
                 email: true
             },
             udf3: {
@@ -152,8 +220,12 @@ $('document').ready(function(){
         
         // Specify the validation error messages
         messages: {
+          customername:{
+          required:  'Name cannot be blank',
+          lettersonly:'Name should contain only letters'
+          },
             udf2: {
-              required: 'Email cannot be blank',
+              required:'Email Address cannot be blank',
               email:'Please enter valid email address'
             },
            udf3: {
@@ -168,6 +240,7 @@ $('document').ready(function(){
         submitHandler: function(form) {
               var session_check = $('input[name="sessioncheck"]').val();
               var mobile = $('#mobile').val();
+              var name = $('input[name="customername"]').val();
               var email = $('#email').val()
               //alert(session_check);
               if (session_check=="yes") {
@@ -176,29 +249,29 @@ $('document').ready(function(){
 
                 //ajax submit
 
-        $.ajax({
-        type: "POST",
-        url: '<?php echo site_url("frontend/nosessionhandler")?>',
-        data: {
-            mobile:mobile,
-            email:email
+                    $.ajax({
+                    type: "POST",
+                    url: '<?php echo site_url("frontend/nosessionhandlerOTPCheckResorts")?>',
+                    data: {
+                        name:name,
+                        mobile:mobile,
+                        email:email
 
-        },
-        success: function(res) {
-            if (res.trim()=="true") {
-                form.submit();
-            }else{
-                 $('div#errordiv').html(res.trim());
-            }
-            
-        },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                    console.log(xhr.responseText);
-                 
-                }
-        });
+                    },
+                    success: function(res) {
+                        console.log(res);
+                        //hide show particular divs
+                        $('.otp-view').show();
+                        $('#payment-form').hide();
+                        
+                    },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                console.log(xhr.status);
+                                console.log(thrownError);
+                                console.log(xhr.responseText);
+                             
+                            }
+                    });
 
         //end of ajax submit
 
@@ -212,47 +285,39 @@ $('document').ready(function(){
 });
 
 
-/*
 
 
-$('#pay').on('click',function(){
-    //alert("pay clicked");
-    var mobile = $('#mobile').val();
-    var email = $('#email').val()
-    if($('#mobile').val()=='' || $('#email').val()==''){
-        alert("fields are empty");
-    }else if(mobile.length<10 || mobile.length>10){
-        alert("Mobile number should be 10 digits");
+$('.otp-check').on('click', function() {
+    var pattern = /^\d+$/;
+    var otp = $('input[name="otp"]').val();
+
+    if(otp==''){
+      $('.otp-error').text('OTP cannot be blank');
+    }else if(!pattern.test($('input[name="otp"]').val())){
+      $('.otp-error').text('OTP should contain only numbers');
     }else{
-        
-        //ajax submit
+          //ajax code
+          $('.otp-error').text('');
+          $.post('<?php echo site_url("frontend/nosessionhandler")?>',
+          {
+              name:$('input[name="customername"]').val(),
+              mobile:$('input[name="udf3"]').val(),
+              email:$('input[name="udf2"]').val(),
+              otp:$('input[name="otp"]').val()
+          },
+          function(data, status){
+             
+             if (data.trim()=="true") {
+              document.getElementById("payment-form").submit();
+             }else if(data.trim()=="false"){
+              $('.otp-error').text('OTP is wrong');
+             }else{
+              console.log(data);
+             }
+          });
 
-        $.ajax({
-        type: "POST",
-        url: '<?php echo site_url("frontend/nosessionhandler")?>',
-        data: {
-            mobile:mobile,
-            email:email
 
-        },
-        success: function(res) {
-            if (res.trim()=="true") {
-                document.getElementById('theForm').submit();
-            }else{
-                alert(res.trim());
-            }
-            
-        },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                    console.log(xhr.responseText);
-                 
-                }
-        });
-
-        //end of ajax submit
-
+          //end ajax code
 
     }
 
@@ -260,7 +325,67 @@ $('#pay').on('click',function(){
 });
 
 
-*/
+
+$('.re-enter-details').on('click', function() {
+    //hide otp and show form
+    $('.otp-view').hide();
+    $('#payment-form').show();
+});
+
+
+
+$('.close-modal').on('click', function() {
+    
+    $('#myModal').modal('hide')
+});
+
+$('.cancel-booking').on('click', function() {
+    
+    var currenturl = $('input[name="currenturl"]').val();
+
+    var urlToRedirect =' <?php echo base_url(); ?>';
+
+    currenturl = urlToRedirect+currenturl;
+
+    window.location.href=currenturl;
+
+});
+
+
+function emailvalidation()
+    {
+        var useremail = $('#email').val();
+        //alert(useremail);
+
+        $.ajax({
+            type: "POST",
+            url: '<?php echo base_url()."emailvalidation/"?>example.php',
+            data: {
+                useremail:useremail
+            },
+            success: function(res) {
+                console.log('validation email : '+res);
+                if($.trim(res)=='bool(true)')
+                {
+                    console.log('email is valid');
+                    $('#errordiv').html('Email is valid');
+                    //document.getElementById("emailvalidation").style.color = "green";
+                }else{
+                   console.log('email is not valid');
+                   $('#errordiv').html('Email is not valid');
+                   //document.getElementById("emailvalidation").style.color = "red";
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                    console.log(xhr.responseText);
+            }          
+        });
+    }
+
+
+
 </script>
 
         </body>

@@ -336,99 +336,126 @@ class Frontend extends CI_Controller {
 
     }
 
-    public function nosessionhandler(){
 
+    public function nosessionhandlerOTPCheckResorts(){
+
+      $name = $this->input->post('name');
       $mobile = $this->input->post('mobile');
       $email = $this->input->post('email');
 
-      $numberOfRows = $this->FrontEndModel->checkIfCustomerEmailOrMobileExists($email,$mobile);
+      //send sms
+      $randNumber = rand(9999,99999);
+      $msg = "Your OTP number is : ".$randNumber;
+      $this->sendsms($mobile,$msg);
+      $this->session->set_userdata( 'otp-resort-booking' ,$randNumber);
 
-      if ($numberOfRows>0) {
-       echo "Email Or Phone exists with us. Please login ";
-        echo '<a href="'.site_url().'login">here</a>';
-      }else{
-
-        $customerData = array(
-
-          'name' => 'Guest',
-          'username' => $email,
-          'password' => hash('sha512',rand(9999,99999)),
-          'number' => $mobile,
-          'dateofcreation' => date('Y-m-d')
-
-
-          );
-
-        $this->db->insert('tblcustomers',$customerData);
-        $customerid = $this->db->insert_id();
-
-        $this->session->set_userdata('holidayEmail',$email);
-        $this->session->set_userdata('holidayCustomerName',$email);
-        $this->session->set_userdata('holidayCustomerId',$customerid);
-
-      $bookingsdata = array(
-          'dateofvisit' => $this->session->userdata('dateofvisit'),
-          'date'=>date('Y-m-d'),
-          'userid' => $customerid,
-          'quantity' => $this->session->userdata('numberofadults'),
-          'booking_status' => 'pending',
-          'packageid'=>$this->session->userdata('packageid'),
-          'amount'=>$this->session->userdata('totalcost'),
-          'payment_status'=>'pending',
-          'ticketnumber' => date('Ymdhis'),
-          'visitorstatus' => 'absent',
-          'vendorid' => $this->session->userdata('vendorid'),
-          'childqty' => $this->session->userdata('numberofchildren'),
-          'kidsmealqty' => $this->session->userdata('kidsmealqty')
-
-
-      );
-
-      $this->db->insert('tblbookings',$bookingsdata);
-      $this->session->set_userdata('bookingsid',$this->db->insert_id());
-
-        $paymentsdata = array(
-          'packageid'=> $this->session->userdata('packageid'),
-          'totalcost'=> $this->session->userdata('totalcost'),
-          'adultpriceperticket'=> $this->session->userdata('adultpriceperticket'),
-          'childpriceperticket'=> $this->session->userdata('childpriceperticket'),
-          'numberofadults'=> $this->session->userdata('numberofadults'),
-          'numberofchildren'=> $this->session->userdata('numberofchildren'),
-          'servicetax'=> $this->session->userdata('servicetax'),
-          'customerid' => $this->session->userdata('holidayCustomerId'),
-          'status' => 'unpaid',
-          'bookingid' => $this->session->userdata('bookingsid'),
-          'noofkidsmeal' => $this->session->userdata('kidsmealqty'),
-          'kidsmealprice' => $this->session->userdata('kidsmealprice')
-
-      );
-
-         $this->db->insert('tblpayments',$paymentsdata); 
-        $this->session->set_userdata('paytmentsid',$this->db->insert_id());
-      
       echo "true";
-
-
-      }
-
 
     }
 
+    public function nosessionhandler(){
+      $name = $this->input->post('name');
+      $mobile = $this->input->post('mobile');
+      $email = $this->input->post('email');
+      $otp = $this->input->post('otp');
+
+      //check otp correct or not through session
+      
+      $OTP_CHECK = $this->session->userdata('otp-resort-booking');
+
+      if($OTP_CHECK==$otp){
+
+                         $customerData = array(
+
+                        'name' => $name,
+                        'username' => $email,
+                        'password' => hash('sha512',rand(9999,99999)),
+                        'number' => $mobile,
+                        'dateofcreation' => date('Y-m-d'),
+                        'regtype' => 'Guest'
+
+
+                        );
+
+                      $this->db->insert('tblcustomers',$customerData);
+                      $customerid = $this->db->insert_id();
+
+                     
+
+                    $bookingsdata = array(
+                        'dateofvisit' => $this->session->userdata('dateofvisit'),
+                        'date'=>date('Y-m-d'),
+                        'userid' => $customerid,
+                        'quantity' => $this->session->userdata('numberofadults'),
+                        'booking_status' => 'pending',
+                        'packageid'=>$this->session->userdata('packageid'),
+                        'amount'=>$this->session->userdata('totalcost'),
+                        'payment_status'=>'pending',
+                        'ticketnumber' => date('Ymdhis'),
+                        'visitorstatus' => 'absent',
+                        'vendorid' => $this->session->userdata('vendorid'),
+                        'childqty' => $this->session->userdata('numberofchildren'),
+                        'kidsmealqty' => $this->session->userdata('kidsmealqty')
+   );
+
+                    $this->db->insert('tblbookings',$bookingsdata);
+                    $this->session->set_userdata('bookingsid',$this->db->insert_id());
+
+                      $paymentsdata = array(
+                        'packageid'=> $this->session->userdata('packageid'),
+                        'totalcost'=> $this->session->userdata('totalcost'),
+                        'adultpriceperticket'=> $this->session->userdata('adultpriceperticket'),
+                        'childpriceperticket'=> $this->session->userdata('childpriceperticket'),
+                        'numberofadults'=> $this->session->userdata('numberofadults'),
+                        'numberofchildren'=> $this->session->userdata('numberofchildren'),
+                        'servicetax'=> $this->session->userdata('servicetax'),
+                        'customerid' => $customerid,
+                        'status' => 'unpaid',
+                        'bookingid' => $this->session->userdata('bookingsid'),
+                        'noofkidsmeal' => $this->session->userdata('kidsmealqty'),
+                        'kidsmealprice' => $this->session->userdata('kidsmealprice')
+
+                    );
+
+                       $this->db->insert('tblpayments',$paymentsdata); 
+                      $this->session->set_userdata('paytmentsid',$this->db->insert_id());
+                    
+                    echo "true";
+
+      }else{
+        echo "false";
+      }
+
+    }
+
+    public function nosessionhandlerOTPCheckEvents(){
+
+      $name = $this->input->post('name');
+      $mobile = $this->input->post('mobile');
+      $email = $this->input->post('email');
+
+      //send sms
+      $randNumber = rand(9999,99999);
+      $msg = "Your OTP number is : ".$randNumber;
+      $this->sendsms($mobile,$msg);
+      $this->session->set_userdata( 'otp-event-booking' ,$randNumber);
+
+      echo "true";
+
+    }
 
 
     public function nosessionhandlerevents(){
 
       $mobile = $this->input->post('mobile');
       $email = $this->input->post('email');
+      $name = $this->input->post('name');
+      $otp = $this->input->post('otp');
 
-      $numberOfRows = $this->FrontEndModel->checkIfCustomerEmailOrMobileExists($email,$mobile);
+      $OTP_CHECK = $this->session->userdata('otp-event-booking');
 
-      if ($numberOfRows>0) {
-        echo "Email Or Phone exists with us. Please login ";
-        echo '<a href="'.site_url().'login">here</a>';
-        # code...
-      }else{
-
+      if ($OTP_CHECK==$otp) {
+       
         $customerData = array(
 
           'name' => 'Guest',
@@ -443,10 +470,7 @@ class Frontend extends CI_Controller {
         $this->db->insert('tblcustomers',$customerData);
         $customerid = $this->db->insert_id();
 
-        $this->session->set_userdata('holidayEmail',$email);
-        $this->session->set_userdata('holidayCustomerName','Guest');
-        $this->session->set_userdata('holidayCustomerId',$customerid);
-
+        
       $bookingsdata = array(
           'dateofvisit' => $this->session->userdata('dateofvisit'),
           'date'=>date('Y-m-d'),
@@ -474,7 +498,7 @@ class Frontend extends CI_Controller {
           'numberofadults'=> $this->session->userdata('numberofadults'),
           'numberofchildren'=> $this->session->userdata('numberofchildren'),
           'servicetax'=> $this->session->userdata('servicetax'),
-          'customerid' => $this->session->userdata('holidayCustomerId'),
+          'customerid' => $customerid,
           'status' => 'unpaid',
           'bookingid' => $this->session->userdata('bookingsid')
 
@@ -483,12 +507,20 @@ class Frontend extends CI_Controller {
          $this->db->insert('tblpayments',$paymentsdata); 
         $this->session->set_userdata('paytmentsid',$this->db->insert_id());
       
-      echo "true";
+        echo "true";
 
 
+      }else{
+        echo "false";
       }
 
 
+    }
+
+
+    public function errorfourzerofourfunction(){
+      $this->load->view('frontend/header');
+      $this->load->view('frontend/registrationsuccess');
     }
 
     public function confirmbookings(){
@@ -504,6 +536,7 @@ class Frontend extends CI_Controller {
       $calculatedinternetcharges = $this->input->post('calculatedinternetcharges');
       $calculatedservicetax = $this->input->post('calculatedservicetax');
       $kidsmealqty = $this->input->post('kidsmealqty');
+      $currenturl = $this->input->post('currenturl');
 
 
       //calcluate number of adults price
@@ -554,6 +587,7 @@ class Frontend extends CI_Controller {
       $this->session->set_userdata('kkcess',$calculatedKkCess);
       $this->session->set_userdata('vendorid',$vendorid);
       $this->session->set_userdata('dateofvisit',$dateofvisit);
+      $this->session->set_userdata('currenturl',$currenturl);
 
       $bookingsdata = array(
           'dateofvisit' => $this->session->userdata('dateofvisit'),
@@ -622,11 +656,9 @@ class Frontend extends CI_Controller {
       $numberofadults = $this->input->post('numberofadults');
       $numberofchildren = $this->input->post('numberofchildren');
       $calculatedinternetcharges = $this->input->post('calculatedinternetcharges');
-     
       $calculatedservicetax = $this->input->post('calculatedservicetax');
+      $currenturl = $this->input->post('currenturl');
       
-
-
       //calcluate number of adults price
       $adultprice = $numberofadults * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->adultprice;
       //echo $adultprice;
@@ -672,6 +704,7 @@ class Frontend extends CI_Controller {
       
       $this->session->set_userdata('vendorid',$vendorid);
       $this->session->set_userdata('dateofvisit',$dateofvisit);
+      $this->session->set_userdata('currenturl',$currenturl);
 
       $bookingsdata = array(
           'dateofvisit' => $this->session->userdata('dateofvisit'),
@@ -1423,6 +1456,12 @@ redirect('frontend/index');
                     <a href='site_url().'events/'.$content->eventname.'/'.$content->eventid;'>
                         <h3 >$content->eventname</h3>
                     </a>
+                    <p>
+                        <a href='site_url().'events/'.$content->eventname.'/'.$content->eventid;'>From : $k->todate</a> 
+                        &nbsp;
+                        &nbsp;
+                        <a href='site_url().'events/'.$content->eventname.'/'.$content->eventid;'>To : $k->fromdate </a>
+                    </p>
                   
                 </div>
                 </div>";                 
@@ -1476,6 +1515,12 @@ redirect('frontend/index');
                                     <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
                                         <h3 ><?php echo $k->eventname;   ?>  </h3>
                                     </a>
+                                    <p>
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">From : <?php echo $k->todate; ?></a> 
+                                        &nbsp;
+                                        &nbsp;
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">To : <?php echo $k->fromdate; ?></a>
+                                    </p>   
                                   <!--  <div class="rating">
                                         <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
                                     </div> end rating -->
@@ -1560,6 +1605,14 @@ redirect('frontend/index');
                                     <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
                                         <h3 ><?php echo $k->eventname;   ?>  </h3>
                                     </a>
+                                    <p>
+
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">From : <?php echo $k->todate; ?></a> 
+                                        &nbsp;
+                                        &nbsp;
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">To : <?php echo $k->fromdate; ?></a>
+                                    </p> 
+
                                   <!--  <div class="rating">
                                         <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
                                     </div> end rating -->
@@ -1647,6 +1700,13 @@ redirect('frontend/index');
                                     <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
                                         <h3 ><?php echo $k->eventname;   ?>  </h3>
                                     </a>
+                                    <p>
+
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">From : <?php echo $k->todate; ?></a> 
+                                        &nbsp;
+                                        &nbsp;
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">To : <?php echo $k->fromdate; ?></a>
+                                    </p>   
                                   <!--  <div class="rating">
                                         <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
                                     </div> end rating -->
@@ -1682,7 +1742,6 @@ redirect('frontend/index');
       
       
     }
-
 
 
 
