@@ -3976,7 +3976,7 @@ font-weight:400;
 
 /* Submenu styles */
 .main-menu ul li a {
-	color: white;
+	color: rgb(0, 71, 132);
     font-size: 13px;
     display: block;
     line-height: 20px;
