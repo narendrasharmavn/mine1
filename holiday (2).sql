@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2016 at 03:48 PM
+-- Generation Time: Jul 27, 2016 at 08:48 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.5.35
 
@@ -29,7 +29,6 @@ SET time_zone = "+00:00";
 CREATE TABLE `eventreviews` (
   `rid` int(10) NOT NULL,
   `pricereview` int(4) NOT NULL,
-  `qualityreview` int(4) NOT NULL,
   `review` longtext NOT NULL,
   `customerid` int(10) NOT NULL,
   `reviewgivendate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -41,14 +40,20 @@ CREATE TABLE `eventreviews` (
 -- Dumping data for table `eventreviews`
 --
 
-INSERT INTO `eventreviews` (`rid`, `pricereview`, `qualityreview`, `review`, `customerid`, `reviewgivendate`, `resortoreventname`, `status`) VALUES
-(1, 1, 2, 'adfasd', 5, '2016-06-15 12:28:00', 'zoo', 0),
-(2, 1, 2, 'adfasd', 5, '2016-06-15 12:28:10', 'zoo', 0),
-(3, 3, 3, 'asdfad', 5, '2016-06-15 12:31:32', 'zoo', 0),
-(4, 3, 3, 'asdfad', 5, '2016-06-15 12:31:57', 'zoo', 0),
-(5, 2, 3, 'asdfad', 5, '2016-06-24 13:09:07', '2', 1),
-(6, 2, 3, 'asdfasdf', 5, '2016-06-24 13:09:04', '2', 1),
-(7, 3, 3, 'asdfsdfa', 5, '2016-06-24 13:09:00', '2', 1);
+INSERT INTO `eventreviews` (`rid`, `pricereview`, `review`, `customerid`, `reviewgivendate`, `resortoreventname`, `status`) VALUES
+(1, 1, 'adfasd', 5, '2016-06-15 12:28:00', 'zoo', 0),
+(2, 1, 'adfasd', 5, '2016-06-15 12:28:10', 'zoo', 0),
+(3, 3, 'asdfad', 5, '2016-06-15 12:31:32', 'zoo', 0),
+(4, 3, 'asdfad', 5, '2016-06-15 12:31:57', 'zoo', 0),
+(5, 2, 'asdfad', 5, '2016-06-24 13:09:07', '2', 1),
+(6, 2, 'asdfasdf', 5, '2016-06-24 13:09:04', '2', 1),
+(7, 3, 'asdfsdfa', 5, '2016-06-24 13:09:00', '2', 1),
+(8, 3, 'this isssssssssssgood', 5, '2016-07-21 12:55:47', 'The Tech Fest 2016', 0),
+(9, 3, 'afasdfasdf', 5, '2016-07-21 12:59:26', 'The Tech Fest 2016', 0),
+(10, 3, 'afasdfasdf', 5, '2016-07-21 13:33:41', 'The Tech Fest 2016', 0),
+(11, 4, 'afasdfasdf', 5, '2016-07-21 13:34:27', 'The Tech Fest 2016', 0),
+(12, 1, '2', 5, '2016-07-22 09:29:56', 'The Tech Fest 2016', 0),
+(14, 2, 'not good , the package could be better', 5, '2016-07-23 08:11:39', '2', 1);
 
 -- --------------------------------------------------------
 
@@ -59,7 +64,6 @@ INSERT INTO `eventreviews` (`rid`, `pricereview`, `qualityreview`, `review`, `cu
 CREATE TABLE `placereviews` (
   `prid` int(10) NOT NULL,
   `pricereview` int(4) NOT NULL,
-  `qualityreview` int(4) NOT NULL,
   `review` longtext NOT NULL,
   `customerid` int(10) NOT NULL,
   `reviewgivendate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -71,12 +75,13 @@ CREATE TABLE `placereviews` (
 -- Dumping data for table `placereviews`
 --
 
-INSERT INTO `placereviews` (`prid`, `pricereview`, `qualityreview`, `review`, `customerid`, `reviewgivendate`, `placeid`, `status`) VALUES
-(1, 3, 2, 'asfasdfasd', 5, '2016-06-25 06:51:31', 3, 1),
-(2, 4, 4, 'asfasdfasd', 5, '2016-06-25 06:51:29', 3, 1),
-(3, 4, 2, 'adsdghsgh asa sdf ', 5, '2016-06-25 06:51:26', 3, 1),
-(4, 4, 2, 'adsdghsgh asa sdf ', 5, '2016-06-25 06:51:23', 3, 1),
-(5, 5, 5, 'good one', 5, '2016-06-25 10:51:48', 1, 0);
+INSERT INTO `placereviews` (`prid`, `pricereview`, `review`, `customerid`, `reviewgivendate`, `placeid`, `status`) VALUES
+(1, 3, 'asfasdfasd', 5, '2016-06-25 06:51:31', 3, 1),
+(2, 4, 'asfasdfasd', 5, '2016-06-25 06:51:29', 3, 1),
+(3, 4, 'adsdghsgh asa sdf ', 5, '2016-06-25 06:51:26', 3, 1),
+(4, 4, 'adsdghsgh asa sdf ', 5, '2016-06-25 06:51:23', 3, 1),
+(5, 5, 'good one', 5, '2016-06-25 10:51:48', 1, 0),
+(6, 2, 'good okay', 5, '2016-07-23 11:32:49', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -104,7 +109,8 @@ INSERT INTO `resortreviews` (`rrid`, `pricereview`, `review`, `customerid`, `rev
 (3, 4, 'this is testtttttttttttttttt', 5, '2016-07-04 14:17:41', '1', 1),
 (4, 4, 'this is too good', 5, '2016-07-04 14:17:55', '1', 1),
 (5, 4, 'asdf', 5, '2016-07-09 11:52:58', '1', 1),
-(6, 4, 'asdf', 5, '2016-07-09 11:53:39', '1', 1);
+(6, 4, 'asdf', 5, '2016-07-09 11:53:39', '1', 1),
+(7, 1, 'waste package!!!', 5, '2016-07-23 08:25:02', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -158,7 +164,26 @@ CREATE TABLE `tblbookings` (
 
 INSERT INTO `tblbookings` (`bookingid`, `bookingtype`, `bookingtypeid`, `date`, `dateofvisit`, `userid`, `quantity`, `amount`, `booking_status`, `payment_status`, `ticketnumber`, `packageid`, `visitorstatus`, `vendorid`, `childqty`, `kidsmealqty`) VALUES
 (1, '', NULL, '2016-07-09', '0000-00-00', 5, 1, '88.085', 'pending', 'pending', '20160709070703', '1', 'absent', 1, 1, 1),
-(2, '', NULL, '2016-07-09', '0000-00-00', 5, 1, '89', 'pending', 'pending', '20160709071350', '1', 'absent', 1, 1, 1);
+(2, '', NULL, '2016-07-09', '0000-00-00', 5, 1, '89', 'pending', 'pending', '20160709071350', '1', 'absent', 1, 1, 1),
+(3, '', NULL, '2016-07-13', '0000-00-00', 15, 1, '1050', 'booked', 'paid', '20160713044357', '7', 'absent', 2, 0, 0),
+(4, '', NULL, '2016-07-22', '0000-00-00', 5, 1, '89', 'pending', 'pending', '20160722012523', '1', 'absent', 1, 1, 1),
+(5, '', NULL, '2016-07-22', '0000-00-00', 5, 1, '2100', 'pending', 'pending', '20160722031126', '7', 'absent', 2, 1, 0),
+(6, '', NULL, '2016-07-22', '0000-00-00', 5, 1, '2100', 'pending', 'pending', '20160722035323', '7', 'absent', 2, 1, 0),
+(7, '', NULL, '2016-07-22', '0000-00-00', 16, 1, '2115', 'pending', 'pending', '20160722070806', '7', 'absent', 2, 1, 0),
+(8, '', NULL, '2016-07-22', '0000-00-00', 17, 1, '2115', 'pending', 'pending', '20160722071022', '7', 'absent', 2, 1, 0),
+(9, '', NULL, '2016-07-22', '0000-00-00', 20, 1, '89', 'pending', 'pending', '20160722094044', '1', 'absent', 1, 1, 1),
+(10, '', NULL, '2016-07-23', '0000-00-00', 24, 1, '89', 'pending', 'pending', '20160723125730', '1', 'absent', 1, 1, 1),
+(11, '', NULL, '2016-07-23', '0000-00-00', 5, 1, '2115', 'pending', 'pending', '20160723034215', '7', 'absent', 2, 1, 0),
+(12, '', NULL, '2016-07-23', '0000-00-00', 5, 1, '2115', 'pending', 'pending', '20160723054640', '7', 'absent', 2, 1, 0),
+(13, '', NULL, '2016-07-26', '0000-00-00', 22, 2, '122', 'pending', 'pending', '20160726042855', '1', 'absent', 1, 2, 1),
+(14, '', NULL, '2016-07-26', '0000-00-00', 23, 2, '122', 'pending', 'pending', '20160726051751', '1', 'absent', 1, 2, 1),
+(15, '', NULL, '2016-07-26', '0000-00-00', 24, 2, '122', 'pending', 'pending', '20160726052004', '1', 'absent', 1, 2, 1),
+(16, '', NULL, '2016-07-26', '0000-00-00', 5, 1, '89', 'pending', 'pending', '20160726052553', '1', 'absent', 1, 1, 1),
+(17, '', NULL, '2016-07-26', '0000-00-00', 25, 2, '111', 'pending', 'pending', '20160726060141', '1', 'absent', 1, 1, 1),
+(18, '', NULL, '2016-07-26', '0000-00-00', 26, 2, '4230', 'pending', 'pending', '20160726070701', '7', 'absent', 2, 2, 0),
+(19, '', NULL, '2016-07-26', '0000-00-00', 26, 1, '2115', 'pending', 'pending', '20160726071157', '7', 'absent', 2, 1, 0),
+(20, '', NULL, '2016-07-26', '0000-00-00', 5, 1, '2115', 'pending', 'pending', '20160726071840', '7', 'absent', 2, 1, 0),
+(21, '', NULL, '2016-07-26', '0000-00-00', 27, 1, '2115', 'pending', 'pending', '20160726072229', '7', 'absent', 2, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -197,17 +222,30 @@ CREATE TABLE `tblcustomers` (
   `username` varchar(45) DEFAULT NULL,
   `password` longtext,
   `number` varchar(45) DEFAULT NULL,
-  `dateofcreation` date DEFAULT NULL
+  `dateofcreation` date DEFAULT NULL,
+  `otp` varchar(50) NOT NULL,
+  `regtype` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblcustomers`
 --
 
-INSERT INTO `tblcustomers` (`customer_id`, `name`, `username`, `password`, `number`, `dateofcreation`) VALUES
-(5, 'Tedxx', 'sainikhil013@gmail.com', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', '7893514850', '2016-06-14'),
-(13, 'Guest', 'amar@fornextit.com', '547a7b8b974ac386240a097627c318ce6d8d3e4b59a94bf895459e9e441ffc82c9157c225787a4206cbafc2d3287db515a4c729cf32dba7c64e20bbd5e1dd551', '8686709131', '2016-06-28'),
-(14, 'satyapradeep', 'satya@gmail.com', 'fb131bc57a477c8c9d068f1ee5622ac304195a77164ccc2d75d82dfe1a727ba8d674ed87f96143b2b416aacefb555e3045c356faa23e6d21de72b85822e39fdd', '4444444444', '2016-07-04');
+INSERT INTO `tblcustomers` (`customer_id`, `name`, `username`, `password`, `number`, `dateofcreation`, `otp`, `regtype`) VALUES
+(5, 'Tedxx', 'sainikhil013@gmail.com', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', '789351485', '2016-06-14', '', 'registration'),
+(13, 'Guest', 'amar@fornextit.com', '547a7b8b974ac386240a097627c318ce6d8d3e4b59a94bf895459e9e441ffc82c9157c225787a4206cbafc2d3287db515a4c729cf32dba7c64e20bbd5e1dd551', '8686709131', '2016-06-28', '', ''),
+(14, 'satyapradeep', 'satya@gmail.com', 'fb131bc57a477c8c9d068f1ee5622ac304195a77164ccc2d75d82dfe1a727ba8d674ed87f96143b2b416aacefb555e3045c356faa23e6d21de72b85822e39fdd', '4444444444', '2016-07-04', '', ''),
+(15, 'Guest', 'sainikhil013@gmail.comm', 'e53493d4fc0dd623996be69033a7b7e57dc3a4e43d1444d0a4b7352afa99e4576d7fc43d96e257a4d05567a23b492b21638e65dc00a4e992649e21fa8ed15f64', '1111111111', '2016-07-13', '', ''),
+(17, 'Guest', 'anil@gmail.com', 'df6b0577cee41ffda0dfcdb6bfc5df94d716a6efb3afe5e1796d4f687503179bedd04dfe7ac6eda7706e38ce63b90de6be353259056bfa0cadfab7dfe11a7e5d', '4444444445', '2016-07-22', '', ''),
+(18, 'the', 'ahd@gmail.com', 'fb131bc57a477c8c9d068f1ee5622ac304195a77164ccc2d75d82dfe1a727ba8d674ed87f96143b2b416aacefb555e3045c356faa23e6d21de72b85822e39fdd', '5485458547', '2016-07-22', '', ''),
+(19, 'jkl', 'jkl@gmail.com', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', '4545454545', '2016-07-22', '', ''),
+(21, 'Tedx', 'sainikhil013@gmail.comasdfsdfg', 'b0412597dcea813655574dc54a5b74967cf85317f0332a2591be7953a016f8de56200eb37d5ba593b1e4aa27cea5ca27100f94dccd5b04bae5cadd4454dba67d', '7893514850', '2016-07-26', '', ''),
+(22, 'Guest', '', 'c1c908a189542efff6afa5fd4ee6a337b8fb0d66dcf2e0d8778f1b19b22d7b73dfefdbcef124526cb9f341a48d2d725ccb453ab369e2cda7d114feaa37ef8175', '7893514850', '2016-07-26', '', ''),
+(23, 'Tedx', NULL, '011e7d86ea16ca93e4fc7153d8553b598fd9da263b950d5a4e87182283845acf5b72d5b8bc27a2f86f90dcd064c900a363f9fc002821b2f1e376c3dc2fb55415', NULL, '2016-07-26', '', 'Guest'),
+(24, 'Tedx', 'sainikhil013@gmail.com', '648a632e5d144131fda46e663cbe4890ff18d55772fd016b98cb854f929af0c2eea47d9d5e17a9ba35a9b11d64dcb26fb75fdceb046d3b7c28dd6d157177d380', '7893514850', '2016-07-26', '', 'Guest'),
+(25, 'ges', 'sainikhil013@gmail.com', '5722abf76ddf8327cbb3c018f73950c0410dea505f9acfdd52478745c00b98ea141d60d5346aabb3e4207ffded0cc07121d4a7e8a8c8ab25e2dc3ed7b865c472', '7893514850', '2016-07-26', '', 'Guest'),
+(26, 'Guest', 'sainikhil013@gmail.com', '33b62d903469465edc0d004237244a3ce7de9c5af5b23b7d6e11bec16e102dd99936f3d47cdc51f944304bfa8afe763ffdf3062941d46b84ed669bdea3f977a4', '7893514850', '2016-07-26', '', ''),
+(27, 'Guest', 'sainikhil013@gmail.comm', '189b7c9d08c6c1f4189628eb1886cba0afa67840a56e78cd9471d0456ddf3e838999d8ff86868122fc2e2d47b78b7fefdf05b21ce0d373d6e91dde7838bfa9fc', '7893514850', '2016-07-26', '', '');
 
 -- --------------------------------------------------------
 
@@ -267,16 +305,18 @@ CREATE TABLE `tblevents` (
   `cost` varchar(45) DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL,
   `latitude` varchar(45) DEFAULT NULL,
-  `longitude` varchar(45) DEFAULT NULL
+  `longitude` varchar(45) DEFAULT NULL,
+  `bannerimage` longtext NOT NULL,
+  `bannerimagepath` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblevents`
 --
 
-INSERT INTO `tblevents` (`eventid`, `vendorid`, `todate`, `fromdate`, `location`, `totime`, `fromtime`, `eventname`, `description`, `eventtype`, `cost`, `status`, `latitude`, `longitude`) VALUES
-(1, 2, '2016-07-29', '2016-06-18', 'N Convention,Hyderabad, Hyderabad, Telangana, India', '19:00', '00:00', 'WINGDING- A Lively Event', 'Wingding refers to ‘A Lively Event’ i.e. the name itself Derives concept of the event.', '', NULL, '1', '17.457209', '78.381705'),
-(2, 2, '2016-07-31', '2016-06-30', 'Jawaharlal Nehru Technological University,Kukatpally, Hyderabad, Telangana, India', '09:00', '18:00', 'The Tech Fest 2016', 'India''s Largest Technology and Design UnConference for Students  ', '', NULL, '1', '17.492640', '78.390512');
+INSERT INTO `tblevents` (`eventid`, `vendorid`, `todate`, `fromdate`, `location`, `totime`, `fromtime`, `eventname`, `description`, `eventtype`, `cost`, `status`, `latitude`, `longitude`, `bannerimage`, `bannerimagepath`) VALUES
+(1, 2, '2016-07-29', '2016-06-18', 'N Convention,Hyderabad, Hyderabad, Telangana, India', '19:00', '00:00', 'WINGDING- A Lively Event', 'Wingding refers to ‘A Lively Event’ i.e. the name itself Derives concept of the event.', '', NULL, '1', '17.457209', '78.381705', '', ''),
+(2, 2, '2016-07-31', '2016-06-30', 'Jawaharlal Nehru Technological University,Kukatpally, Hyderabad, Telangana, India', '09:00', '18:00', 'The Tech Fest 2016', 'India''s Largest Technology and Design UnConference for Students  ', '', NULL, '1', '17.492640', '78.390512', '', '');
 
 -- --------------------------------------------------------
 
@@ -330,7 +370,7 @@ INSERT INTO `tblpackages` (`packageid`, `resortid`, `packagename`, `description`
 (4, 0, 'Entry', 'Entry', '1', '1', '2016-06-20 12:39:36', 'admin', '2016-06-20 12:39:36', 0, 7, '1465991354-1459945385-bnc.jpg', '', 'event', '21', '10', '1', '0', '2016-06-30'),
 (5, 0, 'Entry', 'ebyer', '1', '1', '2016-06-20 12:40:17', 'admin', '2016-06-20 12:40:17', 0, 7, '1461819674-photography.jpg', '', 'event', '22', '0', '0', '0', '2016-06-30'),
 (6, 0, 'Entry', 'fgdfg', '1', '1', '2016-06-20 12:40:47', 'admin', '2016-06-20 12:40:47', 0, 7, '1466069636-mywifeshusband.jpg', '', 'event', '23', '0', '0', '0', '2016-06-30'),
-(7, 0, 'Late Bird Ticket - Valid For 2 Days', 'India''s Largest Technology and Design UnConference for Students  ', '1', '1', '2016-06-12 02:09:45', 'admin', '2016-06-12 02:09:45', 5, 2, '', 'technology,design', 'event', '1', '1000', '1000', '0', '2016-06-30'),
+(7, 0, 'Late Bird Ticket - Valid For 2 Days', 'India''s Largest Technology and Design UnConference for Students  ', '1', '1', '2016-06-12 02:09:45', 'admin', '2016-06-12 02:09:45', 5, 2, '', 'technology,design', 'event', '2', '1000', '1000', '0', '2016-09-23'),
 (8, 2, 'Entry Fee', 'One of the famous Hyderabad tourist places, Lumbini Park Hyderabad was developed by the Hyderabad Urban Development Authority in the year of 1994.', '1', '1', '2016-06-12 02:23:04', 'admin', '2016-06-12 02:23:04', 0, 3, '', 'fun,kids', 'daily', '', '10', '10', '0', '2016-06-30'),
 (9, 2, 'Speed Boating', 'One of the famous Hyderabad tourist places, Lumbini Park Hyderabad was developed by the Hyderabad Urban Development Authority in the year of 1994.', '1', '1', '2016-06-12 02:24:17', 'admin', '2016-06-12 02:24:17', 0, 3, '', 'fun,kids', 'daily', '', '50', '50', '0', '2016-06-30'),
 (10, 2, 'boating', 'One of the famous Hyderabad tourist places, Lumbini Park Hyderabad was developed by the Hyderabad Urban Development Authority in the year of 1994.', '1', '1', '2016-06-12 02:25:40', 'admin', '2016-06-12 02:25:40', 0, 3, '', 'kids,fun', 'daily', '', '40', '40', '0', '2016-06-30'),
@@ -356,6 +396,8 @@ CREATE TABLE `tblpayments` (
   `noofkidsmeal` int(5) DEFAULT '0',
   `servicetax` varchar(5) NOT NULL,
   `internetcharges` decimal(10,2) NOT NULL,
+  `swachhbharath` double(10,2) NOT NULL,
+  `krishkalyancess` double(10,2) NOT NULL,
   `transaction_id` varchar(150) DEFAULT NULL,
   `referenceno` varchar(45) DEFAULT NULL,
   `transdate` date DEFAULT NULL,
@@ -379,9 +421,28 @@ CREATE TABLE `tblpayments` (
 -- Dumping data for table `tblpayments`
 --
 
-INSERT INTO `tblpayments` (`paymentid`, `bookingid`, `customerid`, `packageid`, `totalcost`, `adultpriceperticket`, `childpriceperticket`, `kidsmealprice`, `numberofadults`, `numberofchildren`, `noofkidsmeal`, `servicetax`, `internetcharges`, `transaction_id`, `referenceno`, `transdate`, `amount`, `response`, `banktransaction`, `transactiondescription`, `authorizationcode`, `discriminator`, `cardnumber`, `billingphone`, `billingemail`, `udf9`, `mmp_txn`, `mer_txn`, `transactiontime`, `status`) VALUES
-(1, '1', '5', 1, '88.08', '20', '10', '49.00', '1', '1', 1, '1.185', '7.90', NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-09 13:37:03', 'unpaid'),
-(2, '2', '5', 1, '89', '20', '10', '49.00', '1', '1', 1, '1.185', '7.90', NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-09 13:43:51', 'unpaid');
+INSERT INTO `tblpayments` (`paymentid`, `bookingid`, `customerid`, `packageid`, `totalcost`, `adultpriceperticket`, `childpriceperticket`, `kidsmealprice`, `numberofadults`, `numberofchildren`, `noofkidsmeal`, `servicetax`, `internetcharges`, `swachhbharath`, `krishkalyancess`, `transaction_id`, `referenceno`, `transdate`, `amount`, `response`, `banktransaction`, `transactiondescription`, `authorizationcode`, `discriminator`, `cardnumber`, `billingphone`, `billingemail`, `udf9`, `mmp_txn`, `mer_txn`, `transactiontime`, `status`) VALUES
+(1, '1', '5', 1, '88.08', '20', '10', '49.00', '1', '1', 1, '1.185', '7.90', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-09 13:37:03', 'unpaid'),
+(2, '2', '5', 1, '89', '20', '10', '49.00', '1', '1', 1, '1.185', '7.90', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-09 13:43:51', 'unpaid'),
+(3, '3', '15', 7, '1050', '1000', '0', '0.00', '1', '0', 0, '50', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-13 11:13:57', 'unpaid'),
+(4, '4', '5', 1, '89', '20', '10', '49.00', '1', '1', 1, '1.185', '7.90', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-22 07:55:23', 'unpaid'),
+(5, '5', '5', 7, '2100', '1000', '1000', '0.00', '1', '1', 0, '100', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-22 09:41:26', 'unpaid'),
+(6, '6', '5', 7, '2100', '1000', '1000', '0.00', '1', '1', 0, '100', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-22 10:23:23', 'unpaid'),
+(7, '7', '16', 7, '2115', '1000', '1000', '0.00', '1', '1', 0, '15', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-22 13:38:06', 'unpaid'),
+(8, '8', '17', 7, '2115', '1000', '1000', '0.00', '1', '1', 0, '15', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-22 13:40:23', 'unpaid'),
+(9, '9', '20', 1, '89', '20', '10', '49.00', '1', '1', 1, '1.185', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-22 16:10:44', 'unpaid'),
+(10, '10', '24', 1, '89', '20', '10', '49.00', '1', '1', 1, '1.185', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-23 07:27:30', 'unpaid'),
+(11, '11', '5', 7, '2115', '1000', '1000', '0.00', '1', '1', 0, '15', '100.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-23 10:12:15', 'unpaid'),
+(12, '12', '5', 7, '2115', '1000', '1000', '0.00', '1', '1', 0, '15', '100.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-23 12:16:40', 'unpaid'),
+(13, '13', '22', 1, '122', '40', '20', '49.00', '2', '2', 1, '1.526', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 10:58:55', 'unpaid'),
+(14, '14', '23', 1, '122', '40', '20', '49.00', '2', '2', 1, '1.526', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 11:47:51', 'unpaid'),
+(15, '15', '24', 1, '122', '40', '20', '49.00', '2', '2', 1, '1.526', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 11:50:04', 'unpaid'),
+(16, '16', '5', 1, '89', '20', '10', '49.00', '1', '1', 1, '1.106', '7.90', 0.04, 0.04, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 11:55:53', 'unpaid'),
+(17, '17', '25', 1, '111', '40', '10', '49.00', '2', '1', 1, '1.386', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 12:31:41', 'unpaid'),
+(18, '18', '26', 7, '4230', '2000', '2000', '0.00', '2', '2', 0, '28', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 13:37:01', 'unpaid'),
+(19, '19', '26', 7, '2115', '1000', '1000', '0.00', '1', '1', 0, '14', '100.00', 0.50, 0.50, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 13:41:57', 'unpaid'),
+(20, '20', '5', 7, '2115', '1000', '1000', '0.00', '1', '1', 0, '14', '100.00', 0.50, 0.50, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 13:48:40', 'unpaid'),
+(21, '21', '27', 7, '2115', '1000', '1000', '0.00', '1', '1', 0, '14', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 13:52:30', 'unpaid');
 
 -- --------------------------------------------------------
 
@@ -496,16 +557,18 @@ CREATE TABLE `tblresorts` (
   `updatedon` datetime DEFAULT NULL,
   `status` varchar(5) DEFAULT NULL,
   `latitude` varchar(45) DEFAULT NULL,
-  `longitude` varchar(45) DEFAULT NULL
+  `longitude` varchar(45) DEFAULT NULL,
+  `bannerimage` longtext NOT NULL,
+  `bannerimagepath` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblresorts`
 --
 
-INSERT INTO `tblresorts` (`resortid`, `vendorid`, `resortname`, `location`, `description`, `createdby`, `createdon`, `updatedby`, `updatedon`, `status`, `latitude`, `longitude`) VALUES
-(1, 1, 'zoo', 'Hyderabad', 'Welcome to Nehru Zoological Park, and its sylvan setting, abutting the historic miralam Tank bund, (200 year old, World''s first multi arch masonry dam). The Zoo spread in over 380 acres established on 6th October, 1963.', 'admin', '2016-06-12 12:59:56', NULL, NULL, '1', '17.350695', '78.452313'),
-(2, 3, 'Lumbini Park', 'Hyderabad', 'One of the famous Hyderabad tourist places, Lumbini Park Hyderabad was developed by the Hyderabad Urban Development Authority in the year of 1994.', 'admin', '2016-06-12 02:20:19', NULL, NULL, '1', '17.410057', '78.473219');
+INSERT INTO `tblresorts` (`resortid`, `vendorid`, `resortname`, `location`, `description`, `createdby`, `createdon`, `updatedby`, `updatedon`, `status`, `latitude`, `longitude`, `bannerimage`, `bannerimagepath`) VALUES
+(1, 1, 'zoo', 'Hyderabad', 'Welcome to Nehru Zoological Park, and its sylvan setting, abutting the historic miralam Tank bund, (200 year old, World''s first multi arch masonry dam). The Zoo spread in over 380 acres established on 6th October, 1963.', 'admin', '2016-06-12 12:59:56', NULL, NULL, '1', '17.350695', '78.452313', '', ''),
+(2, 3, 'Lumbini Park', 'Hyderabad', 'One of the famous Hyderabad tourist places, Lumbini Park Hyderabad was developed by the Hyderabad Urban Development Authority in the year of 1994.', 'admin', '2016-06-12 02:20:19', NULL, NULL, '1', '17.410057', '78.473219', '', '');
 
 -- --------------------------------------------------------
 
@@ -629,11 +692,13 @@ CREATE TABLE `tblvendorpayments` (
   `vpid` int(10) NOT NULL,
   `paymentdate` date NOT NULL,
   `vendorid` int(10) NOT NULL,
-  `paymenttype` varchar(25) NOT NULL,
-  `transactiondate` date NOT NULL,
+  ` paymenttype` varchar(25) NOT NULL,
+  ` transactiondate` date NOT NULL,
   `transactionnumber` varchar(75) NOT NULL,
-  `amount` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `amount` double NOT NULL,
+  `insertedby` varchar(45) NOT NULL,
+  `insertedon` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -736,9 +801,7 @@ ALTER TABLE `tblcountries`
 -- Indexes for table `tblcustomers`
 --
 ALTER TABLE `tblcustomers`
-  ADD PRIMARY KEY (`customer_id`),
-  ADD UNIQUE KEY `customerusername_UNIQUE` (`username`),
-  ADD UNIQUE KEY `tblcustomerscol_UNIQUE` (`number`);
+  ADD PRIMARY KEY (`customer_id`);
 
 --
 -- Indexes for table `tblemail_template`
@@ -831,6 +894,12 @@ ALTER TABLE `tblusers`
   ADD PRIMARY KEY (`userid`);
 
 --
+-- Indexes for table `tblvendorpayments`
+--
+ALTER TABLE `tblvendorpayments`
+  ADD PRIMARY KEY (`vpid`);
+
+--
 -- Indexes for table `tblvendorphotos`
 --
 ALTER TABLE `tblvendorphotos`
@@ -850,17 +919,17 @@ ALTER TABLE `tblvendors`
 -- AUTO_INCREMENT for table `eventreviews`
 --
 ALTER TABLE `eventreviews`
-  MODIFY `rid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `rid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `placereviews`
 --
 ALTER TABLE `placereviews`
-  MODIFY `prid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `prid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `resortreviews`
 --
 ALTER TABLE `resortreviews`
-  MODIFY `rrid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `rrid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `smssettings`
 --
@@ -870,7 +939,7 @@ ALTER TABLE `smssettings`
 -- AUTO_INCREMENT for table `tblbookings`
 --
 ALTER TABLE `tblbookings`
-  MODIFY `bookingid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `bookingid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `tblcities`
 --
@@ -885,7 +954,7 @@ ALTER TABLE `tblcountries`
 -- AUTO_INCREMENT for table `tblcustomers`
 --
 ALTER TABLE `tblcustomers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `tblemail_template`
 --
@@ -915,7 +984,7 @@ ALTER TABLE `tblpackages`
 -- AUTO_INCREMENT for table `tblpayments`
 --
 ALTER TABLE `tblpayments`
-  MODIFY `paymentid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `paymentid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `tblplaces`
 --
@@ -956,6 +1025,11 @@ ALTER TABLE `tbltransactions`
 --
 ALTER TABLE `tblusers`
   MODIFY `userid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `tblvendorpayments`
+--
+ALTER TABLE `tblvendorpayments`
+  MODIFY `vpid` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tblvendorphotos`
 --
