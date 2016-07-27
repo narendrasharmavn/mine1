@@ -98,6 +98,7 @@ $route['login_error'] = 'frontend/loginCheck';
 $route['logout'] = 'frontend/logout';
 
 $route['resorts/(:any)/(:num)'] = 'frontend/showResortDetails/$1/$2';
+$route['resorts-multicheckout/(:any)/(:num)'] = 'frontend/showResortDetailsMultiCheckout/$1/$2';
 $route['eventdetails/(:any)/(:num)'] = 'frontend/showEventDetails/$1/$2';
 
 $route['events'] = 'frontend/eventsGridView';

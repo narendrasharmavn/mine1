@@ -2092,6 +2092,20 @@ redirect('frontend/index');
 
     }
 
+    public function showResortDetailsMultiCheckout($resortname='',$resortId=''){
+
+
+      $data['resortid'] = $resortId;
+
+      $data['resortResults'] = $this->FrontEndModel->getResortDataBasedOnResortId($resortId);
+      
+
+      $this->load->view('frontend/header');
+
+        $this->load->view('frontend/multicheckoutDetails',$data);
+
+    }
+
     public function showEventDetails($eventname='',$eventid=''){
 
 

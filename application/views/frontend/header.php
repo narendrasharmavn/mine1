@@ -259,7 +259,7 @@ if($this->uri->segment(1)=='home' || $this->uri->segment(1)==''){
                                 
                             </li>
                             <li >
-                                <a href="<?php echo site_url().'resorts/zoo/1'; ?>" class="show-submenu">Book Zoo Tickets </a>
+                                <a href="<?php echo site_url().'resorts-multicheckout/zoo/1'; ?>" class="show-submenu">Book Zoo Tickets </a>
                                 
                             </li>
                             <li>&nbsp;</li>
