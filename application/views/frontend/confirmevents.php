@@ -118,7 +118,7 @@
                     <div class="col-md-4 col-xs-12" style="margin-top:20px;">
                         <h3 style="color:#3b0032;">ORDER SUMMARY</h3>
                             			
-<table style="font-size:14px;line-height: 1.5em;background-color: transparent;">
+<table class="table table-bordered" style="font-size:14px;line-height: 1.5em;background-color: transparent;">
   <tr>
     <td width="150">Package Name
     </td>

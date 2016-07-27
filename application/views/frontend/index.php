@@ -41,7 +41,7 @@
 												<div class="col-md-12 datefield">
 													<div class="form-group">
 														
-														<input class="form-control search-form-slider datepickerj" type="text" name="date" id="date" placeholder="Select date">
+														<input class="form-control search-form-slider1 datepickerj" type="text" name="date" id="date" placeholder="Select date">
 														<span class="text-danger datepickerjerror"><?php echo form_error('date'); ?></span>
 													</div>
 												</div>
