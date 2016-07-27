@@ -465,12 +465,8 @@ if ($this->session->userdata('holidayCustomerName')) {
                                     </div>
                     <div class="row kids">
                         <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
-                                <label>Add Kid Meal Rs.<span class="kidsmealprice">50<span> per Kid</label>
-                                <div class="numbers-row" data-min="0">
-                                    <input type="text" value="0" id="kidsmeal" class="qty2 form-control" name="kids">
-                                <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
-                            </div>
+                            <a href="" data-toggle="modal" data-target="#kidsmealpopup">Add Kids Meal</a>
+                            
                         </div>
                         <div class="col-md-6 col-sm-6">
                             <div class="form-group">
@@ -507,8 +503,8 @@ if ($this->session->userdata('holidayCustomerName')) {
                 <tr>
                     <td>
                         Internet & Handling Charges                    </td>
-                    <td class="text-right" >
-                        % <span id="internetcharges">0</span> (per ticket)
+                    <td class="text-right internetcharges" >
+                        <span id="internetcharges"></span> (per ticket)
                     </td>
                 </tr>
                 <tr>
@@ -652,7 +648,39 @@ if ($this->session->userdata('holidayCustomerName')) {
 
 <!--review Modal-->
 
+<!-- set up the modal to start hidden and fade in and out -->
+<div id="kidsmealpopup" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- dialog body -->
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <img src="<?php echo base_url().'assets/frontend/img/BK-Kids-Meal.jpg'; ?>" class="img-responsive">
+            </div>
+            <div class="col-md-6 col-sm-6">
+                            
+            <div class="form-group">
+                    <label>Add Kid Meal Rs.<span class="kidsmealprice">50<span> per Kid</label>
+                    <div class="numbers-row" data-min="0">
+                        <input type="text" value="0" id="kidsmeal" class="qty2 form-control" name="kids">
+                    <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
+                </div>
+            </div>
+            
+        </div>
+      </div>
+      <!-- dialog buttons -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary close-modal">OK</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
+
+<!-- Modal Pop up ends here -->
 
   <?php
      include 'footer.php';
@@ -764,8 +792,8 @@ function update_tour_price() {
     price_per_person=parseInt($('.adultprice').html());
     price_per_child=parseInt($('.childprice').html());
     kids_meal_price=parseInt($('.kidsmealprice').html());
-    var internetcharges=parseInt($('#internetcharges').html());
-
+    var internetcharges=$('#internetcharges').html();
+    
     var service_tax = 14;
     var swachhbharath = 0.5;
     var kkcess = 0.5;
@@ -778,7 +806,7 @@ function update_tour_price() {
     price = Math.ceil(price);
     console.log("price is: "+price);
 
-    var calculatedinternetcharges = (price * internetcharges )/100;
+    var calculatedinternetcharges = (price * internetcharges );
     console.log("calculated internet charges are : "+calculatedinternetcharges);
     $('.calculated-internetcharges').html(calculatedinternetcharges);
 
@@ -797,7 +825,7 @@ function update_tour_price() {
     console.log("calculated service tax over internet charges are : "+calculatedservicetax);
     console.log("calculated Swachh Bharath tax over internet charges are : "+calculatedswachhbharath);
     console.log("calculated Krish Kalyan Cess tax over internet charges are : "+calculatedkkcess);
-    $('.calculated-servicetax').html(calculatedservicetax);
+    $('.calculated-servicetax').html(calculatedservicetax.toFixed(2));
     $('.calculated-swachhbharath').html(calculatedswachhbharath.toFixed(2));
     $('.calculated-kkcess').html(calculatedkkcess.toFixed(2));
 
@@ -844,7 +872,9 @@ var kidsmealprice = $('#'+kmp).val();
 
 $('.adultprice').html($('#'+adultPriceId).val());
 $('.childprice').html($('#'+childPriceId).val());
-$('#internetcharges').html($('#'+serviceTaxId).val());
+var internetcharges = $('#'+serviceTaxId).val();
+internetcharges = internetcharges/100;
+$('#internetcharges').html(internetcharges);
 
 $('.kidsmealprice').html(kidsmealprice);
 
@@ -962,6 +992,11 @@ $('.package-book').on('click',function(){
   $(this).addClass('pbook');
   
 })
+
+$('.close-modal').on('click', function() {
+    
+    $('#kidsmealpopup').modal('hide')
+});
 
 </script>
 

@@ -1998,12 +1998,9 @@ redirect('frontend/index');
 
     public function sendsms($mobile='',$message=''){
 
-      // sms start
+                // sms start
                 
-                $username="subhamastu";
-                $password="779712";
-                $sender='fornex';
-                
+               
                 $text=str_replace(" ","%20",$message);
                 $url = $this->db->get_where('smssettings' , array('id' =>1))->row()->url;
                 $url .= $this->db->get_where('smssettings' , array('id' =>1))->row()->username;

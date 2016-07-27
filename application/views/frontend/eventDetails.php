@@ -498,7 +498,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <td>
                         Internet and Handling Charges                    </td>
                     <td class="text-right" >
-                        % <span id="internetcharges">0</span> (per ticket)
+                        <span id="internetcharges"></span> (per ticket)
                     </td>
                 </tr>
                 <tr>
@@ -731,8 +731,8 @@ function update_tour_price() {
     price_per_person=parseInt($('.adultprice').html());
     
     price_per_child=parseInt($('.childprice').html());
-    internet_charges=parseInt($('#internetcharges').html());
-
+    var internet_charges=$('#internetcharges').html();
+    
     var service_tax = 14;
 
     var swachhbharath = 0.5;
@@ -743,8 +743,9 @@ function update_tour_price() {
     console.log(price_per_person);
     var price = +( (adults * price_per_person + children * price_per_child) );
     price = Math.ceil(price);
-    var calculatedInternetCharges = (price *internet_charges)/100;
-
+    
+    var calculatedInternetCharges = (price *internet_charges);
+    
     //calculate service tax based on internet handling charges
     var calculatedservicetax = (service_tax *calculatedInternetCharges)/100;
 
@@ -756,7 +757,7 @@ function update_tour_price() {
 
     console.log("calculate service tax is:"+calculatedservicetax);
     $('.calculated-servicetax').html(calculatedservicetax);
-    $('.calculated-internetcharges').html(calculatedInternetCharges);
+    $('.calculated-internetcharges').html(calculatedInternetCharges.toFixed(2));
     $('.calculated-swachhbharath').html(calculatedswachhbharath.toFixed(2));
     $('.calculated-kkcess').html(calculatedkkcess.toFixed(2));
     $('.child-amount').toggleClass( 'hide', children < 1 );
@@ -801,7 +802,9 @@ var serviceTaxId = packageId+"servicetax";
 
 $('.adultprice').html($('#'+adultPriceId).val());
 $('.childprice').html($('#'+childPriceId).val());
-$('#internetcharges').html($('#'+serviceTaxId).val());
+var internetcharges = $('#'+serviceTaxId).val();
+internetcharges = internetcharges/100;
+$('#internetcharges').html(internetcharges);
 
 $('html, body').animate({
     scrollTop: 350
