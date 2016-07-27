@@ -259,7 +259,7 @@
                      <input type="hidden" id="<?php echo $k->packageid.'servicetax';   ?>" value="<?php echo $k->servicetax;   ?>">
                      <input type="hidden" id="currenturl" value="<?php echo $this->uri->segment(1, 0).'/'.$this->uri->segment(2, 0).'/'.$this->uri->segment(3, 0); ?>">
 
-                    <p><button onclick="bookthispackage(<?php echo $k->packageid;   ?>)" class="btn_1" id="pbook">Book Now</a></p>
+                    <p><button onclick="bookthispackage(<?php echo $k->packageid;   ?>)" class="btn_1 package-book" >Book Now</a></p>
                 </div>
             </div>
 
@@ -533,7 +533,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                         Rs. <span class="adultprice">0</span>                                                   <span class="child-amount hide"> + <span class="children-number">0</span>x 
                             Rs. <span class="childprice">0</span>  
 
-                        </span> +  Rs. <span class="calculated-internetcharges">0</span> (Internet & Handling Charges)
+                        </span> +  Rs. <span class="calculated-internetcharges">0</span> (Internet and Handling Charges)
                         +  <span> Rs . <span class="calculated-servicetax">0</span> (Service Tax)</span> 
                         +  <span> Rs . <span class="calculated-swachhbharath">0</span> (Swachh Bharath)</span>
                         +  <span> Rs . <span class="calculated-kkcess">0</span> (Krishi Kalyan Cess)</span>
@@ -775,7 +775,7 @@ function showmap()
 
 function bookthispackage(packageId){
 
-    $("#pbook").css("background", "grey");
+    
     $("#pbook").css("color", "white");
     $('#packageid').val(packageId);
     //reset all values
@@ -897,6 +897,16 @@ $(':radio').change(
     $('.choice').text( this.value + ' stars' );
   } 
 )
+
+
+
+$('.package-book').on('click',function(){
+    //alert("hello");
+    
+  $('.package-book').removeClass('pbook');
+  $(this).addClass('pbook');
+  
+})
 
 
 </script>

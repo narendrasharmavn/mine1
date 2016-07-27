@@ -252,7 +252,7 @@
                      <input type="hidden" id="<?php echo $k->packageid.'kidsmealprice';   ?>" value="<?php echo $k->kidsmealprice;   ?>">
                      <input type="hidden" id="currenturl" value="<?php echo $this->uri->segment(1, 0).'/'.$this->uri->segment(2, 0).'/'.$this->uri->segment(3, 0); ?>">
 
-                    <p><button onclick="bookthispackage(<?php echo $k->packageid;   ?>)" class="btn_1">Book Now</a></p>
+                    <p><button onclick="bookthispackage(<?php echo $k->packageid;   ?>)" class="btn_1 package-book">Book Now</a></p>
                 </div>
             </div>
 
@@ -954,6 +954,14 @@ $(':radio').change(
   } 
 )
 
+
+$('.package-book').on('click',function(){
+    //alert("hello");
+    
+  $('.package-book').removeClass('pbook');
+  $(this).addClass('pbook');
+  
+})
 
 </script>
 
