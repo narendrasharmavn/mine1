@@ -313,22 +313,20 @@ if ($this->session->userdata('holidayCustomerName')) {
                    <div class="rating">
                         <?php
 
-                         echo "<ul class='codexworld_rating_widget'>";
-                                                    $i=0;
-                                                    //echo "review is: ".$k->pricereview."<br>";
-                                                    for ($j=$avg; $j > 0 ; $j--) { 
-                                                        
-                                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px -28px;"></li>';
-                                                        $i++;
-                                                    }
+                        echo "<ul class='codexworld_rating_widget'>";
+                        $i=0;
+                        //echo "review is: ".$k->pricereview."<br>";
+                        for ($j=$avg; $j > 0 ; $j--) { 
+                            
+                            echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px -28px;"></li>';
+                            $i++;
+                        }
 
-                                                    for ($a=$i; $a < 5; $a++) { 
-                                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px 0px;"></li>';
-                                                    }
-                                                    
-                                                    echo "</ul>";
-                                              
-
+                        for ($a=$i; $a < 5; $a++) { 
+                            echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px 0px;"></li>';
+                        }
+                        
+                        echo "</ul>";
 
                         ?>
                    </div>
@@ -363,55 +361,36 @@ if ($this->session->userdata('holidayCustomerName')) {
                          
                          ?>
 
-                         <div id="general_rating"><?php echo $k->name; ?> 
-                            
-                        </div>
-                       
-                            <div class="col-md-12 col-xs-12" id="rating_summary" style="padding-left: 0px;padding-right: 0px;">
-                                <ul>
-                                    <li style="text-align:justify;"><?php echo $k->review; ?>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-12" style="margin-bottom: 10px;">
-                                <div class="col-md-6" style="padding-left:0px;">
+                        <div class="divTable">
+                            <div class="divTableBody">
+                                <div class="divTableRow">
+                                <div class="divTableCell"><?php echo $k->name; ?></div>
+                                <div class="divTableCell"><?php
+
+                                                    
+                                echo "<ul class='codexworld_rating_widget'>";
+                                    $i=0;
+                                    //echo "review is: ".$k->pricereview."<br>";
+                                    for ($j=$k->pricereview; $j > 0 ; $j--) { 
+                                        
+                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px -28px;"></li>';
+                                        $i++;
+                                    }
+
+                                    for ($a=$i; $a < 5; $a++) { 
+                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px 0px;"></li>';
+                                    }
                                     
-                                    <div id="rating_summary">
-                                        <ul>
-                                            <li>Rating
-                                                <div class="rating">
-                                                <?php
-
-                                                
-                                               echo "<ul class='codexworld_rating_widget'>";
-                                                    $i=0;
-                                                    //echo "review is: ".$k->pricereview."<br>";
-                                                    for ($j=$k->pricereview; $j > 0 ; $j--) { 
-                                                        
-                                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px -28px;"></li>';
-                                                        $i++;
-                                                    }
-
-                                                    for ($a=$i; $a < 5; $a++) { 
-                                                        echo '<li style="background-image: url(http://fornextit.com/book4holiday/assets/widget_star.gif); background-position: 0px 0px;"></li>';
-                                                    }
-                                                    
-                                                    echo "</ul>";
-                                                ?>
-                                                    
-                                                    
-                                                </div>
-                                            </li>   
-                                            
-                                        </ul>
-                                    </div>
-                                
+                                    echo "</ul>";
+                                ?></div>
                                 </div>
+                                <div class="divTableRow">
+                                    <div class="divTableCell"><?php echo $k->subject; ?></div>
+                                    <div class="divTableCell"><?php echo $k->review; ?></div>
+                                </div>
+                            </div>
+                        </div> 
                             
-                            </div>
-                            <div class="col-md-12">
-                                <hr>
-                            </div>
                          <?php
                         }
                     }else{
@@ -424,7 +403,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                 </div>
                          
         <!--Reviews End-->
-     
+             <hr>
         </div><!--End  single_tour_desc-->
   <div class="col-md-4">
  
@@ -634,7 +613,11 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <!-- End row -->
                     <div class="form-group">
                     <label>Subject</label>
-                        <textarea name="reviewtext" id="review_text" class="form-control" style="height:100px;" placeholder="Write your review" required></textarea>
+                        <input type="text" name="subject" id="subject" placeholder="Enter Subject">
+                    </div>
+                    <div class="form-group">
+                    <label>Comments</label>
+                        <textarea name="reviewtext" id="review_text" class="form-control" class="form-control" style="height:100px;" placeholder="Write your Comments" required></textarea>
                     </div>
                     <input type="submit" value="Submit" class="btn_1" id="submit-review">
                 </form>

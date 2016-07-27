@@ -160,11 +160,13 @@ class Frontend extends CI_Controller {
         $pricerating = $this->input->post('pricerating');
         //$qualityrating = $this->input->post('qualityrating');
         $reviewtext = $this->input->post('reviewtext');
+        $subject = $this->input->post('subject');
 
         echo "price rating".$pricerating."<br>";
 
         $data = array(
           'pricereview' => $pricerating,
+          'subject' => $subject,
           'review' => $reviewtext,
           'customerid' => $this->session->userdata('holidayCustomerId'),
           'resortname' => $resortid,
@@ -186,16 +188,24 @@ class Frontend extends CI_Controller {
 
 
 
-    public function submiteventreview(){
-      $eventid = $this->input->post('eventid');
-
+    public function submiteventreview()
+    {
+        $eventid = $this->input->post('eventid');
+        
         $eventname = $this->input->post('eventname');
+       
         $pricerating = $this->input->post('pricerating');
+        
         //$qualityrating = $this->input->post('qualityrating');
+        $subject = $this->input->post('subject');
+        
         $reviewtext = $this->input->post('reviewtext');
+        
+        
 
         $data = array(
           'pricereview' => $pricerating,
+          'subject' => $subject,
           'review' => $reviewtext,
           'customerid' => $this->session->userdata('holidayCustomerId'),
           'resortoreventname' => $eventid
@@ -211,6 +221,7 @@ class Frontend extends CI_Controller {
 
         <?php
        redirect($url);
+       
 
     }
 
@@ -224,9 +235,11 @@ class Frontend extends CI_Controller {
         $pricerating = $this->input->post('pricerating');
         $qualityrating = $this->input->post('qualityrating');
         $reviewtext = $this->input->post('reviewtext');
+        $subject = $this->input->post('subject');
 
         $data = array(
           'pricereview' => $pricerating,
+          'subject' => $subject,
           'review' => $reviewtext,
           'customerid' => $this->session->userdata('holidayCustomerId'),
           'placeid' => $placeid
@@ -527,6 +540,7 @@ class Frontend extends CI_Controller {
 
       $packageid = $this->input->post('packageid');
       $dateofvisit = $this->input->post('dateofvisit');
+      $dateofvisit = date("Y-m-d", strtotime($dateofvisit));
       $vendorid = $this->input->post('vendorid');
       $totalcost = $this->input->post('totalcost');
       $adultpriceperticket = $this->input->post('adultpriceperticket');
@@ -649,6 +663,7 @@ class Frontend extends CI_Controller {
 
       $packageid = $this->input->post('packageid');
       $dateofvisit = $this->input->post('dateofvisit');
+      $dateofvisit = date("Y-m-d", strtotime($dateofvisit));
       $vendorid = $this->input->post('vendorid');
       $totalcost = $this->input->post('totalcost');
       $adultpriceperticket = $this->input->post('adultpriceperticket');
