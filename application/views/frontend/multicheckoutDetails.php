@@ -237,7 +237,7 @@
                     <tr>
                     <td class="col-md-2">      
                     
-                        <input type="checkbox" style="height:15px;"  value="<?php echo $k->packageid; ?>" id="<?php echo $k->packageid.'checkbox'; ?>" class="qty3 pull-left" name="packagename[]">
+                        <input type="checkbox" style="height:15px;"  value="<?php echo $k->packageid; ?>" id="<?php echo $k->packageid.'checkbox'; ?>" class="qty3 pull-left" onclick="calculateBookings()" name="packagename[]">
                    
                     </td>
                     <td class="col-md-4">
@@ -254,7 +254,7 @@
                     <td class="col-md-3">
 
                             <div class="numbers-row" data-min="0">
-                                <input type="text" value="0" id="adults" class="qty2 form-control <?php echo 'adult-number-'.$k->packageid; ?>" name="adults">
+                                <input type="text" value="0" id="adults" onchange="calculateBookings()" class="qty2 form-control <?php echo 'adult-number-'.$k->packageid; ?>" name="adults">
                             <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
 
                                 
@@ -264,7 +264,7 @@
                     <td class="col-md-3">
 
                                 <div class="numbers-row" data-min="0">
-                                    <input type="text" value="0" id="children" class="qty2 form-control <?php echo 'child-number-'.$k->packageid; ?>" name="kids">
+                                    <input type="text" onchange="calculateBookings()" value="0" id="children" class="qty2 form-control <?php echo 'child-number-'.$k->packageid; ?>" name="kids">
                                 <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
    
                                 
@@ -289,7 +289,7 @@
                 ?>
 
              </table>
-			 <input type="button" name="addtocart" onclick="calculateBookings()" class="btn btn-success pull-right" value="Add To Cart"/>
+			<!-- <input type="button" name="addtocart" onclick="calculateBookings()" class="btn btn-success pull-right" value="Add To Cart"/> -->
                 </div>
             </div>
         
@@ -516,33 +516,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                        Rs.  <span id="krishicess">0.005</span> 
                     </td>
                 </tr>
-                                <tr>
-                    <td>
-                        Total amount                    </td>
-                    <td class="text-right">
-                        <span class="adults-number" >0</span>x 
-                        Rs. <span class="adultprice">0</span>                                                   
-                        <span class="child-amount"> + <span class="children-number">0</span>x 
-                            Rs. <span class="childprice">0</span> 
-
-
-                        </span>
-
-
-                            +  
-                        <span class="kids">
-                                <span class="kidsmeal-number">0</span> *  Rs . <span class="kidsmealprice">50</span> 
-                             + 
-                         </span>
-                          Rs. <span class="calculated-internetcharges">0</span> (Internet Charges)
-                          +
-                          Rs. <span class="calculated-servicetax">0</span> (Service Tax)
-                          +
-                          Rs. <span class="calculated-swachhbharath">0</span> (Swachh Bharath)
-                          +
-                          Rs. <span class="calculated-kkcess">0</span> (Krishi Kalyan Cess)
-                                            </td>
-                </tr>
+                               
                 <tr class="total">
                     <td>
                         Total cost                  </td>
@@ -701,7 +675,7 @@ var exchange_rate = 1;
     //loadMap();
      $( ".datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
 
-     $('.theiaStickySidebar').hide();
+     //$('.theiaStickySidebar').hide();
      //document.getElementsByClassName("book-now").disabled = true
      $('#book-selection-error').hide();
     var available_days = [];
@@ -714,42 +688,9 @@ var exchange_rate = 1;
     tour_start_date.setHours(0, 0, 0, 0);
     tour_end_date.setHours(0, 0, 0, 0);
 
-    if ( today > tour_start_date) {
-        tour_start_date = today;
-    }
+   
 
-    function DisableDays(date) {
-        if ( available_days.length == 0 ) {
-            if ( available_first_date >= date && date >= tour_start_date) {
-                available_first_date = date;
-            }
-            return true;
-        }
-        var day = date.getDay();
-        if ( $.inArray( day.toString(), available_days ) >= 0 ) {
-            if ( available_first_date >= date && date >= tour_start_date) {
-                available_first_date = date;
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    if ( $('input.date-pick').length ) {
-        $('input.date-pick').datepicker({
-            startDate: tour_start_date,
-                    endDate: tour_end_date,
-                    beforeShowDay: DisableDays
-        });
-        $('input[name="date"]').datepicker( 'setDate', available_first_date );
-    }
-    if ( $('input.time-pick').length ) {
-        $('input.time-pick').timepicker({
-            minuteStep: 15,
-            showInpunts: false
-        });
-    }
+   
     $('input#adults').on('change', function(){
         //$('.adults-number').html( $(this).val() );
         //update_tour_price();
@@ -792,63 +733,6 @@ function showmap()
     loadMap();
 }
 
-
-function bookthispackage(packageId){
-
-    $('#packageid').val(packageId);
-    //reset all values
-    $('#adults').val(0);
-    $('#children').val(0);
-    $('#adults-number').val(0);
-    $('#children-number').val(0);
-    $('.adults-number').html(0);
-    $('.adultprice').html(0);
-    $('.children-number').html(0);
-    $('.childprice').html(0);
-    $('.total-cost').html(0);
-    $('.calculated-internetcharges').html(0);
-   
-    //$('#children-number').val(0);
-   // $('#children-number').val(0);
-    
-var adultPriceId = packageId+"adultprice";
-var childPriceId = packageId+"childprice";
-var serviceTaxId = packageId+"servicetax";
-var kmp = packageId+"kidsmealprice";
-var kidsmealprice = $('#'+kmp).val();
-
-//alert($('#'+serviceTaxId).val());
-
-$('.adultprice').html($('#'+adultPriceId).val());
-$('.childprice').html($('#'+childPriceId).val());
-var internetcharges = $('#'+serviceTaxId).val();
-internetcharges = internetcharges/100;
-$('#internetcharges').html(internetcharges);
-
-$('.kidsmealprice').html(kidsmealprice);
-
-if (kidsmealprice>0) {
-    $(".kids").show();
-}else{
-    $(".kids").hide();
-}
-
-$('html, body').animate({
-    scrollTop: 500
-    
-}, 1000);
-
-
-$(".over").css("display", "block");
-$(".animate-spin").css("display", "none");
-$(".overone").css("z-index", '100');
-
-$('.theiaStickySidebar').show();
-
- 
-
-}
-
 $('.book-now').on('click',function(){
 
 
@@ -864,57 +748,7 @@ $('.book-now').on('click',function(){
     $('#book-selection-error').html('Please book atleast one ticket. Total cannot be zero');
 }else{
 
-        var packageid = $('#packageid').val();
-        var vendorid = $('#vendorid').val();
-        var totalcost = $('.total-cost').html();
-
-        var adultpriceperticket = $('.adultprice').html();
-        var childpriceperticket = $('.childprice').html();
-        var numberofadults = $('.adults-number').html();
-        var numberofchildren = $('.children-number').html();
-        var calculated_service_tax = $('.calculated-servicetax').html();
-        var calculated_internet_charges = $('.calculated-internetcharges').html();
-        var kidsmealqty = $("#kidsmeal").val();
-        var dateofvisit = $('#datepickerj').val();
-        var currenturl = $('#currenturl').val();
-        //alert(numberofadults);
-
-        $.ajax({
-        type: "POST",
-        url: '<?php echo site_url("frontend/confirmbookings")?>',
-        data: {
-            dateofvisit: dateofvisit,
-            packageid:packageid,
-            vendorid:vendorid,
-            totalcost:totalcost,
-            adultpriceperticket:adultpriceperticket,
-            childpriceperticket:childpriceperticket,
-            numberofadults:numberofadults,
-            numberofchildren:numberofchildren,
-            calculatedservicetax:calculated_service_tax,
-            calculatedinternetcharges:calculated_internet_charges,
-            kidsmealqty:kidsmealqty,
-            currenturl:currenturl
-
-        },
-        success: function(res) {
-
-                if (res.trim()=="true") {
-                    window.location.href="<?php echo site_url().'confirm-booking-resorts'; ?>";
-                } else if(res.trim()=="false") {
-                    //alert("Please login to book tickets");
-                     window.location.href="<?php echo site_url().'confirm-booking-resorts'; ?>";
-                }else{
-                    console.log(res);
-                }        //$('#email').html(res);
-        },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                    console.log(xhr.responseText);
-                 
-                }
-        });
+        pushToDatabase();
        
 
     
@@ -926,6 +760,88 @@ $('.book-now').on('click',function(){
 
 
 });
+
+
+function pushToDatabase(){
+    console.clear();
+
+    var packageId = document.getElementsByName('packagename[]');
+    var vals = "";
+    var numberofadults = [];
+    var packageIdArray = [];
+    var numberofchildren = [];
+    var childticketprice = [];
+    var internethandlingcharges = [];
+    var calculate_adult = [];
+    var calculate_child = [];
+    var sumOfAdultTickets=0;
+    var sumOfChildTickets=0;
+    var sumOfAdultPrice =0;
+    var sumOfChildPrice =0;
+    var internetCharges =0;
+    for (var i=0, n=packageId.length;i<n;i++) 
+    {
+        if (packageId[i].checked) 
+        {
+            var packageid = packageId[i].value;
+            var ur = '.'+'adult-number-'+packageid;
+            
+            numberofadults.push($('.'+'adult-number-'+packageid).val());
+            packageIdArray.push(  packageId[i].value );
+            numberofchildren.push($('.'+'child-number-'+packageid).val());
+            
+           
+
+            
+            
+            console.log(packageId[i].value);
+            
+        }
+    }
+
+    //kids meal qty
+    var kidsmealqty = $('#kidsmeal').val();
+    var dateofvisit = $('input[name="date"]').val();
+
+
+    $.ajax({
+        type: "POST",
+        url: '<?php echo site_url("frontend/confirmmulticheckoutbookings")?>',
+        data: {
+            numberofadults: numberofadults,
+            numberofchildren: numberofchildren,
+            packageIdArray: packageIdArray,
+            kidsmealqty: kidsmealqty,
+            dateofvisit: dateofvisit
+        },
+        success: function(res) {
+            console.log(res);
+            /*
+
+                if (res.trim()=="true") {
+                    window.location.href="<?php echo site_url().'confirm-booking-resorts'; ?>";
+                } else if(res.trim()=="false") {
+                    //alert("Please login to book tickets");
+                     window.location.href="<?php echo site_url().'confirm-booking-resorts'; ?>";
+                }else{
+                    console.log(res);
+                }        //$('#email').html(res);
+                */
+        },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                    console.log(xhr.responseText);
+                 
+                }
+        });
+
+
+    
+
+    
+    
+}
 
 $(':radio').change(
   function(){
@@ -1029,6 +945,12 @@ function calculateBookings(){
     
     
 }
+
+
+
+
+
+
 
 
 

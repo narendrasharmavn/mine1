@@ -658,6 +658,41 @@ class Frontend extends CI_Controller {
 
     }
 
+
+
+  public function confirmmulticheckoutbookings(){
+
+      $numberofadults = $this->input->post('numberofadults');
+      $numberofchildren = $this->input->post('numberofchildren');
+      $dateofvisit = $this->input->post('dateofvisit');
+      $dateofvisit = date("Y-m-d", strtotime($dateofvisit));
+      $packageIdArray = $this->input->post('packageIdArray');
+      $kidsmealqty = $this->input->post('kidsmealqty');
+
+
+
+
+      $calculatedinternetcharges = 0;
+      for($i=0;$i<count($packageIdArray);$i++){
+        echo "package id is: ".$packageIdArray[$i]."<br>";
+        $packageid = $packageIdArray[$i];
+        $noofadults = $numberofadults[$i];
+        $noofchildren = $numberofchildren[$i];
+        //calculate adult price
+        $calculatedadultprice = $noofadults * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->adultprice;
+        //calculate tax
+        $calculatedinternetcharges += ($calculatedadultprice * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->servicetax)/100;
+        //calculate child price
+        $calculatedchildprice = $noofchildren * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->childprice;
+        //calculate tax on childprice
+        $calculatedinternetcharges += ($calculatedchildprice * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->servicetax)/100;
+
+        echo "adt price ".$calculatedadultprice."<br>";
+
+      }
+
+  }
+
     
    public function confirmbookingsevents(){
 
