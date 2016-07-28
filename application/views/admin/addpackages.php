@@ -48,8 +48,8 @@
 						    	<div class="form-group">
 					                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Vendor Name</label>
 					                <div class="col-sm-7 col-xs-7">
-					                  <select name="vendorname" class="form-control">
-					                  	<option value="0">Select Vendor name</option>
+					                  <select name="vendorname" id="vendorname" class="form-control" onchange="getResort(), getEvent()">
+					                  	<option value="">Select Vendor name</option>
 					                  	<?php
 
 											foreach ($vendorData as $k) {
@@ -69,29 +69,6 @@
 					                </div>
 				                </div>
 				                <div class="form-group">
-					                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Package Name</label>
-					                <div class="col-sm-7">
-					                  <input type="text" class="form-control" name="packagename" id="fname" placeholder="Enter Package name" value="<?php echo set_value('packagename'); ?>">
-									  <span class="text-danger"><?php echo form_error('packagename'); ?></span>
-					                </div>
-					               
-				                </div>
-				                <div>&nbsp;</div>
-                                <div class="form-group">
-					                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Adult Price</label>
-					                <div class="col-sm-7">
-					                  <input type="number" class="form-control" name="aprice" id="aprice" placeholder="Enter Adult Price" value="<?php echo set_value('aprice'); ?>">
-									  <span class="text-danger"><?php echo form_error('aprice'); ?></span>
-					                </div>
-				                </div>
-                                <div class="form-group">
-					                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Service Tax</label>
-					                <div class="col-sm-7">
-					                  <input type="text" class="form-control" name="servicetax" id="fname" placeholder="Enter servicetax" value="<?php echo set_value('servicetax'); ?>">
-									  <span class="text-danger"><?php echo form_error('servicetax'); ?></span>
-					                </div>
-				                </div>
-				                <div class="form-group">
 					                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Package Type</label>
 					                <div class="col-sm-7">
 					                    <select name="packagetype" id="packagetype" class="form-control input-md" onchange="showEvent(this.value)">
@@ -103,21 +80,10 @@
 									  <span class="text-danger"><?php echo form_error('packagetype'); ?></span>
 					                </div>
 				                </div>
-
 				                <div class="form-group">
-					                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Expiry Date</label>
-					                <div class="col-sm-7 col-xs-7">
-					                  <input type="date" class="form-control" name="expirydate" id="expirydate" placeholder="Enter event date" value="<?php echo set_value('expirydate'); ?>">
-									  <span class="text-danger"><?php echo form_error('expirydate'); ?></span>
-					                </div>
-				                </div>
-
-						    </div>
-						    <div class="col-md-5">
-						    	<div class="form-group">
 					                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Resort Name</label>
 					                <div class="col-sm-7 col-xs-7">
-					                  <select name="resortname" class="form-control">
+					                  <select name="resortname" id="resortname" class="form-control">
 					                  	<option value="0">Select resort name</option>
 					                  	<?php
 
@@ -137,33 +103,10 @@
 									  <span class="text-danger"><?php echo form_error('resortname'); ?></span>
 					                </div>
 				                </div>
-						    	
-				                <div class="form-group">
-					                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Description</label>
-					                <div class="col-sm-7">
-					                  <textarea class="form-control" name="description" id="fname"><?php echo set_value('description'); ?></textarea>
-									  <span class="text-danger"><?php echo form_error('description'); ?></span>
-					                </div>
-				                </div>
-				                <div class="form-group">
-					                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Children Price</label>
-					                <div class="col-sm-7">
-					                  <input type="number" class="form-control" name="cprice" id="cprice" placeholder="Enter Children Price" value="<?php echo set_value('cprice'); ?>">
-									  <span class="text-danger"><?php echo form_error('cprice'); ?></span>
-					                </div>
-				                </div>
-                                <div class="form-group">
-					                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Tags</label>
-					                <div class="col-sm-7">
-					                  <input type="text" class="form-control" name="tags" id="fname" placeholder="Enter tags" value="<?php echo set_value('tags'); ?>">
-									  
-					                </div>
-					               
-				                </div>
-				                <div id="hevents" class="form-group">
+				                 <div id="hevents" class="form-group">
 					                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Event Name</label>
 					                <div class="col-sm-7 col-xs-7">
-					                  <select name="eventname" class="form-control">
+					                  <select name="eventname" id="eventname" class="form-control">
 					                  	<option value="">Select Event name</option>
 					                  	<?php
 
@@ -183,6 +126,68 @@
 									  <span class="text-danger"><?php echo form_error('Eventname'); ?></span>
 					                </div>
 				                </div>
+				                <div class="form-group">
+					                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Package Name</label>
+					                <div class="col-sm-7">
+					                  <input type="text" class="form-control" name="packagename" id="fname" placeholder="Enter Package name" value="<?php echo set_value('packagename'); ?>">
+									  <span class="text-danger"><?php echo form_error('packagename'); ?></span>
+					                </div>
+					               
+				                </div>
+				                <div>&nbsp;</div>
+ 
+				                <div class="form-group">
+					                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Expiry Date</label>
+					                <div class="col-sm-7 col-xs-7">
+					                  <input type="date" class="form-control" name="expirydate" id="expirydate" placeholder="Enter event date" value="<?php echo set_value('expirydate'); ?>">
+									  <span class="text-danger"><?php echo form_error('expirydate'); ?></span>
+					                </div>
+				                </div>
+
+						    </div>
+						    <div class="col-md-5">
+						    
+						    	<div class="form-group">
+					                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Adult Price</label>
+					                <div class="col-sm-7">
+					                  <input type="number" class="form-control" name="aprice" id="aprice" placeholder="Enter Adult Price" value="<?php echo set_value('aprice'); ?>">
+									  <span class="text-danger"><?php echo form_error('aprice'); ?></span>
+					                </div>
+				                </div>
+
+				                <div class="form-group">
+					                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Children Price</label>
+					                <div class="col-sm-7">
+					                  <input type="number" class="form-control" name="cprice" id="cprice" placeholder="Enter Children Price" value="<?php echo set_value('cprice'); ?>">
+									  <span class="text-danger"><?php echo form_error('cprice'); ?></span>
+					                </div>
+				                </div>
+
+				                <div class="form-group">
+					                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Service Tax</label>
+					                <div class="col-sm-7">
+					                  <input type="text" class="form-control" name="servicetax" id="fname" placeholder="Enter servicetax" value="<?php echo set_value('servicetax'); ?>">
+									  <span class="text-danger"><?php echo form_error('servicetax'); ?></span>
+					                </div>
+				                </div>
+
+				                <div class="form-group">
+					                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Description</label>
+					                <div class="col-sm-7">
+					                  <textarea class="form-control" name="description" id="fname"><?php echo set_value('description'); ?></textarea>
+									  <span class="text-danger"><?php echo form_error('description'); ?></span>
+					                </div>
+				                </div>
+				                
+                                <div class="form-group">
+					                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Tags</label>
+					                <div class="col-sm-7">
+					                  <input type="text" class="form-control" name="tags" id="fname" placeholder="Enter tags" value="<?php echo set_value('tags'); ?>">
+									  
+					                </div>
+					               
+				                </div>
+				               
 						    </div>
 						</div>
 						<div>&nbsp;</div>
@@ -195,13 +200,14 @@
 		                </div>
 		                <div>&nbsp;</div>
                         <center>
-						<div class="form-group">
-							<label class="col-md-3 control-label"></label>
-							<div class="col-md-6 col-xs-11">
-								<button type="submit"  class="btn btn-primary hidden-xs">Submit</button>
+                        	<div class="form-group">
+								<label class="col-md-3 control-label"></label>
+								<div class="col-md-6 col-xs-11">
+									<button type="submit"  class="btn btn-primary">Submit</button>
+									<button type="reset"  class="btn btn-danger">Cancel</button>
+								</div>
 							</div>
-						</div>
-						</center>									
+                        </center>									
 					</form>
                     <div>&nbsp;</div>
                     <div>&nbsp;</div>
@@ -270,6 +276,42 @@
 
 
 <script type="text/javascript">
+
+	function getResort()
+	{
+        var vid = $("#vendorname").val();
+        //alert(vid);
+        $.ajax({
+	      type: "POST",
+	      url: '<?php echo site_url("admin/getResort")?>',
+	      data: {
+	             
+	             vid:vid
+	            },
+	      success: function(res) {
+	        //alert(res); 
+	        $("#resortname").html(res);
+	      }
+        }); 
+	}
+
+	function getEvent()
+	{
+        var vid = $("#vendorname").val();
+        //alert(vid);
+        $.ajax({
+	      type: "POST",
+	      url: '<?php echo site_url("admin/getEvent")?>',
+	      data: {
+	             vid:vid
+	            },
+	      success: function(res) {
+	        //alert(res); 
+	        $("#eventname").html(res);
+	      }
+        });
+	}
+	
 
     function showEvent(x)
     {

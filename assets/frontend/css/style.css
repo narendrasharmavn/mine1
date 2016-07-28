@@ -420,7 +420,17 @@ background: #A3C845;
 .slider-cap{
 position: absolute;
     top: 300px;
-    left: 530px;
+    left: 640px;
+    width: 487px;
+    height: 120px;
+    font-size: 30px;
+    color: #ffffff;
+    line-height: 38px;
+}
+.slider-cap1 {
+    position: absolute;
+    top: 246px;
+    left: 425px;
     width: 487px;
     height: 120px;
     font-size: 30px;

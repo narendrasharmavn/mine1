@@ -74,9 +74,9 @@ a:active {
 
 /* Layout Base - Page Header */
 .page-header {
-	background: #171717;
-	border-bottom: none;
-	border-left: 1px solid #3a3a3a;
+	    background: #1d4073;
+    border-bottom: none;
+    border-left: 1px solid #1d4073;
 	box-shadow: 1px 3px 0 1px #cccccc;
 	height: 50px;
 	margin: -40px -40px 40px -40px;
@@ -85,13 +85,13 @@ a:active {
 
 /* Layout Base - Sidebar Left */
 .sidebar-left {
-	background: #1d2127;
-	box-shadow: -5px 0 0 #2f3139 inset;
+	    background: #1d4073;
+    box-shadow: -5px 0 0 #426fb1 inset;
 	color: #777777;
 	display: table-cell;
 	position: relative;
 	vertical-align: top;
-	width: 300px;
+	width: 220px;
 	z-index: 1010;
 }
 
@@ -185,7 +185,7 @@ a:active {
 
 	/* Layout Fixed - Content Body */
 	html.fixed .content-body {
-		margin-left: 300px;
+		margin-left: 220px;
 	}
 
 	html.fixed .content-body.has-toolbar {
@@ -194,7 +194,7 @@ a:active {
 
 	/* Layout Fixed - Page header */
 	html.fixed .page-header {
-		left: 300px;
+		left: 220px;
 		margin: 0;
 		position: fixed;
 		right: 0;

@@ -139,15 +139,26 @@ include 'header.php';
 												  <div class="col-md-4">
 												  <input id="tckno" name="tckno" type="text" placeholder="Enter / Scan Ticket No." class="form-control input-md">
 												  </div>
+												  <div class="col-md-4">
+												    <button type="button" id="update" name="update" onclick="updateticket(), getTicketdata()" class="btn btn-primary">Get</button>
+												  </div>
 												</div>
 
 												<!-- Button -->
-												<div class="form-group">
-												  <div class="col-md-4">
-												    <button type="button" id="update" name="update" onclick="updateticket()" class="btn btn-primary">Update</button>
-												  </div>
-												</div>
+												
 								        	</form>
+								        </br>
+								        	<div class="row">
+								        	<table class="table table-bordered">
+												<tbody id="ticketdata">
+													
+												</tbody>
+											</table>
+										</div>
+										<div class="col-md-4">
+												    <button type="button" id="update" name="update" onclick="updateticket()" class="btn btn-success">Update</button>
+												  </div>
+
 											</div>
 										</div>
 									</section>
@@ -165,13 +176,14 @@ include 'header.php';
 												</div>
 												<div class="widget-summary-col">
 													<div class="summary">
-														<h4 class="title">Total Orders Delivered</h4>
+														<h4 class="title">Total Bookings Today</h4>
 														<?php
-														 //$processedResults = $this->db->query("SELECT * FROM orderdetails WHERE status='delivered'");
-														 //$processedResults = $processedResults->num_rows();
+                                                            $vendorid = $this->session->userdata('vendorid');
+														    $gettotalbookingstoday = $this->db->query("SELECT * FROM tblbookings WHERE vendorid='$vendorid' AND date >= CURDATE()");
+														    $processedResults = $gettotalbookingstoday->num_rows();
 														?>
 														<div class="info">
-															<strong class="amount"><?php //echo $processedResults;  ?>20</strong>
+															<strong class="amount"><?php echo $processedResults;  ?></strong>
 															<span class="text-primary"></span>
 														</div>
 													</div>
@@ -194,13 +206,19 @@ include 'header.php';
 												</div>
 												<div class="widget-summary-col">
 													<div class="summary">
-														<h4 class="title">New Orders</h4>
+														<h4 class="title">Total Amount Recieved</h4>
 														<?php
-														 //$processedResults = $this->db->query("SELECT * FROM orderdetails WHERE status='processing'");
-														 //$processedResults = $processedResults->num_rows();
+														    $vendorid = $this->session->userdata('vendorid');
+														    $gettotalbookingstoday = $this->db->query("SELECT * FROM tblbookings WHERE vendorid='$vendorid' AND date >= CURDATE()");
+														    foreach ($gettotalbookingstoday->result() as $k) {
+														    	$bookingid = $k->bookingid;
+														    	$gettotalcollectionstoday = $this->db->query("SELECT sum(totalcost) as totalcost FROM tblpayments WHERE bookingid='$bookingid' and status='paid' and transactiontime>=date_format(now(),'%Y-%m-%d')");
+														        $gctResults = $gettotalcollectionstoday->row();
+														    }
+														    
 														?>
 														<div class="info">
-															<strong class="amount"><?php //echo $processedResults;  ?>15</strong>
+															<strong class="amount"><?php echo $gctResults->totalcost;  ?></strong>
 														</div>
 													</div>
 													<div class="summary-footer">
@@ -269,36 +287,66 @@ include 'header.php';
 					
 				</section>
 			</div>
-<script>
-function updateticket(){
-	var ticketno=$('#tckno').val();
-	//alert(ticketno);
-$.ajax({
-        type: "POST",
-        url: '<?php echo site_url("vendor/updateticket")?>',
-        data: {
-            ticketno:ticketno
+<script type="text/javascript">
+	function updateticket()
+	{   
+		
+	    var ticketno=$('#tckno').val();
+	    //alert(ticketno);
+	    $.ajax({
+	    type: "POST",
+	    url: '<?php echo site_url("vendor/updateticket")?>',
+	    data: {
+	        ticketno:ticketno
 
-        },
-        success: function(res) {
+	    },
+	    success: function(res) {
 
-                if (res.trim()=="true") {
-                    alert("updated");
-                    $('#tckno').val('');
-                } else{
-                	alert("Failed");
-                    console.log(res);
-                }        //$('#email').html(res);
-        },
-                error: function (xhr, ajaxOptions, thrownError) {
-                  alert(xhr.status);
-                  alert(thrownError);
-                  alert(xhr.responseText);
-                }
-        });
+	            if (res.trim()=="true") {
+	                //alert("updated");
+	                $('#tckno').val('');
+	            } else{
+	            	//alert("Failed");
+	                console.log(res);
+	            }        //$('#email').html(res);
+	    },
+	            error: function (xhr, ajaxOptions, thrownError) {
+	              alert(xhr.status);
+	              alert(thrownError);
+	              alert(xhr.responseText);
+	            }
+	    });
+        
 
-}
+	}
+
+	function getTicketdata()
+	{
+		var ticketno=$('#tckno').val();
+	    //alert(ticketno);
+
+	    $.ajax({
+		      type: "POST",
+		      url: '<?php echo site_url("vendor/getticketdata")?>',
+		      data: {
+		      	        ticketno:ticketno
+		            },
+		      success: function(res) {
+		      //alert(res); 
+		      console.log(res);
+		      
+		      $('#ticketdata').html(res);
+		      }
+		      
+	    });
+
+
+	    
+
+
+	}
 </script>
+
 
 		<!-- Vendor -->
 		<script src="<?php echo base_url(); ?>assets/assets/vendor/jquery/jquery.js"></script>

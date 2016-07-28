@@ -308,62 +308,45 @@
 										</a>
 									</li>
                                     
-
-                                   
-
-									<li class="nav-active">
-										<a href="<?php echo site_url(); ?>vendor/addevents">
-											<i class="fa fa-pencil" aria-hidden="true"></i>
-											<span>Events</span>
+                                    <li class="nav-parent">
+										<a href="#">
+											<span>Masters</span>
 										</a>
-									</li>
-									
-									<li class="nav-active">
-										<a href="<?php echo site_url(); ?>vendor/addresorts">
-											<i class="fa fa-pencil" aria-hidden="true"></i>
-											<span>Resorts</span>
-										</a>
-									</li>
+									    <ul class="nav nav-children">
+                                            <li class="nav-active">
+												<a href="<?php echo site_url(); ?>vendor/addevents">
+													<span>Events</span>
+												</a>
+											</li>
+											
+											<li class="nav-active">
+												<a href="<?php echo site_url(); ?>vendor/addresorts">
+													<span>Resorts</span>
+												</a>
+											</li>
 
-								    <li class="nav-active">
-										<a href="<?php echo site_url(); ?>vendor/addpackages">
-											<i class="fa fa-pencil" aria-hidden="true"></i>
-											<span>Packages</span>
-										</a>
-									</li>
-
-									<li class="nav-active">
-										<a href="<?php echo site_url(); ?>vendor/additems">
-											<i class="fa fa-pencil" aria-hidden="true"></i>
-											<span>Transactions</span>
-										</a>
-									</li>
+										    <li class="nav-active">
+												<a href="<?php echo site_url(); ?>vendor/addpackages">
+													<span>Packages</span>
+												</a>
+											</li>
+									    </ul>	
+                                    </li>
 
 									<li class="nav-parent">
-										<a href="<?php echo site_url(); ?>vendor/additems">
-											<i class="fa fa-pencil" aria-hidden="true"></i>
+										<a href="#">
 											<span>Reports</span>
 										</a>
 										<ul class="nav nav-children">
-											
-											
 											<li>
 												<a href="<?php echo site_url(); ?>vendor/vbookings">
 													 Daily Bookings
 												</a>
 											</li>
-
-											
-
 										</ul>
 									</li>
 
-									<li class="nav-active">
-										<a href="<?php echo site_url(); ?>vendor/additems">
-											<i class="fa fa-pencil" aria-hidden="true"></i>
-											<span>Others</span>
-										</a>
-									</li>
+									
 
 									
 									<!--

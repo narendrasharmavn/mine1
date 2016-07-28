@@ -6,7 +6,7 @@
 		<script src="<?php echo base_url(); ?>assets/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 		<script src="<?php echo base_url(); ?>assets/assets/vendor/magnific-popup/magnific-popup.js"></script>
 		<script src="<?php echo base_url(); ?>assets/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
-		
+		<script src="<?php echo base_url(); ?>assets/assets/javascripts/tables/examples.datatables.row.with.details.js"></script>
 		<!-- Specific Page Vendor -->
 		<script src="<?php echo base_url(); ?>assets/assets/vendor/jquery-autosize/jquery.autosize.js"></script>
 		<script src="<?php echo base_url(); ?>assets/assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js"></script>
@@ -29,7 +29,7 @@
 		<script src="<?php echo base_url(); ?>assets/assets/javascripts/tables/examples.datatables.default.js"></script>
 		<script src="<?php echo base_url(); ?>assets/assets/javascripts/tables/examples.datatables.row.with.details.js"></script>
 		<script src="<?php echo base_url(); ?>assets/assets/javascripts/tables/examples.datatables.tabletools.js"></script>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 	</body>

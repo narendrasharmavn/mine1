@@ -43,8 +43,30 @@
 
 								         <?php echo $this->session->flashdata('success'); ?> 
 								         
-											<div class="form-group" style="margin-right: 442px;">
-								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Vendor Names</label>
+											
+
+
+							                <div class="form-group" style="margin-right: 442px;">
+								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">From Date</label>
+								                <div class="col-sm-7">
+								                  <input type="date" id="fromdate" name="fromdate" class="form-control" required>
+												  <span class="text-danger"><?php echo form_error('fromdate'); ?></span>
+								                </div>
+								               
+							                </div>
+
+
+							                <div class="form-group" style="margin-right: 442px;">
+								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">To Date</label>
+								                <div class="col-sm-7">
+								                  <input type="date" name="todate" id="todate" class="form-control" required>
+												  <span class="text-danger"><?php echo form_error('fromdate'); ?></span>
+								                </div>
+								               
+							                </div>
+
+							                <div class="form-group" style="margin-right: 442px;">
+								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Select Vendor</label>
 								                <div class="col-sm-7">
 								                  <select class="form-control" id="vendorid" name="vendorid" required>
 								                  	<option value="">Select Vendor name</option>
@@ -66,34 +88,17 @@
 							                </div>
 
 
-							                <div class="form-group" style="margin-right: 442px;">
-								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">From Date</label>
-								                <div class="col-sm-7">
-								                  <input type="date" id="fromdate" name="fromdate" class="form-control" required>
-												  <span class="text-danger"><?php echo form_error('fromdate'); ?></span>
-								                </div>
-								               
-							                </div>
-
-
-							                <div class="form-group" style="margin-right: 442px;">
-								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">To Date</label>
-								                <div class="col-sm-7">
-								                  <input type="date" name="todate" id="todate" class="form-control" required>
-												  <span class="text-danger"><?php echo form_error('fromdate'); ?></span>
-								                </div>
-								               
-							                </div>
-											
-											
-							                                                      
-											
-											<div class="form-group">
+		                                	<div class="form-group">
 												<label class="col-md-3 control-label"></label>
 												<div class="col-md-6 col-xs-11">
-													<button type="button"  onclick="getVendordetails()" class="btn btn-primary hidden-xs">Get</button>
+													<button type="button"  class="btn btn-primary getvcommission" id="getvcommission">Get</button>
+													<button type="reset"  class="btn btn-danger">Cancel</button>
 												</div>
-											</div>	
+											</div>
+			                               
+
+		                                	
+			                                                                  
 										</form>
                                 
                                 <div>&nbsp;</div>
@@ -107,95 +112,17 @@
 			                            <table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
 											<thead>
 												<tr>
-													<th>Transaction Date</th>
 													<th>Vendor Name</th>
 													<th>Amount Recieved</th>
-													<th>Service charges</th>
-													<th>Amount Paid</th>
-													<th>Balance</th>
+													<th>Transaction Date</th>
+													<th>I/H Charges</th>
+													
 													
 													
 												</tr>
 											</thead>
-											<tbody>
-												<?php
-												//echo count($transactions->result()); 
-												if (count($transactions->result())>1) {
-													//for  loop
-													foreach ($transactions->result() as $k) {
-														# code...
-														$query = $this->db->query("SELECT t.*,v.vendorname FROM `tbltransactions` t LEFT JOIN tblvendors v ON t.vendorid=v.vendorid WHERE t.vendorid='$k->vendorid' ORDER BY t.tid DESC LIMIT 0,1;");
-
-														$t = $query->row();
-
-
-
-														$calculatingsumofservicetax = $this->db->query("SELECT sum(servicecharges) AS servicechargetotal FROM `tbltransactions` WHERE vendorid='$k->vendorid'");
-
-
-														$servicechargetotal = $calculatingsumofservicetax->row();
-
-
-
-													?>
-
-													<tr>
-													<td><?php echo $t->transactiondate; ?></td>
-													<td>
-														<?php echo $t->vendorname;
-														  ?>
-													</td>
-													<td><?php echo $t->amountrecieved; ?></td>
-													<td><?php echo $servicechargetotal->servicechargetotal; ?></td>
-													<td><?php echo $t->amountpaid; ?></td>
-													<td><?php echo $t->balance; ?></td>
-													
-													
-												</tr>
-
-
-
-
-
-													<?php
-												}//end of for loop
-												} else {
-													$t = $transactions->row();
-        											
-													?>
-
-													<tr>
-													<td><?php echo $t->transactiondate; ?></td>
-													<td>
-														<?php echo $t->vendorname;
-														  ?>
-													</td>
-													<td><?php echo $t->amountrecieved; ?></td>
-													<td><?php echo $t->servicecharges; ?></td>
-													<td><?php echo $t->amountpaid; ?></td>
-													<td><?php echo $t->outstanding; ?></td>
-													
-													
-													
-													
-
-													
-												</tr>
-
-
-
-
-
-													<?php
-												}
+											<tbody id="vcommission">
 												
-
-
-
-												?>
-												
-												
-
 											</tbody>
 										</table>
 									</div>
@@ -245,6 +172,41 @@
 						
 								
 <?php
- include 'footer.php'; 
+    include 'footer.php'; 
 
- ?>
+?>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+		$.get('<?php echo site_url("admin/loadvendorcommissionreport")?>', function(data, status){
+            //alert("Data: " + data + "\nStatus: " + status);
+            //console.log(data);
+            $('#vcommission').html(data);
+        });
+    });
+
+    $(".getvcommission").click(function(){
+
+ 	    
+		var fromdate = $('#fromdate').val();
+    	//alert(fromdate);
+    	var todate = $('#todate').val();
+    	var vendorid = $('#vendorid').val();
+    	//alert(todate);
+        
+        $.ajax({
+		      type: "POST",
+		      url: '<?php echo site_url("admin/getvendorcommissionreport")?>',
+		      data: {
+		                fromdate:fromdate,
+		                todate:todate,
+		                vendorid:vendorid
+		            },
+		      success: function(res) {
+		      //alert(res); 
+		      $('#vcommission').html(res);
+		      }
+	    });
+
+    });
+</script>

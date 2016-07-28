@@ -57,8 +57,8 @@
                                                     <div class="form-group">
 										                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Payment Type</label>
 										                <div class="col-sm-7 col-xs-7">
-										                  <select class="form-control" name="paymenttype" id="paymenttype" >
-										                  	<option value="">Select Vendor name</option>
+										                  <select class="form-control" name="paymenttype" id="paymenttype" onchange="getpaymenttype()">
+										                  	<option value="">Select Payment Type</option>
 																<option value="cheque">cheque</option>
 																<option value="dd">DD</option>
 																<option value="cash">Cash</option>
@@ -68,7 +68,7 @@
 										                </div>
 									                </div>
 
-									                <div class="form-group">
+									                <div class="form-group" id="hidechqtnctiondate">
 										                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Cheque/Transaction Date</label>
 										                <div class="col-sm-7 col-xs-7">
 										                  <input type="date" class="form-control" name="ctdate" id="ctdate" placeholder="Enter Payment Date" value="<?php echo set_value('ctdate'); ?>">
@@ -83,7 +83,7 @@
 						                        	<div class="form-group">
 										                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Choose Vendor Name</label>
 										                <div class="col-sm-7 col-xs-7">
-										                  <select class="form-control" name="vendorid" id="fname" >
+										                  <select class="form-control" name="vendorid" id="vendorid" >
 										                  	<option value="">Select Vendor name</option>
 										                  	<?php
 															foreach ($vendors->result() as $k) {
@@ -109,7 +109,7 @@
 										                </div>
 									                </div>
 
-									                <div class="form-group">
+									                <div class="form-group" id="hidechqtnctionno">
 										                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Cheque/Transaction Number</label>
 										                <div class="col-sm-7">
 										                  <input type="text" class="form-control" name="ctno" id="ctno" placeholder="Enter Cheque/Transaction Number" value="<?php echo set_value('ctno'); ?>">
@@ -129,7 +129,8 @@
 			                                	<div class="form-group">
 													<label class="col-md-3 control-label"></label>
 													<div class="col-md-6 col-xs-11">
-														<button type="submit"  class="btn btn-primary hidden-xs">Submit</button>
+														<button type="submit"  class="btn btn-primary">Submit</button>
+														<button type="reset"  class="btn btn-danger">Cancel</button>
 													</div>
 												</div>
 			                                </center>											
@@ -197,8 +198,24 @@
 
 
 	<script type="text/javascript">
+
+	
+    
+    function getpaymenttype()
+    {
+    	var paymenttype = $("#paymenttype").val();
+    	//alert(paymenttype);
+    	if (paymenttype=='cash' || paymenttype=='neft') {
+            $('#hidechqtnctiondate').hide();
+            $('#hidechqtnctionno').hide();
+    	}else{
+            $('#hidechqtnctiondate').show();
+            $('#hidechqtnctionno').show();
+    	}	
+    }
+
     function deletevendorpayment(id)
-   {
+    {
    	    var uid = id;
    	    //alert(uid);
    	    if (confirm("Are You Sure You Want To Delete") == true) {

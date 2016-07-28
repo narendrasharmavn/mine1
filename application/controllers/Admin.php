@@ -6,27 +6,27 @@ class Admin extends CI_Controller {
   public $imagename="";
   public $filepath="";
 
-	 /**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
+   /**
+   * Index Page for this controller.
+   *
+   * Maps to the following URL
+   *    http://example.com/index.php/welcome
+   *  - or -
+   *    http://example.com/index.php/welcome/index
+   *  - or -
+   * Since this controller is set as the default controller in
+   * config/routes.php, it's displayed at http://example.com/
+   *
+   * So any other public methods not prefixed with an underscore will
+   * map to /index.php/welcome/<method_name>
+   * @see http://codeigniter.com/user_guide/general/urls.html
+   */
 
     function __construct(){
         parent::__construct();
-	      date_default_timezone_set('Asia/Calcutta');
+        date_default_timezone_set('Asia/Calcutta');
         $this->load->model('Adminmodel');
-		    $this->load->library('image_lib');
+        $this->load->library('image_lib');
         $this->load->helper(array('form', 'url'));
 
     }
@@ -37,11 +37,11 @@ class Admin extends CI_Controller {
       $this->load->view('admin/login');
     }
     
-	public function login()
-	{
+  public function login()
+  {
     error_reporting(0);
-		$this->load->view('admin/login');
-	}
+    $this->load->view('admin/login');
+  }
 
   public function outstandingreports($vendorid=''){
 
@@ -69,6 +69,75 @@ class Admin extends CI_Controller {
 
     }
 
+    public function ledgerreport($vendorid='')
+    {
+      if (!$this->session->userdata('username')) 
+       redirect('admin/login');
+      //echo $vendorid."<br>";
+        $data['vendors']=$this->Adminmodel->getVendorsIdAndName(); 
+        $data['vendorb']=$this->Adminmodel->getVendorsBooking($vendorid);
+        //$this->load->view('admin/vbookings',$data);
+
+        if ($vendorid=="all") {
+         $data['transactions']=$this->Adminmodel->getVendorOutStandingTransactions();
+        }else{
+
+          $data['transactions']=$this->Adminmodel->getVendorOutStandingTransactionsOnVendorId($vendorid);
+
+        }
+
+      
+
+      
+      $this->load->view('admin/ledgerreport',$data);
+    }
+
+    public function getledger()
+    {
+      $fromdate = $this->input->post('fromdate');
+      $todate = $this->input->post('todate');
+      $vendorid = $this->input->post('vendorid');
+      
+        if($vendorid){
+          $selectvendors=$this->db->query("select * from tblvendors where vendorid='$vendorid'");
+          foreach ($selectvendors -> result() as $resv) {
+          $getledger=$this->db->query("SELECT * FROM tbltransactions where vendorid='$vendorid' and transactiondate between ('$fromdate') and ('$todate');");
+          echo '<tr><td colspan="5" align="center" style="background:yellow;"><b>'.$resv->vendorname.'</b></td></tr>';
+          foreach ($getledger -> result() as $gl) {
+             echo '<tr>
+             <td>'.$gl->transactiondate.'</td>
+                <td>'.$gl->amountrecieved.'</td>
+                <td>'.$gl->amountpaid.'</td>
+                <td>'.$gl->balance.'</td>
+                
+                </tr>
+        ';
+      }
+        }
+        }else{
+          $selectvendors=$this->db->query("select * from tblvendors");
+        foreach ($selectvendors -> result() as $resv) {
+        $getledger=$this->db->query("SELECT * FROM tbltransactions where vendorid='$resv->vendorid' and transactiondate between ('$fromdate') and ('$todate');");
+        echo '<tr><td colspan="5" align="center" style="background:yellow;"><b>'.$resv->vendorname.'</b></td></tr>';
+          foreach ($getledger -> result() as $gl) {
+             echo '<tr>
+             <td>'.$gl->transactiondate.'</td>
+                <td>'.$gl->amountrecieved.'</td>
+                 <td>'.$gl->amountpaid.'</td>
+                <td>'.$gl->balance.'</td>
+                
+                </tr>
+        ';
+        }
+      }
+        
+      }
+     
+      
+       
+      
+    }
+
 
     public function deletesliderid()
     {
@@ -93,35 +162,86 @@ class Admin extends CI_Controller {
 
 
 
-    public function vendorcomissionreports($vendorid='',$fromdate='',$todate=''){
-
-
-    
-     if (!$this->session->userdata('username')) 
+    public function vendorcomissionreports($vendorid='',$fromdate='',$todate='')
+    {
+      error_reporting(0);
+      if (!$this->session->userdata('username')) 
        redirect('admin/login');
       //echo $vendorid."<br>";
         $data['vendors']=$this->Adminmodel->getVendorsIdAndName(); 
         $data['vendorb']=$this->Adminmodel->getVendorsBooking($vendorid);
         //$this->load->view('admin/vbookings',$data);
 
-        if ($vendorid=="all") {
-         $data['transactions']=$this->Adminmodel->getVendorCommissionReportAll($fromdate,$todate);
-        }else{
+      if ($vendorid=="all") {
+       $data['transactions']=$this->Adminmodel->getVendorCommissionReportAll($fromdate,$todate);
+      }else{
 
-          $data['transactions']=$this->Adminmodel->getVendorCommissionReportOnVendorId($vendorid,$fromdate,$todate);
+        $data['transactions']=$this->Adminmodel->getVendorCommissionReportOnVendorId($vendorid,$fromdate,$todate);
 
-        }
+      }
 
-      
-
-      
       $this->load->view('admin/vendorcomissionreports',$data);
 
     }
 
+  public function loadvendorcommissionreport()
+  {
+    $vcommission=$this->db->query("select t.*,v.vendorname from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid");
+    foreach ($vcommission->result() as $k) {
+      echo '<tr>
+              <td>'.$k->vendorname.'</td>
+              <td>'.$k->transactiondate.'</td>
+              <td>'.$k->amountrecieved.'</td>
+              <td>'.$k->servicecharges.'</td>
+            </tr>
+      ';
+    }
+  }
+
+  public function getvendorcommissionreport()
+  {
+      $fromdate = $this->input->post('fromdate');
+      $todate = $this->input->post('todate');
+      $vendorid = $this->input->post('vendorid');
+      if($vendorid!='' && $fromdate=='' && $todate==''){
+          $vcommission=$this->db->query("select t.*,v.vendorname from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid WHERE t.vendorid='$vendorid' ORDER BY t.tid desc");
+          foreach ($vcommission -> result() as $k) {
+             echo '<tr>
+                    <td>'.$k->vendorname.'</td>
+                    <td>'.$k->transactiondate.'</td>
+                    <td>'.$k->amountrecieved.'</td>
+                    <td>'.$k->servicecharges.'</td>
+                  </tr>
+              ';
+          }
+        }else if($vendorid=='' && $fromdate!='' && $todate!=''){
+          $vcommission=$this->db->query("select t.*,v.vendorname from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid WHERE t.transactiondate BETWEEN '$fromdate' AND '$todate' GROUP BY t.vendorid ORDER BY t.tid desc");
+          foreach ($vcommission -> result() as $k) {
+             echo '<tr>
+                      <td>'.$k->vendorname.'</td>
+                      <td>'.$k->transactiondate.'</td>
+                      <td>'.$k->amountrecieved.'</td>
+                      <td>'.$k->servicecharges.'</td>
+                  </tr>
+              ';
+          }
+        }else {
+          $vcommission=$this->db->query("select t.*,v.vendorname from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid WHERE t.vendorid='$vendorid' AND t.transactiondate BETWEEN '$fromdate' AND '$todate' ORDER BY t.tid desc");
+          foreach ($vcommission -> result() as $k) {
+             echo '<tr>
+                    <td>'.$k->vendorname.'</td>
+                    <td>'.$k->transactiondate.'</td>
+                    <td>'.$k->amountrecieved.'</td>
+                    <td>'.$k->servicecharges.'</td>
+                  </tr>
+              ';
+          }
+        }
+  }
 
 
-	public function submitlogin()
+
+  public function submitlogin()
   {
     error_reporting(0);
     $username = $this->input->post('username');
@@ -153,15 +273,15 @@ class Admin extends CI_Controller {
   }
 
 
-	public function dashboard()
-	{
+  public function dashboard()
+  {
     error_reporting(0);
     if (!$this->session->userdata('username')) 
        redirect('admin/login');
  
       $this->load->view('admin/dashboard');
-    		
-	}
+        
+  }
 
     public function staff()
     {
@@ -393,16 +513,16 @@ class Admin extends CI_Controller {
 
     }
 
-	public function addvendors()
-	{
+  public function addvendors()
+  {
     error_reporting(0);
     if (!$this->session->userdata('username')) 
        redirect('admin/login');
 
     $data['results'] = $this->Adminmodel->getVendorsData();
-		
-		$this->load->view('admin/addvendors',$data);
-	}
+    
+    $this->load->view('admin/addvendors',$data);
+  }
 
 
   public function vbookings($vendorid='')
@@ -415,6 +535,133 @@ class Admin extends CI_Controller {
         $data['vendorb']=$this->Adminmodel->getVendorsBooking($vendorid);
         $this->load->view('admin/vbookings',$data);
 
+  }
+
+  public function getvbookings()
+  {
+    error_reporting(0);
+    $vendorid = $this->input->post('vendorid');
+    $fromdate = $this->input->post('fromdate');
+    $todate = $this->input->post('todate');
+
+    if($vendorid!='' && $fromdate=='' && $todate==''){
+
+      $vendorb=$this->db->query("SELECT * FROM tblbookings b LEFT JOIN tblpayments p ON b.bookingid=p.bookingid left join tblcustomers c ON p.customerid=c.customer_id left join tblvendors v ON b.vendorid=v.vendorid WHERE v.vendorid='$vendorid'  ORDER BY b.bookingid desc ");
+      foreach ($vendorb->result() as $k) {
+        echo '<tr>
+                <td>'.$k->ticketnumber.'</td>
+                <td>'.$k->date.'</td>
+                <td>
+                    
+                  '.$this->db->get_where("tblpackages" , array("packageid" =>$k->packageid))->row()->packagename.'
+                     
+                </td>
+                <td>'.$k->name.'</td>
+                <td>'.$k->quantity.'</td>
+                <td>'.$k->childqty.'</td>
+                <td>'.$k->totalcost.'</td>
+              </tr>
+        ';
+      }
+          
+    }else if($vendorid=='' && $fromdate!='' && $todate!=''){
+      $vendorb=$this->db->query("SELECT * FROM tblbookings b LEFT JOIN tblpayments p ON b.bookingid=p.bookingid left join tblcustomers c ON p.customerid=c.customer_id left join tblvendors v ON b.vendorid=v.vendorid WHERE b.date BETWEEN '$fromdate' AND '$todate' ORDER BY b.bookingid desc ");
+      foreach ($vendorb->result() as $k) {
+        echo '<tr>
+                <td>'.$k->ticketnumber.'</td>
+                <td>'.$k->date.'</td>
+                <td>
+                    
+                  '.$this->db->get_where("tblpackages" , array("packageid" =>$k->packageid))->row()->packagename.'
+                     
+                </td>
+                <td>'.$k->name.'</td>
+                <td>'.$k->quantity.'</td>
+                <td>'.$k->childqty.'</td>
+                <td>'.$k->totalcost.'</td>
+              </tr>
+        ';
+      }  
+        
+    }else{
+      $vendorb=$this->db->query("SELECT * FROM tblbookings b LEFT JOIN tblpayments p ON b.bookingid=p.bookingid left join tblcustomers c ON p.customerid=c.customer_id  left join tblvendors v ON b.vendorid=v.vendorid WHERE v.vendorid='$vendorid'  AND b.date BETWEEN '$fromdate' AND '$todate' ORDER BY b.bookingid desc ");
+      foreach ($vendorb->result() as $k) {
+        echo '<tr>
+                <td>'.$k->ticketnumber.'</td>
+                <td>'.$k->date.'</td>
+                <td>
+                    
+                  '.$this->db->get_where("tblpackages" , array("packageid" =>$k->packageid))->row()->packagename.'
+                     
+                </td>
+                <td>'.$k->name.'</td>
+                <td>'.$k->quantity.'</td>
+                <td>'.$k->childqty.'</td>
+                <td>'.$k->totalcost.'</td>
+              </tr>
+        ';
+      }
+    }
+  }
+
+  public function onloadvbookings()
+  {
+    $vendorb=$this->db->query("SELECT * FROM tblbookings b LEFT JOIN tblpayments p ON b.bookingid=p.bookingid left join tblcustomers c ON p.customerid=c.customer_id");
+    foreach ($vendorb->result() as $k) {
+      echo '<tr>
+
+          <td>'.$k->ticketnumber.'</td>
+          <td>'.$k->date.'</td>
+              <td>
+                
+        '.$this->db->get_where("tblpackages" , array("packageid" =>$k->packageid))->row()->packagename.'
+                 
+              </td>
+              <td>'.$k->name.'</td>
+              <td>'.$k->quantity.'</td>
+              <td>'.$k->childqty.'</td>
+              <td>'.$k->totalcost.'</td>
+              </tr>
+      ';
+    }
+  }
+
+  public function dailybookings()
+  {
+    error_reporting(0);
+    $this->load->view('admin/dailybookings');
+  }
+
+  public function kidmealbookings($fromdate='', $todate='')
+  {
+    error_reporting(0);
+     if (!$this->session->userdata('username')) 
+       redirect('admin/login');
+      //echo $vendorid."<br>";
+       $fromdate = str_replace(" ", '-', $fromdate);
+       //echo $fromdate;
+       $todate = str_replace(" ", '-', $todate);
+     
+    //echo "SELECT * FROM tblbookings b LEFT JOIN tblpayments p ON b.bookingid=p.bookingid WHERE date BETWEEN '$fromdate' AND '$todate'";
+    $getdata = $this->db->query("SELECT * FROM tblbookings b LEFT JOIN tblpayments p ON b.bookingid=p.bookingid WHERE date BETWEEN '$fromdate' AND '$todate'");
+    $data['k'] = $getdata->row();
+    $this->load->view('admin/kidmealbookings',$data);
+
+  }
+
+
+  public function datewisebookings($fromdate='', $todate='')
+  {
+    error_reporting(0);
+    if (!$this->session->userdata('username')) 
+       redirect('admin/login');
+     $fromdate = str_replace(" ", '-', $fromdate);
+     $todate = str_replace(" ", '-', $todate);
+     
+    //echo "SELECT * FROM tblbookings b LEFT JOIN tblpayments p ON b.bookingid=p.bookingid WHERE date BETWEEN '$fromdate' AND '$todate'";
+    $getdata = $this->db->query("SELECT * FROM tblbookings b LEFT JOIN tblpayments p ON b.bookingid=p.bookingid WHERE date BETWEEN '$fromdate' AND '$todate'");
+    $data['k'] = $getdata->row();
+    $this->load->view('admin/datewisebookings',$data);
   }
 
   
@@ -431,6 +678,28 @@ class Admin extends CI_Controller {
     $data['vendorData'] = $vendorsdata->result();
     $data['packages'] = $this->Adminmodel->getCompletePackagesData();
     $this->load->view('admin/addpackages',$data);
+  }
+
+  public function getResort()
+  {
+    $vendorid = $this->input->post('vid');
+    //echo $vendorid;
+    echo "<option value=''>Select Resort Name</option>";
+    $getResort = $this->db->query("SELECT * FROM tblresorts WHERE vendorid='$vendorid'");
+    foreach ($getResort->result() as $k) {
+      echo "<option value='$k->resortid'>$k->resortname</option>";
+    }
+  }
+
+  public function getEvent()
+  {
+    $vendorid = $this->input->post('vid');
+    //echo $vendorid;
+    echo "<option value=''>Select Event Name</option>";
+    $getEvent = $this->db->query("SELECT * FROM tblevents WHERE vendorid='$vendorid'");
+    foreach ($getEvent->result() as $k) {
+      echo "<option value='$k->eventid'>$k->eventname</option>";
+    }
   }
 
 
@@ -1555,23 +1824,23 @@ class Admin extends CI_Controller {
            redirect('admin/orderdetails');
     }
 
-	// populating states //
+  // populating states //
 
-	public function ajaxcountry()
-	{
+  public function ajaxcountry()
+  {
     if (!$this->session->userdata('username')) 
               redirect('admin/login');
         
-		$countryid = $this->input->post('country');
-		//echo $countryid;
+    $countryid = $this->input->post('country');
+    //echo $countryid;
 
         $id = $this->input->post('uid');
         $query = $this->db->query("SELECT * FROM register WHERE ID='$id'");
         $row = $query->row(); 
         $state = $row->residing_state;
-		$states = $this->db->get_where('state' , array('country' => $countryid ));
-		//$states = $this->db->get('state_new');
-		foreach ($states->result() as $st)
+    $states = $this->db->get_where('state' , array('country' => $countryid ));
+    //$states = $this->db->get('state_new');
+    foreach ($states->result() as $st)
         {   
             if ($st->name==$state) 
             {
@@ -1581,28 +1850,28 @@ class Admin extends CI_Controller {
                 echo '<option style="padding: 3px;border-bottom: solid 1px silver;" value="'.$st->name.'"style="padding: 3px;border-bottom: solid 1px silver;">'.$st->name.'</option>';
             }
         }
-		
-	}
+    
+  }
 
-	// populating states //
+  // populating states //
 
-	// populating cities or districts //
+  // populating cities or districts //
 
-	public function ajaxstates()
-	{
+  public function ajaxstates()
+  {
     if (!$this->session->userdata('username')) 
               redirect('admin/login');
         
-		$stateid = $this->input->post('state');
-		//echo $stateid;
+    $stateid = $this->input->post('state');
+    //echo $stateid;
 
         $id = $this->input->post('uid');
         $query = $this->db->query("SELECT * FROM register WHERE ID='$id'");
         $row = $query->row(); 
         $district = $row->native_district;
 
-		$districts = $this->db->get_where('cities' , array('state' => $stateid ));
-		foreach ($districts->result() as $dt)
+    $districts = $this->db->get_where('cities' , array('state' => $stateid ));
+    foreach ($districts->result() as $dt)
         {   
             if ($dt->name==$district) {
                echo '<option selected="selected" style="padding: 3px;border-bottom: solid 1px silver;" value="'.$dt->name.'"style="padding: 3px;border-bottom: solid 1px silver;">'.$dt->name.'</option>';
@@ -1611,26 +1880,26 @@ class Admin extends CI_Controller {
                 echo '<option style="padding: 3px;border-bottom: solid 1px silver;" value="'.$dt->name.'"style="padding: 3px;border-bottom: solid 1px silver;">'.$dt->name.'</option>';
             }
         }
-		
-	}
+    
+  }
 
-	// populating cities or districts //
+  // populating cities or districts //
 
-	// populating mandals //
+  // populating mandals //
     
     public function ajaxmandals()
-	{
+  {
         
-		$districtid = $this->input->post('district');
-		//echo $districtid;
+    $districtid = $this->input->post('district');
+    //echo $districtid;
 
         $id = $this->input->post('uid');
         $query = $this->db->query("SELECT * FROM register WHERE ID='$id'");
         $row = $query->row(); 
         $mandal = $row->mandal;
 
-		$mandals = $this->db->get_where('mandal' , array('district' => $districtid ));
-		foreach ($mandals->result() as $md)
+    $mandals = $this->db->get_where('mandal' , array('district' => $districtid ));
+    foreach ($mandals->result() as $md)
         {   
             if ($md->mandalname==$mandal) 
             {
@@ -1640,25 +1909,25 @@ class Admin extends CI_Controller {
                 echo '<option style="padding: 3px;border-bottom: solid 1px silver;" value="'.$md->mandalname.'"style="padding: 3px;border-bottom: solid 1px silver;">'.$md->mandalname.'</option>';
             }   
         }
-		
-	}
+    
+  }
 
-	// populating mandals //
+  // populating mandals //
 
-	// populating raasi //
+  // populating raasi //
 
-	public function ajax_get_raasi1(){
+  public function ajax_get_raasi1(){
       $birth_star_id=$_REQUEST['birth_star_id'];
       $res=$this->Adminmodel->get_raasi_code('birth_star',$birth_star_id);
       $output=explode(',',$res);
       echo $output['0'];
     }
 
-	// populating raasi //
+  // populating raasi //
 
-	// populating education //
+  // populating education //
 
-	public function ajaxeducation()
+  public function ajaxeducation()
     { 
         $edtypeid = $this->input->post('edtype');
         //echo $edtypeid;
@@ -1684,25 +1953,25 @@ class Admin extends CI_Controller {
 
     
 
-	// populating education //
+  // populating education //
 
-	// check email starts //
+  // check email starts //
 
-	public function checkemail()
-	{
-		$lemail = $this->input->post('lemail');
+  public function checkemail()
+  {
+    $lemail = $this->input->post('lemail');
         //echo $lemail;
-		$email=$this->db->query("select lemail from register where lemail='$lemail'");
+    $email=$this->db->query("select lemail from register where lemail='$lemail'");
         //echo $email->num_rows();
-		if($email->num_rows()>0){
-			echo '<div style="color:red;">Email ID Already exists.</div>';
-		}else{
-			echo '<div style="color:green;">Email ID Available.</div>';
-		}
+    if($email->num_rows()>0){
+      echo '<div style="color:red;">Email ID Already exists.</div>';
+    }else{
+      echo '<div style="color:green;">Email ID Available.</div>';
+    }
 
-	}
+  }
 
-	// check email ends //
+  // check email ends //
 
     
 
@@ -1712,21 +1981,21 @@ class Admin extends CI_Controller {
               redirect('admin/login');
 
         
-    	$this->form_validation->set_rules('itemname', 'Item name', 'required');
+      $this->form_validation->set_rules('itemname', 'Item name', 'required');
         $this->form_validation->set_rules('price', 'Price', 'required');
         $this->form_validation->set_rules('description', 'Item description', 'required');
         //$this->form_validation->set_rules('uploadedimages', 'Document', 'required');
-    	
+      
 
-    	if ($this->form_validation->run() == FALSE)
+      if ($this->form_validation->run() == FALSE)
         {   ////validation fails
-        	//$data['countries'] = $this->db->query("SELECT name FROM country order by id asc");
-			//$data['religion'] = $this->db->query("SELECT religion_name FROM religion_table order by religion_table_id asc");
-			//$data['birthstar'] = $this->db->query("SELECT s_birth_star FROM birth_star order by s_birth_star");
-			//$data['edtype'] =$this->db->query("SELECT *  FROM education_table WHERE parent_id IS NULL");
-			//$data['raasi'] = $this->db->get('raasi');
-			//$data['occtype'] = $this->db->get('occupation_table');
-			$this->load->view('admin/register');
+          //$data['countries'] = $this->db->query("SELECT name FROM country order by id asc");
+      //$data['religion'] = $this->db->query("SELECT religion_name FROM religion_table order by religion_table_id asc");
+      //$data['birthstar'] = $this->db->query("SELECT s_birth_star FROM birth_star order by s_birth_star");
+      //$data['edtype'] =$this->db->query("SELECT *  FROM education_table WHERE parent_id IS NULL");
+      //$data['raasi'] = $this->db->get('raasi');
+      //$data['occtype'] = $this->db->get('occupation_table');
+      $this->load->view('admin/register');
 
         }else{
             //echo "true";
@@ -1781,7 +2050,7 @@ class Admin extends CI_Controller {
 
     
     
-	
+  
 
     
 
@@ -2018,34 +2287,81 @@ class Admin extends CI_Controller {
   public function submitvendorpayments()
   {
     $pdate = $this->input->post('pdate');
-    //echo $pdate."<br>";
+    echo $pdate."<br>";
     $paymenttype = $this->input->post('paymenttype');
     //echo $paymenttype."<br>";
     $ctdate = $this->input->post('ctdate');
-    //echo $ctdate."<br>";
+    //$ctdate = date("Y-m-d 00:00:00", strtotime($ctdate));
+    echo $ctdate."<br>";
     $vendorid = $this->input->post('vendorid');
     //echo $vendorid."<br>";
     $amount = $this->input->post('amount');
     //echo $amount."<br>";
     $ctno = $this->input->post('ctno');
     //echo $ctno."<br>";
+    
+    $getbalance = $this->db->query("SELECT balance FROM tbltransactions  where vendorid='$vendorid' order by tid desc limit 1");
+    $gb = $getbalance->row();
+    $balance = $gb->balance;
+    $totalbalance = $balance - $amount;
+    
+    if($paymenttype=="cash")
+    {
+        $data = array(
+       'paymentdate' => $pdate,
+       'vendorid' => $vendorid,
+       'paymenttype' => $paymenttype,
+       'amount' => $amount,
+       'insertedby' =>'admin',
+       'insertedon' => date('Y-m-d h:i:s'),
+      );
+
+      $this->db->insert('tblvendorpayments', $data);
+
+      $tdata = array(
+       'transactiondate' => $pdate,
+       'vendorid' => $vendorid,
+       'amountrecieved' => 0,
+       'servicecharges' => 0,
+       'amountpaid' => $amount,
+       'balance' => $totalbalance
+      );
+
+      $this->db->insert('tbltransactions', $tdata);
 
 
-    $data = array(
-     'paymentdate' => $pdate,
-     'vendorid' => $vendorid,
-     'paymenttype' => $paymenttype,
-     'transactionnumber' => $ctno,
-     'transactiondate' => $ctdate,
-     'amount' => $amount,
-     'insertedby' =>'admin',
-     'insertedon' => date('Y-m-d h:i:s'),
-    );
 
-    $this->db->insert('tblvendorpayments', $data);
+    }else {
+        
+      $data = array(
+       'transactiondate' => $ctdate,
+       'vendorid' => $vendorid,
+       'amountrecieved' => 0,
+       'servicecharges' => 0,
+       'amountpaid' => $amount,
+       'balance' => $totalbalance
+      );
+
+      $this->db->insert('tbltransactions', $data);
+
+      $tdata = array(
+       'paymentdate' => $pdate,
+       'vendorid' => $vendorid,
+       'paymenttype' => $paymenttype,
+       'transactionnumber' => $ctno,
+       'transactiondate' => $ctdate,
+       'amount' => $amount,
+       'insertedby' =>'admin',
+       'insertedon' => date('Y-m-d h:i:s'),
+      );
+
+      $this->db->insert('tblvendorpayments', $tdata);
+    }
+
+    
     $this->session->set_flashdata('success','<div class="alert alert-success text-center">Record Inserted Successfully</div>');
     redirect('admin/vendorpayments');
-
+     
 
   }
 
@@ -2106,5 +2422,5 @@ class Admin extends CI_Controller {
 
 
 
-	
+  
 }

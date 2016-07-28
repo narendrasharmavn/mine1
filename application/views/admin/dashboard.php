@@ -138,13 +138,13 @@ include 'header.php';
 												</div>
 												<div class="widget-summary-col">
 													<div class="summary">
-														<h4 class="title">Total Orders Delivered</h4>
+														<h4 class="title">Total Bookings Today</h4>
 														<?php
-														 //$processedResults = $this->db->query("SELECT * FROM orderdetails WHERE status='delivered'");
-														 //$processedResults = $processedResults->num_rows();
+														 $gettotalbookingstoday = $this->db->query("SELECT * FROM tblbookings WHERE date >= CURDATE()");
+														 $processedResults = $gettotalbookingstoday->num_rows();
 														?>
 														<div class="info">
-															<strong class="amount"><?php //echo $processedResults;  ?>20</strong>
+															<strong class="amount"><?php echo $processedResults;  ?></strong>
 															<span class="text-primary"></span>
 														</div>
 													</div>
@@ -167,13 +167,14 @@ include 'header.php';
 												</div>
 												<div class="widget-summary-col">
 													<div class="summary">
-														<h4 class="title">New Orders</h4>
+														<h4 class="title">Total Collection Today</h4>
 														<?php
-														 //$processedResults = $this->db->query("SELECT * FROM orderdetails WHERE status='processing'");
-														 //$processedResults = $processedResults->num_rows();
+
+														 $gettotalcollectionstoday = $this->db->query("SELECT sum(totalcost) as totalcost FROM tblpayments WHERE status='paid' and transactiontime>=date_format(now(),'%Y-%m-%d')");
+														 $gctResults = $gettotalcollectionstoday->row();
 														?>
 														<div class="info">
-															<strong class="amount"><?php //echo $processedResults;  ?>15</strong>
+															<strong class="amount"><?php echo $gctResults->totalcost;  ?></strong>
 														</div>
 													</div>
 													<div class="summary-footer">
@@ -184,7 +185,7 @@ include 'header.php';
 										</div>
 									</section>
 								</div>
-							<!--	<div class="col-md-12 col-lg-6 col-xl-6">
+							    <div class="col-md-12 col-lg-6 col-xl-6">
 									<section class="panel panel-featured-left panel-featured-tertiary">
 										<div class="panel-body">
 											<div class="widget-summary">
@@ -195,9 +196,14 @@ include 'header.php';
 												</div>
 												<div class="widget-summary-col">
 													<div class="summary">
-														<h4 class="title">Today's Collection</h4>
+														<h4 class="title">Commission Today</h4>
+														<?php
+
+														 $gettotalcommissionstoday = $this->db->query("SELECT sum(servicetax) as servicetax FROM tblpayments WHERE status='paid' and transactiontime>=date_format(now(),'%Y-%m-%d')");
+														 $gtcResults = $gettotalcommissionstoday->row();
+														?>
 														<div class="info">
-															<strong class="amount">1</strong>
+															<strong class="amount"><?php echo $gtcResults->servicetax;  ?></strong>
 														</div>
 													</div>
 													<div class="summary-footer">
@@ -219,9 +225,14 @@ include 'header.php';
 												</div>
 												<div class="widget-summary-col">
 													<div class="summary">
-														<h4 class="title">Office Registered Profiles</h4>
+														<h4 class="title">Amount Payable As on Today</h4>
+														<?php
+
+														 $gettotalamountpayabletoday = $this->db->query("SELECT sum(balance) as balance FROM tbltransactions WHERE  transactiondate>=date_format(now(),'%Y-%m-%d')");
+														 $gtaptResults = $gettotalamountpayabletoday->row();
+														?>
 														<div class="info">
-															<strong class="amount">1</strong>
+															<strong class="amount"><?php echo $gtaptResults->balance;  ?></strong>
 														</div>
 													</div>
 													<div class="summary-footer">
@@ -234,12 +245,7 @@ include 'header.php';
 								</div>
 							</div>
 						</div>
-					</div> -->
-
-	
-
-					
-					
+					</div>
 				</section>
 			</div>
 

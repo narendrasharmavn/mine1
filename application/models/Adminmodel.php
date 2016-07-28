@@ -32,7 +32,7 @@ class Adminmodel extends CI_Model {
 
     public function getVendorOutStandingTransactions(){
         //echo "select t.*,v.vendorname from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid GROUP BY t.vendorid ORDER BY t.tid desc";
-        return $this->db->query("select t.*,v.vendorname from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid GROUP BY t.vendorid ORDER BY t.tid desc");
+        return $this->db->query("SELECT sum(t.amountrecieved) as amountrecieved, sum(t.servicecharges) as servicecharges,sum(t.amountpaid) as amountpaid,v.vendorname from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid GROUP BY t.vendorid ORDER BY t.tid desc");
         
     }
 
@@ -58,8 +58,8 @@ class Adminmodel extends CI_Model {
 
 
     public function  getVendorCommissionReportOnVendorId($vendorid,$fromdate,$todate){
-        echo "select t.*,v.vendorname,SUM(t.amountrecieved)-SUM(t.amountpaid) AS outstanding from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid WHERE t.vendorid='$vendorid' AND t.transactiondate BETWEEN '$fromdate' AND '$todate' ORDER BY t.tid desc";
-        return $this->db->query("select t.*,v.vendorname,SUM(t.amountrecieved)-SUM(t.amountpaid) AS outstanding from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid WHERE t.vendorid='$vendorid' AND t.transactiondate BETWEEN '$fromdate' AND '$todate' ORDER BY t.tid desc");
+        //echo "select t.*,v.vendorname,SUM(t.amountrecieved)-SUM(t.amountpaid) AS outstanding from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid WHERE t.vendorid='$vendorid' AND t.transactiondate BETWEEN '$fromdate' AND '$todate' ORDER BY t.tid desc";
+        return $this->db->query("select t.*,v.vendorname from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid WHERE t.vendorid='$vendorid' AND t.transactiondate BETWEEN '$fromdate' AND '$todate' ORDER BY t.tid desc");
         
     }
 

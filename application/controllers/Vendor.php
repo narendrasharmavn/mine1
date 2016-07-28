@@ -25,7 +25,7 @@ class Vendor extends CI_Controller {
 		$this->load->view('admin/login');
 	}
 
-    public function dashboard()
+  public function dashboard()
 	{
 
     if (!$this->session->userdata('username')) 
@@ -43,10 +43,53 @@ class Vendor extends CI_Controller {
   {
      if (!$this->session->userdata('username')) 
        redirect('admin/login');
-
+      
       $this->load->view('vendor/vbookings');
         
   }
+  
+  public function onloadvbookings()
+  {
+    $vendorid = $this->session->userdata('vendorid');
+    $vendorb=$this->db->query("SELECT b.bookingid,b.date, b.quantity,b.childqty, b.amount,b.ticketnumber,p.packagename,c.name FROM tblbookings b,tblpackages p,tblcustomers c,tblvendors v where b.packageid=p.packageid and b.userid=c.customer_id and v.vendorid='$vendorid' and b.booking_status='booked' and b.payment_status='paid' and b.date >= CURDATE() ORDER BY b.date DESC");
+    foreach ($vendorb->result() as $k) {
+      echo '<tr>
+
+              <td>'.$k->ticketnumber.'</td>
+              <td>'.$k->packagename.'</td>
+              <td>'.$k->name.'</td>
+              <td>'.$k->quantity.'</td>
+              <td>'.$k->childqty.'</td>
+              <td>'.$k->amount.'</td>
+              </tr>
+      ';
+    }
+  }
+
+  public function getvbookings()
+  {
+    error_reporting(0);
+    $vendorid = $this->input->post('vendorid');
+    $fromdate = $this->input->post('fromdate');
+    $todate = $this->input->post('todate');
+
+      
+      $vendorb=$this->db->query("SELECT b.bookingid,b.date, b.quantity,b.childqty, b.amount,b.ticketnumber,p.packagename,c.name FROM tblbookings b,tblpackages p,tblcustomers c,tblvendors v where b.packageid=p.packageid and b.userid=c.customer_id and v.vendorid='$vendorid' and b.date BETWEEN '$fromdate' AND '$todate' and b.booking_status='booked' and b.payment_status='paid' ORDER BY b.date DESC");
+      foreach ($vendorb->result() as $k) {
+        echo '<tr>
+                <td>'.$k->ticketnumber.'</td>
+              <td>'.$k->packagename.'</td>
+              <td>'.$k->name.'</td>
+              <td>'.$k->quantity.'</td>
+              <td>'.$k->childqty.'</td>
+              <td>'.$k->amount.'</td>
+              </tr>
+        ';
+      }  
+        
+    
+  }
+
   public function updateticket()
   {
     $tckno=$this->input->post('ticketno');
@@ -58,6 +101,53 @@ class Vendor extends CI_Controller {
     $this->db->where('ticketnumber', $tckno);
     $this->db->update('tblbookings', $vdata); 
     echo "true";
+  }
+
+  public function getticketdata()
+  {
+    $tckno=$this->input->post('ticketno');
+
+    $getticketdata = $this->db->query("SELECT b.bookingid,b.date,b.dateofvisit,b.visitorstatus, b.quantity,b.childqty,b.kidsmealqty, b.amount,b.ticketnumber,p.packagename,c.name FROM tblbookings b,tblpackages p,tblcustomers c,tblvendors v where b.packageid=p.packageid AND ticketnumber='$tckno'");
+    $k = $getticketdata->row();
+    $dateofvisit = $k->dateofvisit;
+    //echo $dateofvisit."<br>";
+    $customername = $k->name;
+    //echo $customername."<br>";
+    $quantity = $k->quantity;
+    //echo $quantity."<br>";
+    $childqty = $k->childqty;
+    //echo $childqty."<br>";
+    $kidsmealqty = $k->kidsmealqty;
+    //echo $kidsmealqty."<br>";
+    $visitorstatus = $k->visitorstatus;
+    //echo $visitorstatus."<br>";
+    echo '<tr>
+                <td>Ticket No.</td>
+                <td>'.$tckno.'</td>
+                <td>Date Of Visit</td>
+                <td>'.$k->date.'</td>
+          </tr>
+          <tr>
+                <td>Visitor Name</td>    
+                <td>'.$k->name.'</td>
+                <td>No.of Tickets</td>
+                <td>A - '.$quantity.' <br/>C - '.$childqty.'</td>
+          </tr>
+          <tr>
+                <td>Kid Meal</td>
+                <td>'.$k->kidsmealqty.'</td>
+                <td>Visitor Status</td>
+                <td>
+        ';
+        if($visitorstatus=='visited')
+        {
+           echo '<span style="color:green;">'.$visitorstatus.'</span>';
+        }else{
+           echo '<span style="color:red;">'.$visitorstatus.'</span>';
+        }
+                
+          echo '</td></tr>';      
+
   }
 
 	public function addevents()

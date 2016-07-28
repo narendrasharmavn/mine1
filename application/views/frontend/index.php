@@ -79,28 +79,21 @@
             <div style="position:absolute;display:block;background:url('img/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
         </div>
         <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 1300px; height: 500px; overflow: hidden;">
+        <?php
+            $i=0;
+            foreach ($query->result() as $k) {
+                
+                    ?>
             <div data-p="225.00" style="display: none;">
-                <img data-u="image" src="<?php echo base_url(); ?>assets/sliderimages/2.jpg" />
-                <div class="slider-title">Some Text Comes Here</div>
-                <div style="slider-cap">Some Caption Comes Here</div>
-               
+                <img data-u="image" src="<?php echo base_url(); ?>assets/sliderimages/<?php echo $k->image; ?>" />
+                <div class="slider-title"><?php echo $k->title; ?></div>
+                <div class="slider-cap1"><?php echo $k->subtitle; ?></div>
+                <div class="slider-cap">
+                    <a class="btn btn-success" href="<?php echo $k->link; ?>">View More</a>
+                </div>
                 
             </div>
-            <div data-p="225.00" style="display: none;">
-                <img data-u="image" src="<?php echo base_url(); ?>assets/sliderimages/4.jpg" />
-<div class="slider-title">Some Text Comes Here</div>
-                <div style="slider-cap">Some Caption Comes Here</div>
-            </div>
-            <div data-p="225.00" data-po="80% 55%" style="display: none;">
-                <img data-u="image" src="<?php echo base_url(); ?>assets/sliderimages/8.jpg" />
-<div class="slider-title">Some Text Comes Here</div>
-                <div style="slider-cap">Some Caption Comes Here</div>
-            </div>
-			<div data-p="225.00" data-po="80% 55%" style="display: none;">
-                <img data-u="image" src="<?php echo base_url(); ?>assets/sliderimages/10.jpg" />
-<div class="slider-title">Some Text Comes Here</div>
-                <div style="slider-cap">Some Caption Comes Here</div>
-            </div>
+            <?php } ?>
             <a data-u="ad" href="http://www.jssor.com" style="display:none">Bootstrap Carousel</a>
         
         </div>

@@ -168,7 +168,8 @@
                                 	<div class="form-group">
 										<label class="col-md-3 control-label"></label>
 										<div class="col-md-6 col-xs-11">
-											<button type="submit"  class="btn btn-primary hidden-xs">Submit</button>
+											<button type="submit"  class="btn btn-primary">Submit</button>
+											<button type="reset"  class="btn btn-danger">Cancel</button>
 										</div>
 									</div>
                                 </center>										
