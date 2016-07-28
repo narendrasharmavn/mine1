@@ -253,13 +253,21 @@
                     
                     <td class="col-md-3">
 
-                                <input type="text" value="0" id="<?php echo 'adult-number-'.$k->packageid; ?>" class="qty3 form-control <?php echo 'adult-number-'.$k->packageid; ?> pull-left" name="adults">
+                            <div class="numbers-row" data-min="0">
+                                <input type="text" value="0" id="adults" class="qty2 form-control <?php echo 'adult-number-'.$k->packageid; ?>" name="adults">
+                            <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
+
+                                
                                 <input type="hidden" value="<?php echo $k->adultprice; ?>" id="adults" class="qty2 form-control <?php echo 'adult-cost-'.$k->packageid; ?>" >
                           
                     </td>
                     <td class="col-md-3">
+
+                                <div class="numbers-row" data-min="0">
+                                    <input type="text" value="0" id="children" class="qty2 form-control <?php echo 'child-number-'.$k->packageid; ?>" name="kids">
+                                <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
    
-                                <input type="text" value="0" id="children" class="qty3 form-control <?php echo 'child-number-'.$k->packageid; ?> pull-left" name="kids">
+                                
                                 <input type="hidden" value="<?php echo $k->childprice; ?>" id="adults" class="qty2 form-control <?php echo 'child-cost-'.$k->packageid; ?>" >
                                 
                             
@@ -480,15 +488,16 @@ if ($this->session->userdata('holidayCustomerName')) {
                 <tr>
                     <td>
                         Internet & Handling Charges                    </td>
-                    <td class="text-right internetcharges" >
-                        <span id="internetcharges"></span> (per ticket)
+                    <td class="text-right " >
+                      Rs.   <span class="internetcharges" id="internetcharges"></span> 
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Service tax                    </td>
+                        Service tax 
+                    </td>
                     <td class="text-right" >
-                        <span id="servicetax">0.14</span> 
+                       Rs.  <span id="servicetax">0.14</span> 
                     </td>
                 </tr>
 
@@ -496,7 +505,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <td>
                         Swachh Bharath                     </td>
                     <td class="text-right" >
-                        <span id="servicetax">0.005</span> 
+                      Rs.  <span id="swachhcess">0.005</span> 
                     </td>
                 </tr>
 
@@ -504,7 +513,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <td>
                         Krishi Kalyan Cess                    </td>
                     <td class="text-right" >
-                        <span id="servicetax">0.005</span> 
+                       Rs.  <span id="krishicess">0.005</span> 
                     </td>
                 </tr>
                                 <tr>
@@ -642,6 +651,12 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <div class="numbers-row" data-min="0">
                         <input type="text" value="0" id="kidsmeal" class="qty2 form-control" name="kids">
                     <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
+
+                    <input type="hidden" value="<?php echo $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->servicetax;  ?>" class="service-tax">
+                        <input type="hidden" value="<?php echo $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->swachcess;  ?>" class="swachh-cess">
+                        <input type="hidden" value="<?php echo $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->krishicess;  ?>" class="krishi-cess">
+                        <input type="hidden" value="<?php echo $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->kidsmealtax;  ?>" class="kids-meal-tax">
+
                 </div>
             </div>
             
@@ -736,19 +751,27 @@ var exchange_rate = 1;
         });
     }
     $('input#adults').on('change', function(){
-        $('.adults-number').html( $(this).val() );
-        update_tour_price();
+        //$('.adults-number').html( $(this).val() );
+        //update_tour_price();
     });
     $('input#children').on('change', function(){
-        $('.children-number').html( $(this).val() );
-        update_tour_price();
+        //$('.children-number').html( $(this).val() );
+        //update_tour_price();
     });
     $('input#kidsmeal').on('change', function(){
         $('.kidsmeal-number').html( $(this).val() );
         $('.kidsmealqty').text($(this).val());
         //price  $('#kidsmeal-price').val()
         $('#kidsmealprice').text( $(this).val() * $('#kidsmeal-price').val()   );
-        update_tour_price();
+        //get kids meal tax
+        var kidsmealtax = $('.kids-meal-tax').val();
+        var calculatedkidmealtax = kidsmealtax * (  $(this).val() * $('#kidsmeal-price').val() )/100;
+
+
+
+
+        //update_tour_price();
+        calculateBookings();
     });
     var validation_rules = {};
     if ( $('input.date-pick').length ) {
@@ -760,61 +783,7 @@ var exchange_rate = 1;
     });
 //});
 
-function update_tour_price() {
-    var adults = $('input#adults').val();
-    var kidsmealqty = $('input#kidsmeal').val();
-    var children = 0;
-    if ( $('input#children').length ) {
-        children = $('input#children').val();
-    }
 
-
-    price_per_person=parseInt($('.adultprice').html());
-    price_per_child=parseInt($('.childprice').html());
-    kids_meal_price=parseInt($('.kidsmealprice').html());
-    var internetcharges=$('#internetcharges').html();
-    
-    var service_tax = 14;
-    var swachhbharath = 0.5;
-    var kkcess = 0.5;
-    
-    
-
-    //var kidsmealtotal = kidsmealqty*kids_meal_price;
-    var price =0;
-    price = +( (adults * price_per_person + children * price_per_child +  kidsmealqty*kids_meal_price) );
-    price = Math.ceil(price);
-    console.log("price is: "+price);
-
-    var calculatedinternetcharges = (price * internetcharges );
-    console.log("calculated internet charges are : "+calculatedinternetcharges);
-    $('.calculated-internetcharges').html(calculatedinternetcharges);
-
-
-    var calculatedservicetax = (service_tax * calculatedinternetcharges)/100;
-    //alert(calculatedservicetax);
-    //calculate Swachh Bharath tax based on internet handling charges
-    var calculatedswachhbharath = (swachhbharath * calculatedinternetcharges)/100;
-    console.log("calculated Swachh Bharath are : "+calculatedswachhbharath);
-    //alert(calculatedswachhbharath);
-    //calculate Krish Kalyan Cess based on internet handling charges
-    var calculatedkkcess = (kkcess * calculatedinternetcharges)/100;
-    console.log("calculated Krish Kalyan Cess are : "+calculatedkkcess);
-    //alert(calculatedkkcess);
-
-    console.log("calculated service tax over internet charges are : "+calculatedservicetax);
-    console.log("calculated Swachh Bharath tax over internet charges are : "+calculatedswachhbharath);
-    console.log("calculated Krish Kalyan Cess tax over internet charges are : "+calculatedkkcess);
-    $('.calculated-servicetax').html(calculatedservicetax.toFixed(2));
-    $('.calculated-swachhbharath').html(calculatedswachhbharath.toFixed(2));
-    $('.calculated-kkcess').html(calculatedkkcess.toFixed(2));
-
-    $('.child-amount').toggleClass( 'hide', children < 1 );
-    var total_price = $('.total-cost').text().replace(/[\d\.\,]+/g, price);
-    var total_calculated_cost = price+calculatedservicetax+calculatedinternetcharges+calculatedswachhbharath+calculatedkkcess;
-    $('.total-cost').text(Math.ceil(total_calculated_cost));
-    console.log("calculated totalcost"+Math.ceil(total_calculated_cost));
-}
 
 
 function showmap()
@@ -966,6 +935,7 @@ $(':radio').change(
 
 
 function calculateBookings(){
+    console.clear();
 
     var packageId = document.getElementsByName('packagename[]');
     var vals = "";
@@ -980,6 +950,7 @@ function calculateBookings(){
     var sumOfChildTickets=0;
     var sumOfAdultPrice =0;
     var sumOfChildPrice =0;
+    var internetCharges =0;
     for (var i=0, n=packageId.length;i<n;i++) 
     {
         if (packageId[i].checked) 
@@ -993,9 +964,16 @@ function calculateBookings(){
             childticketprice.push($('.'+'child-cost-'+packageid).val());
             internethandlingcharges.push($('.'+'servicetax-'+packageid).val());
 
+            
             sumOfAdultTickets += + ($('.'+'adult-number-'+packageid).val());
             sumOfChildTickets += + ($('.'+'child-number-'+packageid).val());
             sumOfAdultPrice += + ( $('.'+'adult-number-'+packageid).val() * $('.'+'adult-cost-'+packageid).val() );
+
+            //now calculate internet charges over adult price and adult ticket
+            internetCharges += + ( (($('.'+'adult-number-'+packageid).val() * $('.'+'adult-cost-'+packageid).val()) * $('.'+'servicetax-'+packageid).val())/100  );
+            //now calculate internet charges over child price and child ticket
+            internetCharges += + ( ($('.'+'child-number-'+packageid).val() *  $('.'+'child-cost-'+packageid).val()) * $('.'+'servicetax-'+packageid).val())/100 ;
+
             //console.log("sum of adult price :"+sumOfAdultPrice);
             sumOfChildPrice += + ( $('.'+'child-number-'+packageid).val() *  $('.'+'child-cost-'+packageid).val() );
             calculate_adult.push( $('.'+'adult-number-'+packageid).val() * $('.'+'adult-cost-'+packageid).val() );
@@ -1005,24 +983,57 @@ function calculateBookings(){
             
         }
     }
+    /*
     
     console.log("number of adults for the package "+numberofadults);
     console.log("Price of adults per ticket "+adultticketprice);
     console.log("number of Children for the package "+numberofchildren);
     console.log("Price of Child for the package "+childticketprice);
-    console.log("Internet Handling charges "+internethandlingcharges);
+    
     console.log("Cost charges Adult "+calculate_adult);
     console.log("Cost charges Child "+calculate_child);
+    */
+    console.log("Internet Handling charges "+internethandlingcharges);
+     //get kids meal tax
+        var kidsmealtax = $('.kids-meal-tax').val();
+        var calculatedkidmealtax = kidsmealtax * (  $('#kidsmeal').val() * $('#kidsmeal-price').val() )/100;
+        internetCharges = internetCharges + calculatedkidmealtax;
+    console.log("Internet charges "+internetCharges);
     //replace adult tickets and price
     $('.adults-number').text(sumOfAdultTickets);
     $('.adult-price').text(sumOfAdultPrice);
     $('.children-number').text(sumOfChildTickets);
     $('.child-price').text(sumOfChildPrice);
     $('.kidsmealprice').text($('#kidsmeal-price').val());
+    $('.internetcharges').text(internetCharges);
+    //now get service tax from input hidden variable
+    var calculatedservicetax = round(( internetCharges * $('.service-tax').val() )/100,1);
+    var calculatedswacchcess = round(( internetCharges * $('.swachh-cess').val() )/100,1);
+    var calculatedkrishicess = round(( internetCharges * $('.krishi-cess').val() )/100,1);
+
+    
+    $('#servicetax').text(calculatedservicetax);
+    $('#swachhcess').text(calculatedswacchcess);
+    $('#krishicess').text(calculatedkrishicess);
+
+
+    //now do total
+    var total = 0;
+    total += +( parseInt($('.adult-price').text()) + parseInt($('.child-price').text()) + parseInt($('#kidsmealprice').text()) + round( $('.internetcharges').text() ,1 ) + round( $('#servicetax').text(),1 ) + round( $('#swachhcess').text(),1 ) + round( $('#krishicess').text(),1 ) );
+
+    console.log("Total is :"+total);
+
+    $('.total-cost').text(Math.round(total));
     
 
     
     
+}
+
+
+
+function round(value, decimals) {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
 }
 
 
@@ -1046,6 +1057,9 @@ $('input[name="addtocart"]').on('click', function() {
     
     $('.theiaStickySidebar').show();
 });
+
+
+
 
 
 </script>
