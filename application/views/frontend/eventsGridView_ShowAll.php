@@ -258,23 +258,15 @@
                                 </div>
                                 <div class="tour_title">
                                     <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
-                                        <h3 ><?php echo $k->eventname;   ?>  </h3>
+                                        <h3 class="eventtitle"><?php echo $k->eventname;   ?>  </h3>
                                     </a>
-                                    <p>
+                                    <p class="eventdate">
 
                                         <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">From : <?php echo $k->todate; ?></a> 
                                         &nbsp;
                                         &nbsp;
                                         <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">To : <?php echo $k->fromdate; ?></a>
                                     </p>                  
-                                  <!--  <div class="rating">
-                                        <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
-                                    </div> end rating -->
-                                    <!--
-                                                <div class="wishlist">
-                                        <a class="tooltip_flip tooltip-effect-1 btn-add-wishlist" href="#" data-post-id="170"><span class="wishlist-sign">+</span><span class="tooltip-content-flip"><span class="tooltip-back">Add to wishlist</span></span></a>
-                                        <a class="tooltip_flip tooltip-effect-1 btn-remove-wishlist" href="#" data-post-id="170" style="display:none;"><span class="wishlist-sign">-</span><span class="tooltip-content-flip"><span class="tooltip-back">Remove from wishlist</span></span></a>
-                                    </div> End wish list-->
                                 </div>
                             </div><!-- End box tour -->
     
@@ -302,69 +294,7 @@
         </div><!-- End col lg 9 -->
     </div><!-- End row -->
 </div>
-    
-    
-    <!--      <div class="post-content">
-            <div class="post nopadding clearfix">
-                            <div class="vc_row wpb_row vc_row-fluid white_bg margin_60 inner-container"><div class="container"><div class="row">
-    <div class="col-sm-12 ">
-             <div class="banner colored ">
-<h4>Discover our Top tours <span class="">from $34</span></h4>
-Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in.
-<a class="btn_1 white" href="#">Read more</a></div><div class="vc_row wpb_row vc_inner row"><div class="text-center wpb_column col-sm-6 col-md-3"><div class="vc_column-inner "><div class="wpb_wrapper">
-    <div>
-            <p><a href="#"><img class="img-responsive" src="<?php echo base_url(); ?>assets/frontend/images/bus.jpg" alt="Pic"></a></p>
-<h4><b>Sightseen tour</b> booking</h4>
-<p>Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor imperdiet deterruisset, doctus volumus explicari qui ex.</p>
-
-    </div> </div></div></div><div class="text-center wpb_column col-sm-6 col-md-3"><div class="vc_column-inner "><div class="wpb_wrapper">
-    <div>
-            <p><a href="#"><img class="img-responsive" src="<?php echo base_url(); ?>assets/frontend/images/bus.jpg" alt="Pic"></a></p>
-<h4><b>Sightseen tour</b> booking</h4>
-<p>Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor imperdiet deterruisset, doctus volumus explicari qui ex.</p>
-
-    </div> </div></div></div><div class="text-center wpb_column col-sm-6 col-md-3"><div class="vc_column-inner "><div class="wpb_wrapper">
-    <div>
-            <p><a href="#"><img class="img-responsive" src="<?php echo base_url(); ?>assets/frontend/images/bus.jpg" alt="Pic"></a></p>
-<h4><b>Sightseen tour</b> booking</h4>
-<p>Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor imperdiet deterruisset, doctus volumus explicari qui ex.</p>
-
-    </div> </div></div></div><div class="text-center wpb_column col-sm-6 col-md-3"><div class="vc_column-inner "><div class="wpb_wrapper">
-    <div>
-            <p><a href="#"><img class="img-responsive" src="<?php echo base_url(); ?>assets/frontend/images/bus.jpg" alt="Pic"></a></p>
-<h4><b>Sightseen tour</b> booking</h4>
-<p>Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor imperdiet deterruisset, doctus volumus explicari qui ex.</p>
-
-    </div> </div></div></div></div>
-    </div> 
-</div></div></div><div class="vc_row wpb_row row">
-    
-</div><div class="vc_row wpb_row vc_row-fluid margin_60 inner-container"><div class="container"><div class="row">
-    <div class="col-sm-12 ">
-            
-    <div>
-            <div class="main_title">
-<h2>Some <b>good</b> reasons</h2>
-<p>Quisque at tortor a libero posuere laoreet vitae sed arcu. Curabitur consequat.</p>
-</div>
-
-    </div> <div class="vc_row wpb_row vc_inner row"><div class="wow zoomIn wpb_column col-sm-12 col-md-4" style="visibility: hidden; animation-name: none;"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="ct-icon-box  feature_home"><i class="icon_set_1_icon-41"></i>
-<h3><b>+120</b> Premium tours</h3>
-<p class="">Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor imperdiet deterruisset.</p>
-<a class="btn_1 outline" href="#">Read more</a></div></div></div></div><div class="wow zoomIn wpb_column col-sm-12 col-md-4" style="visibility: hidden; animation-name: none;"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="ct-icon-box  feature_home"><i class="icon_set_1_icon-30"></i>
-<h3><b>+1000</b> Customers</h3>
-<p class="">Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor imperdiet deterruisset.</p>
-<a class="btn_1 outline" href="#">Read more</a></div></div></div></div><div class="wow zoomIn wpb_column col-sm-12 col-md-4" style="visibility: hidden; animation-name: none;"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="ct-icon-box  feature_home"><i class="icon_set_1_icon-57"></i>
-<h3><b>H24 </b> Support</h3>
-<p class="">Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor imperdiet deterruisset.</p>
-<a class="btn_1 outline" href="#">Read more</a></div></div></div></div></div>
-    <div>
-            <hr>
-
-    </div> 
-    </div> 
-</div></div></div>                                          </div><!-- end post -->
-        </div>
+    </div>
 
      <?php
      include 'footer.php';

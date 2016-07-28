@@ -346,7 +346,6 @@ if ($this->session->userdata('holidayCustomerName')) {
                 
                
             </div><!-- End row -->
-            <hr>
             <div class="guest-reviews">
                                         </div>
         </div>
@@ -478,36 +477,47 @@ if ($this->session->userdata('holidayCustomerName')) {
                 </tr>
                  <tr>
                     <td>
-                        Internet and Handling Charges                    </td>
+                        Internet & Handling Charges  
+						(<span id="internetcharges"></span>)
+						</td>
+                    <td class="text-right internetcharges" >
+					Rs. <span class="calculated-internetcharges">0</span>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Service tax
+						(<span id="servicetax">0.14</span>)
+						</td>
                     <td class="text-right" >
-                        <span id="internetcharges"></span> (per ticket)
+                        
+						Rs. <span class="calculated-servicetax">0</span>
                     </td>
                 </tr>
+
                 <tr>
                     <td>
-                        Service tax        
-                    </td>
-                    <td class="text-right">
-                         <span id="servicetax">0.14</span> 
+                        Swachh Bharath       
+					(<span id="servicetax">0.005</span>)
+						</td>
+                    <td class="text-right" >
+                        
+						Rs. <span class="calculated-swachhbharath">0</span>
                     </td>
                 </tr>
+
                 <tr>
                     <td>
-                        Swachh Bharath   
-                    </td>
-                    <td class="text-right">
-                        <span id="swachhbharath">0.005</span> 
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Krishi Kalyan Cess   
-                    </td>
-                    <td class="text-right">
-                        <span id="kkcess">0.005</span> 
+                        Krishi Kalyan Cess  
+						(<span id="servicetax">0.005</span>)
+						</td>
+                    <td class="text-right" >
+                        
+						Rs. <span class="calculated-kkcess">0</span>
                     </td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <td>
                         Total amount                    </td>
                     <td class="text-right">
@@ -520,7 +530,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                         +  <span> Rs . <span class="calculated-swachhbharath">0</span> (Swachh Bharath)</span>
                         +  <span> Rs . <span class="calculated-kkcess">0</span> (Krishi Kalyan Cess)</span>
                     </td>
-                </tr>
+                </tr>-->
                 <tr class="total">
                     <td>
                         Total cost                  </td>
@@ -571,7 +581,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                                                   
                         <div class="col-md-6">
                                 <div class="form-group">
-                                    <label style="float: left;">Rate Us</label>
+                                    <label style="float: left;margin-top:4px;">Rate Us</label>
                                     <fieldset id='demo1' class="ratingg">
                                 <input class="stars" type="radio" id="star5" name="pricerating" value="5" />
                                 <label class = "full" for="star5" title="Awesome - 5 stars"></label>

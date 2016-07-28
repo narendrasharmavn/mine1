@@ -1,6 +1,9 @@
-
     <!--Checkout Starts-->
-    
+    <style>
+	.tdrt{
+		text-align:right;
+	}
+	</style>
         <div class="container" style="margin-top:65px;min-height:450px;">
             <div class="row">
                 <div class="col-md-12 col-xs-12">
@@ -122,9 +125,8 @@
   <tr>
     <td width="150">Package Name
     </td>
-    <td width="15"> : 
-    </td>
-    <td>
+   
+    <td class="tdrt">
     <?php
 
      echo $this->db->get_where('tblpackages' , array('packageid' =>$this->session->userdata('packageid')))->row()->packagename;
@@ -140,12 +142,14 @@
       
     </td>
   </tr>
+  <tr><td width="150">Adult Tickets </td><td class="tdrt">Rs.<?php echo  $adultpriceperticket;  ?></td></tr>
+  <tr><td width="150">Child Tickets </td><td class="tdrt">Rs.<?php echo  $childpriceperticket;  ?></td></tr>
+  
 	<tr>
-    <td width="150">Ticket Cost
+    <td width="150">Total Ticket Cost
     </td>
-    <td width="15"> : 
-    </td>
-    <td>
+    
+    <td class="tdrt">
     Rs.<?php echo $ticketcost;  ?>
       
     </td>
@@ -155,10 +159,8 @@
     <td width="150">
       Internet Handling Charges
     </td>
-    <td width="15">
-       :
-    </td>
-    <td>
+   
+    <td class="tdrt">
       Rs. <?php echo $this->session->userdata('internetcharges');  ?>
     </td>
     
@@ -168,10 +170,8 @@
     <td width="150">
       Taxes
     </td>
-    <td width="15">
-       :
-    </td>
-    <td>
+    
+    <td class="tdrt">
       Rs. <?php echo $taxes; ?>
     </td>
 
@@ -182,10 +182,8 @@
     <td width="150">
       Date of Visit
     </td>
-    <td width="15">
-       :
-    </td>
-    <td>
+    
+    <td class="tdrt">
       <?php echo $this->session->userdata('dateofvisit');  ?>
     </td>
   </tr>
@@ -193,10 +191,8 @@
     <strong><td width="150">
       Total
     </td>
-    <td width="15">
-       :
-    </td>
-    <td>
+    
+    <td class="tdrt">
       Rs. <?php echo $this->session->userdata('totalcost');  ?>
     </td></strong>
   </tr>

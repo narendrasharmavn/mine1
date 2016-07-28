@@ -332,7 +332,6 @@ if ($this->session->userdata('holidayCustomerName')) {
                    </div>
             </div>
             
-            <hr>
             <div class="guest-reviews">
                                         </div>
         </div>
@@ -481,35 +480,47 @@ if ($this->session->userdata('holidayCustomerName')) {
                 </tr>
                 <tr>
                     <td>
-                        Internet & Handling Charges                    </td>
+                        Internet & Handling Charges  
+						(<span id="internetcharges"></span>)
+						</td>
                     <td class="text-right internetcharges" >
-                        <span id="internetcharges"></span> (per ticket)
+					Rs. <span class="calculated-internetcharges">0</span>
+                        
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Service tax                    </td>
+                        Service tax
+						(<span id="servicetax">0.14</span>)
+						</td>
                     <td class="text-right" >
-                        <span id="servicetax">0.14</span> 
+                        
+						Rs. <span class="calculated-servicetax">0</span>
                     </td>
                 </tr>
 
                 <tr>
                     <td>
-                        Swachh Bharath                     </td>
+                        Swachh Bharath       
+					(<span id="servicetax">0.005</span>)
+						</td>
                     <td class="text-right" >
-                        <span id="servicetax">0.005</span> 
+                        
+						Rs. <span class="calculated-swachhbharath">0</span>
                     </td>
                 </tr>
 
                 <tr>
                     <td>
-                        Krishi Kalyan Cess                    </td>
+                        Krishi Kalyan Cess  
+						(<span id="servicetax">0.005</span>)
+						</td>
                     <td class="text-right" >
-                        <span id="servicetax">0.005</span> 
+                        
+						Rs. <span class="calculated-kkcess">0</span>
                     </td>
                 </tr>
-                                <tr>
+                        <!--        <tr>
                     <td>
                         Total amount                    </td>
                     <td class="text-right">
@@ -535,7 +546,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                           +
                           Rs. <span class="calculated-kkcess">0</span> (Krishi Kalyan Cess)
                                             </td>
-                </tr>
+                </tr>-->
                 <tr class="total">
                     <td>
                         Total cost                  </td>
@@ -593,7 +604,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                                                   
                         <div class="col-md-6">
                                 <div class="form-group">
-                                    <label style="float: left;">Rate Us</label>
+                                    <label style="float: left;margin-top:4px;">Rate Us</label>
                                     <fieldset id='demo1' class="ratingg">
                                 <input class="stars" type="radio" id="star5" name="pricerating" value="5" />
                                 <label class = "full" for="star5" title="Awesome - 5 stars"></label>
@@ -613,7 +624,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <!-- End row -->
                     <div class="form-group">
                     <label>Subject</label>
-                        <input type="text" name="subject" id="subject" placeholder="Enter Subject">
+                        <input type="text" name="subject" class="form-control" id="subject" placeholder="Enter Subject">
                     </div>
                     <div class="form-group">
                     <label>Comments</label>

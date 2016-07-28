@@ -1,4 +1,3 @@
-
 <?php
     $query = $this->db->query("SELECT * FROM tblsliders WHERE status=1");
 ?>
@@ -362,7 +361,7 @@ if (count($events->result())>0) {
                         </a>
                     </div>
                     <div class="tour_title">
-                        <h3>
+                        <h3 class="eventtitle">
                             <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> "> 
                            
                             
@@ -372,16 +371,17 @@ if (count($events->result())>0) {
                             </a>
 							
                         </h3>
-						<p style="padding: 5px;"><?php
+						 <p class="eventdate">
+
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">From : <?php echo $k->todate; ?></a> 
+                                        &nbsp;
+                                        &nbsp;
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">To : <?php echo $k->fromdate; ?></a>
+                                    </p> 
+						<!--<p style="padding: 5px;"><?php
 						
-						echo substr($k->description,0,100); ?></p>
-                      <!--  <div class="rating">
-                            <i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile voted"></i><i class="icon-smile"></i><small>(75)</small>
-                        </div> end rating -->
-                        
-                      <!--   <div class="wishlist">
-                            <a class="tooltip_flip tooltip-effect-1" href="javascript:void(0);">+<span class="tooltip-content-flip"><span class="tooltip-back">Add to wishlist</span></span></a>
-                        </div>End wish list-->
+						//echo substr($k->description,0,100); ?></p>-->
+                      
                     </div>
                 </div><!-- End box tour -->
             </div><!-- End col-md-4 -->
