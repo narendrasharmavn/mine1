@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 27, 2016 at 08:48 AM
+-- Generation Time: Jul 28, 2016 at 04:11 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.5.35
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `eventreviews` (
   `rid` int(10) NOT NULL,
   `pricereview` int(4) NOT NULL,
+  `subject` longtext NOT NULL,
   `review` longtext NOT NULL,
   `customerid` int(10) NOT NULL,
   `reviewgivendate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -40,20 +41,20 @@ CREATE TABLE `eventreviews` (
 -- Dumping data for table `eventreviews`
 --
 
-INSERT INTO `eventreviews` (`rid`, `pricereview`, `review`, `customerid`, `reviewgivendate`, `resortoreventname`, `status`) VALUES
-(1, 1, 'adfasd', 5, '2016-06-15 12:28:00', 'zoo', 0),
-(2, 1, 'adfasd', 5, '2016-06-15 12:28:10', 'zoo', 0),
-(3, 3, 'asdfad', 5, '2016-06-15 12:31:32', 'zoo', 0),
-(4, 3, 'asdfad', 5, '2016-06-15 12:31:57', 'zoo', 0),
-(5, 2, 'asdfad', 5, '2016-06-24 13:09:07', '2', 1),
-(6, 2, 'asdfasdf', 5, '2016-06-24 13:09:04', '2', 1),
-(7, 3, 'asdfsdfa', 5, '2016-06-24 13:09:00', '2', 1),
-(8, 3, 'this isssssssssssgood', 5, '2016-07-21 12:55:47', 'The Tech Fest 2016', 0),
-(9, 3, 'afasdfasdf', 5, '2016-07-21 12:59:26', 'The Tech Fest 2016', 0),
-(10, 3, 'afasdfasdf', 5, '2016-07-21 13:33:41', 'The Tech Fest 2016', 0),
-(11, 4, 'afasdfasdf', 5, '2016-07-21 13:34:27', 'The Tech Fest 2016', 0),
-(12, 1, '2', 5, '2016-07-22 09:29:56', 'The Tech Fest 2016', 0),
-(14, 2, 'not good , the package could be better', 5, '2016-07-23 08:11:39', '2', 1);
+INSERT INTO `eventreviews` (`rid`, `pricereview`, `subject`, `review`, `customerid`, `reviewgivendate`, `resortoreventname`, `status`) VALUES
+(1, 1, '', 'adfasd', 5, '2016-06-15 12:28:00', 'zoo', 0),
+(2, 1, '', 'adfasd', 5, '2016-06-15 12:28:10', 'zoo', 0),
+(3, 3, '', 'asdfad', 5, '2016-06-15 12:31:32', 'zoo', 0),
+(4, 3, '', 'asdfad', 5, '2016-06-15 12:31:57', 'zoo', 0),
+(5, 2, '', 'asdfad', 5, '2016-06-24 13:09:07', '2', 1),
+(6, 2, '', 'asdfasdf', 5, '2016-06-24 13:09:04', '2', 1),
+(7, 3, '', 'asdfsdfa', 5, '2016-06-24 13:09:00', '2', 1),
+(8, 3, '', 'this isssssssssssgood', 5, '2016-07-21 12:55:47', 'The Tech Fest 2016', 0),
+(9, 3, '', 'afasdfasdf', 5, '2016-07-21 12:59:26', 'The Tech Fest 2016', 0),
+(10, 3, '', 'afasdfasdf', 5, '2016-07-21 13:33:41', 'The Tech Fest 2016', 0),
+(11, 4, '', 'afasdfasdf', 5, '2016-07-21 13:34:27', 'The Tech Fest 2016', 0),
+(12, 1, '', '2', 5, '2016-07-22 09:29:56', 'The Tech Fest 2016', 0),
+(14, 2, '', 'not good , the package could be better', 5, '2016-07-23 08:11:39', '2', 1);
 
 -- --------------------------------------------------------
 
@@ -64,6 +65,7 @@ INSERT INTO `eventreviews` (`rid`, `pricereview`, `review`, `customerid`, `revie
 CREATE TABLE `placereviews` (
   `prid` int(10) NOT NULL,
   `pricereview` int(4) NOT NULL,
+  `subject` longtext NOT NULL,
   `review` longtext NOT NULL,
   `customerid` int(10) NOT NULL,
   `reviewgivendate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -75,13 +77,13 @@ CREATE TABLE `placereviews` (
 -- Dumping data for table `placereviews`
 --
 
-INSERT INTO `placereviews` (`prid`, `pricereview`, `review`, `customerid`, `reviewgivendate`, `placeid`, `status`) VALUES
-(1, 3, 'asfasdfasd', 5, '2016-06-25 06:51:31', 3, 1),
-(2, 4, 'asfasdfasd', 5, '2016-06-25 06:51:29', 3, 1),
-(3, 4, 'adsdghsgh asa sdf ', 5, '2016-06-25 06:51:26', 3, 1),
-(4, 4, 'adsdghsgh asa sdf ', 5, '2016-06-25 06:51:23', 3, 1),
-(5, 5, 'good one', 5, '2016-06-25 10:51:48', 1, 0),
-(6, 2, 'good okay', 5, '2016-07-23 11:32:49', 4, 1);
+INSERT INTO `placereviews` (`prid`, `pricereview`, `subject`, `review`, `customerid`, `reviewgivendate`, `placeid`, `status`) VALUES
+(1, 3, '', 'asfasdfasd', 5, '2016-06-25 06:51:31', 3, 1),
+(2, 4, '', 'asfasdfasd', 5, '2016-06-25 06:51:29', 3, 1),
+(3, 4, '', 'adsdghsgh asa sdf ', 5, '2016-06-25 06:51:26', 3, 1),
+(4, 4, '', 'adsdghsgh asa sdf ', 5, '2016-06-25 06:51:23', 3, 1),
+(5, 5, '', 'good one', 5, '2016-06-25 10:51:48', 1, 0),
+(6, 2, '', 'good okay', 5, '2016-07-23 11:32:49', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -92,6 +94,7 @@ INSERT INTO `placereviews` (`prid`, `pricereview`, `review`, `customerid`, `revi
 CREATE TABLE `resortreviews` (
   `rrid` int(10) NOT NULL,
   `pricereview` int(4) NOT NULL,
+  `subject` longtext NOT NULL,
   `review` longtext NOT NULL,
   `customerid` int(10) NOT NULL,
   `reviewgivendate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -103,14 +106,14 @@ CREATE TABLE `resortreviews` (
 -- Dumping data for table `resortreviews`
 --
 
-INSERT INTO `resortreviews` (`rrid`, `pricereview`, `review`, `customerid`, `reviewgivendate`, `resortname`, `status`) VALUES
-(1, 2, 'zoo has animals. good to see them all. The package is quite good with child meal', 5, '2016-06-25 06:44:52', '1', 1),
-(2, 4, 'super', 5, '2016-07-04 14:17:37', '1', 1),
-(3, 4, 'this is testtttttttttttttttt', 5, '2016-07-04 14:17:41', '1', 1),
-(4, 4, 'this is too good', 5, '2016-07-04 14:17:55', '1', 1),
-(5, 4, 'asdf', 5, '2016-07-09 11:52:58', '1', 1),
-(6, 4, 'asdf', 5, '2016-07-09 11:53:39', '1', 1),
-(7, 1, 'waste package!!!', 5, '2016-07-23 08:25:02', '1', 1);
+INSERT INTO `resortreviews` (`rrid`, `pricereview`, `subject`, `review`, `customerid`, `reviewgivendate`, `resortname`, `status`) VALUES
+(1, 2, '', 'zoo has animals. good to see them all. The package is quite good with child meal', 5, '2016-06-25 06:44:52', '1', 1),
+(2, 4, '', 'super', 5, '2016-07-04 14:17:37', '1', 1),
+(3, 4, '', 'this is testtttttttttttttttt', 5, '2016-07-04 14:17:41', '1', 1),
+(4, 4, '', 'this is too good', 5, '2016-07-04 14:17:55', '1', 1),
+(5, 4, '', 'asdf', 5, '2016-07-09 11:52:58', '1', 1),
+(6, 4, '', 'asdf', 5, '2016-07-09 11:53:39', '1', 1),
+(7, 1, '', 'waste package!!!', 5, '2016-07-23 08:25:02', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -136,12 +139,32 @@ INSERT INTO `smssettings` (`id`, `url`, `username`, `password`, `senderid`) VALU
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `taxmaster`
+--
+
+CREATE TABLE `taxmaster` (
+  `taxid` int(10) NOT NULL,
+  `servicetax` int(5) NOT NULL,
+  `swachcess` decimal(10,2) NOT NULL,
+  `krishicess` decimal(10,2) NOT NULL,
+  `kidsmealtax` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `taxmaster`
+--
+
+INSERT INTO `taxmaster` (`taxid`, `servicetax`, `swachcess`, `krishicess`, `kidsmealtax`) VALUES
+(1, 14, '0.50', '0.50', 10);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tblbookings`
 --
 
 CREATE TABLE `tblbookings` (
   `bookingid` int(10) UNSIGNED NOT NULL,
-  `bookingtype` varchar(45) NOT NULL,
   `bookingtypeid` int(10) UNSIGNED DEFAULT NULL,
   `date` date DEFAULT NULL,
   `dateofvisit` date NOT NULL,
@@ -162,28 +185,65 @@ CREATE TABLE `tblbookings` (
 -- Dumping data for table `tblbookings`
 --
 
-INSERT INTO `tblbookings` (`bookingid`, `bookingtype`, `bookingtypeid`, `date`, `dateofvisit`, `userid`, `quantity`, `amount`, `booking_status`, `payment_status`, `ticketnumber`, `packageid`, `visitorstatus`, `vendorid`, `childqty`, `kidsmealqty`) VALUES
-(1, '', NULL, '2016-07-09', '0000-00-00', 5, 1, '88.085', 'pending', 'pending', '20160709070703', '1', 'absent', 1, 1, 1),
-(2, '', NULL, '2016-07-09', '0000-00-00', 5, 1, '89', 'pending', 'pending', '20160709071350', '1', 'absent', 1, 1, 1),
-(3, '', NULL, '2016-07-13', '0000-00-00', 15, 1, '1050', 'booked', 'paid', '20160713044357', '7', 'absent', 2, 0, 0),
-(4, '', NULL, '2016-07-22', '0000-00-00', 5, 1, '89', 'pending', 'pending', '20160722012523', '1', 'absent', 1, 1, 1),
-(5, '', NULL, '2016-07-22', '0000-00-00', 5, 1, '2100', 'pending', 'pending', '20160722031126', '7', 'absent', 2, 1, 0),
-(6, '', NULL, '2016-07-22', '0000-00-00', 5, 1, '2100', 'pending', 'pending', '20160722035323', '7', 'absent', 2, 1, 0),
-(7, '', NULL, '2016-07-22', '0000-00-00', 16, 1, '2115', 'pending', 'pending', '20160722070806', '7', 'absent', 2, 1, 0),
-(8, '', NULL, '2016-07-22', '0000-00-00', 17, 1, '2115', 'pending', 'pending', '20160722071022', '7', 'absent', 2, 1, 0),
-(9, '', NULL, '2016-07-22', '0000-00-00', 20, 1, '89', 'pending', 'pending', '20160722094044', '1', 'absent', 1, 1, 1),
-(10, '', NULL, '2016-07-23', '0000-00-00', 24, 1, '89', 'pending', 'pending', '20160723125730', '1', 'absent', 1, 1, 1),
-(11, '', NULL, '2016-07-23', '0000-00-00', 5, 1, '2115', 'pending', 'pending', '20160723034215', '7', 'absent', 2, 1, 0),
-(12, '', NULL, '2016-07-23', '0000-00-00', 5, 1, '2115', 'pending', 'pending', '20160723054640', '7', 'absent', 2, 1, 0),
-(13, '', NULL, '2016-07-26', '0000-00-00', 22, 2, '122', 'pending', 'pending', '20160726042855', '1', 'absent', 1, 2, 1),
-(14, '', NULL, '2016-07-26', '0000-00-00', 23, 2, '122', 'pending', 'pending', '20160726051751', '1', 'absent', 1, 2, 1),
-(15, '', NULL, '2016-07-26', '0000-00-00', 24, 2, '122', 'pending', 'pending', '20160726052004', '1', 'absent', 1, 2, 1),
-(16, '', NULL, '2016-07-26', '0000-00-00', 5, 1, '89', 'pending', 'pending', '20160726052553', '1', 'absent', 1, 1, 1),
-(17, '', NULL, '2016-07-26', '0000-00-00', 25, 2, '111', 'pending', 'pending', '20160726060141', '1', 'absent', 1, 1, 1),
-(18, '', NULL, '2016-07-26', '0000-00-00', 26, 2, '4230', 'pending', 'pending', '20160726070701', '7', 'absent', 2, 2, 0),
-(19, '', NULL, '2016-07-26', '0000-00-00', 26, 1, '2115', 'pending', 'pending', '20160726071157', '7', 'absent', 2, 1, 0),
-(20, '', NULL, '2016-07-26', '0000-00-00', 5, 1, '2115', 'pending', 'pending', '20160726071840', '7', 'absent', 2, 1, 0),
-(21, '', NULL, '2016-07-26', '0000-00-00', 27, 1, '2115', 'pending', 'pending', '20160726072229', '7', 'absent', 2, 1, 0);
+INSERT INTO `tblbookings` (`bookingid`, `bookingtypeid`, `date`, `dateofvisit`, `userid`, `quantity`, `amount`, `booking_status`, `payment_status`, `ticketnumber`, `packageid`, `visitorstatus`, `vendorid`, `childqty`, `kidsmealqty`) VALUES
+(1, NULL, '2016-07-09', '0000-00-00', 5, 1, '88.085', 'pending', 'pending', '20160709070703', '1', 'absent', 1, 1, 1),
+(2, NULL, '2016-07-09', '0000-00-00', 5, 1, '89', 'pending', 'pending', '20160709071350', '1', 'absent', 1, 1, 1),
+(3, NULL, '2016-07-13', '0000-00-00', 15, 1, '1050', 'booked', 'paid', '20160713044357', '7', 'absent', 2, 0, 0),
+(4, NULL, '2016-07-22', '0000-00-00', 5, 1, '89', 'pending', 'pending', '20160722012523', '1', 'absent', 1, 1, 1),
+(5, NULL, '2016-07-22', '0000-00-00', 5, 1, '2100', 'pending', 'pending', '20160722031126', '7', 'absent', 2, 1, 0),
+(6, NULL, '2016-07-22', '0000-00-00', 5, 1, '2100', 'pending', 'pending', '20160722035323', '7', 'absent', 2, 1, 0),
+(7, NULL, '2016-07-22', '0000-00-00', 16, 1, '2115', 'pending', 'pending', '20160722070806', '7', 'absent', 2, 1, 0),
+(8, NULL, '2016-07-22', '0000-00-00', 17, 1, '2115', 'pending', 'pending', '20160722071022', '7', 'absent', 2, 1, 0),
+(9, NULL, '2016-07-22', '0000-00-00', 20, 1, '89', 'pending', 'pending', '20160722094044', '1', 'absent', 1, 1, 1),
+(10, NULL, '2016-07-23', '0000-00-00', 24, 1, '89', 'pending', 'pending', '20160723125730', '1', 'absent', 1, 1, 1),
+(11, NULL, '2016-07-23', '0000-00-00', 5, 1, '2115', 'pending', 'pending', '20160723034215', '7', 'absent', 2, 1, 0),
+(12, NULL, '2016-07-23', '0000-00-00', 5, 1, '2115', 'pending', 'pending', '20160723054640', '7', 'absent', 2, 1, 0),
+(13, NULL, '2016-07-26', '0000-00-00', 22, 2, '122', 'pending', 'pending', '20160726042855', '1', 'absent', 1, 2, 1),
+(14, NULL, '2016-07-26', '0000-00-00', 23, 2, '122', 'pending', 'pending', '20160726051751', '1', 'absent', 1, 2, 1),
+(15, NULL, '2016-07-26', '0000-00-00', 24, 2, '122', 'pending', 'pending', '20160726052004', '1', 'absent', 1, 2, 1),
+(16, NULL, '2016-07-26', '0000-00-00', 5, 1, '89', 'pending', 'pending', '20160726052553', '1', 'absent', 1, 1, 1),
+(17, NULL, '2016-07-26', '0000-00-00', 25, 2, '111', 'pending', 'pending', '20160726060141', '1', 'absent', 1, 1, 1),
+(18, NULL, '2016-07-26', '0000-00-00', 26, 2, '4230', 'pending', 'pending', '20160726070701', '7', 'absent', 2, 2, 0),
+(19, NULL, '2016-07-26', '0000-00-00', 26, 1, '2115', 'pending', 'pending', '20160726071157', '7', 'absent', 2, 1, 0),
+(20, NULL, '2016-07-26', '0000-00-00', 5, 1, '2115', 'pending', 'pending', '20160726071840', '7', 'absent', 2, 1, 0),
+(21, NULL, '2016-07-26', '0000-00-00', 27, 1, '2115', 'pending', 'pending', '20160726072229', '7', 'absent', 2, 1, 0),
+(22, NULL, '2016-07-28', '2016-07-28', 5, 1, '40', 'pending', 'pending', '20160728055407', '1', 'absent', 1, 2, 2),
+(23, NULL, '2016-07-28', '2016-07-28', 5, 1, '190', 'pending', 'pending', '20160728055407', '12', 'absent', 1, 2, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblbookingsmulticheckout`
+--
+
+CREATE TABLE `tblbookingsmulticheckout` (
+  `bookingid` int(10) NOT NULL,
+  `date` date NOT NULL,
+  `dateofvisit` date NOT NULL,
+  `userid` int(10) NOT NULL,
+  `quantity` int(10) NOT NULL,
+  `amount` varchar(45) NOT NULL,
+  `booking_status` varchar(45) NOT NULL,
+  `payment_status` varchar(45) NOT NULL,
+  `ticketnumber` varchar(90) NOT NULL,
+  `packageid` int(10) NOT NULL,
+  `visitorstatus` varchar(45) NOT NULL,
+  `vendorid` int(10) NOT NULL,
+  `childqty` int(10) NOT NULL,
+  `kidsmealqty` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblbookingsmulticheckout`
+--
+
+INSERT INTO `tblbookingsmulticheckout` (`bookingid`, `date`, `dateofvisit`, `userid`, `quantity`, `amount`, `booking_status`, `payment_status`, `ticketnumber`, `packageid`, `visitorstatus`, `vendorid`, `childqty`, `kidsmealqty`) VALUES
+(35, '2016-07-28', '2016-07-28', 5, 1, '30', 'pending', 'pending', '20160728065355', 1, 'absent', 1, 1, 2),
+(36, '2016-07-28', '2016-07-28', 5, 1, '100', 'pending', 'pending', '20160728065355', 12, 'absent', 1, 1, 0),
+(37, '2016-07-28', '2016-07-28', 5, 1, '30', 'pending', 'pending', '20160728065616', 1, 'absent', 1, 1, 2),
+(38, '2016-07-28', '2016-07-28', 5, 1, '100', 'pending', 'pending', '20160728065616', 12, 'absent', 1, 1, 0),
+(39, '2016-07-28', '2016-07-28', 5, 1, '30', 'pending', 'pending', '20160728070751', 1, 'absent', 1, 1, 3),
+(40, '2016-07-28', '2016-07-28', 5, 1, '100', 'pending', 'pending', '20160728070751', 12, 'absent', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -374,7 +434,9 @@ INSERT INTO `tblpackages` (`packageid`, `resortid`, `packagename`, `description`
 (8, 2, 'Entry Fee', 'One of the famous Hyderabad tourist places, Lumbini Park Hyderabad was developed by the Hyderabad Urban Development Authority in the year of 1994.', '1', '1', '2016-06-12 02:23:04', 'admin', '2016-06-12 02:23:04', 0, 3, '', 'fun,kids', 'daily', '', '10', '10', '0', '2016-06-30'),
 (9, 2, 'Speed Boating', 'One of the famous Hyderabad tourist places, Lumbini Park Hyderabad was developed by the Hyderabad Urban Development Authority in the year of 1994.', '1', '1', '2016-06-12 02:24:17', 'admin', '2016-06-12 02:24:17', 0, 3, '', 'fun,kids', 'daily', '', '50', '50', '0', '2016-06-30'),
 (10, 2, 'boating', 'One of the famous Hyderabad tourist places, Lumbini Park Hyderabad was developed by the Hyderabad Urban Development Authority in the year of 1994.', '1', '1', '2016-06-12 02:25:40', 'admin', '2016-06-12 02:25:40', 0, 3, '', 'kids,fun', 'daily', '', '40', '40', '0', '2016-06-30'),
-(11, 2, 'Laser Show', 'One of the famous Hyderabad tourist places, Lumbini Park Hyderabad was developed by the Hyderabad Urban Development Authority in the year of 1994.', '1', '1', '2016-06-12 02:26:35', 'admin', '2016-06-12 02:26:35', 0, 3, '', 'kids,fun', 'daily', '', '50', '50', '0', '2016-06-30');
+(11, 2, 'Laser Show', 'One of the famous Hyderabad tourist places, Lumbini Park Hyderabad was developed by the Hyderabad Urban Development Authority in the year of 1994.', '1', '1', '2016-06-12 02:26:35', 'admin', '2016-06-12 02:26:35', 0, 3, '', 'kids,fun', 'daily', '', '50', '50', '0', '2016-06-30'),
+(12, 1, 'Safari - Includes Lion Cage,Tiger Cage etc', 'A Ride in Jeep to see Wild Animals closely', '1', '1', '2016-07-27 00:00:00', 'admin', '2016-07-27 00:00:00', 5, 4, '7ad4776af60c11e38c53baaf629e9523_1403002367560_550x412_1039231.jpg', NULL, 'daily', NULL, '50', '50', '0', '2016-10-27'),
+(13, 1, 'Snake Park', 'Snake Park Consists of snakes foreign and native snakes.', '1', '1', '2016-07-27 00:00:00', 'admin', '2016-07-27 00:00:00', 5, 4, '7ad4776af60c11e38c53baaf629e9523_1403002367560_550x412_1039231.jpg', NULL, 'daily', NULL, '50', '50', '0', '2016-10-20');
 
 -- --------------------------------------------------------
 
@@ -443,6 +505,43 @@ INSERT INTO `tblpayments` (`paymentid`, `bookingid`, `customerid`, `packageid`, 
 (19, '19', '26', 7, '2115', '1000', '1000', '0.00', '1', '1', 0, '14', '100.00', 0.50, 0.50, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 13:41:57', 'unpaid'),
 (20, '20', '5', 7, '2115', '1000', '1000', '0.00', '1', '1', 0, '14', '100.00', 0.50, 0.50, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 13:48:40', 'unpaid'),
 (21, '21', '27', 7, '2115', '1000', '1000', '0.00', '1', '1', 0, '14', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 13:52:30', 'unpaid');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblpaymentsmulticheckout`
+--
+
+CREATE TABLE `tblpaymentsmulticheckout` (
+  `paymentid` int(10) NOT NULL,
+  `customerid` varchar(45) NOT NULL,
+  `transaction_id` varchar(150) NOT NULL,
+  `ticketnumber` varchar(90) NOT NULL,
+  `transdate` date NOT NULL,
+  `amount` int(10) NOT NULL,
+  `response` varchar(75) NOT NULL,
+  `banktransaction` varchar(150) NOT NULL,
+  `transactiondescription` varchar(90) NOT NULL,
+  `authorizationcode` varchar(90) NOT NULL,
+  `discriminator` varchar(75) NOT NULL,
+  `cardnumber` varchar(45) NOT NULL,
+  `billingphone` varchar(45) NOT NULL,
+  `billingemail` varchar(45) NOT NULL,
+  `udf9` varchar(45) NOT NULL,
+  `mmp_txn` varchar(45) NOT NULL,
+  `mer_txn` varchar(45) NOT NULL,
+  `transactiontime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `status` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblpaymentsmulticheckout`
+--
+
+INSERT INTO `tblpaymentsmulticheckout` (`paymentid`, `customerid`, `transaction_id`, `ticketnumber`, `transdate`, `amount`, `response`, `banktransaction`, `transactiondescription`, `authorizationcode`, `discriminator`, `cardnumber`, `billingphone`, `billingemail`, `udf9`, `mmp_txn`, `mer_txn`, `transactiontime`, `status`) VALUES
+(13, '5', '20160728065355', '20160728065355', '2016-07-28', 249, '', '', '', '', '', '', '', '', '', '', '', '2016-07-28 13:23:55', 'unpaid'),
+(14, '5', '20160728065616', '20160728065616', '2016-07-28', 249, '', '', '', '', '', '', '', '', '', '', '', '2016-07-28 13:26:16', 'unpaid'),
+(15, '5', '20160728070752', '20160728070751', '2016-07-28', 303, '', '', '', '', '', '', '', '', '', '', '', '2016-07-28 13:37:52', 'unpaid');
 
 -- --------------------------------------------------------
 
@@ -739,17 +838,18 @@ CREATE TABLE `tblvendors` (
   `latitude` varchar(45) DEFAULT NULL,
   `longitude` varchar(45) DEFAULT NULL,
   `vendorlogo` varchar(150) DEFAULT NULL,
-  `description` longtext
+  `description` longtext,
+  `bookingtype` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblvendors`
 --
 
-INSERT INTO `tblvendors` (`vendorid`, `vendorname`, `password`, `contact_person`, `Address1`, `Address2`, `city`, `pincode`, `landline`, `mobile`, `email`, `website`, `createdon`, `updateon`, `status`, `latitude`, `longitude`, `vendorlogo`, `description`) VALUES
-(1, 'Nehru Zoological Park', 'zoo', 'xyz', 'Zoo Park Main Rd, Kishan Bagh, Bahadurpura West', 'Zoo Park Main Rd, Kishan Bagh, Bahadurpura West', 'Hyderabad, Telangana ', '500064', '040 2447 7355', '1234567890', 'info@hydzoo.com', 'http://www.hydzoo.com/', '2016-06-12 12:19:56', '2016-06-12 12:19:56', 1, '17.350695', '78.452313', NULL, 'Welcome to Nehru Zoological Park, and its sylvan setting, abutting the historic miralam Tank bund, (200 year old, World''s first multi arch masonry dam). The Zoo spread in over 380 acres established on 6th October, 1963.'),
-(2, 'xyz', 'xyz', 'xyz', 'xyz', 'xyz', 'Hyderabad, Telangana  ', '500000', '040 222222', '9876543210', 'xyz@gmail.com', 'http://www.xyz.com/', '2016-06-12 01:22:40', '2016-06-12 01:22:40', 1, '', '', NULL, 'Event Organizer'),
-(3, 'Lumbini Park', 'park', 'xyz', 'Lumbini Park is a small public, urban park of 7.5 acres adjacent to Hussain Sagar.', 'Lumbini Park is a small public, urban park of 7.5 acres adjacent to Hussain Sagar.', 'Hyderabad', '500004', '', '09989336911', 'lumbnipark@gmail.com', 'http://www.hyderabadtourism.travel/lumbini-park-hyderabad', '2016-06-12 02:18:55', '2016-06-12 02:18:55', 1, '17.410057', '78.473219', NULL, 'One of the famous Hyderabad tourist places, Lumbini Park Hyderabad was developed by the Hyderabad Urban Development Authority in the year of 1994.');
+INSERT INTO `tblvendors` (`vendorid`, `vendorname`, `password`, `contact_person`, `Address1`, `Address2`, `city`, `pincode`, `landline`, `mobile`, `email`, `website`, `createdon`, `updateon`, `status`, `latitude`, `longitude`, `vendorlogo`, `description`, `bookingtype`) VALUES
+(1, 'Nehru Zoological Park', 'zoo', 'xyz', 'Zoo Park Main Rd, Kishan Bagh, Bahadurpura West', 'Zoo Park Main Rd, Kishan Bagh, Bahadurpura West', 'Hyderabad, Telangana ', '500064', '040 2447 7355', '1234567890', 'info@hydzoo.com', 'http://www.hydzoo.com/', '2016-06-12 12:19:56', '2016-06-12 12:19:56', 1, '17.350695', '78.452313', NULL, 'Welcome to Nehru Zoological Park, and its sylvan setting, abutting the historic miralam Tank bund, (200 year old, World''s first multi arch masonry dam). The Zoo spread in over 380 acres established on 6th October, 1963.', 'multicheckout'),
+(2, 'xyz', 'xyz', 'xyz', 'xyz', 'xyz', 'Hyderabad, Telangana  ', '500000', '040 222222', '9876543210', 'xyz@gmail.com', 'http://www.xyz.com/', '2016-06-12 01:22:40', '2016-06-12 01:22:40', 1, '', '', NULL, 'Event Organizer', 'singlecheckout'),
+(3, 'Lumbini Park', 'park', 'xyz', 'Lumbini Park is a small public, urban park of 7.5 acres adjacent to Hussain Sagar.', 'Lumbini Park is a small public, urban park of 7.5 acres adjacent to Hussain Sagar.', 'Hyderabad', '500004', '', '09989336911', 'lumbnipark@gmail.com', 'http://www.hyderabadtourism.travel/lumbini-park-hyderabad', '2016-06-12 02:18:55', '2016-06-12 02:18:55', 1, '17.410057', '78.473219', NULL, 'One of the famous Hyderabad tourist places, Lumbini Park Hyderabad was developed by the Hyderabad Urban Development Authority in the year of 1994.', 'singlecheckout');
 
 --
 -- Indexes for dumped tables
@@ -780,9 +880,21 @@ ALTER TABLE `smssettings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `taxmaster`
+--
+ALTER TABLE `taxmaster`
+  ADD PRIMARY KEY (`taxid`);
+
+--
 -- Indexes for table `tblbookings`
 --
 ALTER TABLE `tblbookings`
+  ADD PRIMARY KEY (`bookingid`);
+
+--
+-- Indexes for table `tblbookingsmulticheckout`
+--
+ALTER TABLE `tblbookingsmulticheckout`
   ADD PRIMARY KEY (`bookingid`);
 
 --
@@ -837,6 +949,12 @@ ALTER TABLE `tblpackages`
 -- Indexes for table `tblpayments`
 --
 ALTER TABLE `tblpayments`
+  ADD PRIMARY KEY (`paymentid`);
+
+--
+-- Indexes for table `tblpaymentsmulticheckout`
+--
+ALTER TABLE `tblpaymentsmulticheckout`
   ADD PRIMARY KEY (`paymentid`);
 
 --
@@ -936,10 +1054,20 @@ ALTER TABLE `resortreviews`
 ALTER TABLE `smssettings`
   MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `taxmaster`
+--
+ALTER TABLE `taxmaster`
+  MODIFY `taxid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `tblbookings`
 --
 ALTER TABLE `tblbookings`
-  MODIFY `bookingid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `bookingid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+--
+-- AUTO_INCREMENT for table `tblbookingsmulticheckout`
+--
+ALTER TABLE `tblbookingsmulticheckout`
+  MODIFY `bookingid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT for table `tblcities`
 --
@@ -979,12 +1107,17 @@ ALTER TABLE `tbllocations`
 -- AUTO_INCREMENT for table `tblpackages`
 --
 ALTER TABLE `tblpackages`
-  MODIFY `packageid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `packageid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `tblpayments`
 --
 ALTER TABLE `tblpayments`
   MODIFY `paymentid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+--
+-- AUTO_INCREMENT for table `tblpaymentsmulticheckout`
+--
+ALTER TABLE `tblpaymentsmulticheckout`
+  MODIFY `paymentid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `tblplaces`
 --

@@ -130,7 +130,15 @@
     <td class="tdrt">
     <?php
 
-     echo $this->db->get_where('tblpackages' , array('packageid' =>$this->session->userdata('packageid')))->row()->packagename;
+    $packageidarray = $this->session->userdata('packageIdArray');
+    echo $packageidarray[0];
+    for($i=0;$i<count($packageidarray);$i++){
+      $packageid =  $packageidarray[$i];
+      echo '<p>'.$this->db->get_where('tblpackages' , array('packageid' =>$packageid))->row()->packagename.'</p>';
+    }
+ 
+
+     //echo $this->db->get_where('tblpackages' , array('packageid' =>$this->session->userdata('packageid')))->row()->packagename;
      $adultpriceperticket = $this->session->userdata('calculatedadultprice');
      $childpriceperticket = $this->session->userdata('calculatedchildprice');
      $kidsmealprice = $this->session->userdata('kidsmealprice');
