@@ -74,6 +74,7 @@ $route['eventsall'] = 'frontend/eventsGridView_ShowAll';
 $route['search-results'] = 'frontend/indexsearch';
 
 $route['confirm-booking-resorts'] = 'frontend/confirm';
+$route['confirm-booking-multicheckout'] = 'frontend/confirmmulticheckout';
 $route['confirm-booking-events'] = 'frontend/confirm/events';
 $route['places/(:any)/(:num)'] = 'frontend/placesdetails';
 $route['forgot-password'] = 'frontend/forgotForm';
@@ -98,6 +99,7 @@ $route['login_error'] = 'frontend/loginCheck';
 $route['logout'] = 'frontend/logout';
 
 $route['resorts/(:any)/(:num)'] = 'frontend/showResortDetails/$1/$2';
+$route['bookzootickets/(:num)'] = 'frontend/showResortDetails2/$1';
 $route['resorts-multicheckout/(:any)/(:num)'] = 'frontend/showResortDetailsMultiCheckout/$1/$2';
 $route['eventdetails/(:any)/(:num)'] = 'frontend/showEventDetails/$1/$2';
 

@@ -630,6 +630,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                         <input type="hidden" value="<?php echo $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->swachcess;  ?>" class="swachh-cess">
                         <input type="hidden" value="<?php echo $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->krishicess;  ?>" class="krishi-cess">
                         <input type="hidden" value="<?php echo $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->kidsmealtax;  ?>" class="kids-meal-tax">
+                         <input type="hidden" id="currenturl" value="<?php echo $this->uri->segment(1, 0).'/'.$this->uri->segment(2, 0).'/'.$this->uri->segment(3, 0); ?>">
 
                 </div>
             </div>
@@ -802,8 +803,8 @@ function pushToDatabase(){
     //kids meal qty
     var kidsmealqty = $('#kidsmeal').val();
     var dateofvisit = $('input[name="date"]').val();
-
-
+    var currenturl = $('#currenturl').val();
+    var vendorid = $('#vendorid').val();
     $.ajax({
         type: "POST",
         url: '<?php echo site_url("frontend/confirmmulticheckoutbookings")?>',
@@ -812,21 +813,18 @@ function pushToDatabase(){
             numberofchildren: numberofchildren,
             packageIdArray: packageIdArray,
             kidsmealqty: kidsmealqty,
-            dateofvisit: dateofvisit
+            dateofvisit: dateofvisit,
+            currenturl:currenturl,
+            vendorid:vendorid
         },
         success: function(res) {
             console.log(res);
-            /*
+           
 
                 if (res.trim()=="true") {
-                    window.location.href="<?php echo site_url().'confirm-booking-resorts'; ?>";
-                } else if(res.trim()=="false") {
-                    //alert("Please login to book tickets");
-                     window.location.href="<?php echo site_url().'confirm-booking-resorts'; ?>";
-                }else{
-                    console.log(res);
-                }        //$('#email').html(res);
-                */
+                    window.location.href="<?php echo site_url().'confirm-booking-multicheckout'; ?>";
+                }
+                
         },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr.status);

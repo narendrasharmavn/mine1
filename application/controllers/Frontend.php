@@ -18,6 +18,8 @@ class Frontend extends CI_Controller {
    * map to /index.php/welcome/<method_name>
    * @see http://codeigniter.com/user_guide/general/urls.html
    */
+  var $bookingsIdArray = array();
+  var $paymentsIdArray = array();
 
     function __construct()
     {
@@ -659,6 +661,45 @@ class Frontend extends CI_Controller {
     }
 
 
+    public function insertDataIntotblbookingsForMultiCheckout($dateofvisit,$noofadults,$subtotal,$packageid,$vendorid,$noofchildren,$kidsmealqty,$ticketnumber){
+
+       $bookingsdata = array(
+          'dateofvisit' => $dateofvisit,
+          'date'=>date('Y-m-d'),
+          'userid' => $this->session->userdata('holidayCustomerId'),
+          'quantity' => $noofadults,
+          'booking_status' => 'pending',
+          'packageid'=>$packageid,
+          'amount'=>$subtotal,
+          'payment_status'=>'pending',
+          'ticketnumber' => $ticketnumber,
+          'visitorstatus' => 'absent',
+          'vendorid' => $vendorid,
+          'childqty' => $noofchildren,
+          'kidsmealqty' => $kidsmealqty
+
+
+      );
+
+
+     
+       # code...
+     
+        $this->db->insert('tblbookingsmulticheckout',$bookingsdata); 
+        
+
+       array_push($this->bookingsIdArray,$this->db->insert_id()); 
+       $this->session->set_userdata('bookingsIdArray',$this->bookingsIdArray);
+    
+       
+      
+      //echo "true";
+    
+    
+
+    }
+
+
 
   public function confirmmulticheckoutbookings(){
 
@@ -668,28 +709,165 @@ class Frontend extends CI_Controller {
       $dateofvisit = date("Y-m-d", strtotime($dateofvisit));
       $packageIdArray = $this->input->post('packageIdArray');
       $kidsmealqty = $this->input->post('kidsmealqty');
+      $currenturl = $this->input->post('currenturl');
+      $vendorid = $this->input->post('vendorid');
 
-
+      
+      $ticketnumber = date('Ymdhis');
 
 
       $calculatedinternetcharges = 0;
+      $calculatedadultprice=0;
+        $calculatedchildprice=0;
       for($i=0;$i<count($packageIdArray);$i++){
-        echo "package id is: ".$packageIdArray[$i]."<br>";
+
+        $calculatedindividualadultprice=0;
+        $calculatedindividualchildprice=0;
+        //echo "package id is: ".$packageIdArray[$i]."<br>";
+
+
         $packageid = $packageIdArray[$i];
+        $kidsmealprice = $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->kidsmealprice;
+        $kidsmealqty=0;
+        if($kidsmealprice!=0){
+
+          $kidsmealpricefromdb=$kidsmealprice;
+          $kidsmealqty = $this->input->post('kidsmealqty');
+        }
         $noofadults = $numberofadults[$i];
         $noofchildren = $numberofchildren[$i];
         //calculate adult price
-        $calculatedadultprice = $noofadults * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->adultprice;
+        $calculatedadultprice += $noofadults * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->adultprice;
+        //calculate individual adult price
+        $calculatedindividualadultprice += $noofadults * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->adultprice;
         //calculate tax
-        $calculatedinternetcharges += ($calculatedadultprice * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->servicetax)/100;
-        //calculate child price
-        $calculatedchildprice = $noofchildren * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->childprice;
-        //calculate tax on childprice
-        $calculatedinternetcharges += ($calculatedchildprice * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->servicetax)/100;
+        $calculatedinternetcharges += ( ($noofadults * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->adultprice) * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->servicetax)/100;
 
-        echo "adt price ".$calculatedadultprice."<br>";
+
+        //calculate child price
+        $calculatedchildprice += $noofchildren * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->childprice;
+        $calculatedindividualchildprice += $noofchildren * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->childprice;
+        //subtotal is adultprice plus childprice
+        $subtotal = $calculatedindividualchildprice + $calculatedindividualadultprice;
+        //calculate tax on childprice
+        $calculatedinternetcharges += ( ($noofchildren * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->childprice) * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->servicetax)/100;
+
+        //insert into database
+        if ($this->session->userdata('holidayEmail')) {
+
+            $this->insertDataIntotblbookingsForMultiCheckout($dateofvisit,$noofadults,$subtotal,$packageid,$vendorid,$noofchildren,$kidsmealqty,$ticketnumber);
+
+          }
 
       }
+      $kidsmealqty = $this->input->post('kidsmealqty');
+     // echo "calculated  adult price ".$calculatedadultprice."\n";
+      //echo "calculated  child price ".$calculatedchildprice."\n";
+
+     $calculatedkidsmealprice =  $kidsmealqty * $kidsmealpricefromdb;
+      //echo "calculated  kids meal PRICE ".$kidsmealqty."\n";
+      //now apply tax on kids meal price
+      $calculatedinternetcharges += ( ( $calculatedkidsmealprice * $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->kidsmealtax )/100  );
+
+      //echo "calculatedkidsmealprice price ".$calculatedkidsmealprice."\n";
+       //echo "calculatedinternetcharges price ".$calculatedinternetcharges."<br>";
+      //now calculate service tax over internet charges
+      $calculatedservicetax = round( $calculatedinternetcharges * ( $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->servicetax  )/100,1);
+       
+      //now calculate swachh cess
+      $calculatedswacchcess = round( $calculatedinternetcharges * ( $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->swachcess  )/100,1);
+      //now calculate krishi cess
+      $calculatedkrishicess = round( $calculatedinternetcharges * ( $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->krishicess  )/100,1);
+
+
+      //echo "calculatedservicetax price ".$calculatedservicetax."\n";
+      //echo "calculatedswacchcess price ".$calculatedswacchcess."\n";
+      //echo "calculatedkrishicess price ".$calculatedkrishicess."\n";
+      
+
+      $total = 0;
+      $total += ( $calculatedadultprice + $calculatedchildprice + $calculatedkidsmealprice + $calculatedinternetcharges + $calculatedservicetax + $calculatedswacchcess + $calculatedkrishicess );
+      $total = round($total,1);
+      /*
+      echo "calculatedadultprice price ".$calculatedadultprice."\n";
+      echo "calculatedchildprice price ".$calculatedchildprice."\n";
+      echo "calculatedkidsmealprice price ".$calculatedkidsmealprice."\n";
+      echo "calculatedinternetcharges price ".$calculatedinternetcharges."\n";
+      echo "calculatedservicetax price ".$calculatedservicetax."\n";
+      echo "calculatedswacchcess price ".$calculatedswacchcess."\n";
+      echo "calculatedkrishicess price ".$calculatedkrishicess."\n";
+echo "total price ".$total."\n";
+*/
+
+$bokIdArr = $this->session->userdata('bookingsIdArray');
+
+/*
+echo "<pre>";
+print_r($bokIdArr);
+echo "</pre>";
+*/
+
+
+//insert into tablepayments
+//insert into database
+        if ($this->session->userdata('holidayEmail')) {
+
+            $this->insertDataIntotblpaymentsForMultiCheckout($total,$ticketnumber);
+
+          }
+
+
+
+          $paymentIdArr = $this->session->userdata('paymentsIdArray');
+
+/*
+echo "<pre>";
+print_r($paymentIdArr);
+echo "</pre>";
+*/
+
+      //keep these arrays in session
+      $this->session->set_userdata('packageIdArray',$packageIdArray);
+      $this->session->set_userdata('numberofadultsArray',$numberofadults);
+      $this->session->set_userdata('numberofchildrenArray',$numberofchildren);
+      $this->session->set_userdata('calculatedchildprice',$calculatedchildprice);
+      $this->session->set_userdata('calculatedadultprice',$calculatedadultprice);
+      $this->session->set_userdata('kidsmealprice',$calculatedkidsmealprice);
+      $this->session->set_userdata('numberofadults',$numberofadults);
+      $this->session->set_userdata('numberofchildren',$numberofchildren);
+      $this->session->set_userdata('kidsmealqty',$kidsmealqty);
+      $this->session->set_userdata('servicetax',$calculatedservicetax);
+      $this->session->set_userdata('internetcharges',$calculatedinternetcharges);
+      $this->session->set_userdata('swachhbharath',$calculatedswacchcess);
+      $this->session->set_userdata('kkcess',$calculatedkrishicess);
+      $this->session->set_userdata('vendorid',$vendorid);
+      $this->session->set_userdata('dateofvisit',$dateofvisit);
+      $this->session->set_userdata('currenturl',$currenturl);
+      $this->session->set_userdata('total',$total);
+
+
+echo "true";
+
+  }
+
+
+  public function insertDataIntotblpaymentsForMultiCheckout($total,$ticketnumber){
+
+    $paymentsdata = array(
+          'customerid' => $this->session->userdata('holidayCustomerId'),
+          'transaction_id'=>date('Ymdhis'),
+          'transdate' => date('Y-m-d'),
+          'amount' => $total,
+          'ticketnumber'=>$ticketnumber,
+          'status'=>'unpaid'
+
+      );
+    
+        $this->db->insert('tblpaymentsmulticheckout',$paymentsdata); 
+        
+
+        $this->session->set_userdata('paymentsid',$this->db->insert_id());
+
 
   }
 
@@ -808,6 +986,18 @@ class Frontend extends CI_Controller {
 
     }
 
+
+ public function confirmmulticheckout(){
+
+
+  //$packageid = $this->session->userdata('packageid');
+
+     // $data['resortResults'] =  $this->FrontEndModel->getResortDetailsBasedOnPackageId($packageid);
+
+      $this->load->view('frontend/header');
+      $this->load->view('frontend/confirmmulticheckout');
+
+ }
 
     public function confirm($selectiontype=''){
 
@@ -2137,6 +2327,21 @@ redirect('frontend/index');
       
 
       $this->load->view('frontend/header');
+
+        $this->load->view('frontend/resortDetails',$data);
+
+    }
+
+
+     public function showResortDetails2($resortId=''){
+
+
+      $data['resortid'] = $resortId;
+
+      $data['resortResults'] = $this->FrontEndModel->getResortDataBasedOnResortId($resortId);
+      
+
+      $this->load->view('frontend/header2');
 
         $this->load->view('frontend/resortDetails',$data);
 
