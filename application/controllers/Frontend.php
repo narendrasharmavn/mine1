@@ -446,6 +446,7 @@ class Frontend extends CI_Controller {
 
 
     public function nosessionhandlermulticheckout(){
+
       $name = $this->input->post('name');
       $mobile = $this->input->post('mobile');
       $email = $this->input->post('email');
@@ -457,10 +458,136 @@ class Frontend extends CI_Controller {
 
       if($OTP_CHECK==$otp){
 
-                        $packageIdArray = $this->session->userdata('packageIdArray');
-                        for ($i = 0; $i < count($packageIdArray); $i++) {
-                          echo $packageIdArray[$i].'\n';
+        //insert into database
+        $customerData = array(
+
+                        'name' => $name,
+                        'username' => $email,
+                        'password' => hash('sha512',rand(9999,99999)),
+                        'number' => $mobile,
+                        'dateofcreation' => date('Y-m-d'),
+                        'regtype' => 'Guest'
+
+
+                        );
+
+                      $this->db->insert('tblcustomers',$customerData);
+                      $customerid = $this->db->insert_id();
+
+              $packageIdArray = $this->session->userdata('packageIdArray');
+              $numberofadults = $this->session->userdata('numberofadultsArray');
+              $numberofchildren = $this->session->userdata('numberofchildrenArray');
+              $kidsmealqty = $this->session->userdata('kidsmealqty');
+              $dateofvisit = $this->session->userdata('dateofvisit');
+              $vendorid = $this->session->userdata('vendorid');
+
+              $ticketnumber = date('Ymdhis');
+              $calculatedinternetcharges = 0;
+              $calculatedadultprice=0;
+              $calculatedchildprice=0;
+
+            for ($i = 0; $i < count($packageIdArray); $i++) {
+
+                        $packageid = $packageIdArray[$i];
+
+                        $calculatedindividualadultprice=0;
+                        $calculatedindividualchildprice=0;
+                        //echo "package id is: ".$packageIdArray[$i]."<br>";
+
+
+                        $packageid = $packageIdArray[$i];
+                        $kidsmealprice = $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->kidsmealprice;
+                        $kidsmealqty=0;
+                        if($kidsmealprice!=0){
+
+                          $kidsmealpricefromdb=$kidsmealprice;
+                          $kidsmealqty = $this->session->userdata('kidsmealqty');
                         }
+                        $noofadults = $numberofadults[$i];
+                        $noofchildren = $numberofchildren[$i];
+                        //calculate adult price
+                        $calculatedadultprice += $noofadults * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->adultprice;
+                        //calculate individual adult price
+                        $calculatedindividualadultprice += $noofadults * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->adultprice;
+                        //calculate tax
+                        $calculatedinternetcharges += ( ($noofadults * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->adultprice) * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->servicetax)/100;
+
+
+                        //calculate child price
+                        $calculatedchildprice += $noofchildren * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->childprice;
+                        $calculatedindividualchildprice += $noofchildren * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->childprice;
+                        //subtotal is adultprice plus childprice
+                        $subtotal = $calculatedindividualchildprice + $calculatedindividualadultprice;
+                        //calculate tax on childprice
+                        $calculatedinternetcharges += ( ($noofchildren * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->childprice) * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->servicetax)/100;
+
+                        //insert into database
+                        $this->insertDataIntotblbookingsForMultiCheckoutNoSession($dateofvisit,$noofadults,$subtotal,$packageid,$vendorid,$noofchildren,$kidsmealqty,$ticketnumber,$customerid);
+                        //end of insert database
+                 
+            }//end of for loop
+
+            $kidsmealqty = $this->session->userdata('kidsmealqty');
+               // echo "calculated  adult price ".$calculatedadultprice."\n";
+                //echo "calculated  child price ".$calculatedchildprice."\n";
+
+               $calculatedkidsmealprice =  $kidsmealqty * $kidsmealpricefromdb;
+                //echo "calculated  kids meal PRICE ".$kidsmealqty."\n";
+                //now apply tax on kids meal price
+                $calculatedinternetcharges += ( ( $calculatedkidsmealprice * $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->kidsmealtax )/100  );
+
+                //echo "calculatedkidsmealprice price ".$calculatedkidsmealprice."\n";
+                 //echo "calculatedinternetcharges price ".$calculatedinternetcharges."<br>";
+                //now calculate service tax over internet charges
+                $calculatedservicetax = round( $calculatedinternetcharges * ( $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->servicetax  )/100,1);
+                 
+                //now calculate swachh cess
+                $calculatedswacchcess = round( $calculatedinternetcharges * ( $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->swachcess  )/100,1);
+                //now calculate krishi cess
+                $calculatedkrishicess = round( $calculatedinternetcharges * ( $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->krishicess  )/100,1);
+
+
+                //echo "calculatedservicetax price ".$calculatedservicetax."\n";
+                //echo "calculatedswacchcess price ".$calculatedswacchcess."\n";
+                //echo "calculatedkrishicess price ".$calculatedkrishicess."\n";
+                
+
+                $total = 0;
+                $total += ( $calculatedadultprice + $calculatedchildprice + $calculatedkidsmealprice + $calculatedinternetcharges + $calculatedservicetax + $calculatedswacchcess + $calculatedkrishicess );
+                $total = round($total,1);
+                /*
+                echo "calculatedadultprice price ".$calculatedadultprice."\n";
+                echo "calculatedchildprice price ".$calculatedchildprice."\n";
+                echo "calculatedkidsmealprice price ".$calculatedkidsmealprice."\n";
+                echo "calculatedinternetcharges price ".$calculatedinternetcharges."\n";
+                echo "calculatedservicetax price ".$calculatedservicetax."\n";
+                echo "calculatedswacchcess price ".$calculatedswacchcess."\n";
+                echo "calculatedkrishicess price ".$calculatedkrishicess."\n";
+          echo "total price ".$total."\n";
+          */
+
+          $bokIdArr = $this->session->userdata('bookingsIdArray');
+
+          /*
+          echo "<pre>";
+          print_r($bokIdArr);
+          echo "</pre>";
+          */
+
+
+          //insert into tablepayments
+          //insert into database
+                
+
+                      $this->insertDataIntotblpaymentsForMultiCheckoutNoSession($total,$ticketnumber,$customerid);
+
+          
+
+
+
+                    $paymentIdArr = $this->session->userdata('paymentsIdArray');
+
+
                         
                     
                     echo "true";
@@ -728,6 +855,45 @@ class Frontend extends CI_Controller {
     }
 
 
+    public function insertDataIntotblbookingsForMultiCheckoutNoSession($dateofvisit,$noofadults,$subtotal,$packageid,$vendorid,$noofchildren,$kidsmealqty,$ticketnumber,$customerid){
+
+       $bookingsdata = array(
+          'dateofvisit' => $dateofvisit,
+          'date'=>date('Y-m-d'),
+          'userid' => $customerid,
+          'quantity' => $noofadults,
+          'booking_status' => 'pending',
+          'packageid'=>$packageid,
+          'amount'=>$subtotal,
+          'payment_status'=>'pending',
+          'ticketnumber' => $ticketnumber,
+          'visitorstatus' => 'absent',
+          'vendorid' => $vendorid,
+          'childqty' => $noofchildren,
+          'kidsmealqty' => $kidsmealqty
+
+
+      );
+
+
+     
+       # code...
+     
+        $this->db->insert('tblbookingsmulticheckout',$bookingsdata); 
+        
+
+       array_push($this->bookingsIdArray,$this->db->insert_id()); 
+       $this->session->set_userdata('bookingsIdArray',$this->bookingsIdArray);
+    
+       
+      
+      //echo "true";
+    
+    
+
+    }
+
+
 
   public function confirmmulticheckoutbookings(){
 
@@ -883,6 +1049,26 @@ echo "true";
 
     $paymentsdata = array(
           'customerid' => $this->session->userdata('holidayCustomerId'),
+          'transaction_id'=>date('Ymdhis'),
+          'transdate' => date('Y-m-d'),
+          'amount' => $total,
+          'ticketnumber'=>$ticketnumber,
+          'status'=>'unpaid'
+
+      );
+    
+        $this->db->insert('tblpaymentsmulticheckout',$paymentsdata); 
+        
+
+        $this->session->set_userdata('paymentsid',$this->db->insert_id());
+
+
+  }
+
+  public function insertDataIntotblpaymentsForMultiCheckoutNoSession($total,$ticketnumber,$customerid){
+
+    $paymentsdata = array(
+          'customerid' => $customerid,
           'transaction_id'=>date('Ymdhis'),
           'transdate' => date('Y-m-d'),
           'amount' => $total,

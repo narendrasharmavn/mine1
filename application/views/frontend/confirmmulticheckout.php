@@ -319,7 +319,7 @@ $('.otp-check').on('click', function() {
               otp:$('input[name="otp"]').val()
           },
           function(data, status){
-             console.log(data);
+             //console.log(data);
              if (data.trim()=="true") {
               document.getElementById("payment-form").submit();
              }else if(data.trim()=="false"){

@@ -478,7 +478,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                  <tr>
                     <td>
                         Internet & Handling Charges  
-						(<span id="internetcharges"></span>)
+						<span id="internetcharges" style="display:none;"></span>
 						</td>
                     <td class="text-right internetcharges" >
 					Rs. <span class="calculated-internetcharges">0</span>
@@ -487,8 +487,8 @@ if ($this->session->userdata('holidayCustomerName')) {
                 </tr>
                 <tr>
                     <td>
-                        Service tax
-						(<span id="servicetax">0.14</span>)
+                      Service tax @ 14%
+						<span id="servicetax" style="display:none;"></span>
 						</td>
                     <td class="text-right" >
                         
@@ -498,8 +498,8 @@ if ($this->session->userdata('holidayCustomerName')) {
 
                 <tr>
                     <td>
-                        Swachh Bharath       
-					(<span id="servicetax">0.005</span>)
+                      Swachh Bharath @ 0.5%
+					<span id="internetcharges" style="display:none;"></span>
 						</td>
                     <td class="text-right" >
                         
@@ -509,8 +509,8 @@ if ($this->session->userdata('holidayCustomerName')) {
 
                 <tr>
                     <td>
-                        Krishi Kalyan Cess  
-						(<span id="servicetax">0.005</span>)
+                       Krishi Kalyan Cess @ 0.5%
+						<span id="internetcharges" style="display:none;"></span>
 						</td>
                     <td class="text-right" >
                         
