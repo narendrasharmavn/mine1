@@ -361,7 +361,7 @@ class Frontend extends CI_Controller {
       //send sms
       $randNumber = rand(9999,99999);
       $msg = "Your OTP number is : ".$randNumber;
-      //$this->sendsms($mobile,$msg);
+      $this->sendsms($mobile,$msg);
       $this->session->set_userdata( 'otp-resort-booking' ,$randNumber);
 
       echo "true";

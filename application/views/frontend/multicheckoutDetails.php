@@ -470,14 +470,14 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <td>
                         Adults( <span class="adults-number">0</span>)                  </td>
                     <td class="text-right " >
-                        Rs. <span class="adult-price"></span>
+                        Rs. <span class="adult-price">0</span>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         Children ( <span class="children-number">0</span>)                   </td>
                     <td class="text-right" >
-                      Rs. <span class="child-price"></span>
+                      Rs. <span class="child-price">0</span>
                     </td>
                 </tr>
                 <tr class="kids">
@@ -491,31 +491,31 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <td>
                         Internet & Handling Charges                    </td>
                     <td class="text-right " >
-                      Rs.   <span class="internetcharges" id="internetcharges"></span> 
+                      Rs.   <span class="internetcharges" id="internetcharges">0</span> 
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Service tax 
+                        Service tax @ 14%
                     </td>
                     <td class="text-right" >
-                       Rs.  <span id="servicetax">0.14</span> 
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        Swachh Bharath                     </td>
-                    <td class="text-right" >
-                      Rs.  <span id="swachhcess">0.005</span> 
+                       Rs.  <span id="servicetax">0</span> 
                     </td>
                 </tr>
 
                 <tr>
                     <td>
-                        Krishi Kalyan Cess                    </td>
+                       Swachh Bharath @ 0.5%                     </td>
                     <td class="text-right" >
-                       Rs.  <span id="krishicess">0.005</span> 
+                      Rs.  <span id="swachhcess">0</span> 
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Krishi Kalyan Cess @ 0.5%                   </td>
+                    <td class="text-right" >
+                       Rs.  <span id="krishicess">0</span> 
                     </td>
                 </tr>
                                

@@ -11,7 +11,7 @@
                         <h3 style="color: #ffffff;background-color: #2474b7; padding:20px;">Share Your Contact Details</h3>
                         <form class="form-horizontal" action="<?php echo base_url().'merchant/';  ?>submit.php" method="post" id="payment-form" style="background-color:#eee; padding:25px;">
 
-                        <input type="hidden" name="amount" class=" form-control" placeholder="Password" value="<?php echo $this->session->userdata('total') ?>" readonly>
+                        <input type="hidden" name="amount" class=" form-control" placeholder="" value="<?php echo round($this->session->userdata('total'),0); ?>" readonly>
                                     <INPUT TYPE="hidden" NAME="udf1" value="NSE">
                                     <INPUT TYPE="hidden" NAME="udf4" value="NSE">
                                     

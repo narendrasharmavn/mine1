@@ -252,7 +252,7 @@
                      <input type="hidden" id="<?php echo $k->packageid.'kidsmealprice';   ?>" value="<?php echo $k->kidsmealprice;   ?>">
                      <input type="hidden" id="currenturl" value="<?php echo $this->uri->segment(1, 0).'/'.$this->uri->segment(2, 0).'/'.$this->uri->segment(3, 0); ?>">
 
-                    <p><button onclick="bookthispackage(<?php echo $k->packageid;   ?>)" class="btn_1 package-book">Book Now</a></p>
+                    <p><button onclick="bookthispackage(<?php echo $k->packageid;   ?>)" class="btn_1 package-book button-clicked-<?php echo $k->packageid;   ?>">Book Now</a></p>
                 </div>
             </div>
 
@@ -419,6 +419,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                             <label><i class="icon-calendar-7"></i> Select a date</label>
                             <input type="hidden" value="" id="packageid">
                             <input type="hidden" value="<?php echo $resortResults->vendorid; ?>" id="vendorid">
+                            <input type="hidden" value="" id="buttonclickedname">
                             <input class="form-control datepickerj" id="datepickerj" type="text" name="date" required>
                         </div>
                     </div>
@@ -839,6 +840,19 @@ function showmap()
 
 
 function bookthispackage(packageId){
+
+    if($('#buttonclickedname').val()==''){
+        //add class to this button
+    $('.button-clicked-'+packageId).addClass('not-active');
+    $('#buttonclickedname').val('.button-clicked-'+packageId);
+    }else{
+        var btn = $('#buttonclickedname').val();
+        $(btn).removeClass('not-active');
+        $('.button-clicked-'+packageId).addClass('not-active');
+        $('#buttonclickedname').val('.button-clicked-'+packageId);
+    }
+
+    
 
     $('#packageid').val(packageId);
     //reset all values
