@@ -840,18 +840,13 @@ class Frontend extends CI_Controller {
      
        # code...
      
-        $this->db->insert('tblbookingsmulticheckout',$bookingsdata); 
+        $this->db->insert('tblbookings',$bookingsdata); 
         
 
        array_push($this->bookingsIdArray,$this->db->insert_id()); 
        $this->session->set_userdata('bookingsIdArray',$this->bookingsIdArray);
     
-       
-      
-      //echo "true";
-    
-    
-
+   
     }
 
 
@@ -879,7 +874,7 @@ class Frontend extends CI_Controller {
      
        # code...
      
-        $this->db->insert('tblbookingsmulticheckout',$bookingsdata); 
+        $this->db->insert('tblbookings',$bookingsdata); 
         
 
        array_push($this->bookingsIdArray,$this->db->insert_id()); 
@@ -1057,7 +1052,7 @@ echo "true";
 
       );
     
-        $this->db->insert('tblpaymentsmulticheckout',$paymentsdata); 
+        $this->db->insert('tblpayments',$paymentsdata); 
         
 
         $this->session->set_userdata('paymentsid',$this->db->insert_id());
@@ -1077,7 +1072,7 @@ echo "true";
 
       );
     
-        $this->db->insert('tblpaymentsmulticheckout',$paymentsdata); 
+        $this->db->insert('tblpayments',$paymentsdata); 
         
 
         $this->session->set_userdata('paymentsid',$this->db->insert_id());

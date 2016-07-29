@@ -1,7 +1,7 @@
 
 
 <div id="position" style="margin-top:57px;">
-                    <div class="container"><ul><li><a href="<?php echo site_url().'home';?>" title="Home">Home</a></li><li class="active">Booking Confirmation Tour</li></ul></div>
+                    <div class="container"><ul><li><a href="<?php echo site_url().'home';?>" title="Home">Home</a></li><li class="active">My Account</li></ul></div>
                 </div>
 
 <div class="container margin_60">
@@ -58,7 +58,7 @@
                 <td>Rs. <span><?php echo $k->amount;   ?></span></td>
            
                 
-                <td><a href="<?php echo site_url().'invoice/'.$k->bookingid ?>" target='_blank'>View Ticket</a></td>
+                <td><a href="<?php echo site_url().'invoice/'.$k->ticketnumber; ?>" target='_blank'>View Ticket</a></td>
             </tr>
             <?php 
         }

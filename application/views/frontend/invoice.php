@@ -119,7 +119,9 @@
 
 						<tr>
 								<td class="">
-								<?php echo $this->db->get_where('tblpackages' , array('packageid' =>$bookingsResults->packageid))->row()->packagename;
+								<?php 
+								echo $bookingsResults->packagename;
+								//echo $this->db->get_where('tblpackages' , array('packageid' =>$bookingsResults->packageid))->row()->packagename;
 								  ?>
 								  	
 								  </td>
@@ -129,7 +131,7 @@
 								Child: <span><?php echo $bookingsResults->childqty;   ?></span>
 
 								</td>
-								<td class="text-right">Rs. <?php echo $bookingsResults->totalcost;   ?></td>
+								<td class="text-right">Rs. <?php echo $bookingsResults->amount;   ?></td>
 							</tr>
 									
 								
