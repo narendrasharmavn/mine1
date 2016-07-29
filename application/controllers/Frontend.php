@@ -361,7 +361,7 @@ class Frontend extends CI_Controller {
       //send sms
       $randNumber = rand(9999,99999);
       $msg = "Your OTP number is : ".$randNumber;
-      $this->sendsms($mobile,$msg);
+      //$this->sendsms($mobile,$msg);
       $this->session->set_userdata( 'otp-resort-booking' ,$randNumber);
 
       echo "true";
@@ -458,7 +458,7 @@ class Frontend extends CI_Controller {
       if($OTP_CHECK==$otp){
 
                         $packageIdArray = $this->session->userdata('packageIdArray');
-                        for ($i = 0; $i < $packageIdArray; $i++) {
+                        for ($i = 0; $i < count($packageIdArray); $i++) {
                           echo $packageIdArray[$i].'\n';
                         }
                         
