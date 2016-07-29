@@ -202,7 +202,7 @@
                      <div id="logo_home">
                         <!--<img src="<?php echo base_url(); ?>assets/frontend/images/logo.jpg" width="160" height="34" alt="City tours" data-retina="true" class="logo_sticky">-->
                         <a href="<?php echo site_url().'home';      ?>">
-                            <span class="logo-title">Book4Holiday</span>
+                            <span class="logo-title">Book4Holiday<span style="font-size:10px;">.com<span></span>
                         </a>
                     </div>
                 </div>

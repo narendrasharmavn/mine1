@@ -76,7 +76,7 @@
 				//header('Content-Type: image/gif');
 				//imagegif($im);
   				//imagedestroy($im);
-  ?><h3 class="pull-right">Ticket Number # <?php echo $bookingsResults->ticketnumber; ?></h3>
+  ?><h3 class="pull-right">Ticket Number # <span id="ticketnumber"><?php echo $this->uri->segment(2, 0); ?></span></h3>
 			</div>
 			<svg id="bcTarget"></svg>
 			<hr>
@@ -92,7 +92,8 @@
 				<div class="col-xs-6 text-right">
 					<address>
 						<strong>Ticket Date:</strong><br>
-						<?php echo $bookingsResults->date; ?><br><br>
+						<span id="ticketdate-display"></span>
+						<?php //echo $bookingsResults->date; ?><br><br>
 					</address>
 				</div>
 			</div>
@@ -116,23 +117,34 @@
 								</tr>
 							</thead>
 							<tbody>
-
-						<tr>
+							<?php
+							foreach ($bookingsResults->result() as $k) {
+								?>
+									
+							<tr>
 								<td class="">
 								<?php 
-								echo $bookingsResults->packagename;
-								//echo $this->db->get_where('tblpackages' , array('packageid' =>$bookingsResults->packageid))->row()->packagename;
+								echo $k->packagename;
+								//echo $this->db->get_where('tblpackages' , array('packageid' =>$k->packageid))->row()->packagename;
 								  ?>
 								  	
 								  </td>
 								<td class="text-center">
-								Adults: <span><?php echo $bookingsResults->quantity;   ?></span>
+								Adults: <span><?php echo $k->quantity;   ?></span>
 
-								Child: <span><?php echo $bookingsResults->childqty;   ?></span>
+								Child: <span><?php echo $k->childqty;   ?></span>
+								<input type="hidden" id="dateofvisit" value="<?php echo $k->dateofvisit;   ?>">
 
 								</td>
-								<td class="text-right">Rs. <?php echo $bookingsResults->amount;   ?></td>
+								<td class="text-right">Rs. <?php echo $k->amount;   ?></td>
 							</tr>
+								
+
+								<?php
+							}
+							 ?>
+
+						
 									
 								
 															</tbody>
@@ -161,9 +173,9 @@
 $('document').ready(function(){
     //alert("hello");
     //$("#bcTarget").barcode("20160613065926", "ean13");  
-    //JsBarcode("#bcTarget", "<?php echo $bookingsResults->ticketnumber; ?>");
-
-    JsBarcode("#bcTarget", "<?php echo $bookingsResults->ticketnumber; ?>", {
+   
+    $('#ticketdate-display').text($('#dateofvisit').val());
+    JsBarcode("#bcTarget", $('#ticketnumber').text(), {
   
   lineColor: "black",
   width:1,

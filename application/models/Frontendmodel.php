@@ -738,9 +738,9 @@ public function validateEmail($email){
         public function getAllBookingRelatedDetailsOnBookingId($bookingid)
         {
                 $processedResults = $this->db->query("SELECT * FROM tblbookings b left join tblpayments p on b.ticketnumber=p.ticketnumber left join tblpackages tp ON b.packageid=tp.packageid WHERE b.ticketnumber='$bookingid' ");
-                $row = $processedResults->row();
-                echo "SELECT * FROM tblbookings b left join tblpayments p on b.ticketnumber=p.ticketnumber left join tblpackages tp ON b.packageid=tp.packageid WHERE b.bookingid='$bookingid' ";
-                return $row;
+                //$row = $processedResults->row();
+                //echo "SELECT * FROM tblbookings b left join tblpayments p on b.ticketnumber=p.ticketnumber left join tblpackages tp ON b.packageid=tp.packageid WHERE b.ticketnumber='$bookingid' ";
+                return $processedResults;
 
             }
 
