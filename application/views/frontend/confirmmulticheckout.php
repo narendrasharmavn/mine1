@@ -131,12 +131,12 @@
     <?php
 
     $packageidarray = $this->session->userdata('packageIdArray');
-    echo $packageidarray[0];
+    echo '<ol>';
     for($i=0;$i<count($packageidarray);$i++){
       $packageid =  $packageidarray[$i];
-      echo '<p>'.$this->db->get_where('tblpackages' , array('packageid' =>$packageid))->row()->packagename.'</p>';
+      echo '<li style="text-align:left;">'.$this->db->get_where('tblpackages' , array('packageid' =>$packageid))->row()->packagename.'</li>';
     }
- 
+ echo '</ol>';
 
      //echo $this->db->get_where('tblpackages' , array('packageid' =>$this->session->userdata('packageid')))->row()->packagename;
      $adultpriceperticket = $this->session->userdata('calculatedadultprice');
@@ -311,7 +311,7 @@ $('.otp-check').on('click', function() {
     }else{
           //ajax code
           $('.otp-error').text('');
-          $.post('<?php echo site_url("frontend/nosessionhandler")?>',
+          $.post('<?php echo site_url("frontend/nosessionhandlermulticheckout")?>',
           {
               name:$('input[name="customername"]').val(),
               mobile:$('input[name="udf3"]').val(),
@@ -319,7 +319,7 @@ $('.otp-check').on('click', function() {
               otp:$('input[name="otp"]').val()
           },
           function(data, status){
-             
+             console.log(data);
              if (data.trim()=="true") {
               document.getElementById("payment-form").submit();
              }else if(data.trim()=="false"){

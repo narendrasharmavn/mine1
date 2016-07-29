@@ -365,6 +365,7 @@ class Frontend extends CI_Controller {
       $this->session->set_userdata( 'otp-resort-booking' ,$randNumber);
 
       echo "true";
+      echo "Message is: ".$msg;
 
     }
 
@@ -434,6 +435,33 @@ class Frontend extends CI_Controller {
 
                        $this->db->insert('tblpayments',$paymentsdata); 
                       $this->session->set_userdata('paytmentsid',$this->db->insert_id());
+                    
+                    echo "true";
+
+      }else{
+        echo "false";
+      }
+
+    }
+
+
+    public function nosessionhandlermulticheckout(){
+      $name = $this->input->post('name');
+      $mobile = $this->input->post('mobile');
+      $email = $this->input->post('email');
+      $otp = $this->input->post('otp');
+
+      //check otp correct or not through session
+      
+      $OTP_CHECK = $this->session->userdata('otp-resort-booking');
+
+      if($OTP_CHECK==$otp){
+
+                        $packageIdArray = $this->session->userdata('packageIdArray');
+                        for ($i = 0; $i < $packageIdArray; $i++) {
+                          echo $packageIdArray[$i].'\n';
+                        }
+                        
                     
                     echo "true";
 

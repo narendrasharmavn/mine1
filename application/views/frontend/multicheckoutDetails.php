@@ -253,25 +253,27 @@
                     
                     <td class="col-md-3">
 
-                            <div class="numbers-row" data-min="0">
+                            <div class="numbers-row <?php echo 'incdec-'.$k->packageid; ?>" data-min="0">
                                 <input type="text" value="0" id="adults" onchange="calculateBookings()" class="qty2 form-control <?php echo 'adult-number-'.$k->packageid; ?>" name="adults">
-                            <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
+                            <div class="inc button_inc <?php echo 'plus-'.$k->packageid; ?>">+</div>
+                            <div class="dec button_inc <?php echo 'minus-'.$k->packageid; ?>">-</div></div>
 
                                 
-                                <input type="hidden" value="<?php echo $k->adultprice; ?>" id="adults" class="qty2 form-control <?php echo 'adult-cost-'.$k->packageid; ?>" >
+                                <input type="hidden" value="<?php echo $k->adultprice; ?>" id="adults" class="form-control <?php echo 'adult-cost-'.$k->packageid; ?>" >
                           
                     </td>
                     <td class="col-md-3">
 
-                                <div class="numbers-row" data-min="0">
+                                <div class="numbers-row <?php echo 'incdec-'.$k->packageid; ?>" data-min="0">
                                     <input type="text" onchange="calculateBookings()" value="0" id="children" class="qty2 form-control <?php echo 'child-number-'.$k->packageid; ?>" name="kids">
-                                <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
+                                <div class="inc button_inc <?php echo 'plus-'.$k->packageid; ?>">+</div>
+                                <div class="dec button_inc <?php echo 'minus-'.$k->packageid; ?>">-</div></div>
    
                                 
-                                <input type="hidden" value="<?php echo $k->childprice; ?>" id="adults" class="qty2 form-control <?php echo 'child-cost-'.$k->packageid; ?>" >
+                                <input type="hidden" value="<?php echo $k->childprice; ?>" id="adults" class="form-control <?php echo 'child-cost-'.$k->packageid; ?>" >
                                 
                             
-                                 <input type="hidden" value="<?php echo $k->servicetax; ?>" id="adults" class="qty2 form-control <?php echo 'servicetax-'.$k->packageid; ?>" >
+                                 <input type="hidden" value="<?php echo $k->servicetax; ?>" id="adults" class="form-control <?php echo 'servicetax-'.$k->packageid; ?>" >
                          
                     </td>
                     </tr>
@@ -867,9 +869,13 @@ function calculateBookings(){
     var internetCharges =0;
     for (var i=0, n=packageId.length;i<n;i++) 
     {
+        var packageid = packageId[i].value;
         if (packageId[i].checked) 
         {
-            var packageid = packageId[i].value;
+            //remove class not-active 
+            $('.incdec-'+packageid).removeClass('not-active');
+
+            
             var ur = '.'+'adult-number-'+packageid;
             
             numberofadults.push($('.'+'adult-number-'+packageid).val());
@@ -895,6 +901,11 @@ function calculateBookings(){
             calculate_child.push( $('.'+'child-number-'+packageid).val() * $('.'+'child-cost-'+packageid).val() );
             console.log(packageId[i].value);
             
+        }else{
+            $('.incdec-'+packageid).addClass('not-active');
+            //change input of adult and child box to zero
+            $('.adult-number-'+packageid).val(0);
+            $('.child-number-'+packageid).val(0);
         }
     }
     /*
@@ -977,6 +988,35 @@ $('input[name="addtocart"]').on('click', function() {
     
     $('.theiaStickySidebar').show();
 });
+
+
+ $("document").ready(function(){
+        //alert("hello");
+        console.clear();
+
+    var packageId = document.getElementsByName('packagename[]');
+
+        for (var i=0, n=packageId.length;i<n;i++) 
+        {
+            if (packageId[i].checked) 
+            {
+                //remove class not-active 
+
+                var packageid = packageId[i].value;
+                $('.incdec-'+packageid).removeClass('not-active');
+                
+                console.log(packageId[i].value);
+                
+            }else{
+                var packageid = packageId[i].value;
+                $('.incdec-'+packageid).addClass('not-active');
+            }
+        }
+
+
+
+
+    });
 
 
 
