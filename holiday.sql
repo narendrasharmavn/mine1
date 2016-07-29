@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2016 at 04:11 PM
+-- Generation Time: Jul 29, 2016 at 02:19 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.5.35
 
@@ -186,64 +186,13 @@ CREATE TABLE `tblbookings` (
 --
 
 INSERT INTO `tblbookings` (`bookingid`, `bookingtypeid`, `date`, `dateofvisit`, `userid`, `quantity`, `amount`, `booking_status`, `payment_status`, `ticketnumber`, `packageid`, `visitorstatus`, `vendorid`, `childqty`, `kidsmealqty`) VALUES
-(1, NULL, '2016-07-09', '0000-00-00', 5, 1, '88.085', 'pending', 'pending', '20160709070703', '1', 'absent', 1, 1, 1),
-(2, NULL, '2016-07-09', '0000-00-00', 5, 1, '89', 'pending', 'pending', '20160709071350', '1', 'absent', 1, 1, 1),
-(3, NULL, '2016-07-13', '0000-00-00', 15, 1, '1050', 'booked', 'paid', '20160713044357', '7', 'absent', 2, 0, 0),
-(4, NULL, '2016-07-22', '0000-00-00', 5, 1, '89', 'pending', 'pending', '20160722012523', '1', 'absent', 1, 1, 1),
-(5, NULL, '2016-07-22', '0000-00-00', 5, 1, '2100', 'pending', 'pending', '20160722031126', '7', 'absent', 2, 1, 0),
-(6, NULL, '2016-07-22', '0000-00-00', 5, 1, '2100', 'pending', 'pending', '20160722035323', '7', 'absent', 2, 1, 0),
-(7, NULL, '2016-07-22', '0000-00-00', 16, 1, '2115', 'pending', 'pending', '20160722070806', '7', 'absent', 2, 1, 0),
-(8, NULL, '2016-07-22', '0000-00-00', 17, 1, '2115', 'pending', 'pending', '20160722071022', '7', 'absent', 2, 1, 0),
-(9, NULL, '2016-07-22', '0000-00-00', 20, 1, '89', 'pending', 'pending', '20160722094044', '1', 'absent', 1, 1, 1),
-(10, NULL, '2016-07-23', '0000-00-00', 24, 1, '89', 'pending', 'pending', '20160723125730', '1', 'absent', 1, 1, 1),
-(11, NULL, '2016-07-23', '0000-00-00', 5, 1, '2115', 'pending', 'pending', '20160723034215', '7', 'absent', 2, 1, 0),
-(12, NULL, '2016-07-23', '0000-00-00', 5, 1, '2115', 'pending', 'pending', '20160723054640', '7', 'absent', 2, 1, 0),
-(13, NULL, '2016-07-26', '0000-00-00', 22, 2, '122', 'pending', 'pending', '20160726042855', '1', 'absent', 1, 2, 1),
-(14, NULL, '2016-07-26', '0000-00-00', 23, 2, '122', 'pending', 'pending', '20160726051751', '1', 'absent', 1, 2, 1),
-(15, NULL, '2016-07-26', '0000-00-00', 24, 2, '122', 'pending', 'pending', '20160726052004', '1', 'absent', 1, 2, 1),
-(16, NULL, '2016-07-26', '0000-00-00', 5, 1, '89', 'pending', 'pending', '20160726052553', '1', 'absent', 1, 1, 1),
-(17, NULL, '2016-07-26', '0000-00-00', 25, 2, '111', 'pending', 'pending', '20160726060141', '1', 'absent', 1, 1, 1),
-(18, NULL, '2016-07-26', '0000-00-00', 26, 2, '4230', 'pending', 'pending', '20160726070701', '7', 'absent', 2, 2, 0),
-(19, NULL, '2016-07-26', '0000-00-00', 26, 1, '2115', 'pending', 'pending', '20160726071157', '7', 'absent', 2, 1, 0),
-(20, NULL, '2016-07-26', '0000-00-00', 5, 1, '2115', 'pending', 'pending', '20160726071840', '7', 'absent', 2, 1, 0),
-(21, NULL, '2016-07-26', '0000-00-00', 27, 1, '2115', 'pending', 'pending', '20160726072229', '7', 'absent', 2, 1, 0),
-(22, NULL, '2016-07-28', '2016-07-28', 5, 1, '40', 'pending', 'pending', '20160728055407', '1', 'absent', 1, 2, 2),
-(23, NULL, '2016-07-28', '2016-07-28', 5, 1, '190', 'pending', 'pending', '20160728055407', '12', 'absent', 1, 2, 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tblbookingsmulticheckout`
---
-
-CREATE TABLE `tblbookingsmulticheckout` (
-  `bookingid` int(10) NOT NULL,
-  `date` date NOT NULL,
-  `dateofvisit` date NOT NULL,
-  `userid` int(10) NOT NULL,
-  `quantity` int(10) NOT NULL,
-  `amount` varchar(45) NOT NULL,
-  `booking_status` varchar(45) NOT NULL,
-  `payment_status` varchar(45) NOT NULL,
-  `ticketnumber` varchar(90) NOT NULL,
-  `packageid` int(10) NOT NULL,
-  `visitorstatus` varchar(45) NOT NULL,
-  `vendorid` int(10) NOT NULL,
-  `childqty` int(10) NOT NULL,
-  `kidsmealqty` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tblbookingsmulticheckout`
---
-
-INSERT INTO `tblbookingsmulticheckout` (`bookingid`, `date`, `dateofvisit`, `userid`, `quantity`, `amount`, `booking_status`, `payment_status`, `ticketnumber`, `packageid`, `visitorstatus`, `vendorid`, `childqty`, `kidsmealqty`) VALUES
-(35, '2016-07-28', '2016-07-28', 5, 1, '30', 'pending', 'pending', '20160728065355', 1, 'absent', 1, 1, 2),
-(36, '2016-07-28', '2016-07-28', 5, 1, '100', 'pending', 'pending', '20160728065355', 12, 'absent', 1, 1, 0),
-(37, '2016-07-28', '2016-07-28', 5, 1, '30', 'pending', 'pending', '20160728065616', 1, 'absent', 1, 1, 2),
-(38, '2016-07-28', '2016-07-28', 5, 1, '100', 'pending', 'pending', '20160728065616', 12, 'absent', 1, 1, 0),
-(39, '2016-07-28', '2016-07-28', 5, 1, '30', 'pending', 'pending', '20160728070751', 1, 'absent', 1, 1, 3),
-(40, '2016-07-28', '2016-07-28', 5, 1, '100', 'pending', 'pending', '20160728070751', 12, 'absent', 1, 1, 0);
+(24, NULL, '2016-07-29', '2016-07-29', 5, 1, '143', 'booked', 'paid', '20160729041942', '1', 'absent', 1, 1, 2),
+(25, NULL, '2016-07-29', '2016-07-29', 5, 1, '30', 'booked', 'paid', '20160729042223', '1', 'absent', 1, 1, 0),
+(26, NULL, '2016-07-29', '2016-07-29', 5, 1, '100', 'booked', 'paid', '20160729042223', '12', 'absent', 1, 1, 0),
+(27, NULL, '2016-07-29', '2016-07-29', 5, 1, '20', 'pending', 'pending', '20160729042837', '1', 'absent', 1, 0, 0),
+(28, NULL, '2016-07-29', '2016-07-29', 5, 1, '50', 'pending', 'pending', '20160729042837', '13', 'absent', 1, 0, 0),
+(29, NULL, '2016-07-29', '2016-07-29', 5, 1, '30', 'booked', 'paid', '20160729043252', '1', 'absent', 1, 1, 0),
+(30, NULL, '2016-07-29', '2016-07-29', 5, 1, '100', 'booked', 'paid', '20160729043252', '13', 'absent', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -305,7 +254,10 @@ INSERT INTO `tblcustomers` (`customer_id`, `name`, `username`, `password`, `numb
 (24, 'Tedx', 'sainikhil013@gmail.com', '648a632e5d144131fda46e663cbe4890ff18d55772fd016b98cb854f929af0c2eea47d9d5e17a9ba35a9b11d64dcb26fb75fdceb046d3b7c28dd6d157177d380', '7893514850', '2016-07-26', '', 'Guest'),
 (25, 'ges', 'sainikhil013@gmail.com', '5722abf76ddf8327cbb3c018f73950c0410dea505f9acfdd52478745c00b98ea141d60d5346aabb3e4207ffded0cc07121d4a7e8a8c8ab25e2dc3ed7b865c472', '7893514850', '2016-07-26', '', 'Guest'),
 (26, 'Guest', 'sainikhil013@gmail.com', '33b62d903469465edc0d004237244a3ce7de9c5af5b23b7d6e11bec16e102dd99936f3d47cdc51f944304bfa8afe763ffdf3062941d46b84ed669bdea3f977a4', '7893514850', '2016-07-26', '', ''),
-(27, 'Guest', 'sainikhil013@gmail.comm', '189b7c9d08c6c1f4189628eb1886cba0afa67840a56e78cd9471d0456ddf3e838999d8ff86868122fc2e2d47b78b7fefdf05b21ce0d373d6e91dde7838bfa9fc', '7893514850', '2016-07-26', '', '');
+(27, 'Guest', 'sainikhil013@gmail.comm', '189b7c9d08c6c1f4189628eb1886cba0afa67840a56e78cd9471d0456ddf3e838999d8ff86868122fc2e2d47b78b7fefdf05b21ce0d373d6e91dde7838bfa9fc', '7893514850', '2016-07-26', '', ''),
+(28, 'Tedx', 'sainikhil013@gmail.com', '8dd2aa816a49bb5faf4e1159c7678d622f1dfe064b5d96cd50fce5e4c83b5bd65da965f5295905a6475683653c3af55967b3af9e60cb9548841de03ff2998055', '7893514850', '2016-07-29', '', 'Guest'),
+(29, 'Tedx', 'sainikhil013@gmail.com', 'c1370767935443ded72bf499376a63ffd09c64d65de1bfaa8e20295040c44bdff3653d244928a4bed7cbf6bb76d41a0f8ac000858b33477c0a80effbcc25b3a1', '7893514850', '2016-07-29', '', 'Guest'),
+(30, 'Tedx', 'sainikhil013@gmail.com', 'd547de058bcec8ae47a9037d05dafc837a2afe08bf8ac4e047dab2e5c75d6955cbf2228e4df9a1ffd8a942a2329038454b81ec39345d815b0e1ef10743f5558e', '7893514850', '2016-07-29', '', 'Guest');
 
 -- --------------------------------------------------------
 
@@ -460,6 +412,7 @@ CREATE TABLE `tblpayments` (
   `internetcharges` decimal(10,2) NOT NULL,
   `swachhbharath` double(10,2) NOT NULL,
   `krishkalyancess` double(10,2) NOT NULL,
+  `ticketnumber` varchar(55) NOT NULL,
   `transaction_id` varchar(150) DEFAULT NULL,
   `referenceno` varchar(45) DEFAULT NULL,
   `transdate` date DEFAULT NULL,
@@ -483,65 +436,8 @@ CREATE TABLE `tblpayments` (
 -- Dumping data for table `tblpayments`
 --
 
-INSERT INTO `tblpayments` (`paymentid`, `bookingid`, `customerid`, `packageid`, `totalcost`, `adultpriceperticket`, `childpriceperticket`, `kidsmealprice`, `numberofadults`, `numberofchildren`, `noofkidsmeal`, `servicetax`, `internetcharges`, `swachhbharath`, `krishkalyancess`, `transaction_id`, `referenceno`, `transdate`, `amount`, `response`, `banktransaction`, `transactiondescription`, `authorizationcode`, `discriminator`, `cardnumber`, `billingphone`, `billingemail`, `udf9`, `mmp_txn`, `mer_txn`, `transactiontime`, `status`) VALUES
-(1, '1', '5', 1, '88.08', '20', '10', '49.00', '1', '1', 1, '1.185', '7.90', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-09 13:37:03', 'unpaid'),
-(2, '2', '5', 1, '89', '20', '10', '49.00', '1', '1', 1, '1.185', '7.90', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-09 13:43:51', 'unpaid'),
-(3, '3', '15', 7, '1050', '1000', '0', '0.00', '1', '0', 0, '50', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-13 11:13:57', 'unpaid'),
-(4, '4', '5', 1, '89', '20', '10', '49.00', '1', '1', 1, '1.185', '7.90', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-22 07:55:23', 'unpaid'),
-(5, '5', '5', 7, '2100', '1000', '1000', '0.00', '1', '1', 0, '100', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-22 09:41:26', 'unpaid'),
-(6, '6', '5', 7, '2100', '1000', '1000', '0.00', '1', '1', 0, '100', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-22 10:23:23', 'unpaid'),
-(7, '7', '16', 7, '2115', '1000', '1000', '0.00', '1', '1', 0, '15', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-22 13:38:06', 'unpaid'),
-(8, '8', '17', 7, '2115', '1000', '1000', '0.00', '1', '1', 0, '15', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-22 13:40:23', 'unpaid'),
-(9, '9', '20', 1, '89', '20', '10', '49.00', '1', '1', 1, '1.185', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-22 16:10:44', 'unpaid'),
-(10, '10', '24', 1, '89', '20', '10', '49.00', '1', '1', 1, '1.185', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-23 07:27:30', 'unpaid'),
-(11, '11', '5', 7, '2115', '1000', '1000', '0.00', '1', '1', 0, '15', '100.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-23 10:12:15', 'unpaid'),
-(12, '12', '5', 7, '2115', '1000', '1000', '0.00', '1', '1', 0, '15', '100.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-23 12:16:40', 'unpaid'),
-(13, '13', '22', 1, '122', '40', '20', '49.00', '2', '2', 1, '1.526', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 10:58:55', 'unpaid'),
-(14, '14', '23', 1, '122', '40', '20', '49.00', '2', '2', 1, '1.526', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 11:47:51', 'unpaid'),
-(15, '15', '24', 1, '122', '40', '20', '49.00', '2', '2', 1, '1.526', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 11:50:04', 'unpaid'),
-(16, '16', '5', 1, '89', '20', '10', '49.00', '1', '1', 1, '1.106', '7.90', 0.04, 0.04, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 11:55:53', 'unpaid'),
-(17, '17', '25', 1, '111', '40', '10', '49.00', '2', '1', 1, '1.386', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 12:31:41', 'unpaid'),
-(18, '18', '26', 7, '4230', '2000', '2000', '0.00', '2', '2', 0, '28', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 13:37:01', 'unpaid'),
-(19, '19', '26', 7, '2115', '1000', '1000', '0.00', '1', '1', 0, '14', '100.00', 0.50, 0.50, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 13:41:57', 'unpaid'),
-(20, '20', '5', 7, '2115', '1000', '1000', '0.00', '1', '1', 0, '14', '100.00', 0.50, 0.50, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 13:48:40', 'unpaid'),
-(21, '21', '27', 7, '2115', '1000', '1000', '0.00', '1', '1', 0, '14', '0.00', 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-26 13:52:30', 'unpaid');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tblpaymentsmulticheckout`
---
-
-CREATE TABLE `tblpaymentsmulticheckout` (
-  `paymentid` int(10) NOT NULL,
-  `customerid` varchar(45) NOT NULL,
-  `transaction_id` varchar(150) NOT NULL,
-  `ticketnumber` varchar(90) NOT NULL,
-  `transdate` date NOT NULL,
-  `amount` int(10) NOT NULL,
-  `response` varchar(75) NOT NULL,
-  `banktransaction` varchar(150) NOT NULL,
-  `transactiondescription` varchar(90) NOT NULL,
-  `authorizationcode` varchar(90) NOT NULL,
-  `discriminator` varchar(75) NOT NULL,
-  `cardnumber` varchar(45) NOT NULL,
-  `billingphone` varchar(45) NOT NULL,
-  `billingemail` varchar(45) NOT NULL,
-  `udf9` varchar(45) NOT NULL,
-  `mmp_txn` varchar(45) NOT NULL,
-  `mer_txn` varchar(45) NOT NULL,
-  `transactiontime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `status` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tblpaymentsmulticheckout`
---
-
-INSERT INTO `tblpaymentsmulticheckout` (`paymentid`, `customerid`, `transaction_id`, `ticketnumber`, `transdate`, `amount`, `response`, `banktransaction`, `transactiondescription`, `authorizationcode`, `discriminator`, `cardnumber`, `billingphone`, `billingemail`, `udf9`, `mmp_txn`, `mer_txn`, `transactiontime`, `status`) VALUES
-(13, '5', '20160728065355', '20160728065355', '2016-07-28', 249, '', '', '', '', '', '', '', '', '', '', '', '2016-07-28 13:23:55', 'unpaid'),
-(14, '5', '20160728065616', '20160728065616', '2016-07-28', 249, '', '', '', '', '', '', '', '', '', '', '', '2016-07-28 13:26:16', 'unpaid'),
-(15, '5', '20160728070752', '20160728070751', '2016-07-28', 303, '', '', '', '', '', '', '', '', '', '', '', '2016-07-28 13:37:52', 'unpaid');
+INSERT INTO `tblpayments` (`paymentid`, `bookingid`, `customerid`, `packageid`, `totalcost`, `adultpriceperticket`, `childpriceperticket`, `kidsmealprice`, `numberofadults`, `numberofchildren`, `noofkidsmeal`, `servicetax`, `internetcharges`, `swachhbharath`, `krishkalyancess`, `ticketnumber`, `transaction_id`, `referenceno`, `transdate`, `amount`, `response`, `banktransaction`, `transactiondescription`, `authorizationcode`, `discriminator`, `cardnumber`, `billingphone`, `billingemail`, `udf9`, `mmp_txn`, `mer_txn`, `transactiontime`, `status`) VALUES
+(23, NULL, '5', 0, '', '', '', '0.00', '', '', 0, '', '0.00', 0.00, 0.00, '20160729043252', '20160729043252', NULL, '2016-07-29', 139, NULL, '', '', '', '', '', '', '', '', '', '', '2016-07-29 11:02:52', 'paid');
 
 -- --------------------------------------------------------
 
@@ -892,12 +788,6 @@ ALTER TABLE `tblbookings`
   ADD PRIMARY KEY (`bookingid`);
 
 --
--- Indexes for table `tblbookingsmulticheckout`
---
-ALTER TABLE `tblbookingsmulticheckout`
-  ADD PRIMARY KEY (`bookingid`);
-
---
 -- Indexes for table `tblcities`
 --
 ALTER TABLE `tblcities`
@@ -949,12 +839,6 @@ ALTER TABLE `tblpackages`
 -- Indexes for table `tblpayments`
 --
 ALTER TABLE `tblpayments`
-  ADD PRIMARY KEY (`paymentid`);
-
---
--- Indexes for table `tblpaymentsmulticheckout`
---
-ALTER TABLE `tblpaymentsmulticheckout`
   ADD PRIMARY KEY (`paymentid`);
 
 --
@@ -1062,12 +946,7 @@ ALTER TABLE `taxmaster`
 -- AUTO_INCREMENT for table `tblbookings`
 --
 ALTER TABLE `tblbookings`
-  MODIFY `bookingid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
---
--- AUTO_INCREMENT for table `tblbookingsmulticheckout`
---
-ALTER TABLE `tblbookingsmulticheckout`
-  MODIFY `bookingid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `bookingid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `tblcities`
 --
@@ -1082,7 +961,7 @@ ALTER TABLE `tblcountries`
 -- AUTO_INCREMENT for table `tblcustomers`
 --
 ALTER TABLE `tblcustomers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `tblemail_template`
 --
@@ -1112,12 +991,7 @@ ALTER TABLE `tblpackages`
 -- AUTO_INCREMENT for table `tblpayments`
 --
 ALTER TABLE `tblpayments`
-  MODIFY `paymentid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
---
--- AUTO_INCREMENT for table `tblpaymentsmulticheckout`
---
-ALTER TABLE `tblpaymentsmulticheckout`
-  MODIFY `paymentid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `paymentid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `tblplaces`
 --
