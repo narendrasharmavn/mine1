@@ -2532,12 +2532,23 @@ redirect('frontend/index');
 
       $data['resortid'] = $resortId;
 
-      $data['resortResults'] = $this->FrontEndModel->getResortDataBasedOnResortId($resortId);
+      //$data['resortResults'] = $this->FrontEndModel->getResortDataBasedOnResortId($resortId);
+      //get to know single checkout or multicheckout
+      $res = $this->FrontEndModel->findOutSingleCheckoutOrMultipleCheckout($resortId);
       
+      echo $res->bookingtype;
+      $resortname = str_replace(" ","-",$res->bookingtype);
+      if($res->bookingtype=='multicheckout'){
+        
+        redirect('resorts-multicheckout/'.$resortname.'/'.$resortId);
 
-      $this->load->view('frontend/header');
+      }else{
+        $data['resortResults'] = $this->FrontEndModel->getResortDataBasedOnResortId($resortId);
+        $this->load->view('frontend/header');
 
         $this->load->view('frontend/resortDetails',$data);
+      }
+      
 
     }
 

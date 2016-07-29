@@ -769,6 +769,17 @@ public function validateEmail($email){
 
     }
 
+
+    public function findOutSingleCheckoutOrMultipleCheckout($resortId){
+        $processedResultss = $this->db->query("SELECT * from tblresorts r left join tblvendors v ON r.vendorid=v.vendorid WHERE r.status=1 AND r.resortid='$resortId' AND v.status=1 ");
+
+        echo "SELECT * from tblresorts r left join tblvendors v ON r.vendorid=v.vendorid WHERE r.status=1 AND r.resortid='$resortId' AND v.status=1 ";
+
+        return $processedResultss->row();
+        //return $row->name;
+
+    }
+
     
 
     public function getResortDataBasedOnEventId($eventid){
