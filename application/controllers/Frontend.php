@@ -2536,7 +2536,7 @@ redirect('frontend/index');
       //get to know single checkout or multicheckout
       $res = $this->FrontEndModel->findOutSingleCheckoutOrMultipleCheckout($resortId);
       
-      echo $res->bookingtype;
+      //echo $res->bookingtype;
       $resortname = str_replace(" ","-",$res->bookingtype);
       if($res->bookingtype=='multicheckout'){
         
