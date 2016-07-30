@@ -120,14 +120,14 @@
                             <!--otp here -->
                     </div>
                     <div class="col-md-4 col-xs-12" style="margin-top:20px;">
-                        <h3 style="color:#3b0032;">ORDER SUMMARY</h3>
+                        <h3 style="color:#3b0032;text-align:center;">ORDER SUMMARY</h3>
                             			
-<table class="table table-bordered" style="font-size:14px;line-height: 1.5em;background-color: transparent;">
+<table class="table table-bordered" style="font-size:12px;line-height: 1.5em;background-color: transparent;">
 <tr>
-    <td width="150">Package Name
+    <td width="150" align="center" style="font-size:14px;text-align:center;font-weight:bold;">Package Name
     </td>
    
-    <td class="tdrt">
+    <td class="tdrt" align="center" style="font-size:14px;text-align:center;font-weight:bold;">
     <?php
 
      echo $this->db->get_where('tblpackages' , array('packageid' =>$this->session->userdata('packageid')))->row()->packagename;
@@ -146,6 +146,8 @@
   <tr><td width="150">Adult Tickets </td><td class="tdrt">Rs.<?php echo  $adultpriceperticket;  ?></td></tr>
   <tr><td width="150">Child Tickets </td><td class="tdrt">Rs.<?php echo  $childpriceperticket;  ?></td></tr>
   <tr><td width="150">TotalTicket Cost </td><td class="tdrt">Rs.<?php echo  $ticketcost;  ?></td></tr>
+</table>
+<table class="table table-bordered" style="font-size:12px;line-height: 1.5em;background-color: transparent;">
 	<tr><td width="150">Internet & Handling Charges</td><td class="tdrt">Rs. <?php echo $this->session->userdata('internetcharges');  ?></td></tr>
   <tr><td width="150">Taxes </td><td class="tdrt">Rs.<?php echo  $taxes;  ?></td></tr>
 	<tr><td width="150">Date of Visit</td><td class="tdrt"><?php echo $this->session->userdata('dateofvisit');  ?></td></tr>

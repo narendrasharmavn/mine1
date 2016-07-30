@@ -337,7 +337,7 @@ class Frontend extends CI_Controller {
                        }
 
                            
-                          } else if ($searchtype=="resortname") {
+                          }else if ($searchtype=="resortname") {
                             //echo "amar";
 
                             $this->resortsGridView();
@@ -365,7 +365,7 @@ class Frontend extends CI_Controller {
       $this->session->set_userdata( 'otp-resort-booking' ,$randNumber);
 
       echo "true";
-      echo "Message is: ".$msg;
+      //echo "Message is: ".$msg;
 
     }
 
