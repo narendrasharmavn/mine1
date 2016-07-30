@@ -1,15 +1,17 @@
 <!-- Common scripts -->
 
-    <script src="<?php echo base_url(); ?>assets/frontend/js/jquery-1.11.2.min.js"></script>
-
+   
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <link href="<?php echo base_url(); ?>assets/frontend/css/jquery-ui.css" rel="stylesheet">
     
-      <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <!--
+     <script src="<?php echo base_url(); ?>assets/frontend/js/jquery-1.11.2.min.js"></script>
+      
       <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
-
+-->
       
    
 

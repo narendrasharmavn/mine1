@@ -474,22 +474,6 @@ if (count($query->result())>0) {
 <script type="text/javascript">
 
 
-
-/*
-
-$('.searchnowbutton').click(function(event) {
-    var searchType = $('.searchtype').val();
-    var searchterm = $('.searchterm').val();
-    var datepickerj = $('.datepickerj').val();
-
-    //alert(datepickerj);
-    
-    
-});
-
-
-*/
-
 function myFunctionFocusOut(){
     $('.search-results-autofill').html('');
 }
@@ -512,6 +496,7 @@ $('.search-form-slider1').on('keyup',function () {
 
 
 });
+
 $('.search-form-slider2').on('keyup',function () {
    
         searchtype = $('#searchtype1').val();
@@ -547,7 +532,10 @@ $('document').ready(function(){
 
 
 
-    $( ".search-form-slider1" ).autocomplete({
+});
+
+
+ $( ".search-form-slider1" ).autocomplete({
       source:function(request, response) {
         
         $.ajax({
@@ -556,7 +544,7 @@ $('document').ready(function(){
             data: {
                 searchtype : $('#searchtype').val(),
                 searchdate : $('#date').val() ,
-                searchterm : $('.search-form-slider1').val()
+                searchterm : $('input[name="searchterm"]').val()
             },
             success: function(data) {
                 console.log("jquery ajax autocomplete test "+data);
@@ -566,7 +554,8 @@ $('document').ready(function(){
     },
       min_length: 3
     });
-	$( ".search-form-slider2" ).autocomplete({
+
+    $( ".search-form-slider2" ).autocomplete({
       source:function(request, response) {
         
         $.ajax({
@@ -587,21 +576,16 @@ $('document').ready(function(){
     });
 
 
-    
-
-
-});
-
 
 $('.searchtype').on('change',function(){
     //alert(this.value);
     $('.searchtermerror').text('');
     if (this.value=="eventname") {
         $('.datefield').show();
-        $(".datefield").rules("add", "required");
+        
     } else {
         $('.datefield').hide();
-        $(".datefield").rules("remove", "required"); 
+        
     }
 
 });

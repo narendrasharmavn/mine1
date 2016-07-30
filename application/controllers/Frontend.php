@@ -50,9 +50,9 @@ class Frontend extends CI_Controller {
       $searchdate = $this->input->post('searchdate');
       $searchterm = $this->input->post('searchterm');
       $data = array();
-      //echo $searchtype."<br>";
-      //echo $searchdate."<br>";
-     // echo $searchterm."<br>";
+      //echo $searchtype."\n";
+      //echo $searchdate."\n";
+      //echo $searchterm." :search term\n";
       if($searchtype=='resortname'){
         //echo "amaer";
        //resorts
