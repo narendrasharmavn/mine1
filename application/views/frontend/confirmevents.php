@@ -28,7 +28,7 @@
 
                             <div id="errordiv"></div>
                             <div class="form-group">
-                                <label for="exampleInputName2" class="control-label">Name</label> 
+                                <label for="exampleInputName2" class="control-label">Name*</label> 
                                 
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
@@ -46,7 +46,7 @@
                                 
                               </div>
                               <div class="form-group">
-                                <label for="exampleInputName2" class="control-label">Mobile</label> 
+                                <label for="exampleInputName2" class="control-label">Mobile*</label> 
                                 
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
@@ -64,7 +64,7 @@
                                 
                               </div> &nbsp; &nbsp;
                               <div class="form-group">
-                                <label for="exampleInputEmail2">Email</label> &nbsp; &nbsp;
+                                <label for="exampleInputEmail2">Email*</label> &nbsp; &nbsp;
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
                                     echo '<input type="email" name="udf2" class="form-control" id="email" placeholder="abcd@example.com" onchange="emailvalidation()" required>';
@@ -184,7 +184,8 @@
     </td>
     
     <td class="tdrt">
-      <?php echo $this->session->userdata('dateofvisit');  ?>
+      <?php
+   echo date("d-m-Y", strtotime($this->session->userdata('dateofvisit')));  ?>
     </td>
   </tr>
 	<tr style="font-weight: bold;font-size: 20px;">

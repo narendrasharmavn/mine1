@@ -464,14 +464,19 @@ class FrontEndModel extends CI_Model {
                                     <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
                                         <h3 ><?php echo $k->eventname;   ?>  </h3>
                                     </a>
-                                  <!--  <div class="rating">
-                                        <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
-                                    </div> end rating -->
-                                    <!--
-                                                <div class="wishlist">
-                                        <a class="tooltip_flip tooltip-effect-1 btn-add-wishlist" href="#" data-post-id="170"><span class="wishlist-sign">+</span><span class="tooltip-content-flip"><span class="tooltip-back">Add to wishlist</span></span></a>
-                                        <a class="tooltip_flip tooltip-effect-1 btn-remove-wishlist" href="#" data-post-id="170" style="display:none;"><span class="wishlist-sign">-</span><span class="tooltip-content-flip"><span class="tooltip-back">Remove from wishlist</span></span></a>
-                                    </div> End wish list-->
+                                     
+                                     <p class="eventdate">
+
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">From : <?php
+                                            echo date("d-m-Y", strtotime($k->todate)); 
+                                         //echo $k->todate; 
+
+                                         ?></a> 
+                                        &nbsp;
+                                        &nbsp;
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">To : <?php echo date("d-m-Y", strtotime($k->fromdate)); ?></a>
+                                    </p> 
+                                 
                                 </div>
                             </div><!-- End box tour -->
     
@@ -603,14 +608,20 @@ class FrontEndModel extends CI_Model {
                                     <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
                                         <h3 ><?php echo $k->eventname;   ?>  </h3>
                                     </a>
-                                  <!--  <div class="rating">
-                                        <i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><i class="icon-smile"></i><small>(0)</small>
-                                    </div> end rating -->
-                                    <!--
-                                                <div class="wishlist">
-                                        <a class="tooltip_flip tooltip-effect-1 btn-add-wishlist" href="#" data-post-id="170"><span class="wishlist-sign">+</span><span class="tooltip-content-flip"><span class="tooltip-back">Add to wishlist</span></span></a>
-                                        <a class="tooltip_flip tooltip-effect-1 btn-remove-wishlist" href="#" data-post-id="170" style="display:none;"><span class="wishlist-sign">-</span><span class="tooltip-content-flip"><span class="tooltip-back">Remove from wishlist</span></span></a>
-                                    </div> End wish list-->
+                                    
+                                     <p class="eventdate">
+
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">From : <?php
+                                            echo date("d-m-Y", strtotime($k->todate)); 
+                                         //echo $k->todate; 
+
+                                         ?></a> 
+                                        &nbsp;
+                                        &nbsp;
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">To : <?php echo date("d-m-Y", strtotime($k->fromdate)); ?></a>
+                                    </p> 
+
+
                                 </div>
                             </div><!-- End box tour -->
     

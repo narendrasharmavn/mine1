@@ -262,10 +262,14 @@
                                     </a>
                                     <p class="eventdate">
 
-                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">From : <?php echo $k->todate; ?></a> 
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">From : <?php
+                                            echo date("d-m-Y", strtotime($k->todate)); 
+                                         //echo $k->todate; 
+
+                                         ?></a> 
                                         &nbsp;
                                         &nbsp;
-                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">To : <?php echo $k->fromdate; ?></a>
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">To : <?php echo date("d-m-Y", strtotime($k->fromdate)); ?></a>
                                     </p>                  
                                 </div>
                             </div><!-- End box tour -->

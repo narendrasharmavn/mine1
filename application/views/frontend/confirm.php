@@ -27,7 +27,7 @@
 
                             <div id="errordiv"></div>
                             <div class="form-group">
-                                <label for="exampleInputName2" class="control-label">Name</label> 
+                                <label for="exampleInputName2" class="control-label">Name*</label> 
                                 
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
@@ -45,7 +45,7 @@
                                 
                               </div>
                               <div class="form-group">
-                                <label for="exampleInputName2">Mobile</label> &nbsp; &nbsp;
+                                <label for="exampleInputName2">Mobile*</label> &nbsp; &nbsp;
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
                                     echo '<input type="tel" name="udf3" class="form-control" id="mobile" placeholder="Enter Your mobile">';
@@ -62,7 +62,7 @@
                                 
                               </div> &nbsp; &nbsp;
                               <div class="form-group">
-                                <label for="exampleInputEmail2">Email</label> &nbsp; &nbsp;
+                                <label for="exampleInputEmail2">Email*</label> &nbsp; &nbsp;
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
                                     echo '<input type="email" name="udf2" class="form-control" id="email" onchange="emailvalidation()"  placeholder="abcd@example.com">';
@@ -145,12 +145,14 @@
   </tr>
   <tr><td width="150">Adult Tickets </td><td class="tdrt">Rs.<?php echo  $adultpriceperticket;  ?></td></tr>
   <tr><td width="150">Child Tickets </td><td class="tdrt">Rs.<?php echo  $childpriceperticket;  ?></td></tr>
+  <tr><td width="150">Kids Meal Price </td><td class="tdrt">Rs.<?php echo  $kidsmealprice;  ?></td></tr>
   <tr><td width="150">TotalTicket Cost </td><td class="tdrt">Rs.<?php echo  $ticketcost;  ?></td></tr>
 </table>
 <table class="table table-bordered" style="font-size:12px;line-height: 1.5em;background-color: transparent;">
 	<tr><td width="150">Internet & Handling Charges</td><td class="tdrt">Rs. <?php echo $this->session->userdata('internetcharges');  ?></td></tr>
   <tr><td width="150">Taxes </td><td class="tdrt">Rs.<?php echo  $taxes;  ?></td></tr>
-	<tr><td width="150">Date of Visit</td><td class="tdrt"><?php echo $this->session->userdata('dateofvisit');  ?></td></tr>
+	<tr><td width="150">Date of Visit</td><td class="tdrt"><?php
+   echo date("d-m-Y", strtotime($this->session->userdata('dateofvisit')));  ?></td></tr>
 	<tr style="font-weight: bold;font-size: 20px;"><strong><td width="150">Total</td><td class="tdrt">Rs. <?php echo $this->session->userdata('totalcost');  ?></td></strong></tr>
 </table>
                     </div>

@@ -557,7 +557,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                 </tbody>
                 </table>
                 <div id="book-selection-error" style="background-color: rgb(235, 214, 187);color: #9c0000;padding: 10px;margin-bottom:3px;"> Please select a date</div>
-                <button type="button" class="btn_full book-now">Proceed</button>
+                <button type="button" class="btn_1 btn_full book-now">Proceed</button>
                             
                                                   
                                                        
@@ -801,7 +801,7 @@ function update_tour_price() {
     price = Math.ceil(price);
     console.log("price is: "+price);
 
-    var calculatedinternetcharges = (price * internetcharges );
+    var calculatedinternetcharges = round((price * internetcharges ),1);
     console.log("calculated internet charges are : "+calculatedinternetcharges);
     $('.calculated-internetcharges').html(calculatedinternetcharges);
 
@@ -1005,6 +1005,11 @@ $('.close-modal').on('click', function() {
     
     $('#kidsmealpopup').modal('hide')
 });
+
+
+function round(value, decimals) {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+}
 
 </script>
 

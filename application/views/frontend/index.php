@@ -366,10 +366,18 @@ if (count($events->result())>0) {
                         </h3>
 						 <p class="eventdate">
 
-                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">From : <?php echo $k->todate; ?></a> 
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">From : <?php
+
+                                echo date("d-m-Y", strtotime($k->todate)); 
+                                         //echo ;
+
+                                          ?></a> 
                                         &nbsp;
                                         &nbsp;
-                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">To : <?php echo $k->fromdate; ?></a>
+                                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">To : <?php
+                                        echo date("d-m-Y", strtotime($k->fromdate)); 
+                                         //echo $k->fromdate;
+                                          ?></a>
                                     </p> 
 						<!--<p style="padding: 5px;"><?php
 						
