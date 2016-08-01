@@ -130,7 +130,7 @@
 								  	
 								  </td>
 								<td class="text-center">
-								Adults: <span><?php echo $k->quantity;   ?></span>
+								Adults: <span><?php echo $k->quantityy;   ?></span>
 
 								Child: <span><?php echo $k->childqty;   ?></span>
 								<input type="hidden" id="dateofvisit" value="<?php echo $k->dateofvisit;   ?>">
