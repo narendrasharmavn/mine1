@@ -147,7 +147,7 @@
 		 <div class="container-fluid">
  <?php
               $i=0;
-              $query = $this->db->query("SELECT * from tbleventphotos WHERE eventid='$eventid' order by photoid DESC limit 6");
+              $query = $this->db->query("SELECT * from tbleventphotos WHERE eventid='$eventid' order by photoid DESC limit 1");
                foreach ($query->result() as $k) {
                 if($i==0){
                 ?>
