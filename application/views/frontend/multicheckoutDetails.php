@@ -141,7 +141,7 @@
  <?php
               $i=0;
            
-              $query = $this->db->query("SELECT * from tblresorphotos WHERE resortid='$resortid' order by rphotoid DESC limit 6");
+              $query = $this->db->query("SELECT * from tblresorphotos WHERE resortid='$resortid' order by rphotoid DESC limit 1");
                 foreach ($query->result() as $k) {
                 if($i==0){
                 ?>

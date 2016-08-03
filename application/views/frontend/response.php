@@ -131,6 +131,18 @@
 
 <?php
      include 'scripts.php';
+     /*
+     $this->session->unset_userdata('some_name');
+     $this->session->unset_userdata('some_name');
+     $this->session->unset_userdata('some_name');
+     $this->session->unset_userdata('some_name');
+     $this->session->unset_userdata('some_name');
+     $this->session->unset_userdata('some_name');
+     $this->session->unset_userdata('some_name');
+     $this->session->unset_userdata('some_name');
+     $this->session->unset_userdata('some_name');
+     $this->session->unset_userdata('some_name');
+     */
       ?>
      </body>
 

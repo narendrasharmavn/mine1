@@ -23,7 +23,7 @@
                                     <INPUT TYPE="hidden" NAME="AccountNo" value="85654125485412">
 
                                     <INPUT TYPE="hidden" NAME="ru" value="<?php echo site_url().'frontend/response'; ?>">
-                                    <input type="hidden" name="bookingid" value="<?php echo  rand(10000,1000000); ?>"/>
+                                    <input type="hidden" name="bookingid" value="<?php echo  date('Ymdhisu'); ?>"/>
 
 
                             <div id="errordiv"></div>
