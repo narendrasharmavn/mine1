@@ -310,7 +310,11 @@ if ($this->session->userdata('holidayCustomerName')) {
             }
             $tot=count($reviewsquery->result());
             //echo count($reviewsquery->result());
-            $avg=$sum/$tot;
+            $avg=0;
+            if($tot!=0){
+                $avg=$sum/$tot;
+            }
+            
             //echo "Avg=".$avg;
 
             ?>

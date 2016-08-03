@@ -7,7 +7,7 @@
                 </section>
 
 <div id="position">
-                    <div class="container"><ul><li><a href="" title="Home">Home</a></li><li class="active">Booking Confirmation Tour</li></ul></div>
+                    <div class="container"><ul><li><a href="<?php echo base_url(); ?>" title="Home">Home</a></li><li class="active">Response</li></ul></div>
                 </div>
 
 <div class="container margin_60">
@@ -17,7 +17,8 @@
     <div class="col-md-8">
 
        <?php
-       if ($status=="Ok") {
+       echo $responsestatus." status<br>";
+       if ($responsestatus=="Ok") {
            ?>
            <div class="form_title">
                 <h3><strong><i class="icon-ok"></i></strong>Thank you!</h3>
@@ -30,9 +31,9 @@
 
           <div class="form_title">
                 <h3>
-                    <strong><i class="fa fa-times-circle" aria-hidden="true"></i></strong>Thank you!
+                    <strong><i class="fa fa-times-circle" aria-hidden="true"></i></strong>OOPS ! Sorry Something went wrong
                 </h3>
-                <p>Your Booking Order is Confirmed Now.</p>
+                <p>Your Transaction Failed</p>
             </div>
 
           <?php
@@ -110,7 +111,7 @@
     <aside class="col-md-4">
     <div class="box_style_1">
         <h3 class="inner">Thank you!</h3>
-                <p>Nihil inimicus ex nam, in ipsum dignissim duo. Tale principes interpretaris vim ei, has posidonium definitiones ut. Duis harum fuisset ut his, duo an dolor epicuri appareat.</p>
+                <p>You can view all your transactions in 'Myorders' section of your account.</p>
                 <hr>
                     <a class="btn_full_outline" target="_blank" href="">View your invoice</a>
             </div>

@@ -407,7 +407,7 @@ class Frontend extends CI_Controller {
                         'packageid'=>$this->session->userdata('packageid'),
                         'amount'=>$this->session->userdata('totalcost'),
                         'payment_status'=>'pending',
-                        'ticketnumber' => date('Ymdhis'),
+                        'ticketnumber' => date('Ymdhisu'),
                         'visitorstatus' => 'absent',
                         'vendorid' => $this->session->userdata('vendorid'),
                         'childqty' => $this->session->userdata('numberofchildren'),
@@ -481,7 +481,7 @@ class Frontend extends CI_Controller {
               $dateofvisit = $this->session->userdata('dateofvisit');
               $vendorid = $this->session->userdata('vendorid');
 
-              $ticketnumber = date('Ymdhis');
+              $ticketnumber = date('Ymdhisu');
               $calculatedinternetcharges = 0;
               $calculatedadultprice=0;
               $calculatedchildprice=0;
@@ -650,7 +650,7 @@ class Frontend extends CI_Controller {
           'packageid'=>$this->session->userdata('packageid'),
           'amount'=>$this->session->userdata('totalcost'),
           'payment_status'=>'pending',
-          'ticketnumber' => date('Ymdhis'),
+          'ticketnumber' => date('Ymdhisu'),
           'visitorstatus' => 'absent',
           'vendorid' => $this->session->userdata('vendorid'),
           'childqty' => $this->session->userdata('numberofchildren')
@@ -760,6 +760,9 @@ class Frontend extends CI_Controller {
       $this->session->set_userdata('dateofvisit',$dateofvisit);
       $this->session->set_userdata('currenturl',$currenturl);
 
+      $ticketnumber = date('Ymdhisu');
+      $this->session->set_userdata('ticketnumber',$ticketnumber);
+
       $bookingsdata = array(
           'dateofvisit' => $this->session->userdata('dateofvisit'),
           'date'=>date('Y-m-d'),
@@ -769,7 +772,7 @@ class Frontend extends CI_Controller {
           'packageid'=>$this->session->userdata('packageid'),
           'amount'=>$this->session->userdata('totalcost'),
           'payment_status'=>'pending',
-          'ticketnumber' => date('Ymdhis'),
+          'ticketnumber' => $ticketnumber,
           'visitorstatus' => 'absent',
           'vendorid' => $this->session->userdata('vendorid'),
           'childqty' => $this->session->userdata('numberofchildren'),
@@ -783,7 +786,8 @@ class Frontend extends CI_Controller {
        # code...
      
         $this->db->insert('tblbookings',$bookingsdata); 
-        $this->session->set_userdata('bookingsid',$this->db->insert_id());
+        $last_bookingid = $this->db->insert_id();
+        $this->session->set_userdata('bookingsid',$last_bookingid);
 
         $paymentsdata = array(
           'packageid'=> $this->session->userdata('packageid'),
@@ -800,12 +804,14 @@ class Frontend extends CI_Controller {
           'status' => 'unpaid',
           'bookingid' => $this->session->userdata('bookingsid'),
           'noofkidsmeal' => $this->session->userdata('kidsmealqty'),
-          'kidsmealprice' => $this->session->userdata('kidsmealprice')
+          'kidsmealprice' => $this->session->userdata('kidsmealprice'),
+          'ticketnumber' => $ticketnumber
 
       );
     
         $this->db->insert('tblpayments',$paymentsdata); 
-        $this->session->set_userdata('paymentsid',$this->db->insert_id());
+        $last_paymentsid = $this->db->insert_id();
+        $this->session->set_userdata('paymentsid',$last_paymentsid);
       
       echo "true";
     
@@ -902,7 +908,7 @@ class Frontend extends CI_Controller {
       $vendorid = $this->input->post('vendorid');
 
       
-      $ticketnumber = date('Ymdhis');
+      $ticketnumber = date('Ymdhisu');
 
 
       $calculatedinternetcharges = 0;
@@ -1044,7 +1050,7 @@ echo "true";
 
     $paymentsdata = array(
           'customerid' => $this->session->userdata('holidayCustomerId'),
-          'transaction_id'=>date('Ymdhis'),
+          'transaction_id'=>date('Ymdhisu'),
           'transdate' => date('Y-m-d'),
           'amount' => $total,
           'ticketnumber'=>$ticketnumber,
@@ -1064,7 +1070,7 @@ echo "true";
 
     $paymentsdata = array(
           'customerid' => $customerid,
-          'transaction_id'=>date('Ymdhis'),
+          'transaction_id'=>date('Ymdhisu'),
           'transdate' => date('Y-m-d'),
           'amount' => $total,
           'ticketnumber'=>$ticketnumber,
@@ -1152,7 +1158,7 @@ echo "true";
           'packageid'=>$this->session->userdata('packageid'),
           'amount'=>$this->session->userdata('totalcost'),
           'payment_status'=>'pending',
-          'ticketnumber' => date('Ymdhis'),
+          'ticketnumber' => date('Ymdhisu'),
           'visitorstatus' => 'absent',
           'vendorid' => $this->session->userdata('vendorid'),
           'childqty' => $this->session->userdata('numberofchildren')
@@ -1247,41 +1253,18 @@ echo "true";
 
 
     public function response(){
-error_reporting(0);
+    error_reporting(0);
 
-      $paymentid = $this->session->userdata('paymentid');
-      $bookingid = $this->session->userdata('bookingid');
+      $paymentid = $this->session->userdata('paymentsid');
+      $bookingid = $this->session->userdata('bookingsid');
       $servicetax = $this->session->userdata('servicetax');
       $vendorid = $this->session->userdata('vendorid');
-
-
+      $kidsmealprice = $this->session->userdata('kidsmealprice');
+      $ticketnumber = $this->session->userdata('ticketnumber');
+     // echo "<br> payment id: ".$bookingid."<br>";
+      //echo "amount is: ".$_POST['f_code'];
+      //print_r($_POST);
       $amountreceived = ($_POST['amt'])-($servicetax);
-
-/*
-      $paymentsdata = array(
-          'banktransaction'=>$_POST['bank_txn'],
-          'transactiondescription'=>$_POST['desc'],
-          'transaction_id'=>$_POST['ipg_txn_id'],
-          'authorizationcode'=> $_POST['auth_code'],
-          'transdate'=>$_POST['date'],
-          'amount'=>$_POST['amt'],
-          'discriminator'=>$_POST['discriminator'],
-          'cardnumber'=>$_POST['CardNumber'],
-          'status'=>$_POST['f_code'],
-          'billingemail'=>$_POST['udf2'],
-          'billingphone'=>$_POST['udf3'],
-          'udf9'=>$_POST['udf9'],
-          'mmp_txn'=>$_POST['mmp_txn'],
-          'mer_txn'=>$_POST['mer_txn'],
-          'status' => 'paid'
-      );
-
-      $bookingsdata = array(
-          'booking_status'=>'booked',
-          'payment_status'=>'paid',
-          
-      );
-
 
       //get last balance row
       $query = $this->db->query("SELECT * FROM tbltransactions WHERE vendorid='$vendorid' ORDER BY tid DESC LIMIT 0,1");
@@ -1296,62 +1279,95 @@ error_reporting(0);
        $balance+= $amountreceived;
       }
       
-      
-        
-       
-
-
-
       $tbltransactionsdata = array(
           'vendorid'=>$vendorid,
           'amountreceived'=>$amountreceived,
           'servicecharges' => $servicetax,
-          'balance' => $balance
+          'balance' => $balance,
+          'kidsmealamountrecieved'=>$kidsmealprice
+      );
+
+      if($_POST['f_code']==="Ok"){
+        
+        $paymentsdata = array(
+          'banktransaction'=>$_POST['bank_txn'],
+          'transactiondescription'=>$_POST['desc'],
+          'transaction_id'=>$_POST['ipg_txn_id'],
+          'authorizationcode'=> $_POST['auth_code'],
+          'transdate'=>$_POST['date'],
+          'amount'=>$_POST['amt'],
+          'discriminator'=>$_POST['discriminator'],
+          'cardnumber'=>$_POST['CardNumber'],
+          'billingemail'=>$_POST['udf2'],
+          'billingphone'=>$_POST['udf3'],
+          'udf9'=>$_POST['udf9'],
+          'mmp_txn'=>$_POST['mmp_txn'],
+          'mer_txn'=>$_POST['mer_txn'],
+          'status' => 'paid',
+          'responsestatus' => $_POST['f_code']
+      );
+
+      $bookingsdata = array(
+          'booking_status'=>'booked',
+          'payment_status'=>'paid',
           
       );
 
-*/
-      
 
-      if($_POST['f_code']=="Ok"){
-
+       $this->db->where('ticketnumber', $ticketnumber);
+       $this->db->update('tblpayments', $paymentsdata); 
 
 
-       // $this->db->where('paymentid', $paymentid);
-       // $this->db->update('tblpayments', $paymentsdata); 
-
-
-
-        
-
-       // $this->db->where('bookingid', $bookingid);
-       // $this->db->update('tblbookings', $bookingsdata); 
-
-
+       $this->db->where('ticketnumber', $ticketnumber);
+       $this->db->update('tblbookings', $bookingsdata); 
 
         //insert into table transactions
-        //$this->db->insert('tblpayments',$tbltransactionsdata); 
-        /*
-        $mobile = $this->db->get_where('tblcustomers' , array('username' => $this->session->userdata('holidayEmail') ))->row()->number;
-        $msg = 'Your booking is confirmed. Your Ticket Number is: '.$this->db->get_where('tblbookings' , array('bookingid' => $this->session->userdata('bookingid') ))->row()->ticketnumber.' ';
+        $this->db->insert('tbltransactions',$tbltransactionsdata); 
+        $mobile = $this->db->get_where('tblcustomers' , array('customer_id' => $this->session->userdata('holidayCustomerId') ))->row()->number;
+        $msg = 'Your booking is confirmed. Your Ticket Number is: '.$this->db->get_where('tblbookings' , array('bookingid' => $this->session->userdata('bookingsid') ))->row()->ticketnumber.' ';
         $this->sendsms($mobile,$msg);
         $this->sendingEmailTickets($_POST['udf2']);
-  */
+  
       }else{
 
-redirect('frontend/index');
-}
+        $paymentsdata = array(
+          'banktransaction'=>$_POST['bank_txn'],
+          'transactiondescription'=>$_POST['desc'],
+          'transaction_id'=>$_POST['ipg_txn_id'],
+          'authorizationcode'=> $_POST['auth_code'],
+          'transdate'=>$_POST['date'],
+          'amount'=>$_POST['amt'],
+          'discriminator'=>$_POST['discriminator'],
+          'cardnumber'=>$_POST['CardNumber'],
+          'billingemail'=>$_POST['udf2'],
+          'billingphone'=>$_POST['udf3'],
+          'udf9'=>$_POST['udf9'],
+          'mmp_txn'=>$_POST['mmp_txn'],
+          'mer_txn'=>$_POST['mer_txn'],
+          'status' => 'failed',
+          'responsestatus' => $_POST['f_code']
+      );
+
+      $bookingsdata = array(
+          'booking_status'=>'failed',
+          'payment_status'=>'failed',
+      );
+
+      $this->db->where('ticketnumber', $ticketnumber);
+       $this->db->update('tblpayments', $paymentsdata); 
+
+
+       $this->db->where('ticketnumber', $ticketnumber);
+       $this->db->update('tblbookings', $bookingsdata); 
+
+        //redirect('frontend/index');
+      }
 
      
 
-
-
-
-      
-
        $this->load->view('frontend/header');
-     //$this->load->view('frontend/response',$paymentsdata);
-     $this->load->view('frontend/response');
+     $this->load->view('frontend/response',$paymentsdata);
+     //$this->load->view('frontend/response');
 
     }
 
@@ -3561,7 +3577,7 @@ tickets on the go<br>
                         <br>
                         <span>
                           <span>Your Ticket no: W34C567Q, </span> 
-                          <span><span>'.$this->db->get_where('tblvendors' , array('vendorid' => $this->session->userdata('vendorid') ))->row()->address1.'</span><span></span></span>
+                          <span><span>'.$this->db->get_where('tblvendors' , array('vendorid' => $this->session->userdata('vendorid') ))->row()->Address1.'</span><span></span></span>
                         <br><span class="aBn" data-term="goog_1116116412" tabindex="0"><span class="aQJ">1:15pm</span></span> | <span style="overflow:hidden;float:left;line-height:0px">2016-04-23T13:15:00+05:30</span>23 Apr - 28 Apr, 2016</span></td>
                       <td width="140" valign="top" style="color:#ffffff;font-size:15px;font-family:Arial,sans-serif;text-align:center;padding:25px 10px 15px 10px;line-height:20px">
                         <img src="">
@@ -3746,14 +3762,14 @@ tickets on the go<br>
                     <tbody><tr>
                       <td valign="top" width="202" style="background-color:#efefef;color:#666666;font-size:12px;font-family:Arial,sans-serif;text-align:left;padding:10px 10px 35px 0px;line-height:20px">
                         <b>BOOKING DATE &amp; TIME</b>
-                        <br>'.$this->db->get_where('tblbookings' , array('bookingid' => $this->session->userdata('bookingid') ))->row()->date.'<span class="aBn" data-term="goog_1116116413" tabindex="0"><span class="aQJ">8:59am</span></span></td>
+                        <br>'.$this->db->get_where('tblbookings' , array('bookingid' => $this->session->userdata('bookingsid') ))->row()->date.'<span class="aBn" data-term="goog_1116116413" tabindex="0"><span class="aQJ">8:59am</span></span></td>
                       <td valign="top" width="143" style="background-color:#efefef;color:#666666;font-size:12px;font-family:Arial,sans-serif;text-align:left;padding:10px 10px 35px 10px;line-height:20px">
                         <b></b>
                         <br></td>
                       <td valign="top" width="195" style="background-color:#efefef;color:#666666;font-size:12px;font-family:Arial,sans-serif;text-align:left;padding:10px 10px 35px 10px;line-height:20px">
                         <b>CONFIRMATION NUMBER</b>
                         <br>
-                        <span>'.$this->db->get_where('tblpayments' , array('bookingid' => $this->session->userdata('bookingid') ))->row()->transaction_id.'</span>
+                        <span>'.$this->db->get_where('tblpayments' , array('bookingid' => $this->session->userdata('bookingsid') ))->row()->transaction_id.'</span>
                       </td>
                     </tr>
                   </tbody></table>
