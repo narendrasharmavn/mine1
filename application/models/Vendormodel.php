@@ -73,7 +73,7 @@ class VendorModel extends CI_Model {
 
 
     public function getEventsData($vendorid){
-        $query = $this->db->query("SELECT e.eventid,e.vendorid,e.todate,v.vendorname,e.location,e.totime,e.eventname,e.eventtype,e.cost from tblevents e LEFT JOIN tblvendors v ON e.vendorid=v.vendorid WHERE e.status=1 AND v.vendorid='$vendorid' ORDER BY e.eventid DESC");
+        $query = $this->db->query("SELECT e.eventid,e.vendorid,e.fromdate,e.todate,v.vendorname,e.location,e.totime,e.eventname,e.eventtype,e.cost from tblevents e LEFT JOIN tblvendors v ON e.vendorid=v.vendorid WHERE e.status=1 AND v.vendorid='$vendorid' ORDER BY e.eventid DESC");
         return $query;
     }
 	
@@ -88,6 +88,7 @@ class VendorModel extends CI_Model {
         $query = $this->db->query("SELECT * from tblvendors WHERE  status=1 ORDER BY vendorid DESC");
         return $query;
     }
+	
 
 }
 ?>

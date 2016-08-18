@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Mobile</label>
-                                    <input type="number" name="mobile" class=" form-control" placeholder="Mobile" value="<?php echo $userdetails->number; ?>">
+                                    <input type="number" name="mobile" class=" form-control" placeholder="Mobile" value="<?php echo $userdetails->number; ?>" disabled>
                                     <span class="text-danger"><?php echo form_error('mobile'); ?></span>
                                 </div>
                                 <div class="form-group">
@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Confirm Password</label>
-                                    <input type="text" name="cpassword" class="form-control" placeholder="Confirm Password">
+                                    <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password">
                                     <span class="text-danger"><?php echo form_error('cpassword'); ?></span>
 
                                 </div>

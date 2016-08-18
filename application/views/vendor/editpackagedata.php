@@ -38,7 +38,7 @@
 									<div class="panel-body">
 										
 										<?php 
-								            echo form_open_multipart('Vendor/submiteditpackages',array('class' => 'form-horizontal'));
+								            echo form_open_multipart('Vendor/submiteditpackages',array('class' => 'form-horizontal','id' => 'editpackages'));
 								        ?>
 
 								         <?php echo $this->session->flashdata('success'); ?>
@@ -124,7 +124,7 @@
 											
 
 							                <div class="form-group" style="margin-right: 442px;">
-								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Package Tags *</label>
+								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Tags</label>
 								                <div class="col-sm-7">
 								                  <input type="text" class="form-control" name="tags" id="tags" placeholder="Enter Package Tags" value="<?php echo $packagetags; ?>">
 												  <span class="text-danger"><?php echo form_error('tags'); ?></span>
@@ -136,7 +136,7 @@
 								                <div class="col-sm-7">
 								                    <select name="packagetype" id="packagetype" class="form-control input-md" onchange="showEvent(this.value)">
 														<option value="0" <?php if($packagetype == 0) { echo "Selected";}?>>Select</option>
-														<option value="daily" <?php if($packagetype == 'daily') { echo "Selected";}?>>daily</option>
+														<option value="daily" <?php if($packagetype == 'daily') { echo "Selected";}?>>Daily</option>
 														<option value="onetime" <?php if($packagetype == 'onetime') { echo "Selected";}?>>One Time</option>
 														<option value="event" <?php if($packagetype == 'event') { echo "Selected";}?>>Event</option>
 													</select>
@@ -208,7 +208,9 @@
  include 'footer.php'; 
 
  ?>
-
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+ 
 
  <script type="text/javascript">
     $("document").ready(function(){
@@ -219,6 +221,44 @@
     	}else{
             $('#hevents').hide();
         }
+			$("#editpackages").validate({
+    
+          
+        // Specify the validation rules
+        rules: {
+            packagetype : "required",
+			resortname : "required",
+			eventname : "required",
+			packagename : "required",
+			aprice : "required",
+			cprice : "required",
+			kprice : "required",
+			servicetax : "required",
+			description : "required"
+			
+			
+			
+		},
+        
+        // Specify the validation error messages
+        messages: {
+            packagetype : "Select Package Type",
+			resortname : "Select a Resort Name",
+			eventname : "Select an Event Name",
+			packagename : "Package Name should not be empty",
+			aprice : "Adult Price should not be empty",
+			cprice : "Child Price Should not be empty min zero",
+			kprice : "Kid Meal Price Should not be empty min zero",
+			servicetax : "Internet Handling Charges Should Not be Empty",
+			description : "Description should not be empty"
+			
+            
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
     });
 </script>
    

@@ -38,7 +38,7 @@
 									<div class="panel-body">
 										
 										<?php 
-								            echo form_open_multipart('Vendor/submitaddpackages',array('class' => 'form-horizontal'));
+								            echo form_open_multipart('Vendor/submitaddpackages',array('class' => 'form-horizontal','id' => 'addpackages'));
 								        ?>
 
 								        <?php echo $this->session->flashdata('success'); ?>
@@ -73,7 +73,7 @@
 									                </div>
 
 									                <div class="form-group">
-										                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Package Tags *</label>
+										                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Tags </label>
 										                <div class="col-sm-7">
 										                  <input type="text" class="form-control" name="tags" id="tags" placeholder="Enter Package Tags" value="<?php echo set_value('tags'); ?>">
 														  <span class="text-danger"><?php echo form_error('tags'); ?></span>
@@ -89,7 +89,7 @@
 									                </div>
                                                     
                                                     <div class="form-group">
-										                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Expiry Date *</label>
+										                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Expiry Date</label>
 										                <div class="col-sm-7 col-xs-7">
 										                  <input type="date" class="form-control" name="expirydate" id="expirydate" placeholder="Enter event date" value="<?php echo set_value('expirydate'); ?>">
 														  <span class="text-danger"><?php echo form_error('expirydate'); ?></span>
@@ -119,7 +119,7 @@
 										                <div class="col-sm-7">
 										                    <select name="packagetype" id="packagetype" class="form-control input-md" onchange="showEvent(this.value)">
 																<option value="">Select</option>
-																<option value="daily">daily</option>
+																<option value="daily">Daily</option>
 																<option value="onetime">One Time</option>
 																<option value="event">Event</option>
 															</select>
@@ -178,12 +178,6 @@
 													<th>Adult Price </th>
 													<th>Child Price </th>
 													<th>Package Type</th>
-													<th>Created On</th>
-													
-													
-
-													
-													
 													<th class="hidden-phone">Edit</th>
 													<th class="hidden-phone">Delete</th>
 													
@@ -205,14 +199,7 @@
 													<td><?php echo $k->adultprice; ?></td>
 													<td><?php echo $k->childprice; ?></td>
 													<td><?php echo $k->packagetype; ?></td>
-                                                    <td><?php echo $k->createdon; ?></td>
-													
-													
-													
-													
-													
-													
-													<td class="center hidden-phone">
+                                                   <td class="center hidden-phone">
 														<a href="editpackagedata?id=<?php echo $k->packageid; ?>"   name="edit" id="edit" value="edit">
 															Edit
 														</a>
@@ -274,11 +261,51 @@
  include 'footer.php'; 
 
  ?>
-
+ <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+   
 
  <script type="text/javascript">
     $("document").ready(function(){
         $('#hevents').hide();
+		$("#addpackages").validate({
+    
+          
+        // Specify the validation rules
+        rules: {
+            packagetype : "required",
+			resortname : "required",
+			eventname : "required",
+			packagename : "required",
+			aprice : "required",
+			cprice : "required",
+			kprice : "required",
+			servicetax : "required",
+			description : "required",
+			userfile : "required"
+			
+			
+		},
+        
+        // Specify the validation error messages
+        messages: {
+            packagetype : "Select Package Type",
+			resortname : "Select a Resort Name",
+			eventname : "Select an Event Name",
+			packagename : "Package Name should not be empty",
+			aprice : "Adult Price should not be empty",
+			cprice : "Child Price Should not be empty min zero",
+			kprice : "Kid Meal Price Should not be empty min zero",
+			servicetax : "Internet Handling Charges Should Not be Empty",
+			description : "Description should not be empty",
+			userfile : "Upload Package Image"
+            
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
     });
 </script>
    

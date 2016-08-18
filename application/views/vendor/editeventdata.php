@@ -36,7 +36,7 @@
 									<div class="panel-body">
 										
 										<?php 
-								            echo form_open_multipart('Vendor/updateEventsData/'.$eventid,array('class' => 'form-horizontal'));
+								            echo form_open_multipart('Vendor/updateEventsData/'.$eventid,array('class' => 'form-horizontal','id' => 'editevents'));
 								        ?>
 
 								         <?php echo $this->session->flashdata('success'); ?> 
@@ -61,7 +61,7 @@
 											<div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Event ToDate *</label>
 								                <div class="col-sm-7 col-xs-7">
-								                  <input type="date" class="form-control" name="eventodate" id="fname" placeholder="Enter event date" value="<?php echo $rows->todate; ?>">
+								                  <input type="date" class="form-control" name="eventodate" placeholder="Enter event date" value="<?php echo $rows->todate; ?>">
 												  <span class="text-danger"><?php echo form_error('vname'); ?></span>
 								                </div>
 								               
@@ -70,7 +70,7 @@
 							                
 
 							                <div class="form-group" style="margin-right: 442px;">
-								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">ToTime *</label>
+								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">ToTime </label>
 								                <div class="col-sm-7">
 								                  <input type="time" class="form-control" name="totime" id="totime" placeholder="Choose time" value="<?php echo $rows->totime; ?>">
 												  <span class="text-danger"><?php echo form_error('totime'); ?></span>
@@ -78,7 +78,7 @@
 							                </div>
 
 							                <div class="form-group" style="margin-right: 442px;">
-								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">FromTime *</label>
+								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">FromTime </label>
 								                <div class="col-sm-7">
 								                  <input type="time" class="form-control" name="fromtime" id="fromtime" placeholder="Choose time" value="<?php echo $rows->fromtime; ?>">
 												  <span class="text-danger"><?php echo form_error('fromtime'); ?></span>
@@ -86,9 +86,9 @@
 							                </div>
 											
 											<div class="form-group" style="margin-right: 442px;">
-								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Location *</label>
+								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Address *</label>
 								                <div class="col-sm-7">
-								                  <input type="text" class="form-control" name="location" id="fname" placeholder="Enter Location" value="<?php echo $rows->location; ?>">
+								                  <input type="text" class="form-control" name="location" placeholder="Enter Location" value="<?php echo $rows->location; ?>">
 												  <span class="text-danger"><?php echo form_error('location'); ?></span>
 								                </div>
 								               
@@ -99,7 +99,7 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Event Name *</label>
 								                <div class="col-sm-7">
-								                  <input type="text" class="form-control" name="eventname" id="fname" placeholder="Enter event name" value="<?php echo $rows->eventname; ?>">
+								                  <input type="text" class="form-control" name="eventname" placeholder="Enter event name" value="<?php echo $rows->eventname; ?>">
 												  <span class="text-danger"><?php echo form_error('eventname'); ?></span>
 								                </div>
 								               
@@ -120,7 +120,7 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Latitude</label>
 								                <div class="col-sm-7">
-								                  <input type="text" class="form-control" name="latitude" id="fname" placeholder="Latitude" value="<?php echo $rows->latitude; ?>">
+								                  <input type="text" class="form-control" name="latitude" placeholder="Latitude" value="<?php echo $rows->latitude; ?>">
 												  <span class="text-danger"><?php echo form_error('latitude'); ?></span>
 								                </div>
 							                </div>
@@ -128,7 +128,7 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Longitude</label>
 								                <div class="col-sm-7">
-								                  <input type="text" class="form-control" name="longitude" id="fname" placeholder="Longitude" value="<?php echo $rows->longitude;; ?>">
+								                  <input type="text" class="form-control" name="longitude" placeholder="Longitude" value="<?php echo $rows->longitude;; ?>">
 												  <span class="text-danger"><?php echo form_error('longitude'); ?></span>
 								                </div>
 							                </div>
@@ -168,32 +168,41 @@
  include 'footer.php'; 
 
  ?>
-
+ <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
  <script type="text/javascript">
 
     $(document).ready(function(){
-		// we call the function
-		 var url = window.location.href;
-		 var res = url.split("?id="); 
-         var id = res[1];
-         //alert(id);
+		//alert("hello");
+		$("#editevents").validate({
+    
+          
+        // Specify the validation rules
+        rules: {
+            eventname : "required",
+			location : "required",
+			evenfromdate : "required",
+			eventodate : "required",
+			description : "required"
+			
+		},
         
-		ajaxC(id);
-        setTimeout(function(){
-		  ajaxS(id);
-		  setTimeout(function(){
-		    ajaxM(id);
-		    setTimeout(function(){
-			   ajaxE(id);
-			}, 2500);
-		  }, 2500);
-		}, 2500);
-       
-		
-
-
-		 
-
+        // Specify the validation error messages
+        messages: {
+			eventname : "Event Name Should not be Empty",
+			location : "Location Should not be Empty",
+			evenfromdate : "Event FromDate Should not be Empty",
+			eventodate : "Event ToDate Should not be Empty",
+			description : "Description Should not be Empty"
+            
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
     });
+         });	
+
+
 
  </script>

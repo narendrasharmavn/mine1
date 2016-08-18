@@ -867,7 +867,7 @@ public function validateEmail($email){
 
 
 public function getLatestSixEvents(){
-        $query = $this->db->query("SELECT * from tblevents order by eventid DESC limit 0,6");
+        $query = $this->db->query("SELECT * from tblevents WHERE status=1 order by eventid DESC limit 0,6");
         //echo "SELECT e.*,ep.* FROM tblevents e LEFT JOIN tbleventphotos ep ON e.eventid=ep.eventid WHERE e.status=1 GROUP by ep.eventid LIMIT 0,6";
 		return $query;
     }

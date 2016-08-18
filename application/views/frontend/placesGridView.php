@@ -84,10 +84,10 @@
 
             ?>
 
-                             <div class="col-md-4 col-sm-6 " style="visibility: visible; ">
+                             <div class="col-md-3 col-sm-6 places-thumb1 text-center" style="visibility: visible; ">
 
                     
-    <div class="tour_container">
+    <div class="">
         <div class="img_container">
             <a href="<?php echo site_url().'places/'.$placetitleurl.'/'.$k->plid;   ?>  ">
             <img width="400" height="267" src="<?php  echo base_url().'assets/places/'.$k->photoname;   ?>  ">         <!-- <div class="ribbon top_rated"></div> -->

@@ -37,7 +37,7 @@
 				<div class="panel-body">
 					<?php 
 
-			            echo form_open_multipart('Admin/submiteditusers',array('class' => 'form-horizontal'));
+			            echo form_open_multipart('Admin/submiteditusers',array('class' => 'form-horizontal','id' => 'usermaster'));
 
 			        ?>
 					<?php echo $this->session->flashdata('success'); ?>
@@ -60,7 +60,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-5 control-label pull-left">Department *</label>
+								<label for="inputEmail3" class="col-sm-5 control-label pull-left">Department</label>
 								<div class="col-sm-7">
 									<input type="text" class="form-control" name="department" id="department" placeholder="Enter Department" value="<?php echo $row->department; ?>">
 									<span class="text-danger">
@@ -69,7 +69,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-5 control-label pull-left">Email  *</label>
+								<label for="inputEmail3" class="col-sm-5 control-label pull-left">Email</label>
 								<div class="col-sm-7">
 									<input type="text" class="form-control" name="email" id="email" placeholder="Enter Email" value="<?php echo $row->email; ?>">
 									<span class="text-danger">
@@ -81,16 +81,16 @@
 						</div>
 						<div class="col-md-5">
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-5 control-label pull-left">Password *</label>
+								<label for="inputEmail3" class="col-sm-5 control-label pull-left">Password</label>
 								<div class="col-sm-7">
-									<input type="text" class="form-control" name="password" id="password" placeholder="Enter Password" value="<?php echo $row->password; ?>">
+									<input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" value="<?php echo $row->password; ?>">
 									<span class="text-danger">
 										<?php echo form_error('password'); ?>
 									</span>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-5 control-label pull-left">Designation *</label>
+								<label for="inputEmail3" class="col-sm-5 control-label pull-left">Designation</label>
 								<div class="col-sm-7">
 									<input type="text" class="form-control" name="designation" id="designation" placeholder="Enter Designation" value="<?php echo $row->designation; ?>">
 									<span class="text-danger">
@@ -99,7 +99,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-5 control-label pull-left">Mobile *</label>
+								<label for="inputEmail3" class="col-sm-5 control-label pull-left">Mobile</label>
 								<div class="col-sm-7">
 									<input type="text" class="form-control" name="mobile" id="mobile" placeholder="Enter Mobile" value="<?php echo $row->mobile; ?>">
 									<span class="text-danger">
@@ -135,10 +135,37 @@
 <?php
  include 'footer.php'; 
  ?>
+ <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script type="text/javascript">
 
     $("document").ready(function(){
-
+	
+		$("#usermaster").validate({
+    
+          
+        // Specify the validation rules
+        rules: {
+            username: "required",
+			password : "required"
+			
+			
+			
+		},
+        
+        // Specify the validation error messages
+        messages: {
+             username: "UserName Should not be Empty",
+			password : "Password Should not be Empty"
+			
+			
+            
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
         
     });
 

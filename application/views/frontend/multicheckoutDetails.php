@@ -756,7 +756,8 @@ function pushToDatabase(){
 
     //kids meal qty
     var kidsmealqty = $('#kidsmeal').val();
-    var dateofvisit = $('input[name="date"]').val();
+    var dateofvisit = $('#datepickerj').val();
+    //alert(dateofvisit);
     var currenturl = $('#currenturl').val();
     var vendorid = $('#vendorid').val();
     $.ajax({

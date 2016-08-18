@@ -36,7 +36,7 @@
 									<div class="panel-body">
 										
 										<?php 
-								            echo form_open_multipart('Admin/updatePackageData',array('class' => 'form-horizontal'));
+								            echo form_open_multipart('Admin/updatePackageData',array('class' => 'form-horizontal','id' => 'editpackages'));
 								        ?>
 
 								         <?php echo $this->session->flashdata('success'); ?>
@@ -239,7 +239,8 @@
  include 'footer.php'; 
 
  ?>
-
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
  <script type="text/javascript">
     $("document").ready(function(){
 
@@ -252,7 +253,41 @@
         }
 
         //$('#hevents').hide();
-
-        //alert("hello");
+		$("#editpackages").validate({
+    
+          
+        // Specify the validation rules
+        rules: {
+            vendorname: "required",
+			packagetype : "required",
+			packagename : "required",
+			aprice : "required",
+			cprice : "required",
+			kprice : "required",
+			servicetax : "required",
+			description : "required"
+			
+			
+			
+		},
+        
+        // Specify the validation error messages
+        messages: {
+            vendorname: "Select A Vendor Name",
+			packagetype : "Select Package Type",
+			packagename : "Package Name should not be empty",
+			aprice : "Adult Price should not be empty",
+			cprice : "Child Price Should not be empty min zero",
+			kprice : "Kid Meal Price Should not be empty min zero",
+			servicetax : "Internet Handling Charges Should Not be Empty",
+			description : "Description should not be empty"
+			
+            
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
     });
 </script>

@@ -33,7 +33,7 @@
          </header>
          <div class="panel-body">
             <?php 
-               echo form_open_multipart('Vendor/submiteventdata',array('class' => 'form-horizontal'));
+               echo form_open_multipart('Vendor/submiteventdata',array('class' => 'form-horizontal','id' => 'addevents'));
                
                ?>
             <?php echo $this->session->flashdata('success'); ?>
@@ -44,15 +44,15 @@
                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-5 control-label pull-left">Event Name *</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" name="eventname" id="fname" placeholder="Enter event name" value="<?php echo set_value('eventname'); ?>">
+                      <input type="text" class="form-control" name="eventname"  placeholder="Enter event name" value="<?php echo set_value('eventname'); ?>">
                       <span class="text-danger"><?php echo form_error('eventname'); ?></span>
                     </div>
                   </div>
                  
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-5 control-label pull-left">Location *</label>
+                    <label for="inputEmail3" class="col-sm-5 control-label pull-left">Address *</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" name="location" id="fname" placeholder="Enter Location" value="<?php echo set_value('location'); ?>">
+                      <input type="text" class="form-control" name="location"  placeholder="Enter Location" value="<?php echo set_value('location'); ?>">
                       <span class="text-danger"><?php echo form_error('location'); ?></span>
                     </div>
                   </div>
@@ -80,14 +80,14 @@
                 </div>
                 <div class="col-md-5">
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-5 control-label pull-left">FromTime *</label>
+                    <label for="inputEmail3" class="col-sm-5 control-label pull-left">FromTime </label>
                     <div class="col-sm-7">
                       <input type="time" class="form-control" name="fromtime" id="fromtime" placeholder="Choose time" value="<?php echo set_value('fromtime'); ?>">
                       <span class="text-danger"><?php echo form_error('fromtime'); ?></span>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-5 control-label pull-left">ToTime *</label>
+                    <label for="inputEmail3" class="col-sm-5 control-label pull-left">ToTime </label>
                     <div class="col-sm-7">
                       <input type="time" class="form-control" name="totime" id="totime" placeholder="Choose time" value="<?php echo set_value('totime'); ?>">
                       <span class="text-danger"><?php echo form_error('totime'); ?></span>
@@ -96,14 +96,14 @@
                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-5 control-label pull-left">Latitude </label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" name="latitude" id="fname" placeholder="Latitude" value="<?php echo set_value('latitude'); ?>">
+                      <input type="text" class="form-control" name="latitude"  placeholder="Latitude" value="<?php echo set_value('latitude'); ?>">
                       <span class="text-danger"><?php echo form_error('latitude'); ?></span>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-5 control-label pull-left">Longitude</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" name="longitude" id="fname" placeholder="Longitude" value="<?php echo set_value('longitude'); ?>">
+                      <input type="text" class="form-control" name="longitude"  placeholder="Longitude" value="<?php echo set_value('longitude'); ?>">
                       <span class="text-danger"><?php echo form_error('longitude'); ?></span>
                     </div>
                   </div>
@@ -165,7 +165,7 @@
                           <td><?php echo $k->eventname; ?></td>
                           <td><?php echo $k->location; ?></td>
                           
-                          <td><?php echo $k->todate; ?></td>
+                          <td><?php echo date("d-m-Y", strtotime($k->fromdate))." - ".date("d-m-Y", strtotime($k->todate));  ?></td>
                           
                           <td class="center hidden-phone">
                             <a href="<?php echo site_url(); ?>vendor/editeventdata/<?php echo $k->eventid; ?>"   name="edit" id="edit" value="edit">
@@ -183,6 +183,8 @@
       </section>
    </div>
 </div>
+
+
 <script type="text/javascript">
    function deleteeventid(id)
    
@@ -239,3 +241,36 @@
    
    
    ?>
+   <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+      <script>
+    $("#addevents").validate({
+    
+          
+        // Specify the validation rules
+        rules: {
+            eventname : "required",
+			location : "required",
+			evenfromdate : "required",
+			eventodate : "required",
+			userfile : "required",
+			description : "required"
+			
+		},
+        
+        // Specify the validation error messages
+        messages: {
+			eventname : "Event Name Should not be Empty",
+			location : "Location Should not be Empty",
+			evenfromdate : "Event FromDate Should not be Empty",
+			eventodate : "Event ToDate Should not be Empty",
+			userfile : "Upload atleast One Photo",
+			description : "Description Should not be Empty"
+            
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+   </script>

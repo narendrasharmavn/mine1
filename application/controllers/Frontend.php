@@ -785,6 +785,7 @@ class Frontend extends CI_Controller {
 
       $packageid = $this->input->post('packageid');
       $dateofvisit = $this->input->post('dateofvisit');
+      $dateofvisit = str_replace('/', '-', $dateofvisit);
       $dateofvisit = date("Y-m-d", strtotime($dateofvisit));
       $vendorid = $this->input->post('vendorid');
       $totalcost = $this->input->post('totalcost');
@@ -1030,6 +1031,7 @@ class Frontend extends CI_Controller {
       $numberofadults = $this->input->post('numberofadults');
       $numberofchildren = $this->input->post('numberofchildren');
       $dateofvisit = $this->input->post('dateofvisit');
+      $dateofvisit = str_replace('/', '-', $dateofvisit);
       $dateofvisit = date("Y-m-d", strtotime($dateofvisit));
       $packageIdArray = $this->input->post('packageIdArray');
       $kidsmealqty = $this->input->post('kidsmealqty');
@@ -1278,6 +1280,7 @@ echo "true";
 
       $packageid = $this->input->post('packageid');
       $dateofvisit = $this->input->post('dateofvisit');
+      $dateofvisit = str_replace('/', '-', $dateofvisit);
       $dateofvisit = date("Y-m-d", strtotime($dateofvisit));
       $vendorid = $this->input->post('vendorid');
       $totalcost = $this->input->post('totalcost');
@@ -1641,6 +1644,14 @@ echo "true";
       $ticketnumber = $this->session->userdata('ticketnumber');
       //echo "ticket number is: ".$ticketnumber."<br>";
 
+      $packageid =  $this->db->get_where('tblbookings' , array('ticketnumber' =>$ticketnumber))->row()->packageid;
+
+        $dateofvisit =  $this->db->get_where('tblbookings' , array('ticketnumber' =>$ticketnumber))->row()->dateofvisit;
+
+               $resortid =  $this->db->get_where('tblpackages' , array('packageid' =>$packageid))->row()->resortid;
+
+               $name =  $this->db->get_where('tblresorts' , array('resortid' =>$resortid))->row()->resortname;
+
       $servicetax = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->servicetax;
 
       $krishkalyancess = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->krishkalyancess;
@@ -1677,6 +1688,10 @@ echo "true";
       );
 
       if($_POST['f_code']==="Ok"){
+
+        
+
+               
         
         $paymentsdata = array(
           'banktransaction'=>$_POST['bank_txn'],
@@ -1713,11 +1728,19 @@ echo "true";
         //insert into table transactions
         $this->db->insert('tbltransactions',$tbltransactionsdata); 
         $mobile = $this->db->get_where('tblcustomers' , array('customer_id' => $this->session->userdata('holidayCustomerId') ))->row()->number;
-        $msg = 'Your booking is confirmed. Your Ticket Number is: '.$this->db->get_where('tblbookings' , array('bookingid' => $this->session->userdata('bookingsid') ))->row()->ticketnumber.' ';
+
+        $msg = "Thank you for booking at ".$name." Date is: ".$dateofvisit." Your Booking Id is: ".$ticketnumber;
         $this->sendsms($mobile,$msg);
         $this->sendingEmailTickets($_POST['udf2']);
   
       }else{
+
+        //send sms if transaction failed
+        $mobile = $this->db->get_where('tblcustomers' , array('customer_id' => $this->session->userdata('holidayCustomerId') ))->row()->number;
+
+        $msg = "OOP's Your Transaction at Book4Holiday Failed. Transaction Id is : ".$ticketnumber;
+        $this->sendsms($mobile,$msg);
+        $this->sendingEmailTickets($_POST['udf2']);
 
         $paymentsdata = array(
           'banktransaction'=>$_POST['bank_txn'],

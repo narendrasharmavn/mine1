@@ -9,7 +9,7 @@
     <div class="col-md-8">
 
        <?php
-       //echo $responsestatus." status<br>";
+       $ticketnumber = $this->session->userdata('ticketnumber');
        if ($responsestatus=="Ok") {
            ?>
            <div class="form_title">
@@ -69,6 +69,25 @@
         </div>
         <div class="step">
             <table class="table table-bordered" style="font-size:14px;line-height: 1.5em;background-color: transparent;">
+            <tr>
+              <td colspan="2" style="font-size:14px;text-align:center;font-weight:bold;">
+                <?php
+               $packageid =  $this->db->get_where('tblbookings' , array('ticketnumber' =>$ticketnumber))->row()->packageid;
+
+               $resortid =  $this->db->get_where('tblpackages' , array('packageid' =>$packageid))->row()->resortid;
+
+               $resortname =  $this->db->get_where('tblresorts' , array('resortid' =>$resortid))->row()->resortname;
+
+               echo $resortname;
+
+
+
+                  ?>
+
+
+              </td>
+
+            </tr>
 <tr>
     <td width="150">Package Name
     </td>
@@ -85,7 +104,7 @@
  echo '</ol>';
 
      //echo $this->db->get_where('tblpackages' , array('packageid' =>$this->session->userdata('packageid')))->row()->packagename;
-    $ticketnumber = $this->session->userdata('ticketnumber');
+    
 
      $adultpriceperticket = $this->session->userdata('calculatedadultprice');
      $childpriceperticket = $this->session->userdata('calculatedchildprice');

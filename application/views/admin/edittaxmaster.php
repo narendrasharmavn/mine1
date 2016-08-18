@@ -37,7 +37,7 @@
 				<div class="panel-body">
 					<?php 
 
-			            echo form_open_multipart('Admin/submitedittaxmaster',array('class' => 'form-horizontal'));
+			            echo form_open_multipart('Admin/submitedittaxmaster',array('class' => 'form-horizontal','id' => 'taxmaster'));
 
 			        ?>
 					<?php echo $this->session->flashdata('success'); ?>
@@ -116,10 +116,40 @@
 <?php
  include 'footer.php'; 
  ?>
+ <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script type="text/javascript">
 
     $("document").ready(function(){
-
+	$("#taxmaster").validate({
+    
+          
+        // Specify the validation rules
+        rules: {
+            servicetax: "required",
+			kkcess : "required",
+			sbcess : "required",
+			kmtax : "required"
+			
+			
+			
+		},
+        
+        // Specify the validation error messages
+        messages: {
+             servicetax: "Service Tax Should not be Empty",
+			kkcess : "KCESS Should not be Empty",
+			sbcess : "SCESS Should not be Empty",
+			kmtax : "KID MEAL Tax Should not be Empty"
+			
+			
+            
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
         
     });
 

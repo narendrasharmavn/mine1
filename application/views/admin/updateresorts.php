@@ -38,7 +38,7 @@
 									<div class="panel-body">
 										
 										<?php 
-								            echo form_open_multipart('Admin/submitupdateresorts',array('class' => 'form-horizontal'));
+								            echo form_open_multipart('Admin/submitupdateresorts',array('class' => 'form-horizontal','id' => 'editresorts'));
 								        ?>
 
 								         <?php echo $this->session->flashdata('success'); ?>
@@ -65,7 +65,7 @@
 								         <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Vendor Name *</label>
 								                <div class="col-sm-7 col-xs-7">
-								                  <select class="form-control" name="vendorid" id="fname" required>
+								                  <select class="form-control" name="vendorid" required>
 								                  	<option value="">Select Vendor Name</option>
 								                  	<?php
 													foreach ($vendors->result() as $k) {
@@ -86,7 +86,7 @@
 											<div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Resort Name *</label>
 								                <div class="col-sm-7 col-xs-7">
-								                  <input type="text" class="form-control" name="resortname" id="resortname"  value="<?php echo $resortname; ?>">
+								                  <input type="text" class="form-control" name="resortname"  value="<?php echo $resortname; ?>">
 												  <span class="text-danger"><?php echo form_error('resortname'); ?></span>
 								                </div>
 								               
@@ -95,7 +95,7 @@
 											<div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Location *</label>
 								                <div class="col-sm-7">
-								                  <input type="text" class="form-control" name="location" id="location"  value="<?php echo $location; ?>">
+								                  <input type="text" class="form-control" name="location" value="<?php echo $location; ?>">
 												  <span class="text-danger"><?php echo form_error('location'); ?></span>
 								                </div>
 								               
@@ -108,7 +108,7 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Description *</label>
 								                <div class="col-sm-7">
-								                  <textarea class="form-control" name="description" id="description"  ><?php echo $description; ?></textarea>
+								                  <textarea class="form-control" name="description" ><?php echo $description; ?></textarea>
 												  <span class="text-danger"><?php echo form_error('description'); ?></span>
 								                </div>
 							                </div>
@@ -117,7 +117,7 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Latitude</label>
 								                <div class="col-sm-7">
-								                  <input type="text" class="form-control" name="latitude" id="fname" placeholder="Latitude" value="<?php echo $latitude; ?>">
+								                  <input type="text" class="form-control" name="latitude" placeholder="Latitude" value="<?php echo $latitude; ?>">
 												  <span class="text-danger"><?php echo form_error('latitude'); ?></span>
 								                </div>
 							                </div>
@@ -125,17 +125,17 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Longitude</label>
 								                <div class="col-sm-7">
-								                  <input type="text" class="form-control" name="longitude" id="fname" placeholder="Longitude" value="<?php echo $longitude; ?>">
+								                  <input type="text" class="form-control" name="longitude" placeholder="Longitude" value="<?php echo $longitude; ?>">
 												  <span class="text-danger"><?php echo form_error('longitude'); ?></span>
 								                </div>
 							                </div>
 
-							                <input type="hidden" class="form-control" name="banenrimage" id="banenrimage"  value="<?php echo $bannerimage; ?>">
+							                <input type="hidden" class="form-control" name="banenrimage" value="<?php echo $bannerimage; ?>">
 
 							                <div class="form-group" style="margin-right: 442px;">
 						                      <label for="inputEmail3" class="col-sm-5 control-label pull-left">Banner Image </label>
 						                     <div class="col-sm-7">
-						                        <input type="file" id="packageimage" name="userfile">
+						                        <input type="file" name="userfile">
 						                        <span class="text-danger"><?php echo form_error('event'); ?></span>
 						                     </div>
 						                    </div>
@@ -168,3 +168,32 @@
  include 'footer.php'; 
 
  ?>
+ <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+ <script>
+    $("#editresorts").validate({
+    
+          
+        // Specify the validation rules
+        rules: {
+            vendorid: "required",
+			resortname : "required",
+			location : "required",
+			description: "required"
+			
+		},
+        
+        // Specify the validation error messages
+        messages: {
+           vendorid: "Select Vendor Name",
+			resortname : "Resort Name Should Not be Empty",
+			location : "Location Should Not be Empty",
+			description: "Description Should not be Empty"
+            
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+   </script>

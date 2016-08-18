@@ -125,7 +125,7 @@ class Vendor extends CI_Controller {
                 <td>Ticket No.</td>
                 <td>'.$tckno.'</td>
                 <td>Date Of Visit</td>
-                <td>'.$k->date.'</td>
+                <td>'.date("d-m-Y", strtotime($k->date)).'</td>
           </tr>
           <tr>
                 <td>Visitor Name</td>    
@@ -583,7 +583,6 @@ class Vendor extends CI_Controller {
           if (!$this->upload->do_upload('userfile'))
           {
             $data = array(
-             'vendorid' => $vendorid ,
              'resortname' => $resortname ,
              'location' => $location ,
              'description' => $description ,
@@ -596,11 +595,10 @@ class Vendor extends CI_Controller {
              'updatedon' => date('Y-m-d h:i:s')                             
             );
             $this->db->update('tblresorts', $data, array('resortid' => $resortid));
-
+print_r($data);
           }else{
             $data = array(
-             'vendorid' => $vendorid ,
-             'resortname' => $resortname ,
+			'resortname' => $resortname ,
              'location' => $location ,
              'description' => $description ,
              'status' => '1' ,
@@ -611,6 +609,7 @@ class Vendor extends CI_Controller {
              'bannerimagepath' => $this->filepath,
              'updatedon' => date('Y-m-d h:i:s')                             
             );
+			print_r($data);
             $this->db->update('tblresorts', $data, array('resortid' => $resortid));
           }
         }
@@ -690,27 +689,17 @@ class Vendor extends CI_Controller {
             if (!$this->session->userdata('username')) 
               redirect('admin/login');
 
-             $this->form_validation->set_rules("resortname", "Resortname", "trim|required");
-             $this->form_validation->set_rules("packagename", "packagename", "trim|required");
-             $this->form_validation->set_rules("description", "description", "trim|required");
-             $this->form_validation->set_rules("aprice", "Adult Price", "trim|required");
-             $this->form_validation->set_rules("cprice", "Child Price", "trim|required");
-             $this->form_validation->set_rules("tags", "Tags", "trim|required");
-             $this->form_validation->set_rules("packagetype", "Packagetype", "trim|required");
              
 
 
-              if ($this->form_validation->run() == FALSE)
-              {  
+                
                 $vendorid = $this->session->userdata('vendorid');
                 $data['results'] = $this->VendorModel->getEventsData($vendorid);
                 $data['vendors'] = $this->VendorModel->getVendorsResorts($vendorid);
                 $data['events'] = $this->VendorModel->getVendorsEvents($vendorid);                       
-                $this->load->view('vendor/addpackages',$data);
-                //redirect('admin/addpackages');
-                  //validation fails
+                 //validation fails
 
-              }else{
+             
                   $this->validate_image();
                       //all validations correct
                   //echo "true ".$this->filepath."<br>";
@@ -751,7 +740,7 @@ class Vendor extends CI_Controller {
 
                     $this->session->set_flashdata('success','<div class="alert alert-success text-center">Package Created</div>');
                     redirect('vendor/addpackages');
-              }
+              
             
         }
 
@@ -782,28 +771,17 @@ class Vendor extends CI_Controller {
 
       public function submiteditpackages()
       {
-        $this->form_validation->set_rules("resortname", "Resortname", "trim|required");
-        $this->form_validation->set_rules("packagename", "packagename", "trim|required");
-        $this->form_validation->set_rules("description", "description", "trim|required");
-        $this->form_validation->set_rules("aprice", "Adult Price", "trim|required");
-        $this->form_validation->set_rules("cprice", "Child Price", "trim|required");
-        $this->form_validation->set_rules("tags", "Tags", "trim|required");
-        $this->form_validation->set_rules("packagetype", "Packagetype", "trim|required");
-
-
-
-        if ($this->form_validation->run() == FALSE)
-        {  
+        
+         
           $vendorid = $this->session->userdata('vendorid');
           $data['result'] = $this->VendorModel->getVendorsPackages($vendorid);
           $data['results'] = $this->VendorModel->getEventsData($vendorid);
           $data['vendors'] = $this->VendorModel->getVendorsResorts($vendorid);
           $data['events'] = $this->VendorModel->getVendorsEvents($vendorid); 
-          $this->load->view('vendor/editpackagedata',$data);
-        //redirect('admin/addpackages');
+         //redirect('admin/addpackages');
           //validation fails
 
-        }else{
+        
           $this->validate_image();
           $pacakgeid = $this->input->post('packageid');
           $resortname = $this->input->post('resortname');
@@ -821,7 +799,6 @@ class Vendor extends CI_Controller {
         {
             $data = array(
            'resortid' => $resortname ,
-           'vendorid' => $vendorid ,
            'packagename' => $packagename ,
            'description' => $description ,
            'adultprice' => $adultprice,
@@ -838,7 +815,6 @@ class Vendor extends CI_Controller {
         }else{
            $data = array(
            'resortid' => $resortname ,
-           'vendorid' => $vendorid ,
            'packagename' => $packagename ,
            'description' => $description ,
            'adultprice' => $adultprice,
@@ -855,7 +831,7 @@ class Vendor extends CI_Controller {
         }
         redirect('vendor/addpackages');
 
-        }
+        
         
           
       }

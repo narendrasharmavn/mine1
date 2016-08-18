@@ -73,7 +73,7 @@ $ticketnumber= $this->session->userdata('ticketnumber');
         </div>
         <div class="step">
             <table class="table table-bordered" style="font-size:12px;line-height: 1.5em;background-color: transparent;">
-            <tr >
+            <tr>
               <td colspan="2" style="font-size:14px;text-align:center;font-weight:bold;">
 
               <?php 

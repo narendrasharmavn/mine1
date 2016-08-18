@@ -38,7 +38,7 @@
 									<div class="panel-body">
 										
 										<?php 
-								            echo form_open_multipart('Vendor/submitresortsdata',array('class' => 'form-horizontal'));
+								            echo form_open_multipart('Vendor/submitresortsdata',array('class' => 'form-horizontal','id' => 'addresorts'));
 								        ?>
 
 								         <?php echo $this->session->flashdata('success'); ?>
@@ -57,7 +57,7 @@
                                                     <div class="form-group">
 										                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Latitude</label>
 										                <div class="col-sm-7">
-										                  <input type="text" class="form-control" name="latitude" id="fname" placeholder="Latitude" value="<?php echo set_value('latitude'); ?>">
+										                  <input type="text" class="form-control" name="latitude" placeholder="Latitude" value="<?php echo set_value('latitude'); ?>">
 														  <span class="text-danger"><?php echo form_error('latitude'); ?></span>
 										                </div>
 									                </div>
@@ -72,9 +72,9 @@
 						                        </div>
 						                        <div class="col-md-5">
                                                     <div class="form-group">
-										                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Location *</label>
+										                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Address *</label>
 										                <div class="col-sm-7">
-										                  <input type="text" class="form-control" name="location" id="fname" placeholder="Enter Resort Location" value="<?php echo set_value('location'); ?>">
+										                  <input type="text" class="form-control" name="location" placeholder="Enter Resort Location" value="<?php echo set_value('location'); ?>">
 														  <span class="text-danger"><?php echo form_error('location'); ?></span>
 										                </div>
 									                </div>
@@ -82,7 +82,7 @@
 									                <div class="form-group">
 										                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Longitude</label>
 										                <div class="col-sm-7">
-										                  <input type="text" class="form-control" name="longitude" id="fname" placeholder="Longitude" value="<?php echo set_value('longitude'); ?>">
+										                  <input type="text" class="form-control" name="longitude" placeholder="Longitude" value="<?php echo set_value('longitude'); ?>">
 														  <span class="text-danger"><?php echo form_error('longitude'); ?></span>
 										                </div>
 									                </div>
@@ -120,11 +120,7 @@
 													<th>Resort Name</th>
 													<th>Location </th>
 													<th>Description</th>
-													<th>Created By</th>
-													<th>Created On</th>
-													<th>Updated By</th>
-													<th>Updated On</th>
-													
+												
 
 													
 													
@@ -148,10 +144,7 @@
 													<td><?php echo $k->resortname; ?></td>
 													<td><?php echo $k->location; ?></td>
 													<td><?php echo $k->description; ?></td>
-													<td><?php echo $k->createdby; ?></td>
-													<td><?php echo $k->createdon; ?></td>
-													<td><?php echo $k->updatedby; ?></td>
-													<td><?php echo $k->updatedon; ?></td>
+													
 													
 													
 													
@@ -209,3 +202,34 @@
  include 'footer.php'; 
 
  ?>
+  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script>
+    $("#addresorts").validate({
+    
+          
+        // Specify the validation rules
+        rules: {
+            vendorid: "required",
+			resortname : "required",
+			location : "required",
+			userfile: "required",
+			description: "required"
+			
+		},
+        
+        // Specify the validation error messages
+        messages: {
+           vendorid: "Select Vendor Name",
+			resortname : "Resort Name Should Not be Empty",
+			location : "Location Should Not be Empty",
+			userfile: "Banner Image Should not be Empty",
+			description: "Description Should not be Empty"
+            
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+   </script>

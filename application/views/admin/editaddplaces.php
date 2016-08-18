@@ -37,7 +37,7 @@
 										
 										<?php
 
-								            echo form_open_multipart('Admin/submiteditaddplaces',array('class' => 'form-horizontal'));
+								            echo form_open_multipart('Admin/submiteditaddplaces',array('class' => 'form-horizontal','id' => 'editplaces'));
 								        ?>
 
 								         <?php echo $this->session->flashdata('success'); ?> 
@@ -56,7 +56,7 @@
 											<div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">place Name *</label>
 								                <div class="col-sm-7">
-								                  <input type="text" class="form-control" name="pname" id="pname" placeholder="Enter Location" value="<?php echo $rows->place; ?>">
+								                  <input type="text" class="form-control" name="pname" placeholder="Enter Location" value="<?php echo $rows->place; ?>">
 												  <span class="text-danger"><?php echo form_error('pname'); ?></span>
 								                </div>
 								               
@@ -65,7 +65,7 @@
 											<div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Address *</label>
 								                <div class="col-sm-7">
-								                  <textarea class="form-control" name="address" id="address"  ><?php echo $rows->address; ?></textarea>
+								                  <textarea class="form-control" name="address"  ><?php echo $rows->address; ?></textarea>
 												  <span class="text-danger"><?php echo form_error('address'); ?></span>
 								                </div>
 								               
@@ -74,7 +74,7 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">City *</label>
 								                <div class="col-sm-7">
-								                  <input type="text" class="form-control" name="city" id="city" placeholder="Enter event name" value="<?php echo $rows->city; ?>">
+								                  <input type="text" class="form-control" name="city" placeholder="Enter event name" value="<?php echo $rows->city; ?>">
 												  <span class="text-danger"><?php echo form_error('city'); ?></span>
 								                </div>
 								               
@@ -87,7 +87,7 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Latitude</label>
 								                <div class="col-sm-7">
-								                  <input type="text" class="form-control" name="latitude" id="fname" placeholder="Latitude" value="<?php echo $rows->latitude; ?>">
+								                  <input type="text" class="form-control" name="latitude" placeholder="Latitude" value="<?php echo $rows->latitude; ?>">
 												  <span class="text-danger"><?php echo form_error('latitude'); ?></span>
 								                </div>
 							                </div>
@@ -95,7 +95,7 @@
                                             <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Longitude</label>
 								                <div class="col-sm-7">
-								                  <input type="text" class="form-control" name="longitude" id="fname" placeholder="Longitude" value="<?php echo $rows->longitude; ?>">
+								                  <input type="text" class="form-control" name="longitude" placeholder="Longitude" value="<?php echo $rows->longitude; ?>">
 												  <span class="text-danger"><?php echo form_error('longitude'); ?></span>
 								                </div>
 							                </div>
@@ -103,16 +103,16 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Description *</label>
 								                <div class="col-sm-7">
-								                  <textarea class="form-control" name="description" id="description"  ><?php echo $rows->description; ?></textarea>
+								                  <textarea class="form-control" name="description"  ><?php echo $rows->description; ?></textarea>
 												  <span class="text-danger"><?php echo form_error('description'); ?></span>
 								                </div>
 								               
 							                </div>
 
 							                <div class="form-group" style="margin-right: 442px;">
-								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Other Information *</label>
+								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Other Information</label>
 								                <div class="col-sm-7">
-								                  <textarea class="form-control" name="oinfo" id="oinfo"  ><?php echo $rows->otherinfo; ?></textarea>
+								                  <textarea class="form-control" name="oinfo"  ><?php echo $rows->otherinfo; ?></textarea>
 												  <span class="text-danger"><?php echo form_error('oinfo'); ?></span>
 								                </div>
 								               
@@ -150,6 +150,30 @@
 
     $(document).ready(function(){
 		
+		$("#editplaces").validate({
+    
+        // Specify the validation rules
+        rules: {
+            pname: "required",
+			address : "required",
+			city : "required",
+			description: "required"
+			
+		},
+        
+        // Specify the validation error messages
+        messages: {
+             pname: "Place Name Should not be empty",
+			address : "Address Should not be empty",
+			city : "City Should not be empty",
+			description: "Description Should not be empty"
+            
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
     });
 
  </script>

@@ -475,31 +475,14 @@ class Admin extends CI_Controller {
       error_reporting(0);
       if (!$this->session->userdata('username')) 
       redirect('admin/login');
-
-      $this->form_validation->set_rules("resortname", "Resortname", "trim|required");
-         $this->form_validation->set_rules("vendorname", "Vendorname", "trim|required");
-         $this->form_validation->set_rules("packagename", "packagename", "trim|required");
-         $this->form_validation->set_rules("description", "description", "trim|required");
-         $this->form_validation->set_rules("aprice", "Adult Price", "trim|required");
-         $this->form_validation->set_rules("cprice", "Child Price", "trim|required");
-         $this->form_validation->set_rules("packagetype", "packagetype", "trim|required");
-         $this->form_validation->set_rules("servicetax", "Internet & Handling Charges", "trim|required");
-         $this->form_validation->set_rules("tags", "Tags", "trim|required");
-
-
-      if ($this->form_validation->run() == FALSE)
-      {  
-
-            $data['packageid'] = $this->input->post('packageid');
+       $data['packageid'] = $this->input->post('packageid');
            $data['packageData'] = $this->Adminmodel->getSpecificPackageData( $this->input->post('packageid'));
            $data['resortData'] = $this->Adminmodel->getCompleteResortsData();
            $data['eventsData'] = $this->Adminmodel->getCompleteEventsData();
           $vendorsdata = $this->Adminmodel->getVendorsData();
           $data['vendorData'] = $vendorsdata->result();
-          $this->load->view('admin/editpackagedata',$data);
-          //validation fails
+           //validation fails
 
-      }else{
 
         $this->validate_bannerimagePackages();
         
@@ -626,9 +609,6 @@ class Admin extends CI_Controller {
 
               redirect('admin/addpackages');
              
-
-          }
-
 
     }
 
@@ -872,25 +852,10 @@ class Admin extends CI_Controller {
 
     public function submitupdateresorts()
     {
-
-      $this->form_validation->set_rules('vendorid', 'Vendor Name', 'required');
-      $this->form_validation->set_rules('resortname', 'Resort Name', 'required');
-      $this->form_validation->set_rules('location', 'Location', 'required');
-      $this->form_validation->set_rules('description', 'Description', 'required');
-      $this->form_validation->set_rules('location', 'Location', 'required');
-      
-      if ($this->form_validation->run() == FALSE)
-      {   
-          
-        $data['vendors']=$this->Adminmodel->getVendorsIdAndName();
+		$data['vendors']=$this->Adminmodel->getVendorsIdAndName();
         $data['results'] = $this->Adminmodel->getResortData();
-        $this->load->view('admin/addresorts',$data);
-
-      }else{ 
-
-        $this->validate_bannerimageResort();
-      
-        $resortid = $this->input->post('resortid');
+		$this->validate_bannerimageResort();
+		$resortid = $this->input->post('resortid');
         $vendorid = $this->input->post('vendorid');
         $resortname = $this->input->post('resortname');
         $location = $this->input->post('location');
@@ -967,7 +932,7 @@ class Admin extends CI_Controller {
          
       
 
-      }
+     
       $this->session->set_flashdata('success','<div class="alert alert-success text-center">Record Updated Successfully</div>');
       redirect('admin/addresorts');
     }
@@ -1277,18 +1242,7 @@ class Admin extends CI_Controller {
       if (!$this->session->userdata('username')) 
           redirect('admin/login');
 
-        $this->form_validation->set_rules('vname', 'Name', 'required');
-        $this->form_validation->set_rules('cperson', 'Contact Person', 'required');
-        $this->form_validation->set_rules('address1', 'Address', 'required');
-        $this->form_validation->set_rules('btype', 'Booking Type', 'required'); 
-        $this->form_validation->set_rules('city', 'City', 'required'); 
-        if ($this->form_validation->run() == FALSE)
-        {   
-            
-          $data['results'] = $this->VendorModel->getEventsData($vendorid);
-          $this->load->view('vendor/addevents',$data);
-
-        }else{
+        
           $vendorid = $this->input->post('vendorid');
           $vname = $this->input->post('vname');
           $cperson = $this->input->post('cperson');
@@ -1334,7 +1288,7 @@ class Admin extends CI_Controller {
               //echo "true";
               redirect('admin/addvendors');
           }
-        }
+        
     }
 
      public function updateEventsData($eventid='')
@@ -2490,7 +2444,9 @@ class Admin extends CI_Controller {
       if (!$this->session->userdata('username')) 
               redirect('admin/login');
         $id = $this->input->post('uid');
-        $this->db->delete('tblvendors', array('vendorid' => $id));
+		$upvendors = $this->db->query("update tblvendors set status=0 where vendorid='$id'");
+		$upevents = $this->db->query("update tblevents set status=0 where vendorid='$id'");
+		$upresorts = $this->db->query("update tblresorts set status=0 where vendorid='$id'");
         redirect('admin/addvendors');
     }
 
@@ -2603,13 +2559,15 @@ class Admin extends CI_Controller {
   public function submitvendorpayments()
   {
     $pdate = $this->input->post('pdate');
-    echo $pdate."<br>";
+    //echo $pdate."<br>";
     $paymenttype = $this->input->post('paymenttype');
     //echo $paymenttype."<br>";
     $ctdate = $this->input->post('ctdate');
     //$ctdate = date("Y-m-d 00:00:00", strtotime($ctdate));
     echo $ctdate."<br>";
+	
     $vendorid = $this->input->post('vendorid');
+	$vendorid = trim($vendorid);
     //echo $vendorid."<br>";
     $amount = $this->input->post('amount');
     //echo $amount."<br>";
@@ -2621,23 +2579,23 @@ class Admin extends CI_Controller {
     $balance = $gb->balance;
     $totalbalance = $balance - $amount;
     
-    if($paymenttype=="cash")
+     if($paymenttype=="cash")
     {
         $data = array(
-       'paymentdate' => $pdate,
-       'vendorid' => $vendorid,
+       
+       'vendorid' => 1,
        'paymenttype' => $paymenttype,
        'amount' => $amount,
        'insertedby' =>'admin',
        'insertedon' => date('Y-m-d h:i:s'),
       );
 
-      $this->db->insert('tblvendorpayments', $data);
+     $this->db->insert('tblvendorpayments', $data);
 
       $tdata = array(
        'transactiondate' => $pdate,
-       'vendorid' => $vendorid,
-       'amountrecieved' => 0,
+       'vendorid' => 1,
+       'amountreceived' => 0,
        'servicecharges' => 0,
        'amountpaid' => $amount,
        'balance' => $totalbalance
@@ -2652,7 +2610,7 @@ class Admin extends CI_Controller {
       $data = array(
        'transactiondate' => $ctdate,
        'vendorid' => $vendorid,
-       'amountrecieved' => 0,
+       'amountreceived' => 0,
        'servicecharges' => 0,
        'amountpaid' => $amount,
        'balance' => $totalbalance
@@ -2677,8 +2635,7 @@ class Admin extends CI_Controller {
     
     $this->session->set_flashdata('success','<div class="alert alert-success text-center">Record Inserted Successfully</div>');
     redirect('admin/vendorpayments');
-     
-
+   
   }
 
   public function editvendorpayment()

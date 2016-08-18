@@ -36,7 +36,7 @@
 									<div class="panel-body">
 										
 										<?php 
-								            echo form_open_multipart('Admin/updateVendorPayments',array('class' => 'form-horizontal'));
+								            echo form_open_multipart('Admin/updateVendorPayments',array('class' => 'form-horizontal','id' => 'editvendorpayment'));
 								        ?>
 
 								         <?php echo $this->session->flashdata('success'); ?> 
@@ -149,29 +149,39 @@
  include 'footer.php'; 
 
  ?>
-
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
  <script type="text/javascript">
 
     $(document).ready(function(){
-		// we call the function
-		 var url = window.location.href;
-		 var res = url.split("?id="); 
-         var id = res[1];
-         //alert(id);
-        
-		ajaxC(id);
-        setTimeout(function(){
-		  ajaxS(id);
-		  setTimeout(function(){
-		    ajaxM(id);
-		    setTimeout(function(){
-			   ajaxE(id);
-			}, 2500);
-		  }, 2500);
-		}, 2500);
-       
 		
-
+$("#editvendorpayment").validate({
+    
+          
+        // Specify the validation rules
+        rules: {
+            pdate: "required",
+			vendorid : "required",
+			paymenttype : "required",
+			amount : "required"
+			
+			
+		},
+        
+        // Specify the validation error messages
+        messages: {
+            pdate: "Select Payment Date",
+			vendorid : "Select Vendor",
+			paymenttype : "Select Payment Mode",
+			amount : "Amount Should not be Empty"
+			
+            
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
 
 		 
 

@@ -39,7 +39,7 @@
 									<div class="panel-body">
 										
 										<?php 
-								            echo form_open_multipart('Admin/uploadplacespics',array('class' => 'form-horizontal'));
+								            echo form_open_multipart('Admin/uploadplacespics',array('class' => 'form-horizontal','id' => 'addplacesphotos'));
 								        ?>
 
 								         <?php echo $this->session->flashdata('success'); ?> 
@@ -179,12 +179,31 @@
 			}, 2500);
 		  }, 2500);
 		}, 2500);
-       
-		
-
-
-		 
-
+      });
+	
+	 $("#addplacesphotos").validate({
+    
+        // Specify the validation rules
+        
+           rules: {
+			  'userfile[]': {
+			  required: true,
+			accept : "image/*"
+			}
+		},
+        
+        // Specify the validation error messages
+        messages: {
+           'userfile[]':{
+           required : "Please upload atleast 1 photo", 
+		   accept:"Only Image file is allowed!"
+        }
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
     });
 
  </script>
+    

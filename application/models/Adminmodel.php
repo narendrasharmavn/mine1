@@ -108,6 +108,8 @@ class Adminmodel extends CI_Model {
 
      public function getEventsData(){
         $query = $this->db->query("SELECT e.eventid,e.vendorid,e.todate,e.fromdate,v.vendorname,e.location,e.totime,e.eventname from tblevents e LEFT JOIN tblvendors v ON e.vendorid=v.vendorid WHERE e.status=1 ORDER BY e.eventid DESC");
+		echo "SELECT e.eventid,e.vendorid,e.todate,e.fromdate,v.vendorname,e.location,e.totime,e.eventname from tblevents e LEFT JOIN tblvendors v ON e.vendorid=v.vendorid WHERE e.status=1 ORDER BY e.eventid DESC";
+		
         return $query;
     }
 
@@ -115,7 +117,12 @@ class Adminmodel extends CI_Model {
         $query = $this->db->query("SELECT e.resortid,e.vendorid,e.resortname,v.vendorname,e.location,e.description,e.createdby,e.createdon,e.updatedby,e.updatedon from tblresorts e LEFT JOIN tblvendors v ON e.vendorid=v.vendorid WHERE e.status=1 ORDER BY e.resortid DESC;");
         return $query;
     }
-    
+    public function getVendordetailsbyID($vendorid)
+    {
+        $query = $this->db->query("SELECT * from tblvendors WHERE  status=1 and vendorid='$vendorid'");
+		echo "SELECT * from tblvendors WHERE  status=1 and vendorid='$vendorid'";
+        return $query;
+    }
     
     public function getCompleteResortsData(){
         $query = $this->db->query("SELECT * from tblresorts WHERE status=1 ORDER BY vendorid DESC;");

@@ -1,7 +1,7 @@
 
 
 <div id="position" style="margin-top:57px;">
-                    <div class="container"><ul><li><a href="<?php echo site_url().'home';?>" title="Home">Home</a></li><li class="active">My Account</li></ul></div>
+                    <div class="container"><ul><li><a href="<?php echo site_url().'home';?>" title="Home">Home</a></li><li class="active">My Orders</li></ul></div>
                 </div>
 
 <div class="container margin_60">
@@ -44,7 +44,11 @@
                 ?>
             <tr>
                 
-                <td><?php echo $k->date;   ?></td>
+                <td><?php
+                $dt = date("d-m-Y", strtotime($k->date));
+                echo $dt;
+
+                   ?></td>
             
                 
                 <td><?php echo $k->ticketnumber;   ?></td>

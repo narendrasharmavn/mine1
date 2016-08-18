@@ -5,7 +5,7 @@
 
 				<section role="main" class="content-body">
 					<header class="page-header">
-						<h2>Add Packages</h2>
+						<h2>Edit Resort Details</h2>
 					
 						<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
@@ -14,7 +14,7 @@
 										<i class="fa fa-home"></i>
 									</a>
 								</li>
-								<li><span>Add Packages</span></li>
+								<li><span>Edit Resort Details</span></li>
 								<li><span>Event's</span></li>
 							</ol>
 					
@@ -32,13 +32,13 @@
 											<a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
 										</div>
 						
-										<h2 class="panel-title">Add Packages</h2>
+										<h2 class="panel-title">Edit Resort Details</h2>
 									</header>
 									
 									<div class="panel-body">
 										
 										<?php 
-								            echo form_open_multipart('Vendor/submiteditresorts',array('class' => 'form-horizontal'));
+								            echo form_open_multipart('Vendor/submiteditresorts',array('class' => 'form-horizontal','id' => 'editresorts'));
 								        ?>
 
 								         <?php echo $this->session->flashdata('success'); ?>
@@ -67,25 +67,7 @@
 
                                             ?>
                                             <input type="hidden" class="form-control" name="resortid" id="resortid"  value="<?php echo $id; ?>">
-
-                                            <div class="form-group" style="margin-right: 442px;">
-								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Vendor Name *</label>
-								                <div class="col-sm-7">
-								                  <select name="vendorid" id="vendorid" class="form-control input-md">
-														<option value="0">Select</option>
-                                                        <?php 
-					                                    foreach ($vendors->result() as $rs)
-					                                    {  
-					                                    ?>
-														<option value="<?php echo $rs->vendorid; ?>" <?php if($vendorid == $rs->vendorid ) { echo "Selected";}?>><?php echo $rs->vendorname; ?></option>
-														<?php } ?>
-													</select>
-												  <span class="text-danger"><?php echo form_error('vendorid'); ?></span>
-								                </div>
-							                </div>
-
-
-								            <div class="form-group" style="margin-right: 442px;">
+											<div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Resort Name *</label>
 								                <div class="col-sm-7">
 								                  <input type="text" class="form-control" name="resortname" id="resortname" placeholder="Enter Resort Name" value="<?php echo $resortname; ?>">
@@ -94,7 +76,7 @@
 							                </div>
 
 											<div class="form-group" style="margin-right: 442px;">
-								                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Location *</label>
+								                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Address *</label>
 								                <div class="col-sm-7 col-xs-7">
 								                  <input type="text" class="form-control" name="location" id="location" placeholder="Enter Location" value="<?php echo $location; ?>">
 												  <span class="text-danger"><?php echo form_error('location'); ?></span>
@@ -105,8 +87,7 @@
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Description *</label>
 								                <div class="col-sm-7">
 								                  <textarea class="form-control" name="description" id="description"  ><?php echo set_value('description'); ?>
-								                  	<?php echo $description; ?>
-								                  </textarea>
+								                  	<?php echo $description; ?></textarea>
 												  <span class="text-danger"><?php echo form_error('description'); ?></span>
 								                </div>  
 							                </div>
@@ -114,7 +95,7 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Latitude</label>
 								                <div class="col-sm-7">
-								                  <input type="text" class="form-control" name="latitude" id="fname" placeholder="Latitude" value="<?php echo $rows->latitude; ?>">
+								                  <input type="text" class="form-control" name="latitude" placeholder="Latitude" value="<?php echo $rows->latitude; ?>">
 												  <span class="text-danger"><?php echo form_error('latitude'); ?></span>
 								                </div>
 							                </div>
@@ -122,7 +103,7 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Longitude</label>
 								                <div class="col-sm-7">
-								                  <input type="text" class="form-control" name="longitude" id="fname" placeholder="Longitude" value="<?php echo $rows->longitude;; ?>">
+								                  <input type="text" class="form-control" name="longitude" placeholder="Longitude" value="<?php echo $rows->longitude;; ?>">
 												  <span class="text-danger"><?php echo form_error('longitude'); ?></span>
 								                </div>
 							                </div>
@@ -152,10 +133,6 @@
 						</div>
 
 
-	<script type="text/javascript">
-
-	    
-	</script>
 						
 								
 <?php
@@ -163,10 +140,32 @@
 
  ?>
 
-
+ <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
  <script type="text/javascript">
-    $("document").ready(function(){
-    	
+  	
+		$("#editresorts").validate({
+    
+          
+        // Specify the validation rules
+        rules: {
+            resortname : "required",
+			location : "required",
+			description: "required"
+			
+		},
+        
+        // Specify the validation error messages
+        messages: {
+			resortname : "Resort Name Should Not be Empty",
+			location : "Location Should Not be Empty",
+			description: "Description Should not be Empty"
+            
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
     });
 </script>
    
