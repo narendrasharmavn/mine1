@@ -1,0 +1,1 @@
+<a href="ionicapp://gjgjgjkgkj">Open my app</a>

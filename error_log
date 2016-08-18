@@ -1,0 +1,4 @@
+[12-Aug-2016 11:47:47 Asia/Calcutta] PHP Fatal error:  Call to a member function result() on a non-object in /home2/book4holiday/public_html/beta/application/views/vendor/addpackages.php on line 197
+[12-Aug-2016 11:48:31 Asia/Calcutta] PHP Fatal error:  Call to a member function result() on a non-object in /home2/book4holiday/public_html/beta/application/views/vendor/addpackages.php on line 197
+[12-Aug-2016 11:56:07 Asia/Calcutta] PHP Fatal error:  Call to a member function result() on a non-object in /home2/book4holiday/public_html/beta/application/views/admin/addvendors.php on line 1
+[12-Aug-2016 11:59:47 Asia/Calcutta] PHP Fatal error:  Call to a member function result() on a non-object in /home2/book4holiday/public_html/beta/application/views/admin/addvendors.php on line 1
