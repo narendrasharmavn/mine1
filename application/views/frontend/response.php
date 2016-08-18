@@ -2,6 +2,10 @@
                     <div class="container"><ul><li><a href="<?php echo base_url(); ?>" title="Home">Home</a></li><li class="active">Response</li></ul></div>
                 </div>
 
+                <?php
+$ticketnumber= $this->session->userdata('ticketnumber');
+                ?>
+
 <div class="container margin_60">
             <div class="">
                                 <div class="post-content">
@@ -9,7 +13,7 @@
     <div class="col-md-8">
 
        <?php
-       //echo $responsestatus." status<br>";
+       
        if ($responsestatus=="Ok") {
            ?>
            <div class="form_title">
@@ -69,6 +73,32 @@
         </div>
         <div class="step">
             <table class="table table-bordered" style="font-size:12px;line-height: 1.5em;background-color: transparent;">
+            <tr >
+              <td colspan="2" style="font-size:14px;text-align:center;font-weight:bold;">
+
+              <?php 
+               $packageid = $this->db->get_where('tblbookings' , array('ticketnumber' =>$ticketnumber))->row()->packageid;
+
+               $eventid = $this->db->get_where('tblpackages' , array('packageid' =>$packageid))->row()->eventid;
+
+               $eventname = $this->db->get_where('tblevents' , array('eventid' =>$eventid))->row()->eventname;
+
+               $resortid = $this->db->get_where('tblpackages' , array('packageid' =>$packageid))->row()->resortid;
+
+               $resortname = $this->db->get_where('tblresorts' , array('resortid' =>$resortid))->row()->resortname;
+               $name="";
+               if ($eventname!='') {
+                 $name = $eventname;
+               }else{
+                $name = $resortname;
+               }
+
+               echo $name;
+
+              ?>
+                  
+              </td>
+            </tr>
 <tr>
     <td width="150" align="center" style="font-size:14px;text-align:center;font-weight:bold;">Package Name
     </td>
@@ -77,18 +107,21 @@
     <?php
 
      echo $this->db->get_where('tblpackages' , array('packageid' =>$this->session->userdata('packageid')))->row()->packagename;
-     $adultpriceperticket = $this->session->userdata('adultpriceperticket');
-     $childpriceperticket = $this->session->userdata('childpriceperticket');
-     $kidsmealprice = $this->session->userdata('kidsmealprice');
+
+     
+     $adultpriceperticket = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->adultpriceperticket;
+     $childpriceperticket = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->childpriceperticket;
+     $kidsmealprice = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->kidsmealprice;
      $ticketcost = $adultpriceperticket+$childpriceperticket+$kidsmealprice;
-     $servicetax = $this->session->userdata('servicetax');
-     $swachhbharath = $this->session->userdata('swachhbharath');
-     $kkcess = $this->session->userdata('kkcess');
-     $taxes = floatval($servicetax+$swachhbharath+$kkcess);
+     $servicetax = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->servicetax;
+     $swachhbharath = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->swachhbharath;
+     $kkcess = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->krishkalyancess;
+     $taxes = $servicetax+$swachhbharath+$kkcess;
       ?>
       
     </td>
   </tr>
+
   <tr><td width="150">Adult Tickets </td><td class="tdrt">Rs.<?php echo  $adultpriceperticket;  ?></td></tr>
   <tr><td width="150">Child Tickets </td><td class="tdrt">Rs.<?php echo  $childpriceperticket;  ?></td></tr>
   <tr><td width="150">Kids Meal Price </td><td class="tdrt">Rs.<?php echo  $kidsmealprice;  ?></td></tr>
@@ -101,7 +134,7 @@
    echo date("d-m-Y", strtotime($this->session->userdata('dateofvisit')));  ?></td></tr>   
    <?php	
 	   $tckno=$this->session->userdata('ticketnumber');   
-	   $total = $this->db->get_where('tblbookings' , array('ticketnumber' => $tckno ))->row()->amount;   
+	   $total = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->totalcost;
    ?>   
     <tr style="font-weight: bold;font-size: 20px;"><strong><td width="150">Total</td><td class="tdrt">Rs. <?php echo $total;  ?></td></strong></tr>
 </table>

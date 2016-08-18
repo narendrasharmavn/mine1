@@ -265,23 +265,23 @@ class FrontEndModel extends CI_Model {
           {
             $startdate = date('Y-m-d');
             $enddate = date('Y-m-d');
-            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
           }else if($value=="tomorrow")
           {
             $startdate = date('Y-m-d');
             $d=strtotime("tomorrow");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
           }else if($value=="tweek"){
             $startdate = date('Y-m-d');
             $d = strtotime("+1 week");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
           }else{
             $startdate = date('Y-m-d');
             $d=strtotime("next Saturday");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
           }
         }else{
 
@@ -296,8 +296,8 @@ class FrontEndModel extends CI_Model {
       }
 
      
-      $eventsQuery.=' ORDER BY e.eventid desc LIMIT $last_id,$limit';
-     // echo $eventsQuery."<br>";
+      $eventsQuery.=" ORDER BY e.eventid desc LIMIT $last_id,$limit";
+      //echo $eventsQuery."<br>";
       $eventsresults = $this->db->query($eventsQuery);
         //return $result;
 
@@ -405,23 +405,23 @@ class FrontEndModel extends CI_Model {
           {
             $startdate = date('Y-m-d');
             $enddate = date('Y-m-d');
-            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
           }else if($value=="tomorrow")
           {
             $startdate = date('Y-m-d');
             $d=strtotime("tomorrow");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
           }else if($value=="tweek"){
             $startdate = date('Y-m-d');
             $d = strtotime("+1 week");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
           }else{
             $startdate = date('Y-m-d');
             $d=strtotime("next Saturday");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
           }
         }else{
 
@@ -436,8 +436,8 @@ class FrontEndModel extends CI_Model {
       }
 
      
-      $eventsQuery.='ORDER by e.eventid DESC LIMIT '.$last_id.','.$limit;
-     echo $eventsQuery."<br>";
+      $eventsQuery.=' ORDER by e.eventid DESC LIMIT '.$last_id.','.$limit;
+     //echo $eventsQuery."<br>";
       $eventsresults = $this->db->query($eventsQuery);
         //return $result;
 
@@ -546,23 +546,23 @@ class FrontEndModel extends CI_Model {
           {
             $startdate = date('Y-m-d');
             $enddate = date('Y-m-d');
-            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
           }else if($value=="tomorrow")
           {
             $startdate = date('Y-m-d');
             $d=strtotime("tomorrow");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
           }else if($value=="tweek"){
             $startdate = date('Y-m-d');
             $d = strtotime("+1 week");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
           }else{
             $startdate = date('Y-m-d');
             $d=strtotime("next Saturday");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate='$startdate' OR e.fromdate='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
           }
         }else{
 
@@ -683,7 +683,7 @@ class FrontEndModel extends CI_Model {
     }
 
     public function checkIfCustomerEmailOrMobileExists($email,$mobile){
-        $processedResults = $this->db->query("SELECT name FROM tblcustomers WHERE regtype='registration' AND (username='$email' OR number='$mobile')");
+        $processedResults = $this->db->query("SELECT name FROM tblcustomers WHERE (username='$email' OR number='$mobile') AND regtype='registration'");
         return $processedResults->num_rows();
 
     }
@@ -705,7 +705,7 @@ public function validateEmail($email){
     
 
     public function checkIfCustomerIsValid_forgot($email){
-        $processedResults = $this->db->query("SELECT name FROM tblcustomers WHERE username='$email' ");
+        $processedResults = $this->db->query("SELECT name FROM tblcustomers WHERE username='$email' AND regtype='registration' ");
         return $processedResults->num_rows();
 
     }

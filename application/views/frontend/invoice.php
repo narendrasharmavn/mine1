@@ -88,7 +88,29 @@
 				</div>
 				<div class="col-xs-6 text-right">
 					<address>
-						<strong>Ticket Date:</strong><br>
+					<?php 
+               $packageid = $this->db->get_where('tblbookings' , array('ticketnumber' =>$tckno))->row()->packageid;
+
+               $eventid = $this->db->get_where('tblpackages' , array('packageid' =>$packageid))->row()->eventid;
+
+               $eventname = $this->db->get_where('tblevents' , array('eventid' =>$eventid))->row()->eventname;
+
+               $resortid = $this->db->get_where('tblpackages' , array('packageid' =>$packageid))->row()->resortid;
+
+               $resortname = $this->db->get_where('tblresorts' , array('resortid' =>$resortid))->row()->resortname;
+               $name="";
+               if ($eventname!='') {
+                 $name = $eventname;
+               }else{
+                $name = $resortname;
+               }
+
+               echo "<b>".$name."</b>";
+
+              ?>
+					
+					<br>
+						<strong>Ticket Date</strong><br>
 						<?php 
 							$dov = $this->db->get_where('tblbookings' , array('ticketnumber' => $tckno ))->row()->dateofvisit;   
 						?>
@@ -112,37 +134,103 @@
 							<thead>
 								<tr>
 									<td><strong>Package Name</strong></td>
-									<td class="text-center"><strong>Description</strong></td>
-									<td class="text-right"><strong>Amount Paid</strong></td>
+									<td class="text-center"><strong>Visitors</strong></td>
+									<td class="text-right"><strong></strong></td>
 								</tr>
 							</thead>
 							<tbody>
 							<?php
+							$query = $this->db->query("SELECT * from tblbookings WHERE ticketnumber='$tckno' ORDER BY bookingid DESC");
+
+foreach ($query->result() as $k) {
+												//echo "booking id is: ".$k->bookingid."<br>";
+
 							
-							foreach ($bookingsResults->result() as $k) {
+							
 								?>
 									
 							<tr>
 								<td class="">
-								<?php 
-								echo $k->packagename;
+								<?php
+								$packagename = $this->db->get_where('tblpackages' , array('packageid' =>$k->packageid))->row()->packagename; 
+								echo $packagename;
 								  ?>
 								  	
 								  </td>
 								<td class="text-center">
-								Adults: <span><?php echo $k->quantity;   ?></span>
+								<?php 
+								if ($k->quantity!=0) {
+									?>
+		
+									Adults: <span><?php
+								 echo $k->quantity;
+								    ?></span>  
 
-								Child: <span><?php echo $k->childqty;   ?></span>
+									<?php
+									
+								}
+
+								
+
+								 if ($k->childqty!=0) {
+								 		?>
+								 		Child: <span><?php echo $k->childqty;   ?></span>
+
+
+								 	<?php
+								 }
+
+
+								   ?>
+								
+
+								
 								<input type="hidden" id="dateofvisit" value="<?php echo $k->dateofvisit;   ?>">
 
 								</td>
-								<td class="text-right">Rs. <?php echo $k->amount;   ?></td>
+								
 							</tr>
 								
 
 								<?php
 							}
 							 ?>
+
+							 <?php 
+								$kidsmealqty =  $this->db->get_where('tblpayments' , array('ticketnumber' =>$tckno))->row()->noofkidsmeal;
+								if ($kidsmealqty!=0) {
+									?>
+									 <tr>
+							 	<td>Kids Meal Qty</td>
+							 	<td class="text-center">
+									<?php  echo $kidsmealqty;  ?>
+							 	</td>
+
+
+							 </tr>
+
+
+									<?php
+									
+								}
+
+								 ?>
+								 <tr>
+								 	<td>
+	
+								 			Amount Paid
+								 	</td>
+								 	<td class="text-center">
+								 		<?php 
+
+								 		echo "Rs. ".$this->db->get_where('tblpayments' , array('ticketnumber' =>$tckno))->row()->totalcost;
+
+								 		  ?>
+								 	</td>
+								 </tr>
+
+
+							
 
 						
 									

@@ -164,8 +164,9 @@
                     <h3>Description</h3>
                 </div>
                 <div class="col-md-9">
-                    
+                    <p>
 <?php echo $resortResults->description;  ?>
+</p>
 
 <div class="row">
 </div>  
@@ -511,7 +512,7 @@ if ($this->session->userdata('holidayCustomerName')) {
             </div>
             <div class="modal-body">
             <?php          
-    echo form_open('Frontend/submitresortreview',array('id'=>'review-form','method'=>'post'));
+    echo form_open('Frontend/submitresortreviewmulticheckout',array('id'=>'review-form','method'=>'post'));
 ?>
 
                 <input type="hidden" name="resortname" value="<?php echo $resortResults->resortname; ?>">
@@ -543,7 +544,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <!-- End row -->
 					  <div class="form-group">
                     <label>Subject</label>
-                        <input type="text" name="subject" id="subject" class="form-control" placeholder="Enter Subject">
+                        <input type="text" name="subject" id="subject" class="form-control" placeholder="Enter Subject" required>
                     </div>
                     <div class="form-group">
                     <label>Comments</label>

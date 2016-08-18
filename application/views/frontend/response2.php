@@ -85,14 +85,18 @@
  echo '</ol>';
 
      //echo $this->db->get_where('tblpackages' , array('packageid' =>$this->session->userdata('packageid')))->row()->packagename;
+    $ticketnumber = $this->session->userdata('ticketnumber');
+
      $adultpriceperticket = $this->session->userdata('calculatedadultprice');
      $childpriceperticket = $this->session->userdata('calculatedchildprice');
      $kidsmealprice = $this->session->userdata('kidsmealprice');
      $ticketcost = $adultpriceperticket+$childpriceperticket+$kidsmealprice;
-     $servicetax = $this->session->userdata('servicetax');
-     $swachhbharath = $this->session->userdata('swachhbharath');
-     $kkcess = $this->session->userdata('kkcess');
-     $taxes = floatval($servicetax+$swachhbharath+$kkcess);
+     $servicetax = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->servicetax;
+
+      $krishkalyancess = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->krishkalyancess;
+
+      $swachhbharath = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->swachhbharath;
+     $taxes = $servicetax+$swachhbharath+$krishkalyancess;
       ?>
       
     </td>

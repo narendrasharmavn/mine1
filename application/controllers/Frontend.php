@@ -158,7 +158,7 @@ class Frontend extends CI_Controller {
     }
 
     public function submitresortreview(){
-      $resortid = $this->input->post('resortid');
+        $resortid = $this->input->post('resortid');
 
         $resortname = $this->input->post('resortname');
         $pricerating = $this->input->post('pricerating');
@@ -166,7 +166,10 @@ class Frontend extends CI_Controller {
         $reviewtext = $this->input->post('reviewtext');
         $subject = $this->input->post('subject');
 
-        echo "price rating".$pricerating."<br>";
+        //echo "price rating".$pricerating."<br>";
+         if($pricerating==''){
+         $pricerating=0;
+        }
 
         $data = array(
           'pricereview' => $pricerating,
@@ -177,15 +180,48 @@ class Frontend extends CI_Controller {
           'status' => 1
           );
 
-        $this->db->insert('resortreviews', $data);
-        $url = 'resorts/'.$resortname.'/'.$resortid;
-        //echo $url;
-        ?>
-        <script>
-          alert("Thank you for the review");
-        </script>
 
-        <?php
+        $this->db->insert('resortreviews', $data);
+        $resortname = str_replace("%20",'-',$resortname);
+        $resortname = str_replace(" ",'-',$resortname);
+        $url = 'resorts/'.$resortname.'/'.$resortid;
+       // echo $url;
+       
+       redirect($url);
+
+    }
+
+
+    public function submitresortreviewmulticheckout(){
+      $resortid = $this->input->post('resortid');
+
+        $resortname = $this->input->post('resortname');
+        $pricerating = $this->input->post('pricerating');
+        //$qualityrating = $this->input->post('qualityrating');
+        $reviewtext = $this->input->post('reviewtext');
+        $subject = $this->input->post('subject');
+
+        //echo "price rating".$pricerating."<br>";
+         if($pricerating==''){
+         $pricerating=0;
+        }
+
+        $data = array(
+          'pricereview' => $pricerating,
+          'subject' => $subject,
+          'review' => $reviewtext,
+          'customerid' => $this->session->userdata('holidayCustomerId'),
+          'resortname' => $resortid,
+          'status' => 1
+          );
+
+
+        $this->db->insert('resortreviews', $data);
+        $resortname = str_replace("%20",'-',$resortname);
+        $resortname = str_replace(" ",'-',$resortname);
+        $url = 'resorts-multicheckout/'.$resortname.'/'.$resortid;
+        //echo $url;
+       
        redirect($url);
 
     }
@@ -205,7 +241,9 @@ class Frontend extends CI_Controller {
         
         $reviewtext = $this->input->post('reviewtext');
         
-        
+        if($pricerating==''){
+         $pricerating=0;
+        }
 
         $data = array(
           'pricereview' => $pricerating,
@@ -213,16 +251,14 @@ class Frontend extends CI_Controller {
           'review' => $reviewtext,
           'customerid' => $this->session->userdata('holidayCustomerId'),
           'resortoreventname' => $eventid,
-		  'status'=>1
+		      'status'=>1
           );
 
         $this->db->insert('eventreviews', $data);
         $eventname = str_replace(" ","-",$eventname);
         $url = 'eventdetails/'.$eventname.'/'.$eventid;
        ?>
-        <script>
-          alert("Thank you for the review");
-        </script>
+        
 
         <?php
        redirect($url);
@@ -241,6 +277,10 @@ class Frontend extends CI_Controller {
         $qualityrating = $this->input->post('qualityrating');
         $reviewtext = $this->input->post('reviewtext');
         $subject = $this->input->post('subject');
+
+         if($pricerating==''){
+         $pricerating=0;
+        }
 
         $data = array(
           'pricereview' => $pricerating,
@@ -341,7 +381,8 @@ class Frontend extends CI_Controller {
 
             $searchQuery = 'searchquery/'.$searchtype.'/'.$searchterm;
 
-            $searchterm =  str_replace("-"," ",$searchterm);
+            $searchterm =  str_replace("%20"," ",$searchterm);
+            //echo "searchterm".$searchterm."<br>";
             $this->session->set_userdata('searchtype',$searchtype);
             $this->session->set_userdata('searchterm',$searchterm);
              if($searchdate!=''){
@@ -371,59 +412,29 @@ class Frontend extends CI_Controller {
     public function indexsearch2(){
       
                     
-                        //all validations correct
-                        $searchtype = $this->input->post('searchtype2');
-                        $searchterm = addslashes($this->input->post('searchterm2'));
-                        $searchdate = $this->input->post('date2');
+                        $searchtype = $this->input->post('searchtype');
+                        $searchterm = addslashes($this->input->post('searchterm'));
+                        $searchdate = $this->input->post('date');
 
-                          
-                         if ($searchtype!='' || $searchterm!='') {
-                          //echo "true"."<br>";
-                          //echo $searchterm."<br>";
+                         $searchterm =  str_replace(" ","-",$searchterm);
+                         $searchdate =  str_replace(" ","-",$searchdate);
+                        
+                        if($searchtype=='eventname'){
+                        $searchQuery = 'searchevents/'.$searchtype.'/'.$searchterm.'/'.$searchdate;
+                        redirect($searchQuery);
+                       }else if($searchtype=='places'){
 
-                               $this->session->set_userdata('searchtype',$searchtype);
-                               $this->session->set_userdata('searchterm',$searchterm);
-                               if($searchdate!=''){
-                                $searchdate = date('Y-m-d', strtotime($searchdate));
-                                $this->session->set_userdata('searchdate',$searchdate);
-                               }
-                               
-                               //echo "session in search term is: ".$this->session->set_userdata('searchterm')."<br>";
-                               
-                          }
-                          
+                       
+                       $searchterm =  str_replace("-"," ",$searchterm);
+                       //echo "search term ISasdsfas".$searchterm;
+                        $this->session->set_userdata('searchtype',$searchtype);
+                        $this->session->set_userdata('searchterm',$searchterm);
+                        $this->placesGridView();
 
-                         if ($searchtype=="eventname") {
-
-                          if ($searchdate=='')
-                          {  
-                              //get latest 6 events to load on index page
-                                $this->session->set_flashdata('error-msg','<div class="alert alert-success text-center">Please select a date</div>');
-                                  $data['events']= $this->FrontEndModel->getLatestSixEvents();
-
-
-                                  $this->load->view('frontend/header');
-                                  $this->load->view('frontend/index',$data);
-                              //validation fails
-
-                          }else{
-                          
-
-                         $this->eventsGridView();
+                       }else{
+                        $searchQuery = 'searchquery/'.$searchtype.'/'.$searchterm;
+                        redirect($searchQuery);
                        }
-
-                           
-                          }else if ($searchtype=="resortname") {
-                            //echo "amar";
-
-                            $this->resortsGridView();
-                            
-                          }else{
-                            $this->placesGridView();
-                          }
-                     
-
-     
 
     }
 
@@ -1221,7 +1232,7 @@ echo "true";
           'servicetax' => $this->session->userdata('servicetax'),
           'internetcharges'=> $this->session->userdata('internetcharges'),
           'swachhbharath'=>$this->session->userdata('swachhbharath'),
-          'krishkalyancess' => $this->session->userdata('krishkalyancess')
+          'krishkalyancess' => $this->session->userdata('kkcess')
       );
     
         $this->db->insert('tblpayments',$paymentsdata); 
@@ -1503,6 +1514,29 @@ echo "true";
       );
 
       if($_POST['f_code']==="Ok"){
+
+        $packageid = $this->db->get_where('tblbookings' , array('ticketnumber' =>$ticketnumber))->row()->packageid;
+
+        $dateofvisit = $this->db->get_where('tblbookings' , array('ticketnumber' =>$ticketnumber))->row()->dateofvisit;
+
+               $eventid = $this->db->get_where('tblpackages' , array('packageid' =>$packageid))->row()->eventid;
+
+               $eventname = $this->db->get_where('tblevents' , array('eventid' =>$eventid))->row()->eventname;
+
+               $resortid = $this->db->get_where('tblpackages' , array('packageid' =>$packageid))->row()->resortid;
+
+               $resortname = $this->db->get_where('tblresorts' , array('resortid' =>$resortid))->row()->resortname;
+               $name="";
+               if ($eventname!='') {
+                 $name = $eventname;
+               }else{
+                $name = $resortname;
+               }
+
+               echo $name;
+
+
+
         
         $paymentsdata = array(
           'banktransaction'=>$_POST['bank_txn'],
@@ -1539,11 +1573,20 @@ echo "true";
         //insert into table transactions
         $this->db->insert('tbltransactions',$tbltransactionsdata); 
         $mobile = $this->db->get_where('tblcustomers' , array('customer_id' => $this->session->userdata('holidayCustomerId') ))->row()->number;
-        $msg = 'Your booking is confirmed. Your Ticket Number is: '.$this->db->get_where('tblbookings' , array('bookingid' => $this->session->userdata('bookingsid') ))->row()->ticketnumber.' ';
+
+        $msg = "Thank you for booking at ".$name." Date is: ".$dateofvisit." Your Booking Id is: ".$ticketnumber;
         $this->sendsms($mobile,$msg);
         $this->sendingEmailTickets($_POST['udf2']);
   
       }else{
+
+
+        //send sms if transaction failed
+        $mobile = $this->db->get_where('tblcustomers' , array('customer_id' => $this->session->userdata('holidayCustomerId') ))->row()->number;
+
+        $msg = "OOP's Your Transaction at Book4Holiday Failed. Transaction Id is : ".$ticketnumber;
+        $this->sendsms($mobile,$msg);
+        $this->sendingEmailTickets($_POST['udf2']);
 
         $paymentsdata = array(
           'banktransaction'=>$_POST['bank_txn'],
@@ -1597,6 +1640,16 @@ echo "true";
       $kidsmealprice = $this->session->userdata('kidsmealprice');
       $ticketnumber = $this->session->userdata('ticketnumber');
       //echo "ticket number is: ".$ticketnumber."<br>";
+
+      $servicetax = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->servicetax;
+
+      $krishkalyancess = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->krishkalyancess;
+
+      $swachhbharath = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->swachhbharath;
+
+      $dateofvisit = $this->db->get_where('tblbookings' , array('ticketnumber' =>$ticketnumber))->row()->dateofvisit;
+
+
       // echo "<br> payment id: ".$bookingid."<br>";
       //echo "amount is: ".$_POST['f_code'];
       //print_r($_POST);
@@ -1712,7 +1765,9 @@ echo "true";
 
       $searchterm = $this->session->userdata('searchterm');
       $searchdate = $this->session->userdata('searchdate');
-      //echo $searchdate."<br>";
+      //echo $searchterm."<br>";
+
+      //$searchterm = str_replace("");
 
       $this->load->library('pagination');
 
@@ -1784,7 +1839,7 @@ echo "true";
         $data['total_data'] = ceil($numberOfRows/$content_per_page); 
          
         $this->load->view('frontend/header'); 
-        $this->load->view('frontend/resortsGridView',$data); 
+       $this->load->view('frontend/resortsGridView',$data); 
 
       
     }
@@ -2488,14 +2543,14 @@ echo "true";
       $price = $this->input->post('price');
       $date = $this->input->post('date');
       $sessionValue = $this->input->post('sessionValue');
-      //echo "date is: ".$date."<br>";
-      //echo "amar deep<br>";
+      
+      
 
       
       $last_id=$sessionValue*4;
       //echo "sessionvalue is: : ".$last_id."<br>";
 
-        //echo "amar deep"."<br>";
+        
 
       if ($price=='' && $date=='') {
 
@@ -2643,6 +2698,8 @@ echo "true";
     {
       $price = $this->input->post('price');
       $date = $this->input->post('date');
+
+
       if ($price=='' && $date=='') {
         $sql = "SELECT * FROM tblevents WHERE status=1 ORDER by eventid DESC limit 4";
         //echo $sql."<br>";
@@ -3124,7 +3181,6 @@ public function getPackageAmountAndSetMarkUp(){
 
      public function register(){
 
-                    
                     $name = $this->input->post('name');
                     $email = $this->input->post('email');
                     $password = $this->input->post('password');
@@ -3132,9 +3188,9 @@ public function getPackageAmountAndSetMarkUp(){
                     $mobile = $this->input->post('mobile');
                     //$url = $this->input->post('url');
 
-                            //first check if user exists or not
-                  $result =  $this->FrontEndModel->checkIfCustomerEmailOrMobileExists($email,$mobile);
-                           //echo $result;
+                //first check if user exists or not
+                $result =  $this->FrontEndModel->checkIfCustomerEmailOrMobileExists($email,$mobile);
+                           
                            if($result<1){
                             $randNumber = rand(9999,99999);
                             $this->session->set_userdata('register-mobile-OTP',$randNumber);
@@ -3146,9 +3202,7 @@ public function getPackageAmountAndSetMarkUp(){
                             echo "true";
 
                            }else{
-                            //$this->session->set_flashdata('error-msg','<div class=alert alert-success text-center>Email Or Phone Exists with us! Please use different one</div>');
-                              //$this->load->view('frontend/header');
-                             //$this->load->view('frontend/register');
+                          
                             echo "false";
                             
                            }
@@ -3454,7 +3508,7 @@ tickets on the go<br>
       $this->form_validation->set_rules("email", "Email", "trim|required|callback_validateemailforgot");
         
                   if ($this->form_validation->run($this) == FALSE)
-                    {  
+                  {  
                         $this->load->view('frontend/header');
                         $this->load->view('frontend/forgot');
                         //validation fails

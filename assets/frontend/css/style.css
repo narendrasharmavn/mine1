@@ -1969,6 +1969,7 @@ ul#contact-info {
     text-transform: none;
     font-size: 12px;
     background: url(../images/body_bg.jpg) repeat;
+    min-height: 450px;
 }
 #login {
   margin:75px 0 20px;

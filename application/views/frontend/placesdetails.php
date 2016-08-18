@@ -448,13 +448,13 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <!-- End row -->
                     <div class="form-group">
                     <label>Subject</label>
-                        <input type="text" name="subject" id="subject" class="form-control" placeholder="Enter Subject">
+                        <input type="text" name="subject" id="subject" class="form-control" placeholder="Enter Subject" required>
                     </div>
 <div class="form-group">
                     <label>Comments</label>
                         <textarea name="reviewtext" id="review_text" class="form-control" style="height:100px;" placeholder="Write your review" required></textarea>
                     </div>
-                    <input type="submit" value="Submit" class="btn_1" id="submit-review">
+                    <input type="submit" value="Submit" class="btn_1" id="submit-review" >
                 </form>
                 <div id="message-review" class="alert alert-warning">
                 </div>

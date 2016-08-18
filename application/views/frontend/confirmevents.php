@@ -22,7 +22,7 @@
                                     <INPUT TYPE="hidden" NAME="clientcode" value="9654">
                                     <INPUT TYPE="hidden" NAME="AccountNo" value="85654125485412">
 
-                                    <INPUT TYPE="hidden" NAME="ru" value="<?php echo site_url().'frontend/response'; ?>">
+                                    <INPUT TYPE="hidden" NAME="ru" value="<?php echo base_url(); ?>response">
                                     <input type="hidden" name="bookingid" value="<?php echo  date('Ymdhisu'); ?>"/>
 
 
@@ -109,7 +109,7 @@
                                     <span class="otp-error error"></span>
                                     <br/>
                                     <button type="button" class="btn btn_1 green otp-check">Verify</button>
-                                    <button type="button" class="btn btn_1 green re-enter-details">Review Order</button>
+                                    <button type="button" class="btn btn_1 green re-enter-details">Edit Details</button>
                                 
                                 
                               </div>

@@ -144,21 +144,23 @@
                   
                 <!-- End Item -->
                 
-    <div id="position">
-                    <div class="container">
-                    <ul>
-                    
+    
                     <?php
         if ($this->session->userdata('resortsearchquery')) {
             ?>
+            <div id="position">
+                    <div class="container">
+                    <ul>
+                    
  <li><a href="<?php echo site_url().$this->session->userdata('resortsearchquery'); ?>">Go Back To Search Results</a></li>
+                      </ul></div>
+                </div>
             <?php
             
         }
 
         ?>
-                        </ul></div>
-                </div>
+              
                 
         <div class="container margin_60" style="transform: none;">
     <div class="row" style="transform: none;">
@@ -268,7 +270,7 @@
 
           
             
-<div class="row">
+<div class="row" style="margin-bottom: 20px;">
         <div class="col-md-2">
             <h3>User Reviews</h3>
             <?php
@@ -611,7 +613,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <!-- End row -->
                     <div class="form-group">
                     <label>Subject</label>
-                        <input type="text" name="subject" class="form-control" id="subject" placeholder="Enter Subject">
+                        <input type="text" name="subject" class="form-control" id="subject" placeholder="Enter Subject" required>
                     </div>
                     <div class="form-group">
                     <label>Comments</label>

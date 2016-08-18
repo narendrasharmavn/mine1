@@ -61,75 +61,7 @@
 
         ?>
 
- <script>
-
-        var icon = new google.maps.MarkerImage("http://maps.google.com/mapfiles/ms/micons/blue.png",
-        new google.maps.Size(32, 32), new google.maps.Point(0, 0),
-        new google.maps.Point(16, 32));
-        var center = null;
-        var map = null;
-        var currentPopup;
-        var bounds = new google.maps.LatLngBounds();
-
-        function addMarker(lat, lng, info)
-        {
-            var pt = new google.maps.LatLng(lat, lng);
-            bounds.extend(pt);
-            var marker = new google.maps.Marker(
-            {
-                position: pt,
-                icon: icon,
-                map: map
-            });
-            var popup = new google.maps.InfoWindow(
-            {
-                content: info,
-                maxWidth: 300
-            });
-
-            google.maps.event.addListener(marker, "click", function()
-            {
-                if (currentPopup != null)
-                {
-                    currentPopup.close();
-                    currentPopup = null;
-                }
-                popup.open(map, marker);
-                currentPopup = popup;
-            });
-            google.maps.event.addListener(popup, "closeclick", function()
-            {
-                map.panTo(center);
-                currentPopup = null;
-            });
-        }
-
-        function loadMap()
-        {
-            map = new google.maps.Map(document.getElementById("map"), {
-            center: new google.maps.LatLng(0, 0),
-            zoom: 0,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            mapTypeControl: false,
-            mapTypeControlOptions:
-            {
-                style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
-            },
-            navigationControl: true,
-            navigationControlOptions:
-            {
-                style: google.maps.NavigationControlStyle.SMALL
-            }
-            });
-          
-
-                addMarker(<?php echo $eventResults->latitude;  ?>, <?php echo $eventResults->longitude;  ?>, '<?php echo $eventResults->eventname;  ?>');
-           
-            center = bounds.getCenter();
-            map.fitBounds(bounds);
-            map.setOptions({ minZoom: 5, maxZoom: 13 });
-        }
- </script>
+ 
   <script>
             $('#sidebar').theiaStickySidebar({
                 additionalMarginTop: 80
@@ -161,22 +93,24 @@
         </div>
 
 
-<div id="position">
-                    <div class="container">
-                    <ul>
-                    
+
                     <?php
         if ($this->session->userdata('eventssearchquery')) {
             ?>
+            <div id="position">
+                    <div class="container">
+                    <ul>
+                    
  <li><a href="<?php echo site_url().$this->session->userdata('eventssearchquery'); ?>">Go Back To Search Results</a></li>
+  </ul></div>
+                </div>
+
             <?php
             
         }
 
         ?>
-               </ul></div>
-                </div>
-
+              
         <div class="container margin_60" style="transform: none;">
 
     <div class="row" style="transform: none;">
@@ -601,7 +535,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <!-- End row -->
                     <div class="form-group">
                     <label>Subject</label>
-                        <input type="text" name="subject" class="form-control" id="subject" placeholder="Enter Subject">
+                        <input type="text" name="subject" class="form-control" id="subject" placeholder="Enter Subject" required>
                     </div>
                     <div class="form-group">
                     <label>Comments</label>
@@ -829,11 +763,8 @@ function update_tour_price() {
 }
 
 
-function showmap()
-{
-    
-    loadMap();
-}
+
+
 
 
 function bookthispackage(packageId){
@@ -1041,6 +972,10 @@ function rounds(value, decimals) {
 }
 
 
+
+ 
+
+
 </script>
 
 </body>
@@ -1050,6 +985,77 @@ function rounds(value, decimals) {
     
     loadMap();
 </script>
+
+<script>
+
+        var icon = new google.maps.MarkerImage("http://maps.google.com/mapfiles/ms/micons/blue.png",
+        new google.maps.Size(32, 32), new google.maps.Point(0, 0),
+        new google.maps.Point(16, 32));
+        var center = null;
+        var map = null;
+        var currentPopup;
+        var bounds = new google.maps.LatLngBounds();
+
+        function addMarker(lat, lng, info)
+        {
+            var pt = new google.maps.LatLng(lat, lng);
+            bounds.extend(pt);
+            var marker = new google.maps.Marker(
+            {
+                position: pt,
+                icon: icon,
+                map: map
+            });
+            var popup = new google.maps.InfoWindow(
+            {
+                content: info,
+                maxWidth: 300
+            });
+
+            google.maps.event.addListener(marker, "click", function()
+            {
+                if (currentPopup != null)
+                {
+                    currentPopup.close();
+                    currentPopup = null;
+                }
+                popup.open(map, marker);
+                currentPopup = popup;
+            });
+            google.maps.event.addListener(popup, "closeclick", function()
+            {
+                map.panTo(center);
+                currentPopup = null;
+            });
+        }
+
+        function loadMap()
+        {
+            map = new google.maps.Map(document.getElementById("map"), {
+            center: new google.maps.LatLng(0, 0),
+            zoom: 0,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeControl: false,
+            mapTypeControlOptions:
+            {
+                style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
+            },
+            navigationControl: true,
+            navigationControlOptions:
+            {
+                style: google.maps.NavigationControlStyle.SMALL
+            }
+            });
+          
+         
+
+             addMarker(<?php echo $eventResults->latitude;  ?>, <?php echo $eventResults->longitude;  ?>, '<?php echo $eventResults->eventname;  ?>');
+
+            center = bounds.getCenter();
+            map.fitBounds(bounds);
+            map.setOptions({ minZoom: 5, maxZoom: 13 });
+        }
+ </script>
 
 <?php
 $this->session->unset_userdata('eventssearchquery');

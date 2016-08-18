@@ -95,6 +95,7 @@ $route['myaccount-update'] = 'frontend/updateMyAccount';
 
 $route['my-orders'] = 'frontend/myorders';
 $route['response'] = 'frontend/response';
+$route['paymentresponse'] = 'frontend/response2';
 
 $route['login'] = 'frontend/loginForm';
 $route['terms'] = 'frontend/terms';

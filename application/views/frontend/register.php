@@ -24,7 +24,7 @@
 
                                 echo form_open('register-error',array('name'=>'registerform','method'=>'post','id' => 'register-form'));
                             ?>
-                            <div id="errordiv"></div>
+                            
                                 <div class="form-group">
                                     <center><h3>Register</h3></center>
                                 </div>
@@ -58,12 +58,12 @@
                             
       
                                 <button type="submit" class="btn_1 green btn_full">Create an account</button>
+                                <div id="errordiv" style="color:red;"></div>
                                 
 
                                 
                             </form>
                             <form id="otp-form" style="display:none;">
-
                             <div class="otp-view">
                                     <div class="form-group">
                                         <label>OTP<span style="color:red;">*</span></label>
@@ -76,9 +76,8 @@
                             </div>
         
                             </form>
-                            <!--<button type="button" class="btn_1 green re-enter-details otp-view">Re-enter details again</button>--><br>
-							
-                            <br>Already a Member? <a href="<?php echo site_url().'login'; ?>">Sign In</a>
+                            
+                            Already a Member? <a href="<?php echo site_url().'login'; ?>">Sign In</a>
                         
                     </div>
                 </div>
@@ -100,7 +99,7 @@
       <script>
   $("document").ready(function(){
 
-    $(".otp-view").hide();
+    $("#otp-form").hide();
 
     jQuery.validator.addMethod( 'passwordMatch', function(value, element) {
     
@@ -188,15 +187,17 @@ $.ajax({
             mobile: $('input[name="mobile"]').val()
               },
         success: function(res) {
+            console.log(res);
 
                 if (res.trim()=="true") {
                     //console.log("inside true "+res.trim());
-                    $('.otp-view').show();
+                    $('#otp-form').css('display','block');
+                    $('#otp-form').show();
                     $('#register-form').hide();
                     $('#errordiv').html('We have sent an OTP to your mobile. Please check and input it');
                 } else if(res.trim()=="false") {
                     //console.log("inside false "+res.trim());
-                     $('#errordiv').html('Email Id or Phone Number exists with us. Please use a different one');
+                     $('#errordiv').html('Email Id or Phone Number already exists. Please use a different one');
                 }else{
                     console.log(res);
                 }        //$('#email').html(res);
