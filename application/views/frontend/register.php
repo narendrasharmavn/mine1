@@ -53,7 +53,7 @@
                                     <label>Confirm Password<span style="color:red;">*</span></label>
                                     <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password" required>
                                     <span class="text-danger"><?php echo form_error('cpassword'); ?></span>
-                                </div>								<input type="checkbox" name="iagree" tabindex="3" value="forever" id="rememberme" class="pull-left" required>							<label for="Agree" class="pl-8">I Agree <a href="<?php echo site_url().'terms'; ?>">Terms</a></label>							 <span class="text-danger"><?php echo form_error('iagree'); ?></span>							
+                                </div>								<input type="checkbox" name="iagree" tabindex="3" value="forever" id="rememberme" class="pull-left" required>							<label for="Agree" class="pl-8">I Agree <a href="<?php echo site_url().'terms'; ?>">Terms</a> and conditions</label>							 <span class="text-danger"><?php echo form_error('iagree'); ?></span>							
                                 
                             
       
@@ -62,7 +62,7 @@
 
                                 
                             </form>
-                            <form id="otp-form">
+                            <form id="otp-form" style="display:none;">
 
                             <div class="otp-view">
                                     <div class="form-group">
@@ -229,6 +229,8 @@ $.ajax({
 
 $('.check_otp').on('click', function() {
     var pattern = /^\d+$/;
+
+    $(".otp-view").css('display','block');
 
     if ($('input[name="otp"]').val()=='') {
         $('.otp-error').html('OTP cannot be blank');

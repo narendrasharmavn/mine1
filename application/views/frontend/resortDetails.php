@@ -270,7 +270,7 @@
             
 <div class="row">
         <div class="col-md-2">
-            <h3>Reviews</h3>
+            <h3>User Reviews</h3>
             <?php
             $reviewsquery = $this->db->query("SELECT rr.*,c.name from resortreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortname='$resortid' ORDER BY rr.rrid DESC");
 
@@ -352,12 +352,12 @@ if ($this->session->userdata('holidayCustomerName')) {
                                     //echo "review is: ".$k->pricereview."<br>";
                                     for ($j=$k->pricereview; $j > 0 ; $j--) { 
                                         
-                                        echo '<li style="background-image: url('.base_url().'assets/widget_star.gif); background-position: 0px -28px;"></li>';
+                                        echo '<li style="background-image: url('.base_url().'assets/widget_star.gif); background-position: 0px -28px;cursor:default;"></li>';
                                         $i++;
                                     }
 
                                     for ($a=$i; $a < 5; $a++) { 
-                                        echo '<li style="background-image: url('.base_url().'assets/widget_star.gif); background-position: 0px 0px;"></li>';
+                                        echo '<li style="background-image: url('.base_url().'assets/widget_star.gif); background-position: 0px 0px;cursor:default;"></li>';
                                     }
                                     
                                     echo "</ul>";
