@@ -198,9 +198,10 @@
                     <h3>Description</h3>
                 </div>
                 <div class="col-md-9">
-                    <h4><?php echo $eventResults->eventname;  ?></h4>
-<?php echo $eventResults->description;  ?>
-
+                <br>
+                <p>
+                    <?php echo $eventResults->description;  ?>
+                </p>
 <div class="row">
 </div>  
             </div>
@@ -385,18 +386,22 @@ if ($this->session->userdata('holidayCustomerName')) {
                 <aside class="col-md-12 aside-panel" id="sidebar">
             
                                         <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; top: 80px; z-index: 100; left: 889.5px;">
-                            <div class="box_style_1 expose overone" style="display:none;">
+                            <div class="box_style_1 over1" style="display:none;">
             <h3 class="inner" id="bookingscroll">- Booking -</h3>
                         <form method="get" id="booking-form" action="place-your-order-2/" novalidate="novalidate">
                 <input type="hidden" name="tour_id" value="213">
                                 <div class="row">
-                    <div class="col-md-6 col-sm-6">
+                    <div class="col-md-10 col-sm-6">
                         <div class="form-group">
                             <label><i class="icon-calendar-7"></i> Select a date</label>
                             <input type="hidden" value="" id="packageid">
                             <input type="hidden" value="<?php echo $resortResults->vendorid; ?>" id="vendorid">
                             <input type="hidden" value="" id="buttonclickedname">
-                            <input class="form-control datepickerj" id="datepickerj" readonly="readonly" type="text" name="date" required>
+                           
+                           <div class="inner-addon right-addon">
+                              <i class="glyphicon fa fa-calendar"></i>
+                              <input type="text" class="form-control datepickerj" id="datepickerj" readonly="readonly" placeholder="Pick a Date" style="cursor:default;" />
+                            </div>
 
 
                         </div>
@@ -835,7 +840,7 @@ function bookthispackage(packageId){
     $('.datepickerj').datepicker('setDate', null);
 
     
-    $('.overone').css('display','block');
+    $('.over1').css('display','block');
 
     if($('#buttonclickedname').val()==''){
         //add class to this button
@@ -912,7 +917,7 @@ $('html, body').animate({
 
 $(".over").css("display", "block");
 $(".animate-spin").css("display", "none");
-$(".overone").css("z-index", '100');
+$(".over1").css("z-index", '100');
 
 $('.theiaStickySidebar').show();
 

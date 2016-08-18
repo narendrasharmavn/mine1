@@ -164,7 +164,7 @@
                     <h3>Description</h3>
                 </div>
                 <div class="col-md-9">
-                    <h4><?php echo $resortResults->resortname;  ?></h4>
+                    
 <?php echo $resortResults->description;  ?>
 
 <div class="row">
@@ -385,12 +385,15 @@ if ($this->session->userdata('holidayCustomerName')) {
                         <form method="get" id="booking-form" action="place-your-order-2/" novalidate="novalidate">
                 <input type="hidden" name="tour_id" value="213">
                                 <div class="row">
-                    <div class="col-md-6 col-sm-6">
+                    <div class="col-md-10 col-sm-6">
                         <div class="form-group">
                             <label><i class="icon-calendar-7"></i> Select a date</label>
                             <input type="hidden" value="" id="packageid">
                             <input type="hidden" value="<?php echo $resortResults->vendorid; ?>" id="vendorid">
-                            <input class="form-control datepickerj" id="datepickerj" readonly="readonly" type="text" name="date" required>
+                            <div class="inner-addon right-addon">
+                              <i class="glyphicon fa fa-calendar"></i>
+                              <input type="text" class="form-control datepickerj" id="datepickerj" readonly="readonly" placeholder="Pick a Date" style="cursor:default;" />
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -222,8 +222,9 @@
                     <h3>Description</h3>
                 </div>
                 <div class="col-md-9">
-                    <h4><?php echo $row->place; ?></h4>
-<?php echo $row->description; ?>
+                    <p>
+                <?php echo $row->description; ?>
+</p>
               </div>
             </div>
 
