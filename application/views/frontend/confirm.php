@@ -24,7 +24,7 @@
                                     <INPUT TYPE="hidden" NAME="clientcode" value="9654">
                                     <INPUT TYPE="hidden" NAME="AccountNo" value="85654125485412">
 
-                                    <INPUT TYPE="hidden" NAME="ru" value="<?php echo base_url(); ?>response">
+                                    <INPUT TYPE="hidden" NAME="ru" value="<?php echo base_url(); ?>index.php/response">
                                     <input type="hidden" name="bookingid" value="<?php echo  date('Ymdhisu'); ?>"/>
 
 

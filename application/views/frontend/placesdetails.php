@@ -328,12 +328,12 @@ if ($this->session->userdata('holidayCustomerName')) {
                                     //echo "review is: ".$k->pricereview."<br>";
                                     for ($j=$k->pricereview; $j > 0 ; $j--) { 
                                         
-                                        echo '<li style="background-image: url('.base_url().'assets/widget_star.gif); background-position: 0px -28px;"></li>';
+                                        echo '<li style="background-image: url('.base_url().'assets/widget_star.gif); background-position: 0px -28px;cursor:default;"></li>';
                                         $i++;
                                     }
 
                                     for ($a=$i; $a < 5; $a++) { 
-                                        echo '<li style="background-image: url('.base_url().'assets/widget_star.gif); background-position: 0px 0px;"></li>';
+                                        echo '<li style="background-image: url('.base_url().'assets/widget_star.gif); background-position: 0px 0px;cursor:default;"></li>';
                                     }
                                     
                                     echo "</ul>";

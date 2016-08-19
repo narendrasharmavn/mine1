@@ -199,7 +199,7 @@ $.ajax({
                     //console.log("inside false "+res.trim());
                      $('#errordiv').html('Email Id or Phone Number already exists. Please use a different one');
                 }else{
-                    console.log(res);
+                    //console.log(res);
                 }        //$('#email').html(res);
         },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -256,7 +256,7 @@ $('.check_otp').on('click', function() {
             //console.log($.trim(res));
             if ($.trim(res)=="true") {
                 window.location.href="<?php echo site_url().'login'; ?>";
-            }else if($.trim(res)=="false11-book"){
+            }else if($.trim(res)=="false"){
                  $('.otp-error').text('OTP is wrong. Please try again');
                  console.log('OTP is wrong. Please try again');
             }else{

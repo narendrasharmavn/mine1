@@ -452,7 +452,7 @@ class Frontend extends CI_Controller {
       $this->session->set_userdata( 'otp-resort-booking' ,$randNumber);
 
       echo "true";
-      echo "Message is: ".$msg;
+      //echo "Message is: ".$msg;
 
     }
 
@@ -542,8 +542,11 @@ class Frontend extends CI_Controller {
       $otp = $this->input->post('otp');
 
       //check otp correct or not through session
+	  //echo "otp is: ".$OTP_CHECK."<BR>";
       
       $OTP_CHECK = $this->session->userdata('otp-resort-booking');
+	  
+	  
 
       if($OTP_CHECK==$otp){
 
@@ -658,18 +661,12 @@ class Frontend extends CI_Controller {
                 echo "calculatedkrishicess price ".$calculatedkrishicess."\n";
           echo "total price ".$total."\n";
           */
+		  
+		
 
           $bokIdArr = $this->session->userdata('bookingsIdArray');
 
-          /*
-          echo "<pre>";
-          print_r($bokIdArr);
-          echo "</pre>";
-          */
-
-
-          //insert into tablepayments
-          //insert into database
+          
                 
 
                       $this->insertDataIntotblpaymentsForMultiCheckoutNoSession($total,$ticketnumber,$customerid,$totalAdultTickets,$totalChildTickets,$calculatedkidsmealprice);
@@ -681,6 +678,8 @@ class Frontend extends CI_Controller {
       }else{
         echo "false";
       }
+	  
+	 
 
     }
 
@@ -695,7 +694,7 @@ class Frontend extends CI_Controller {
       $msg = "Your OTP number is : ".$randNumber;
       $this->sendsms($mobile,$msg);
       $this->session->set_userdata( 'otp-event-booking' ,$randNumber);
-      echo $msg;
+      //echo $msg;
       echo "true";
 
     }
@@ -709,24 +708,32 @@ class Frontend extends CI_Controller {
       $otp = $this->input->post('otp');
 
       $OTP_CHECK = $this->session->userdata('otp-event-booking');
+	  
+	  
+	
 
       if ($OTP_CHECK==$otp) {
+		  
+		  //echo "this is".$OTP_CHECK."<br>";
        
         $customerData = array(
 
-          'name' => 'Guest',
+          'name' => $name,
           'username' => $email,
           'password' => hash('sha512',rand(9999,99999)),
           'number' => $mobile,
-          'dateofcreation' => date('Y-m-d')
+          'dateofcreation' => date('Y-m-d'),
+		  'regtype' => 'Guest'
 
 
           );
+		  
 
         $this->db->insert('tblcustomers',$customerData);
         $customerid = $this->db->insert_id();
 
         $ticketnumber = date('Ymdhisu');
+		
         $this->session->set_userdata('ticketnumber',$ticketnumber);
       $bookingsdata = array(
           'dateofvisit' => $this->session->userdata('dateofvisit'),
@@ -1387,7 +1394,7 @@ echo "true";
           'payment_status'=>'pending',
           'ticketnumber' => $ticketnumber,
           'visitorstatus' => 'absent',
-          'vendorid' => $this->session->userdata('vendorid'),
+          'vendorid' => $vendorid,
           'childqty' => $this->session->userdata('numberofchildren')
 
 
@@ -1396,7 +1403,7 @@ echo "true";
 
      if ($this->session->userdata('holidayEmail')) {
        # code...
-     
+		//echo "vnedor id: ".$vendorid."\n";
         $this->db->insert('tblbookings',$bookingsdata); 
         $this->session->set_userdata('bookingsid',$this->db->insert_id());
 
@@ -3213,10 +3220,12 @@ public function getPackageAmountAndSetMarkUp(){
 
                 //first check if user exists or not
                 $result =  $this->FrontEndModel->checkIfCustomerEmailOrMobileExists($email,$mobile);
+
+                //echo "\n the result count is: ".$result."\n";
                            
-                           if($result<1){
+                           if($result==0){
                             $randNumber = rand(9999,99999);
-                            $this->session->set_userdata('register-mobile-OTP',$randNumber);
+                            $this->session->set_userdata('register-otp',$randNumber);
                             
                             $msg = 'Your OTP is: '.$randNumber;
 
@@ -3247,7 +3256,7 @@ public function getPackageAmountAndSetMarkUp(){
 
                     
 
-                            $OTP_CHECK = $this->session->userdata('register-mobile-OTP');
+                            $OTP_CHECK = $this->session->userdata('register-otp');
                             //echo $OTP_CHECK."<BR>";
                             //echo $otp."<BR>";
                             if($OTP_CHECK==$otp){
@@ -3255,16 +3264,10 @@ public function getPackageAmountAndSetMarkUp(){
                               //insert
                             $convertedpassword = hash('sha512', $password);
                     
-                            $data = array(
-                               'name' => $name ,
-                               'username' => $email ,
-                               'password' => $convertedpassword,
-                               'number' => $mobile,
-                               'dateofcreation' => date('Y-m-d'),
-                               'regtype'=> 'registration'
-                            );
+                            
+                            $dt = date('Y-m-d');
 
-                            $this->db->insert('tblcustomers', $data);
+          $this->db->query("insert into tblcustomers (name,username,password,number,dateofcreation,regtype) VALUES ('$name','$email','$convertedpassword','$mobile','$dt','registration')");
 
                             $this->sendsms($mobile,'Thank you for the Registration. From Book4Holiday');
                             
@@ -3476,7 +3479,7 @@ tickets on the go<br>
                               echo "true";
 
                             }else{
-                              echo "false11-book";
+                              echo "false";
                               //echo "false1";
                            }
                       
@@ -3567,27 +3570,24 @@ tickets on the go<br>
     public function loginCheck(){
         $email = $this->input->post('email');
         $password = $this->input->post('password');
-
-
-        $this->form_validation->set_rules("email", "Email", "trim|required|callback_validate_email");
-        $this->form_validation->set_rules("password", "Password", "trim|required");
-
-        if ($this->form_validation->run() == FALSE)
-                    {  
-                        $this->load->view('frontend/header');
-                        $this->load->view('frontend/login');
-                        
-
-                    }else{
-                          
-                           $this->session->set_userdata('holidayEmail',$email);
-                           $this->session->set_userdata('holidayCustomerName',$this->FrontEndModel->getNameOfCustomerOnEmail($email));
-                           $this->session->set_userdata('holidayCustomerId',$this->FrontEndModel->getIdOfCustomerOnEmail($email));
-                           redirect('frontend/index');
-                        
-                        
-                            
-                        }
+        $convertedpassword = hash('sha512', $password);
+     
+      $result = $this->FrontEndModel->checkIfCustomerIsValid($email,$convertedpassword);
+           if ($result==0)
+          {
+            $this->session->set_flashdata('error-msg','<div style="color:red;">Email Id and Password combination seems to be wrong.</div>');
+            echo $result."<br>";
+             $this->load->view('frontend/header');
+            $this->load->view('frontend/login');
+          }
+          else
+          {
+            $this->session->set_userdata('holidayEmail',$email);
+           $this->session->set_userdata('holidayCustomerName',$this->FrontEndModel->getNameOfCustomerOnEmail($email));
+           $this->session->set_userdata('holidayCustomerId',$this->FrontEndModel->getIdOfCustomerOnEmail($email));
+           redirect('frontend/index');
+        }   
+                     
 
     }
 

@@ -684,6 +684,7 @@ class FrontEndModel extends CI_Model {
 
     public function checkIfCustomerEmailOrMobileExists($email,$mobile){
         $processedResults = $this->db->query("SELECT name FROM tblcustomers WHERE (username='$email' OR number='$mobile') AND regtype='registration'");
+        //echo "SELECT name FROM tblcustomers WHERE (username='$email' OR number='$mobile') AND regtype='registration'";
         return $processedResults->num_rows();
 
     }

@@ -329,7 +329,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                         <div class="form-group">
                             <label><i class="icon-calendar-7"></i> Select a date</label>
                             <input type="hidden" value="" id="packageid">
-                            <input type="hidden" value="<?php echo $resortResults->vendorid; ?>" id="vendorid">
+                            <input type="hidden" value="<?php echo $eventResults->vendorid; ?>" id="vendorid">
                             <input type="hidden" value="" id="buttonclickedname">
                            
                            <div class="inner-addon right-addon">

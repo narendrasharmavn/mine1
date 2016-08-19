@@ -19,8 +19,9 @@ if (mysqli_num_rows($result) > 0) {
         $resortIdDetails[] = utf8ize($row);
         //$resortIdDetails[] = ;
         //echo "id: " . $row["eventname"]."<br>";
-echo json_encode($resortIdDetails,true);
+
     }
+	echo json_encode($resortIdDetails,true);
 } else {
     echo "zero";
 }
