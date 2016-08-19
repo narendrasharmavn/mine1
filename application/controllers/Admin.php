@@ -937,27 +937,13 @@ class Admin extends CI_Controller {
       redirect('admin/addresorts');
     }
 
-    public function submitvendordata(){
-        if (!$this->session->userdata('username')) 
-       redirect('admin/login');
+public function submitvendordata(){
+        if (!$this->session->userdata('username')) {
+		redirect('admin/login');
+		}else{
         //set rules for vendor form data
-        $this->form_validation->set_rules('vname', 'Vendor Name', 'required');
-        $this->form_validation->set_rules('cperson', 'Contact Person', 'required');
-        $this->form_validation->set_rules('address1', 'Address', 'required');
-        $this->form_validation->set_rules('city', 'City', 'required');
-        $this->form_validation->set_rules('mobile', 'Mobile', 'required');
-        $this->form_validation->set_rules('password', 'password', 'required');
-        $this->form_validation->set_rules('btype', 'Booking Type', 'required');
-        $this->form_validation->set_rules('description', 'description', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required');
-
-        if ($this->form_validation->run() == FALSE)
-        {   
-          $data['results'] = $this->Adminmodel->getVendorsData();
-          $this->load->view('admin/addvendors',$data);
-        }else{
-
-            $vname = $this->input->post('vname');
+		$data['results'] = $this->Adminmodel->getVendorsData();
+		$vname = $this->input->post('vname');
             //echo "vname : ".$vname."<br>";
             $cperson = $this->input->post('cperson');
             //echo "cperson : ".$cperson."<br>";
@@ -976,11 +962,6 @@ class Admin extends CI_Controller {
             $email = $this->input->post('email');
             //echo "email : ".$email."<br>";
             $password = $this->input->post('password');
-            //echo "password : ".$password."<br>";
-            //$latitude = $this->input->post('latitude');
-            ////echo "latitude : ".$latitude."<br>";
-            //$longitude = $this->input->post('longitude');
-            ////echo "longitude : ".$longitude."<br>";
             $description = $this->input->post('description');
             //echo "description : ".$description."<br>";
             $websitelink = $this->input->post('websitelink');
@@ -989,20 +970,9 @@ class Admin extends CI_Controller {
             //echo "kidsmealprice : ".$kidsmealprice."<br>";
             $btype = $this->input->post('btype');
             //echo "btype : ".$btype."<br>";
-           
-
-            
-            //check if email and mobile exists before inserting
-            $numberOfRows = $this->Adminmodel->checkIfEmailOrPhoneExistsInVendorTable($email,$mobile);
-            if($numberOfRows>=1){
-                $this->session->set_flashdata('success','<div class="alert alert-danger text-center">Email Id or Phone Already exists. Please choose another</div>');
-                $data['results'] = $this->Adminmodel->getVendorsData();
-          $this->load->view('admin/addvendors',$data);
-            }else{
-                //insert data into database
-
-              if($btype=='singlechekout')
+            if($btype=='singlecheckout')
               {
+				 // echo $btype;
                 $data = array(
                    'vendorname' => $vname,
                    'contact_person' => $cperson,
@@ -1024,8 +994,12 @@ class Admin extends CI_Controller {
                    'updateon' => date('Y-m-d h:i:s'),
                    'status' => 1
                 );
-
-                $this->db->insert('tblvendors', $data);
+					if($this->db->insert('tblvendors', $data))
+			   {
+				    print_r($data);
+					$this->session->set_flashdata('success','<div class="alert alert-success text-center">Record Inserted Successfully</div>');
+					redirect('admin/addvendors');
+			   }
               }else{
 
                 $data = array(
@@ -1050,19 +1024,17 @@ class Admin extends CI_Controller {
                    'status' => 1
                 );
 
-                $this->db->insert('tblvendors', $data);
+               if($this->db->insert('tblvendors', $data))
+			   {
+					$this->session->set_flashdata('success','<div class="alert alert-success text-center">Record Inserted Successfully</div>');
+					redirect('admin/addvendors');
+			   }
 
               }
-
-
-                
-                $this->session->set_flashdata('success','<div class="alert alert-success text-center">Record Inserted Successfully</div>');
-                redirect('admin/addvendors');
-
-            } 
-        }
+				
+		}
+        
     }
-
       public function validate_bannerimageEvent() 
       {
         $config['upload_path']   = './assets/eventimages';
@@ -1086,25 +1058,13 @@ class Admin extends CI_Controller {
     public function submiteventdata(){
       if (!$this->session->userdata('username')) 
        redirect('admin/login');
-
-        //set rules for vendor form data
-        $this->form_validation->set_rules('vendorid', 'Vendor Name', 'required');
-        //$this->form_validation->set_rules('eventdate', 'Event Date', 'required');
-        $this->form_validation->set_rules('location', 'Location', 'required');
-        //$this->form_validation->set_rules('time', 'Time', 'required');
-        //$this->form_validation->set_rules('eventname', 'Event Name', 'required');
-        $this->form_validation->set_rules('description', 'Description', 'required');
-       // $this->form_validation->set_rules('evenfromdate', 'evenfromdate', 'greater');
-
-        
+  
         $data2['vendors']=$this->Adminmodel->getVendorsIdAndName();
+  
+           // $this->session->set_flashdata('error-msg','<div class="alert alert-danger text-center">Event FROM DATE Should Not be greater than TO DATE</div>');
+            //$this->load->view('admin/addevents',$data2);
 
-        if ($this->form_validation->run() == FALSE)
-        {   
-            $this->session->set_flashdata('error-msg','<div class="alert alert-danger text-center">Event FROM DATE Should Not be greater than TO DATE</div>');
-            $this->load->view('admin/addevents',$data2);
-
-        }else{
+			$this->validate_bannerimageEvent();
             $vendorid = $this->input->post('vendorid');
             $eventodate = $this->input->post('eventodate');
             $evenfromdate = $this->input->post('evenfromdate');
@@ -1123,7 +1083,7 @@ class Admin extends CI_Controller {
             //$numberOfRows = $this->Adminmodel->checkIfEmailOrPhoneExistsInVendorTable($email,$mobile);
             
                 
-               
+               $bannerimage = $this->input->post('bannerimage');
                 $data = array(
                    'vendorid' => $vendorid,
                    'todate' => $eventodate,
@@ -1136,7 +1096,7 @@ class Admin extends CI_Controller {
                    'eventtype' => $eventtype,
                    'latitude' => $latitude,
                    'longitude' => $longitude,
-                   'bannerimage' => '',
+                   'bannerimage' => $this->imagename,
                    'bannerimagepath' => '',
                    'status' => 1
 
@@ -1146,7 +1106,7 @@ class Admin extends CI_Controller {
 				//echo "test";
                 $this->session->set_flashdata('success','<div class="alert alert-success text-center">Record Inserted Successfully</div>');
                 redirect('admin/addevents',$data2);
-            }
+           
             
 
         }
@@ -1176,24 +1136,9 @@ class Admin extends CI_Controller {
        redirect('admin/login');
 
                 //set rules for vendor form data
+    $data['vendors']=$this->Adminmodel->getVendorsIdAndName();
 
-        $this->form_validation->set_rules('vendorid', 'Vendor Name', 'required');
-        $this->form_validation->set_rules('resortname', 'Resort Name', 'required');
-        $this->form_validation->set_rules('location', 'Location', 'required');
-        $this->form_validation->set_rules('description', 'Description', 'required');
-        //$this->form_validation->set_rules('userfile','Product Image','callback_validate_bannerimageResort');
         
-        $data['vendors']=$this->Adminmodel->getVendorsIdAndName();
-
-        if ($this->form_validation->run() == FALSE)
-        {   
-            
-          $data['vendors']=$this->Adminmodel->getVendorsIdAndName();
-          $data['results'] = $this->Adminmodel->getResortData();
-          $this->load->view('admin/addresorts',$data);
-            
-
-        }else{
 
             $this->validate_bannerimageResort();
             $vendorid = $this->input->post('vendorid');
@@ -1228,7 +1173,7 @@ class Admin extends CI_Controller {
                 $this->db->insert('tblresorts', $data);
                 $this->session->set_flashdata('success','<div class="alert alert-success text-center">Resort Inserted Successfully</div>');
                 redirect('admin/addresorts',$data2);
-            }
+           
 
 
 
@@ -1670,15 +1615,14 @@ class Admin extends CI_Controller {
     public function uploadplacespics()
     {
       if (!$this->session->userdata('username')) 
-              redirect('admin/login');
-        
+        redirect('admin/login');
         $plid = $this->input->post('plid');
         //echo $_FILES['userfile']['name'];
         //$count = count($_FILES['userfile']['name']);
         //echo "<br>".$count;
         //echo FCPATH."<br>";
         $config = array(
-            'upload_path'   => FCPATH.'/assets/places',
+            'upload_path'   => '/var/www/html/beta/assets/places',
             'allowed_types' => 'jpg|gif|png',
             'overwrite'  => 1,
         );
@@ -1690,6 +1634,7 @@ class Admin extends CI_Controller {
             
             for ($i=0; $i < count($value['name']); $i++) { 
                 //echo $value['name'][$i]."<br>";
+				echo "test";
                 $_FILES['file']['name']     = $value['name'][$i];
                 $_FILES['file']['type']     = $value['type'][$i];
                 $_FILES['file']['tmp_name'] = $value['tmp_name'][$i];
@@ -1697,15 +1642,16 @@ class Admin extends CI_Controller {
                 $_FILES['file']['size']     = $value['size'][$i]; 
 
                if ($this->upload->do_upload('file')) {
-                /*
-                   print "<hr>";
-            print '<h3>Rewritten $_FILES array number #'.$i.':</h3>';
+				   //echo "tst";
+              // echo "test";
+                  // print "<hr>";
+            /*print '<h3>Rewritten $_FILES array number #'.$i.':</h3>';
             print "<pre>" . print_r($_FILES, true) . "</pre>";
             print "<h3>Upload data:</h3>";
             print "<pre>" . print_r($this->upload->data(), true) . "</pre>";
             print "<h3>Errors:</h3>";
             print "<pre>" . print_r($this->upload->display_errors(), true) . "</pre>";
-            */
+          */
                 //insert image names in database
             $data2 = array(
                        'plid' => $plid ,
@@ -1713,7 +1659,7 @@ class Admin extends CI_Controller {
                        'path' => base_url().'assets/places/'.$value['name'][$i],
                        'status' => 1
                     );
-
+				//print_r($data2);
                     $this->db->insert('tblplacesphotos', $data2); 
                     
                     
@@ -2583,7 +2529,7 @@ class Admin extends CI_Controller {
     {
         $data = array(
        
-       'vendorid' => 1,
+       'vendorid' => $vendorid,
        'paymenttype' => $paymenttype,
        'amount' => $amount,
        'insertedby' =>'admin',
@@ -2594,7 +2540,7 @@ class Admin extends CI_Controller {
 
       $tdata = array(
        'transactiondate' => $pdate,
-       'vendorid' => 1,
+       'vendorid' => $vendorid,
        'amountreceived' => 0,
        'servicecharges' => 0,
        'amountpaid' => $amount,

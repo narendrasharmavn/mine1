@@ -256,7 +256,7 @@ $('.check_otp').on('click', function() {
             //console.log($.trim(res));
             if ($.trim(res)=="true") {
                 window.location.href="<?php echo site_url().'login'; ?>";
-            }else if($.trim(res)=="false"){
+            }else if($.trim(res)=="false11-book"){
                  $('.otp-error').text('OTP is wrong. Please try again');
                  console.log('OTP is wrong. Please try again');
             }else{

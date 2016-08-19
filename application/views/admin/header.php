@@ -38,7 +38,7 @@
 
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/assets/vendor/summernote/summernote.css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/assets/vendor/summernote/summernote-bs3.css" />
-		
+
 		<!-- Skin CSS -->
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/assets/stylesheets/skins/default.css" />
 

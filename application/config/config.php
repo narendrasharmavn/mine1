@@ -18,7 +18,7 @@ error_reporting(0);
 | environments.
 |
 */
-$config['base_url'] = 'http://localhost/bookfinal';
+$config['base_url'] = 'http://book4holiday.com/beta';
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +30,7 @@ $config['base_url'] = 'http://localhost/bookfinal';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = 'index.php/';
 
 /*
 |--------------------------------------------------------------------------

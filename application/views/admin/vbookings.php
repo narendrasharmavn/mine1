@@ -127,7 +127,9 @@
 														  ?>
 													</td>
 													<td><?php echo $vendorb->name; ?></td>
-													<td><?php echo $vendorb->quantity; ?></td>
+													<td><?php echo $vendorb->quantity; ?>
+													<br><?php echo $vendorb->childqty; ?>
+													</td>
 													<td><?php echo $vendorb->childqty; ?></td>
 													<td><?php echo $vendorb->amount; ?></td>
 													
