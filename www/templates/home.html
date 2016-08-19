@@ -1,0 +1,73 @@
+<ion-view class="pane" view-title="Book4Holiday">
+<ion-nav-buttons side="left">
+
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
+        </button>
+
+      </ion-nav-buttons>
+  <ion-content class="has-header">
+    <div class="col col-100">
+		<ion-slide-box on-slide-changed="slideChanged(index)">
+		    <ion-slide ng-repeat="s in data">
+				<div id="logo">
+					<img class="full-image" src="{{imagepathurl+'assets/sliderimages/slider2/'+s.image}}" style="width:100%;height:210px;"/>
+				</div>
+			</ion-slide>
+			
+        </ion-slide-box>
+    </div>
+	<div class="row">
+		<a href="#/sidemenu/resortsearchresults/resorts" class="col col-25 padv padvi padicon">
+			  <div class="padicon">
+			<center><i class="icon ion-leaf customicon"></i></center>
+			<center class="htitle">Resorts</center>
+		  </div>
+		  </a>
+		  <a href="#/sidemenu/eventsearchresults/events" class="col col-25 padv padvi padicon">
+		  <div class="padicon">
+			<center><i class="icon ion-headphone customicon1"></i></center>
+			<center class="htitle">Events</center>
+		  </div>
+		  </a>
+	
+		  <a href="#/sidemenu/placesearchresults/places" class="col col-25 padv padvi padicon">
+		  <div class="padicon">
+			<center><i class="icon ion-map customicon2"></i></center>
+			<center class="htitle">Places</center>
+		  </div></a>
+		   <a href="#/sidemenu/zoo/1" class="col col-25 padv padvi padicon">
+		  <div class="padicon">
+			<center><i class="icon ion-ios-paw customicon3"></i></center>
+			<center class="htitle">Zoo Tickets</center>
+		  </div></a>
+		</div>  
+	
+		<!--<div class="list list-inset">
+			<label class="item item-input">
+				<i class="icon ion-search placeholder-icon"></i>
+				<input type="text" placeholder="Search For Resorts, Events or Places">
+			 </label>
+	    </div>
+		-->
+		<div class="row">
+			<div class="col col-33 padv">
+				<center>
+					<img class="full-image" src="img/places/BirlaM_01.jpg">
+						<h5>Temples</h5>	
+				</center>
+			</div>
+			<div class="col col-33 padv">
+				<center>
+					<img class="full-image" src="img/places/Falaknuma_01.jpg">
+						<h5>Resorts</h5>
+				</center>
+			</div>
+			<div class="col col-33 padv">
+				<center>
+					<img class="full-image" src="img/places/salarjung_01.jpg">
+						<h5>Places</h5>	
+				</center>
+			</div>
+		</div>
+  </ion-content>
+</ion-view>

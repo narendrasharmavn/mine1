@@ -1,0 +1,52 @@
+<ion-view class="pane" view-title="">
+  <ion-content>
+    <div class="col col-100">
+      <center>
+        <h3>{{ userBookingDetails[0].eventname}} Booking</h3>
+      </center>
+      <hr>
+    </div>
+   <!-- <span ng-class="errorStatus ? 'error-msg' : 'no-error' " id="error-msg">Please choose atleast one ticket</span> -->
+  
+    <form name="myForm" novalidate>
+	  <div>
+        
+            <label class="item item-input">
+              <div class="input-label">
+                Date Of Visit 
+              </div>
+              <input type="date" name="" ng-model="usrdata.dateofvisit" placeholder="0" min="{{date | date:'yyyy-MM-dd'}}" max="{{maxdate | date:'yyyy-MM-dd'}}" class="col col-70" style="float:right;">
+            </label>
+
+
+      </div>
+      
+    <div class="card" ng-repeat="r in userBookingDetails">
+      <div class="list" >
+        <div class="item item-divider">
+          {{r.packagename}}
+        </div>
+        <label class="item item-input">
+          <div class="input-label">
+            Adults (Per Ticket) <span>Rs. {{r.adultprice}} </span>
+          </div>
+          <input type="number" name="" ng-model="userBookingDetails[$index].mobileadultqty" placeholder="0" class="col col-33 " style="float:right;">
+        </label>
+        <label class="item item-input">
+          <div class="input-label">
+            Children (Per Ticket) <span>Rs. {{r.childprice}}  </span>
+          </div>
+          <input type="number" name=""  ng-model="userBookingDetails[$index].mobilechildqty" placeholder="0" class="col col-33 " style="float:right;" >
+        </label>
+      </div>
+    </div>
+    </form>
+    <div class="col col-100">
+      <center>
+        <button class="button  button-balanced" ng-click="proceed()">
+          Proceed
+        </button>
+      </center>
+    </div>
+  </ion-content>
+</ion-view>

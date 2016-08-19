@@ -1,0 +1,68 @@
+<ion-view class="pane" view-title="Book4Holiday">
+<ion-nav-buttons side="left">
+
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
+        </button>
+
+      </ion-nav-buttons>
+  <ion-content class="has-footer">
+    <div class="col col-100">
+      <center>
+        <h3>Booking Summary</h3>
+      </center>
+      <hr>
+    </div>
+    <div class="card">
+      <div class="item item-text-wrap">
+       <div class="row">
+          <div class="col col-70">
+            <p>Adults( {{calculatedUserData.adultqty}}  )</p>
+          </div>
+          
+          <div class="col col-30">
+            <p class="amtside">Rs. {{calculatedUserData.adultprice}}</p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col col-70">
+            <p>Children ( {{calculatedUserData.childqty}}  )</p>
+          </div>
+          
+          <div class="col col-30">
+            <p class="amtside">Rs. {{calculatedUserData.childprice}}</p>
+          </div>
+        </div>
+		<div class="row">
+          <div class="col col-70">
+            <p>Internet Charges</p>
+          </div>
+         
+          <div class="col col-30">
+            <p class="amtside">Rs. {{calculatedUserData.internetcharges}}</p>
+          </div>
+        </div>
+
+         <button class="button button-icon" ng-click="taxBreakUp()" style="color:blue; text-decoration:underline;">Tax Break Up <i class="ion ion-plus"></i></button>
+        <hr>
+        <div class="row">
+          <div class="col col-70">
+            <p>Total</p>
+          </div>
+          
+          <div class="col col-30">
+            <p class="amtside">Rs. {{calculatedUserData.total}}</p>
+          </div>
+        </div>
+        <hr>
+        
+      </div>
+    </div>
+  </ion-content>
+  <ion-footer-bar class="bar-balanced tabs">
+       <button class="button button-block button-balanced mybtn" ng-click="proceed()">
+          Proceed
+        </button>
+
+    </ion-footer-bar>
+</ion-view>

@@ -1,0 +1,95 @@
+<style type="text/css">
+.has-errors {
+    border-left: 3px solid #cc2511 !important;
+    border-right: 3px solid #cc2511 !important;
+}
+.no-errors {
+    border-left: 3px solid #3d8b3d !important;
+    border-right: 3px solid #3d8b3d !important;
+}
+.error {
+  padding: 10px 16px;
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #555;
+  vertical-align: middle;
+}
+
+.error i {
+  font-size: 24px;
+  color: #B83E2C;  
+  vertical-align: middle;
+}
+
+.tickmark {
+  color: green !important;  
+}
+</style>
+<ion-view class="pane" view-title="Book4Holiday">
+<ion-nav-buttons side="left">
+
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
+        </button>
+
+      </ion-nav-buttons>
+  <ion-content class="has-header has-footer">
+    <div class="card">
+      <div class = "col header text-center">
+          <h3>My Account</h3>
+      </div>
+      <hr>
+      <form name="myaccount" ng-submit="submit(data)" novalidate >
+        <div class="list">
+          <label class="item item-input" ng-class="{ 'has-errors' : myaccount.username.$invalid && !myaccount.username.$pristine, 'no-errors' : myaccount.username.$valid}">
+            <span class="input-label">Username</span>
+            <input type="text" name="username" ng-model="data.username" required>
+          </label>
+          <label class="item item-input" ng-class="{ 'has-errors' : myaccount.useremail.$invalid && !myaccount.useremail.$pristine, 'no-errors' : myaccount.useremail.$valid}">
+            <span class="input-label">Email</span>
+            <input type="email" name="useremail" ng-model="data.useremail" ng-disabled="true" required>
+          </label>
+          <label class="item item-input" ng-class="{ 'has-errors' : myaccount.usermobile.$invalid && !myaccount.usermobile.$pristine, 'no-errors' : myaccount.usermobile.$valid}">
+            <span class="input-label">Mobile</span>
+            <input type="tel" name="usermobile" ng-model="data.usermobile" required>
+          </label>
+          
+        </div>
+
+        <div><ion-checkbox ng-model="data.filter" >Check this to update password</ion-checkbox></div>
+
+        <div class="list" ng-show="data.filter">
+          <label class="item item-input" ng-class="{ 'has-errors' : myaccount.password.$invalid && !myaccount.password.$pristine, 'no-errors' : myaccount.password.$valid}">
+            <span class="input-label">Password</span>
+            <input type="password" name="password" ng-model="data.password" required>
+          </label>
+          <label class="item item-input" ng-class="{ 'has-errors' : myaccount.confirmpassword.$invalid && !myaccount.confirmpassword.$pristine, 'no-errors' : myaccount.confirmpassword.$valid}">
+            <span class="input-label">Confirm Password</span>
+            <input type="password" name="confirmpassword" ng-model="data.confirmpassword" ng-pattern="{{data.password}}" required>
+          </label>
+        </div>
+
+        <div class="error-container last-error-container" ng-show="successmsg">
+          <div class="error" ng-message="required">
+            <i class="ion-checkmark-circled tickmark"></i> 
+               Updated Successfully
+          </div>
+        </div>
+        <div class="error-container last-error-container" ng-show="errormsg">
+          <div class="error" ng-message="required">
+            <i class="ion-information-circled"></i> 
+              Something Went Wrong Please Update Again!!
+          </div>
+        </div>
+        
+        <div class="padding">
+          <button class="button button-block button-balanced">
+            update
+          </button>
+        </div>
+        
+      </form>
+      
+    </div>
+  </ion-content>
+</ion-view>

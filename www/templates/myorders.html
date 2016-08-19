@@ -1,0 +1,61 @@
+<style type="text/css">
+.has-errors {
+    border-left: 3px solid #cc2511 !important;
+    border-right: 3px solid #cc2511 !important;
+}
+.no-errors {
+    border-left: 3px solid #3d8b3d !important;
+    border-right: 3px solid #3d8b3d !important;
+}
+.error {
+  padding: 10px 16px;
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #555;
+  vertical-align: middle;
+}
+
+.error i {
+  font-size: 24px;
+  color: #B83E2C;  
+  vertical-align: middle;
+}
+
+
+
+.list a {
+  text-decoration: none;
+}
+
+
+</style>
+<ion-view class="pane" view-title="Book4Holiday">
+<ion-nav-buttons side="left">
+
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
+        </button>
+
+      </ion-nav-buttons>
+  <ion-content class="has-header has-footer">
+    <div class = "col header text-center">
+        <h3>My orders</h3>
+    </div>
+    <div class="col col-100" ng-show="hidesummary">
+      <div class="list">
+      <a href="#/ordersummary/{{c.ticketnumber}}" ng-repeat="c in data">  
+        <div class="item item-button-right" >
+          Tkt No. <b>{{c.ticketnumber}}</b> <p>Date of Visit : {{c.date}}</p>
+          <p>Package Name : {{c.packagename}} </p><p>Amount Paid : {{c.amount}}</p>
+        </div>
+        </a>
+      </div>
+    </div>
+    <div class="error-container last-error-container" ng-show="errormsg">
+      <div class="error" ng-message="required">
+        <i class="ion-information-circled"></i> 
+          No Orders Found
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

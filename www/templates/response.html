@@ -1,0 +1,48 @@
+<ion-view class="pane" view-title="Book4Holiday">
+<ion-nav-buttons side="left">
+
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
+        </button>
+
+      </ion-nav-buttons>
+  <ion-content>
+    <div class="col col-100">
+      <center>
+        <h3>Booking Details</h3>
+      </center>
+      <hr>
+    </div>
+    
+        
+     
+        
+    <div class="card">
+      <div class="item item-text-wrap">
+        <div class="row">
+          <div class="col col-50">Ticket Number</div>
+          <div class="col col-50">{{userData.ticketnumber}}</div>
+    </div>
+    <div class="row">
+            <div class="col col-50">Transaction Status</div>
+            <div class="col col-50" ng-show="res.success">Transaction Success</div>
+            <div class="col col-50" ng-show="res.failed">Transaction Failed</div>
+    </div>
+    <div class="row">
+          <div class="col col-50">Adult Tickets</div>
+          <div class="col col-50">{{userData.numberofadults}}</div>
+      </div>
+      <div class="row">
+          <div class="col col-50">Child Tickets</div>
+          <div class="col col-50">{{userData.numberofchildren}}</div>
+      </div>
+    <div class="row">
+          <div class="col col-50">Amount</div>
+          <div class="col col-50">Rs. {{userData.totalcost}}</div>
+   </div>
+      
+        
+        
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

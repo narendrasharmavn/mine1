@@ -1,0 +1,65 @@
+<ion-view class="pane" view-title="Book4Holiday">
+<ion-nav-buttons side="left">
+
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
+        </button>
+
+      </ion-nav-buttons>
+  <ion-content>
+    <div class="col col-100">
+      <center>
+        <h3>-Order Summary-</h3>
+      </center>
+      <hr>
+    </div>
+    <div class="card">
+      <div class="row">
+        <div class="col col-100">
+          <center>
+          <h5>{{data.packagename}}</h5>
+          <p>Ticket Number : {{data.ticketnumber}}</p>
+          </center>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col col-70">
+          <p>Adult Tickets ({{data.quantity}})</p>
+          <p>Child Tickets ({{data.childqty}})</p>
+          <p>Kids Meal Price ({{data.kidsmealqty}})</p>
+          <p>TotalTicket Cost</p>
+        </div>
+        <div class="col col-30">
+          <p>Rs.<span>{{data.adultstickets}}</span></p> 
+          <p>Rs.<span>{{data.childtickets}}</span></p>
+          <p>Rs.<span>{{data.kidmealsprice}}</span></p> 
+          <p>Rs.<span></span></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-70">
+          <p>Taxes</p>
+          <p>Date of Visit</p>
+        </div>
+        <div class="col col-30">
+          <p>Rs.<span>{{data.taxes}}</span></p>
+          <p>{{data.dateofvisit}}</p> 
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-100">
+          <p ng-click="showAlert()"><span style="color:green;">% Show Service tax breakup</span></p>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col col-70">
+          <p><b>Total</b></p>
+        </div>
+        <div class="col col-30">
+          <p><b>Rs.<span>{{data.total}}</span></b></p>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
