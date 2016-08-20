@@ -59,14 +59,14 @@
                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Event FromDate *</label>
                     <div class="col-sm-7 col-xs-7">
-                      <input type="date" class="form-control" name="evenfromdate" id="evenfromdate" placeholder="Enter event date" value="<?php echo set_value('evenfromdate'); ?>">
+                      <input type="text" id="fromdate" style="cursor:default;background-color:white;" class="form-control" name="evenfromdate" id="evenfromdate" placeholder="Enter event date" value="<?php echo set_value('evenfromdate'); ?>" readonly>
                       <span class="text-danger"><?php echo form_error('evenfromdate'); ?></span>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Event ToDate *</label>
                     <div class="col-sm-7 col-xs-7">
-                      <input type="date" class="form-control" name="eventodate" id="eventodate" placeholder="Enter event date" value="<?php echo set_value('eventodate'); ?>">
+                      <input type="text" id="todate" class="form-control" name="eventodate" id="eventodate" placeholder="Enter event date" style="cursor:default;background-color:white;" value="<?php echo set_value('eventodate'); ?>" readonly>
                       <span class="text-danger"><?php echo form_error('eventodate'); ?></span>
                     </div>
                   </div>
@@ -241,10 +241,47 @@
    
    
    ?>
-   <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+  
       <script>
-    $("#addevents").validate({
+
+      var $j = jQuery.noConflict();
+      $(document).ready(function(){
+    // we call the function
+     
+         //alert(id);
+
+         $("#fromdate").datepicker({
+        dateFormat: "dd-mm-yy",
+        minDate: 0,
+        onSelect: function () {
+            var dt2 = $('#todate');
+            var startDate = $(this).datepicker('getDate');
+            //add 30 days to selected date
+            startDate.setDate(startDate.getDate() + 30);
+            var minDate = $(this).datepicker('getDate');
+            //minDate of dt2 datepicker = dt1 selected day
+            dt2.datepicker('setDate', minDate);
+            //sets dt2 maxDate to the last day of 30 days window
+            dt2.datepicker('option', 'maxDate', startDate);
+            //first day which can be selected in dt2 is selected date in dt1
+            dt2.datepicker('option', 'minDate', minDate);
+            //same for dt1
+            $(this).datepicker('option', 'minDate', minDate);
+        }
+    });
+
+       $('#todate').datepicker({
+        dateFormat: "dd-mm-yy"
+    });
+       
+      
+
+    });
+
+
+
+
+    $j("#addevents").validate({
     
           
         // Specify the validation rules

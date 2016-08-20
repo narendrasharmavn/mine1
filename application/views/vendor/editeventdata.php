@@ -13,7 +13,7 @@
 										<i class="fa fa-home"></i>
 									</a>
 								</li>
-								<li><span>Edit Event Data</span></li>
+								<li><span>Edit Events Data</span></li>
 								
 							</ol>
 					
@@ -53,7 +53,9 @@
 								            <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Event FromDate *</label>
 								                <div class="col-sm-7 col-xs-7">
-								                  <input type="date" class="form-control" name="evenfromdate" id="evenfromdate" placeholder="Enter event date" value="<?php echo $rows->fromdate; ?>">
+								                  <input type="text" class="form-control" name="evenfromdate" style="cursor:default;background-color:white;" id="fromdate" placeholder="Enter event date" value="<?php
+								                   echo date("d-m-Y", strtotime($rows->fromdate));
+								                    ?>" readonly>
 												  <span class="text-danger"><?php echo form_error('evenfromdate'); ?></span>
 								                </div>
 							                </div>
@@ -61,7 +63,10 @@
 											<div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Event ToDate *</label>
 								                <div class="col-sm-7 col-xs-7">
-								                  <input type="date" class="form-control" name="eventodate" placeholder="Enter event date" value="<?php echo $rows->todate; ?>">
+								                  <input type="text" id="todate" style="cursor:default;background-color:white;" class="form-control" name="todate" placeholder="Enter event date" value="<?php
+								                  echo date("d-m-Y", strtotime($rows->todate));
+
+								                    ?>" readonly>
 												  <span class="text-danger"><?php echo form_error('vname'); ?></span>
 								                </div>
 								               
@@ -72,7 +77,10 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">ToTime </label>
 								                <div class="col-sm-7">
-								                  <input type="time" class="form-control" name="totime" id="totime" placeholder="Choose time" value="<?php echo $rows->totime; ?>">
+								                  <input type="time" class="form-control" name="totime" id="totime" placeholder="Choose time" value="<?php
+								                   echo $rows->totime;
+
+								                    ?>">
 												  <span class="text-danger"><?php echo form_error('totime'); ?></span>
 								                </div>
 							                </div>
@@ -80,7 +88,10 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">FromTime </label>
 								                <div class="col-sm-7">
-								                  <input type="time" class="form-control" name="fromtime" id="fromtime" placeholder="Choose time" value="<?php echo $rows->fromtime; ?>">
+								                  <input type="time" class="form-control" name="fromtime" id="fromtime" placeholder="Choose time" value="<?php
+								                   echo date("d-m-Y", strtotime($rows->fromtime));
+
+								                    ?>">
 												  <span class="text-danger"><?php echo form_error('fromtime'); ?></span>
 								                </div>
 							                </div>
@@ -168,12 +179,39 @@
  include 'footer.php'; 
 
  ?>
- <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+ 
  <script type="text/javascript">
-
+var $j = jQuery.noConflict();
     $(document).ready(function(){
-		//alert("hello");
+			
+
+			 $("#fromdate").datepicker({
+        dateFormat: "dd-mm-yy",
+        minDate: 0,
+        onSelect: function () {
+            var dt2 = $('#todate');
+            var startDate = $(this).datepicker('getDate');
+            //add 30 days to selected date
+            startDate.setDate(startDate.getDate() + 30);
+            var minDate = $(this).datepicker('getDate');
+            //minDate of dt2 datepicker = dt1 selected day
+            dt2.datepicker('setDate', minDate);
+            //sets dt2 maxDate to the last day of 30 days window
+            dt2.datepicker('option', 'maxDate', startDate);
+            //first day which can be selected in dt2 is selected date in dt1
+            dt2.datepicker('option', 'minDate', minDate);
+            //same for dt1
+            $(this).datepicker('option', 'minDate', minDate);
+        }
+    });
+
+       $('#todate').datepicker({
+        dateFormat: "dd-mm-yy"
+    });
+       
+
+
+
 		$("#editevents").validate({
     
           

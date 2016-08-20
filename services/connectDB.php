@@ -4,8 +4,8 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 ob_start();
 $servername = "localhost";
 $username = "root";
-$password = "Mysql@1234$#$";
-$dbname = "book4holiday";
+$password = "root";
+$dbname = "book";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);

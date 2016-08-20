@@ -23,7 +23,7 @@ class Adminmodel extends CI_Model {
     }
 
     public function getVendorsIdAndName(){
-        return $this->db->query("SELECT vendorid,vendorname FROM tblvendors");
+        return $this->db->query("SELECT vendorid,vendorname FROM tblvendors WHERE status=1");
         
     }
 
@@ -173,6 +173,7 @@ class Adminmodel extends CI_Model {
 
     public function checkVendorLoginCredentials($username,$password){
         $processedResults = $this->db->query("SELECT * FROM tblvendors WHERE email='$username' AND password='$password' AND status=1");
+        //echo "SELECT * FROM tblvendors WHERE email='$username' AND password='$password' AND status=1";
         return $processedResults->num_rows();
     }
 	

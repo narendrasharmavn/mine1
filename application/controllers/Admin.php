@@ -970,6 +970,20 @@ public function submitvendordata(){
             //echo "kidsmealprice : ".$kidsmealprice."<br>";
             $btype = $this->input->post('btype');
             //echo "btype : ".$btype."<br>";
+
+            $processedResults = $this->db->query("SELECT * FROM tblvendors WHERE email='$email' AND status=1");
+        $rws =  $processedResults->num_rows();
+
+        if ($rws>1) {
+          $this->session->set_flashdata('error-msg','<div class="alert alert-success text-center">Email Id Already exists. Please choose a different one</div>');
+          $data['results'] = $this->Adminmodel->getVendorsData();
+    
+        $this->load->view('admin/addvendors',$data);
+        
+
+          
+        }else{
+
             if($btype=='singlecheckout')
               {
 				 // echo $btype;
@@ -996,7 +1010,7 @@ public function submitvendordata(){
                 );
 					if($this->db->insert('tblvendors', $data))
 			   {
-				    print_r($data);
+				    //print_r($data);
 					$this->session->set_flashdata('success','<div class="alert alert-success text-center">Record Inserted Successfully</div>');
 					redirect('admin/addvendors');
 			   }
@@ -1031,7 +1045,7 @@ public function submitvendordata(){
 			   }
 
               }
-				
+				}
 		}
         
     }
@@ -1067,7 +1081,9 @@ public function submitvendordata(){
 			$this->validate_bannerimageEvent();
             $vendorid = $this->input->post('vendorid');
             $eventodate = $this->input->post('eventodate');
+            $eventodate = date("Y-m-d", strtotime($eventodate));
             $evenfromdate = $this->input->post('evenfromdate');
+            $evenfromdate = date("Y-m-d", strtotime($evenfromdate));
             $location = $this->input->post('location');
             $totime = $this->input->post('totime');
             $fromtime = $this->input->post('fromtime');
@@ -1106,9 +1122,7 @@ public function submitvendordata(){
 				//echo "test";
                 $this->session->set_flashdata('success','<div class="alert alert-success text-center">Record Inserted Successfully</div>');
                 redirect('admin/addevents',$data2);
-           
-            
-
+          
         }
 
 
@@ -1263,8 +1277,10 @@ public function submitvendordata(){
             $vendorid = $this->input->post('vendorid');
             //echo "vendorid : ".$vendorid."<br>";
             $eventodate = $this->input->post('eventodate');
+            $eventodate = date("Y-m-d", strtotime($eventodate));
             //echo "eventodate : ".$eventodate."<br>";
             $evenfromdate = $this->input->post('evenfromdate');
+            $evenfromdate = date("Y-m-d", strtotime($evenfromdate));
             //echo "evenfromdate : ".$evenfromdate."<br>";
             $location = $this->input->post('location');
             //echo "location : ".$location."<br>";
@@ -1622,7 +1638,8 @@ public function submitvendordata(){
         //echo "<br>".$count;
         //echo FCPATH."<br>";
         $config = array(
-            'upload_path'   => '/var/www/html/beta/assets/places',
+            //'upload_path'   => '/var/www/html/beta/assets/places',
+            'upload_path'   => 'assets/places',
             'allowed_types' => 'jpg|gif|png',
             'overwrite'  => 1,
         );
@@ -1634,12 +1651,15 @@ public function submitvendordata(){
             
             for ($i=0; $i < count($value['name']); $i++) { 
                 //echo $value['name'][$i]."<br>";
-				echo "test";
+				//echo "test";
                 $_FILES['file']['name']     = $value['name'][$i];
                 $_FILES['file']['type']     = $value['type'][$i];
                 $_FILES['file']['tmp_name'] = $value['tmp_name'][$i];
                 $_FILES['file']['error']    = $value['error'][$i];
                 $_FILES['file']['size']     = $value['size'][$i]; 
+
+
+               // echo $_FILES['file']['name'] ;
 
                if ($this->upload->do_upload('file')) {
 				   //echo "tst";
@@ -1661,10 +1681,11 @@ public function submitvendordata(){
                     );
 				//print_r($data2);
                     $this->db->insert('tblplacesphotos', $data2); 
-                    
+                    $this->session->set_flashdata('success','<div class="alert alert-success text-center">The image has been Uploaded</div>');
                     
                  } else {
                     //print "<h3>Errors:</h3>";
+                  $this->session->set_flashdata('success','<div class="alert alert-success text-center">'.$this->upload->display_errors().'</div>');
                     //print "<pre>" . print_r($this->upload->display_errors(), true) . "</pre>";
                  }
                    
@@ -1673,7 +1694,7 @@ public function submitvendordata(){
 
         }//end of for each loop
         //get vendors data
-        $this->session->set_flashdata('success','<div class="alert alert-success text-center">The image has been Uploaded</div>');
+        
         
         redirect('admin/addplacesphotos/'.$plid.'',$data);
     }

@@ -41,6 +41,31 @@
 
 								         <?php echo $this->session->flashdata('success'); ?>
 
+								         <div class="form-group" style="margin-right: 442px;">
+								                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Vendor Name *</label>
+								                <div class="col-sm-7 col-xs-7">
+								                  <select name="vendorname" class="form-control">
+								                  	<option value="">Select Vendor name</option>
+								                  	<?php
+
+														foreach ($vendorData as $k) {
+																//echo $k->description;
+																?>
+																<option value="<?php echo $k->vendorid;  ?>" <?php if($packageData->vendorid == $k->vendorid) { echo "Selected";}?>><?php echo $k->vendorname;  ?></option>
+
+
+																<?php
+															}
+
+
+															?> 
+
+								                  </select>
+												  <span class="text-danger"><?php echo form_error('vendorname'); ?></span>
+								                </div>
+								               
+							                </div>
+
 								            
 										    
 											<div class="form-group" style="margin-right: 442px;">
@@ -68,30 +93,7 @@
 								               
 							                </div>
 
-							                <div class="form-group" style="margin-right: 442px;">
-								                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Vendor Name *</label>
-								                <div class="col-sm-7 col-xs-7">
-								                  <select name="vendorname" class="form-control">
-								                  	<option value="">Select Vendor name</option>
-								                  	<?php
-
-														foreach ($vendorData as $k) {
-																//echo $k->description;
-																?>
-																<option value="<?php echo $k->vendorid;  ?>" <?php if($packageData->vendorid == $k->vendorid) { echo "Selected";}?>><?php echo $k->vendorname;  ?></option>
-
-
-																<?php
-															}
-
-
-															?> 
-
-								                  </select>
-												  <span class="text-danger"><?php echo form_error('vendorname'); ?></span>
-								                </div>
-								               
-							                </div>
+							                
 											
 											<div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Package Name *</label>

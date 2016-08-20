@@ -1,7 +1,7 @@
 <?php
 include 'connectDB.php';
 
-
+error_reporting(0);
 
 $postdata = file_get_contents("php://input");
 
@@ -22,6 +22,8 @@ $krishicess=0;
 $kidmealtax=0;
 $total=0;
 $vendorid=0;
+
+//print_r($request);
  $sql1=mysqli_query($conn,"SELECT * FROM taxmaster");
     $result1=mysqli_fetch_assoc($sql1);
 for($i=0;$i<count($request->obj);$i++){

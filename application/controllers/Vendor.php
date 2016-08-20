@@ -211,8 +211,10 @@ class Vendor extends CI_Controller {
             $vendorid = $this->session->userdata('vendorid');
             //echo $vendorid."<br>";
             $eventodate = $this->input->post('eventodate');
+            $eventodate = date("Y-m-d", strtotime($eventodate));
             //echo $eventodate."<br>";
             $evenfromdate = $this->input->post('evenfromdate');
+             $evenfromdate = date("Y-m-d", strtotime($evenfromdate));
             //echo $evenfromdate."<br>";
             $location = $this->input->post('location');
             //echo $location."<br>";
@@ -256,7 +258,7 @@ class Vendor extends CI_Controller {
 
                 $this->db->insert('tblevents', $data);
                 $this->session->set_flashdata('success','<div class="alert alert-success text-center">Record Inserted Successfully</div>');
-                redirect('vendor/addevents');
+                //redirect('vendor/addevents');
                 
             }
             
@@ -357,33 +359,18 @@ class Vendor extends CI_Controller {
         if (!$this->session->userdata('username')) 
               redirect('admin/login');
 
-        $this->form_validation->set_rules('evenfromdate', 'From Date', 'required');
-        //$this->form_validation->set_rules('totime', 'To Time', 'required');
-        $this->form_validation->set_rules('location', 'Location', 'required');
-        $this->form_validation->set_rules('eventname', 'Event Name', 'required');
-        $this->form_validation->set_rules('description', 'Description', 'required');
-        $this->form_validation->set_rules('eventodate', 'To Date', 'required');
-        //$this->form_validation->set_rules('fromtime', 'From Time', 'required');
-
-        $vendorid = $this->session->userdata('vendorid');
-
-        if ($this->form_validation->run() == FALSE)
-        {   
-            
-            $vendorid = $this->session->userdata('vendorid');
-            $data['eventid']=$eventid;
-          $this->load->view('vendor/editeventdata',$data);
-
-        }else{
+          $vendorid = $this->session->userdata('vendorid');
 
           $this->validate_bannerimageEvent();
 
         	$vendorid = $this->session->userdata('vendorid');
           //echo "vendorname : ".$vendorid;
           $eventodate = $this->input->post('eventodate');
+          $eventodate =  date("Y-m-d", strtotime($eventodate));
           //echo "eventodate : ".$eventodate;
           $evenfromdate = $this->input->post('evenfromdate');
-          //echo "evenfromdate : ".$evenfromdate;
+           $evenfromdate =  date("Y-m-d", strtotime($evenfromdate));
+          echo "evenfromdate : ".$evenfromdate;
           $location = $this->input->post('location');
           //echo "location : ".$location;
           $totime = $this->input->post('totime');
@@ -448,9 +435,9 @@ class Vendor extends CI_Controller {
             $this->db->update('tblevents', $data);
             
           }
-        }
+        
          
-        redirect('vendor/addevents');
+        //redirect('vendor/addevents');
     }
 
     public function deleteeventid()

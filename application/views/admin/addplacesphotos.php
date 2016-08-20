@@ -188,7 +188,7 @@
            rules: {
 			  'userfile[]': {
 			  required: true,
-			accept : "image/*"
+			accept : "image/*,jpg/*"
 			}
 		},
         
