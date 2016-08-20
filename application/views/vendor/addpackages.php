@@ -91,7 +91,7 @@
                                                     <div class="form-group">
 										                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Expiry Date</label>
 										                <div class="col-sm-7 col-xs-7">
-										                  <input type="date" class="form-control" name="expirydate" id="expirydate" placeholder="Enter event date" value="<?php echo set_value('expirydate'); ?>">
+										                  <input type="text" style="cursor:default;background-color:white;" class="form-control" name="expirydate" id="expirydate" placeholder="Enter event date" value="<?php echo set_value('expirydate'); ?>">
 														  <span class="text-danger"><?php echo form_error('expirydate'); ?></span>
 										                </div>
 									                </div>
@@ -245,7 +245,7 @@
 		             uid:uid
 		            },
 		      success: function(res) {
-		      alert(res); 
+		      //alert(res); 
 		      location.reload();
 		      }
 	        }); 
@@ -261,14 +261,17 @@
  include 'footer.php'; 
 
  ?>
- <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+ 
    
 
  <script type="text/javascript">
+ 
     $("document").ready(function(){
+		var $j = jQuery.noConflict();
+    	$( "#expirydate" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
+
         $('#hevents').hide();
-		$("#addpackages").validate({
+		$j("#addpackages").validate({
     
           
         // Specify the validation rules

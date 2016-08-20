@@ -57,7 +57,13 @@
     </div><!-- End row -->
 </div>
     
+    <script type="text/javascript">
     
+    $( document ).ready(function() {
+       $('#bookplaces').addClass('active');
+    });
+
+    </script>
 
 
     <!-- content ends here -->

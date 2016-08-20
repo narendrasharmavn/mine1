@@ -48,7 +48,7 @@ a#phone:before, a#email_footer:before{
 .parallax-content-1 div{padding:0 10%; font-size:14px;}
 .parallax-content-1 div h3{font-size:36px;}
 .step{
-	padding:20px 31px 20px 31px;
+	padding:20px 31px 20px 0px;
 }
 .cards{
 	margin-top:0;

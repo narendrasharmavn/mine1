@@ -361,15 +361,12 @@ if (count($events->result())>0) {
 <div class="col-md-3 col-sm-6 text-center events-thumb">
                 <div class="">
                     <div class="img_container">
-                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
-                        <img src="<?php echo base_url().'assets/eventimages/'.$k->bannerimage; ?>" alt="Image" style="min-height:200px;" class="img-responsive">
-                        
-                        <div class="short_info">
+                       <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
+                       <img src="<?php echo base_url().'assets/eventimages/'.$k->bannerimage; ?>" alt="Image" style="min-height:200px;" class="img-responsive">
+                       <div class="short_info">
                             <i class="icon_set_1_icon-44"></i><?php echo $k->eventname; ?>
-							
-
-                        </div>
-                        </a>
+		       </div>
+                       </a>
                     </div>
                     <div class="tour_title">
                         <h3 class="eventtitle">
@@ -672,9 +669,17 @@ $("#searchform2").validate({
         
     });
 
+$(window).scroll(function() {
 
-
-
+    if ($(this).scrollTop()>3)
+     {
+        $('.featured-overlay').fadeOut(500);
+     }
+    else
+     {
+      $('.featured-overlay').fadeIn(500);
+     }
+ });
 
 
 

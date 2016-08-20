@@ -63,7 +63,7 @@
 											<div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Event ToDate *</label>
 								                <div class="col-sm-7 col-xs-7">
-								                  <input type="text" id="todate" style="cursor:default;background-color:white;" class="form-control" name="todate" placeholder="Enter event date" value="<?php
+								                  <input type="text" id="todate" style="cursor:default;background-color:white;" class="form-control" name="eventodate" placeholder="Enter event date" value="<?php
 								                  echo date("d-m-Y", strtotime($rows->todate));
 
 								                    ?>" readonly>

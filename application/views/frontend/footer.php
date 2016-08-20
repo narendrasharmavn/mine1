@@ -10,7 +10,7 @@
                     <h3>About</h3>
                     <ul>
                         <li><a href="#">About us</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <!--<li><a href="#">FAQ</a></li>-->
                         <li><a href="<?php echo site_url().'login'; ?>">Sign In</a></li>
                         <li><a href="<?php echo site_url().'register'; ?>">Register</a></li>
                        

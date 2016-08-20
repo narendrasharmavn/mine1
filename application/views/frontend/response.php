@@ -10,14 +10,14 @@ $ticketnumber= $this->session->userdata('ticketnumber');
             <div class="">
                                 <div class="post-content">
                                         <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-5">
 
        <?php
        
        if ($responsestatus=="Ok") {
            ?>
            <div class="form_title">
-                <h3><strong><i class="icon-ok"></i></strong>Thank you!</h3>
+                <h3><strong><i class="icon-ok"></i></strong>Thank you!</h3> <br>
                 <p>Your Booking Order is Confirmed.</p>
             </div>
 
@@ -66,13 +66,43 @@ $ticketnumber= $this->session->userdata('ticketnumber');
             </tbody>
             </table>
         </div><!--End step -->
+		
+		<?php
+       //echo $responsestatus." status<br>";
+       if ($responsestatus=="Ok") {
 
-        <div class="form_title">
-            <h3><strong><i class="icon-tag-1"></i></strong>Booking summary</h3>
+        ?>
+        <div class="thxorder">
+            <!-- <h3 class="inner">Thank you!</h3> -->
+                <p style="font-size:18px; font-family: calibri; font-weight:bold; text-align:center;">You can view all your transactions in 'MY ORDERS' section of your account.</p>
+                <hr>
+                <a class="btn_full_outline" target="_blank" href="<?php echo base_url().'index.php/invoice/'.$this->session->userdata('ticketnumber'); ?>">View your invoice</a>
+        </div>
+        <?php
+        }else{
+
+            ?><!--
+     <div class="box_style_1">
+            <h3 class="inner">Transaction Failed :-(</h3>
+                    <p>Something went wrong!</p>
+                  
+                        
+        </div>-->
+
+            <?php
+
+            } ?>
+        
+    </div><!--End col-md-8 -->
+
+    <aside class="col-md-4">
+    
+		<div class="form_title">
+            <h3><strong><i class="icon-tag-1"></i></strong>Booking summary</h3> <br>
             <p>Your booking details</p>
         </div>
         <div class="step">
-            <table class="table table-bordered" style="font-size:12px;line-height: 1.5em;background-color: transparent;">
+            <table class="table table-bordered" style="font-size:12px;line-height: 1.5em;background-color: transparent; width:400px;">
             <tr>
               <td colspan="2" style="font-size:14px;text-align:center;font-weight:bold;">
 
@@ -103,7 +133,8 @@ $ticketnumber= $this->session->userdata('ticketnumber');
     <td width="150" align="center" style="font-size:14px;text-align:center;font-weight:bold;">Package Name
     </td>
    
-    <td class="tdrt" align="center" style="font-size:14px;text-align:center;font-weight:bold;">
+    <center>
+	<td class="tdrt" align="right" style="font-size:14px; text-align:center !important; font-weight:bold;">
     <?php
 
      echo $this->db->get_where('tblpackages' , array('packageid' =>$this->session->userdata('packageid')))->row()->packagename;
@@ -120,6 +151,8 @@ $ticketnumber= $this->session->userdata('ticketnumber');
       ?>
       
     </td>
+	</center>
+	
   </tr>
 
   <tr><td width="150">Adult Tickets </td><td class="tdrt">Rs.<?php echo  $adultpriceperticket;  ?></td></tr>
@@ -127,7 +160,7 @@ $ticketnumber= $this->session->userdata('ticketnumber');
   <tr><td width="150">Kids Meal Price </td><td class="tdrt">Rs.<?php echo  $kidsmealprice;  ?></td></tr>
   <tr><td width="150">TotalTicket Cost </td><td class="tdrt">Rs.<?php echo  $ticketcost;  ?></td></tr>
 </table>
-<table class="table table-bordered" style="font-size:12px;line-height: 1.5em;background-color: transparent;">
+<table class="table table-bordered" style="font-size:12px;line-height: 1.5em;background-color: transparent; width:400px;">
     <tr><td width="150">Internet & Handling Charges</td><td class="tdrt">Rs. <?php echo $this->session->userdata('internetcharges');  ?></td></tr>
   <tr><td width="150">Taxes </td><td class="tdrt">Rs.<?php echo  $taxes;  ?></td></tr>
     <tr><td width="150">Date of Visit</td><td class="tdrt"><?php
@@ -138,35 +171,12 @@ $ticketnumber= $this->session->userdata('ticketnumber');
    ?>   
     <tr style="font-weight: bold;font-size: 20px;"><strong><td width="150">Total</td><td class="tdrt">Rs. <?php echo $total;  ?></td></strong></tr>
 </table>
-        </div><!--End step -->
-    </div><!--End col-md-8 -->
-
-    <aside class="col-md-4">
-    <?php
-       //echo $responsestatus." status<br>";
-       if ($responsestatus=="Ok") {
-
-        ?>
-        <div class="box_style_1">
-            <h3 class="inner">Thank you!</h3>
-                    <p>You can view all your transactions in 'Myorders' section of your account.</p>
-                    <hr>
-                        <a class="btn_full_outline" target="_blank" href="<?php echo base_url().'index.php/invoice/'.$this->session->userdata('ticketnumber'); ?>">View your invoice</a>
-        </div>
-        <?php
-        }else{
-
-            ?><!--
-     <div class="box_style_1">
-            <h3 class="inner">Transaction Failed :-(</h3>
-                    <p>Something went wrong!</p>
-                  
-                        
-        </div>-->
-
-            <?php
-
-            } ?>
+        </div><!--End step -->	
+	
+	
+	
+	
+	
     </aside>
 </div><!--End row -->                                                       </div>
                             </div>

@@ -370,7 +370,7 @@ class Vendor extends CI_Controller {
           //echo "eventodate : ".$eventodate;
           $evenfromdate = $this->input->post('evenfromdate');
            $evenfromdate =  date("Y-m-d", strtotime($evenfromdate));
-          echo "evenfromdate : ".$evenfromdate;
+          //echo "evenfromdate : ".$evenfromdate;
           $location = $this->input->post('location');
           //echo "location : ".$location;
           $totime = $this->input->post('totime');
@@ -437,7 +437,7 @@ class Vendor extends CI_Controller {
           }
         
          
-        //redirect('vendor/addevents');
+        redirect('vendor/addevents');
     }
 
     public function deleteeventid()
@@ -697,6 +697,11 @@ print_r($data);
                   $adultprice = $this->input->post('aprice');
                   $childprice = $this->input->post('cprice');
                   $expirydate = $this->input->post('expirydate');
+                  if ($expirydate!='') {
+                    $expirydate = date("Y-m-d", strtotime($expirydate));
+                  }
+
+                  
                   $tags = $this->input->post('tags');
                   $packagetype = $this->input->post('packagetype');
                   $events = $this->input->post('events');

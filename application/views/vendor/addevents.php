@@ -247,7 +247,7 @@
       var $j = jQuery.noConflict();
       $(document).ready(function(){
     // we call the function
-     
+     $( "#expirydate" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
          //alert(id);
 
          $("#fromdate").datepicker({
