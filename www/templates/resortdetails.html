@@ -8,20 +8,17 @@
   <ion-content>
     <img class="full-image" ng-src="{{imagepathurl+'assets/resortimages/'+userBookingDetails[0].bannerimage}}" style="width:100%;height:150px;">
     <div class="row">
-        <div class="col col-80">
+        <div class="col col-100">
         
           <h5>{{userBookingDetails[0].resortname}}</h5>
+		  <p>Location : <b>{{userBookingDetails[0].location}}</b></p>
           <br>
-         <p> {{userBookingDetails[0].description}}
+         <p class="details"> {{userBookingDetails[0].description}}
         </p>
-		<p>{{userBookingDetails[0].address}}</p>
+		
 
       </div>
-      <div class="col col-10">
-      </div>
-      <div class="col col-10">
-      <!--  <p><b><i class="icon ion-android-pin" style="font-size: 25px;"></i></p>-->
-      </div>
+     
     </div>
     <hr>
     <div class="row" ng-repeat="r in userBookingDetails" ng-show="package">
@@ -36,11 +33,10 @@
 		   Children (Per Ticket) <span>Rs. {{r.childprice}}  </span>
         </p>
       </div>
-      <div class="col col-10">
-      </div>
-      <div class="col col-20">
-	 <!-- <a href="#/sidemenu/sinlgecheckout/{{r.packageid}}" class="button button-outline button-balanced">Book</a>-->
-        <button ng-click="resortsSingleCheckout(r.packageid)" class="button button-outline button-balanced" >
+     
+      <div class="col col-30 text-right">
+	 <!-- <a href="#/sidemenu/sinlgecheckout/{{r.packageid}}" class="button button-outline button-calm">Book</a>-->
+        <button ng-click="resortsSingleCheckout(r.packageid)" class="button button-small button-outline button-calm" >
            <b>Book</b> 
         </button>
 		
@@ -55,20 +51,22 @@
 	<div class="row">
 	<div class="col col-100">
 		<center>
-	<button class="button button-outline button-balanced" ng-click="submitresortreview()">Leave a Review</button>
+	<button class="button button-small button-outline button-calm" ng-click="submitresortreview()" ng-show="withsession">Leave a Review</button>
 	</center>
 	</div>
 	</div>
    <div class="list list-inset" >
 	<h5 ><b style="float:left;">User Reviews</b>
 	</h5>
-    <a class="item item-avatar" href="" ng-repeat="r in eventreviews">
+    <a class="item item-avatar" href="" ng-repeat="r in eventreviews" ng-show="reviews">
       <img src="img/icon.png">
-	  	  <p> <rating ng-model="r.pricereview"></rating></p>
+	  	  <p><i class="ion ion-start" ng-repeat="pricereview in r.eventreviews"></i> <!--<rating ng-model="r.pricereview"></rating>--></p>
       <h2>{{r.name}}</h2>
       <p>{{r.subject}}</p>
       <p>{{r.review}}</p>
     </a>
+	<br><h4 ng-show="noreviews"><b style="float:left;">No Reviews</b>
+	</h4>
 	
 
 </div>

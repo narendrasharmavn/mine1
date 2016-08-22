@@ -10,20 +10,19 @@
     <div class="row">
       <div class="col col-80">
         <p>
-          <b>{{userBookingDetails[0].resortname}}</b>
-          <br>
+          <b>{{userBookingDetails[0].resortname}}</b> </p>
+          <p>{{userBookingDetails[0].location}}</p>
+         
           
-        </p>
+       
       </div>
-      <div class="col col-10">
-      <button ng-click="resortsMultiCheckout({{resortid}})" class="button button-outline button-balanced" >
+      <div class="col col-30 text-right">
+      <button ng-click="resortsMultiCheckout({{resortid}})" class="button button-small button-outline button-calm" >
            <b>Book</b> 
 
         </button>
       </div>
-      <div class="col col-10">
-       <!-- <p><b><i class="icon ion-map" style="font-size: 25px;"></i></p>-->
-      </div>
+     
     </div>
     
     <div class="row">
@@ -39,7 +38,7 @@
       <h5><b>Description</b></h5>
     </div>
     <div class="row">  
-      <p>
+      <p class="details">
        {{userBookingDetails[0].description}}
       </p>
     </div>
@@ -49,16 +48,16 @@
 		<div class="row">
 	<div class="col col-100">
 		<center>
-	<button class="button button-outline button-balanced" ng-click="submitzooreview()">Leave a Review</button>
+	<button class="button button-outline button-calm" ng-click="submitzooreview()" ng-show="withsession">Leave a Review</button>
 	</center>
 	</div>
 	</div>
 	<div class="list list-inset" >
-<h5><b>User Reviews</b></h5>
+	<h5><b>User Reviews</b></h5>
     <a class="item item-avatar" href="" ng-repeat="r in eventreviews">
       <img src="img/icon.png">
-	  	  <p> <rating ng-model="r.pricereview" max="5" ></rating></p>
-      <h2>{{r.name}}</h2>
+	  	   <p>{{i.pricereview}}<!--<rating ng-model="r.pricereview"></rating>--></p>
+      <h2>{{i}}-{{r.name}}</h2>
       <p>{{r.subject}}</p>
       <p>{{r.review}}</p>
     </a>

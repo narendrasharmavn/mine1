@@ -41,17 +41,17 @@
       <hr>
       <form name="myaccount" ng-submit="submit(data)" novalidate >
         <div class="list">
-          <label class="item item-input" ng-class="{ 'has-errors' : myaccount.username.$invalid && !myaccount.username.$pristine, 'no-errors' : myaccount.username.$valid}">
-            <span class="input-label">Username</span>
-            <input type="text" name="username" ng-model="data.username" required>
+          <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : myaccount.username.$invalid && !myaccount.username.$pristine, 'no-errors' : myaccount.username.$valid}">
+            <span class="input-label">Name</span>
+            <input type="text" name="username" Placeholder="Name" ng-model="data.username" required>
           </label>
-          <label class="item item-input" ng-class="{ 'has-errors' : myaccount.useremail.$invalid && !myaccount.useremail.$pristine, 'no-errors' : myaccount.useremail.$valid}">
+          <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : myaccount.useremail.$invalid && !myaccount.useremail.$pristine, 'no-errors' : myaccount.useremail.$valid}">
             <span class="input-label">Email</span>
-            <input type="email" name="useremail" ng-model="data.useremail" ng-disabled="true" required>
+            <input type="email" name="useremail" Placeholder="Email" ng-model="data.useremail" ng-disabled="true" required>
           </label>
-          <label class="item item-input" ng-class="{ 'has-errors' : myaccount.usermobile.$invalid && !myaccount.usermobile.$pristine, 'no-errors' : myaccount.usermobile.$valid}">
+          <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : myaccount.usermobile.$invalid && !myaccount.usermobile.$pristine, 'no-errors' : myaccount.usermobile.$valid}">
             <span class="input-label">Mobile</span>
-            <input type="tel" name="usermobile" ng-model="data.usermobile" required>
+            <input type="tel" name="usermobile" Placeholder="Mobile" ng-model="data.usermobile" required>
           </label>
           
         </div>
@@ -59,13 +59,13 @@
         <div><ion-checkbox ng-model="data.filter" >Check this to update password</ion-checkbox></div>
 
         <div class="list" ng-show="data.filter">
-          <label class="item item-input" ng-class="{ 'has-errors' : myaccount.password.$invalid && !myaccount.password.$pristine, 'no-errors' : myaccount.password.$valid}">
+          <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : myaccount.password.$invalid && !myaccount.password.$pristine, 'no-errors' : myaccount.password.$valid}">
             <span class="input-label">Password</span>
-            <input type="password" name="password" ng-model="data.password" required>
+            <input type="password" name="password" Placeholder="Password" ng-model="data.password" required>
           </label>
-          <label class="item item-input" ng-class="{ 'has-errors' : myaccount.confirmpassword.$invalid && !myaccount.confirmpassword.$pristine, 'no-errors' : myaccount.confirmpassword.$valid}">
+          <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : myaccount.confirmpassword.$invalid && !myaccount.confirmpassword.$pristine, 'no-errors' : myaccount.confirmpassword.$valid}">
             <span class="input-label">Confirm Password</span>
-            <input type="password" name="confirmpassword" ng-model="data.confirmpassword" ng-pattern="{{data.password}}" required>
+            <input type="password" name="confirmpassword" Placeholder="Confirm Password" ng-model="data.confirmpassword" ng-pattern="{{data.password}}" required>
           </label>
         </div>
 
@@ -83,7 +83,7 @@
         </div>
         
         <div class="padding">
-          <button class="button button-block button-balanced">
+          <button class="button button-block button-calm">
             update
           </button>
         </div>

@@ -44,11 +44,14 @@ app.run(function($ionicPlatform,$state) {
 
 
 
+
+
+
 app.constant('myconfig', {
     appName: 'Book4Holiday',
     appVersion: 'development',
-    webservicesurl: 'http://localhost/bookfinal/services',
-    imagepathurl: 'http://localhost/bookfinal/'
+    webservicesurl: 'http://book4holiday.com/beta/services',
+    imagepathurl: 'http://book4holiday.com/beta//'
 });
 
 // (Amar) Controllers And Web Services Start //
@@ -609,10 +612,10 @@ $scope.taxBreakUp = function(){
 
   var alertPopup = $ionicPopup.alert({
      title: 'Tax Break Up',
-     template: 'Internet Handling Charges: <span style="float:right">Rs.' +$scope.calculatedData.internetcharges+
-'</span><br>Service tax : <span style="float:right">Rs '+$scope.calculatedData.servicetax+
-'</span><br>Swachh Bharat :<span style="float:right"> Rs '+$scope.calculatedData.swachcess+
-'</span><br>Krishi Cess : <span style="float:right">Rs '+$scope.calculatedData.krishicess+'</span>'
+     template: '<div class="row"><div class="col col-50 tax-col">Internet Handling Charges:</div> <div class="col col-50 text-right tax-col"style="float:right">Rs.' +$scope.calculatedData.internetchargeswithouttotal+
+'</div></div><div class="row"><div class="col col-50 tax-col">Service tax :</div> <div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.servicetax+
+'</div></div><div class="row"><div class="col col-50 tax-col">Swachh Bharat :</div><div class="col col-50 text-right tax-col"style="float:right"> Rs '+$scope.calculatedData.swachcess+
+'</div></div><div class="row"><div class="col col-50 tax-col">Krishi Cess : </div><div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.krishicess+'</div></div>'
    });
 
    alertPopup.then(function(res) {
@@ -664,10 +667,11 @@ $scope.taxBreakUp = function(){
 
   var alertPopup = $ionicPopup.alert({
      title: 'Tax Break Up',
-     template: 'Internet Handling Charges: <span style="float:right">Rs.' +$scope.calculatedData.internetchargeswithouttotal+
-'</span><br>Service tax : <span style="float:right">Rs '+$scope.calculatedData.servicetax+
-'</span><br>Swachh Bharat :<span style="float:right"> Rs '+$scope.calculatedData.swachcess+
-'</span><br>Krishi Cess : <span style="float:right">Rs '+$scope.calculatedData.krishicess+'</span>'
+	 
+     template: '<div class="row"><div class="col col-50 tax-col">Internet Handling Charges:</div> <div class="col col-50 text-right tax-col"style="float:right">Rs.' +$scope.calculatedData.internetchargeswithouttotal+
+'</div></div><div class="row"><div class="col col-50 tax-col">Service tax :</div> <div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.servicetax+
+'</div></div><div class="row"><div class="col col-50 tax-col">Swachh Bharat :</div><div class="col col-50 text-right tax-col"style="float:right"> Rs '+$scope.calculatedData.swachcess+
+'</div></div><div class="row"><div class="col col-50 tax-col">Krishi Cess : </div><div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.krishicess+'</div></div>'
    });
 
    alertPopup.then(function(res) {
@@ -686,7 +690,7 @@ $scope.taxBreakUp = function(){
           //alert("hello");
            // An elaborate, custom popup
             var myPopup = $ionicPopup.show({
-              template: '<img src="http://book4holiday.com/beta/assets/frontend/img/BK-Kids-Meal.jpg" class="full-image"/><br/><input type="number" ng-model="data.kidsmealqty" value="0">',
+              template: '<img src="http://book4holiday.com/beta/assets/frontend/img/BK-Kids-Meal.jpg" class="full-image"/><br/><input type="number" ng-model="data.kidsmealqty" class="kidmealtextbox" placeholder="Enter Kids Meal Quantity" value="0">',
               title: 'Enter Kids Meal Quantity',
               scope: $scope,
               buttons: [
@@ -738,7 +742,7 @@ app.controller('MultiCheckOutCtrl',function($scope,$state,$http,webservices,myco
         $scope.userChoosen = {};
        $scope.resortid = $state.params.resortid;
 
-       console.log("MulticheckoutCtrl id is: "+$scope.resortid);
+       //console.log("MulticheckoutCtrl id is: "+$scope.resortid);
 
       $scope.userBookingDetails = {};
       $scope.usrdata={};
@@ -748,7 +752,7 @@ app.controller('MultiCheckOutCtrl',function($scope,$state,$http,webservices,myco
             //console.log("Inside MultiCheckOutCtrl controller : "+data[0].bannerimage); 
             $scope.userBookingDetails = data;
             //console.clear();
-            console.log(data);
+            //console.log(data);
 
         });
 
@@ -757,6 +761,7 @@ app.controller('MultiCheckOutCtrl',function($scope,$state,$http,webservices,myco
        
           $scope.count = 0;
           $scope.userChoosen = [];
+          console.log($scope.userBookingDetails); 
           angular.forEach($scope.userBookingDetails, function(item){
                    
                    $scope.userChoosen.push({
@@ -765,7 +770,9 @@ app.controller('MultiCheckOutCtrl',function($scope,$state,$http,webservices,myco
                     childqty:item.mobilechildqty
                    });
 
-                    if (item.mobileadultqty==0 && item.mobileadultqty==0) {
+                   //alert(item.mobileadultqty);
+
+                    if ((item.mobileadultqty==0 && item.mobilechildqty==0)  || (item.mobileadultqty==undefined && item.mobilechildqty==undefined)) {
                       //alert("Please book atleast one ticket");
                       $scope.count++;
                    } 
@@ -794,8 +801,8 @@ app.controller('MultiCheckOutCtrl',function($scope,$state,$http,webservices,myco
                    }else{
                     $scope.errorStatus=false;
                     
-                    console.log($scope.userChoosen); 
-                    //console.log($scope.usrdata.dateofvisit); 
+                    //alert("else part");
+                    console.log("count is: "+$scope.count); 
                     $state.go('sidemenu.multibooking', {obj: $scope.userChoosen,dateofvisit:$scope.usrdata.dateofvisit});
                    } 
                  
@@ -832,10 +839,10 @@ app.controller('SingleBookingCtrl',function($scope,$state,$http,webservices,myco
 
   var alertPopup = $ionicPopup.alert({
      title: 'Tax Break Up',
-          template: 'Internet Handling Charges: <span style="float:right">Rs.' +$scope.calculatedUserData.internetchargeswithouttotal+
-'</span><br>Service tax : <span style="float:right">Rs '+$scope.calculatedUserData.servicetax+
-'</span><br>Swachh Bharat :<span style="float:right"> Rs '+$scope.calculatedUserData.swachcess+
-'</span><br>Krishi Cess : <span style="float:right">Rs '+$scope.calculatedUserData.krishicess+'</span>'
+          template: '<div class="row"><div class="col col-50 tax-col">Internet Handling Charges:</div> <div class="col col-50 text-right tax-col"style="float:right">Rs.' +$scope.calculatedUserData.internetchargeswithouttotal+
+'</div></div><div class="row"><div class="col col-50 tax-col">Service tax :</div> <div class="col col-50 text-right tax-col" style="float:right">Rs '+$scope.calculatedUserData.servicetax+
+'</div></div><div class="row"><div class="col col-50 tax-col">Swachh Bharat :</div><div class="col col-50 text-right tax-col tax-col" style="float:right"> Rs '+$scope.calculatedUserData.swachcess+
+'</div></div><div class="row"><div class="col col-50 tax-col">Krishi Cess : </div><div class="col col-50 text-right tax-col" style="float:right">Rs '+$scope.calculatedUserData.krishicess+'</div></div>'
    });
 
    alertPopup.then(function(res) {
@@ -863,7 +870,13 @@ app.controller('EventSingleCheckOutCtrl',function($scope,$state,$http,webservice
        webservices.getEventPackagesBasedOnPackageId($scope.packageid).success(function(data) {
         //console.log("Inside MultiCheckOutCtrl controller : "+data[0].bannerimage); 
             $scope.userBookingDetails = data;
+			//console.log(data);
+			
 			$scope.maxdate = data[0].todate;
+			$scope.mindate = data[0].fromdate;
+			
+			console.log($scope.mindate);
+			
 
         });
 		
@@ -937,14 +950,15 @@ $scope.date = new Date();
         $scope.userChoosen = {};
        $scope.packageid = $state.params.packageid;
 
-       //console.log("SingleCheckOutCtrl id is: "+$scope.packageid);
+       console.log("SingleCheckOutCtrl id is: "+$scope.packageid);
 
       $scope.userBookingDetails = {};
       $scope.errorStatus=false;
        webservices.getPackagesBasedOnResortIdToShowPrice($scope.packageid).success(function(data) {
         //console.log("Inside MultiCheckOutCtrl controller : "+data[0].bannerimage); 
+		console.log(data);
             $scope.userBookingDetails = data;
-            console.log(data); 
+             
 
         });
 
@@ -1041,7 +1055,17 @@ app.controller('ResortDetailsCtrl',function($scope,$state,$http,webservices,myco
 		webservices.getResortReviews($scope.resortid).success(function(reviewsdata) {
           //console.clear();
           //console.log(reviewsdata); 
-          $scope.eventreviews = reviewsdata;
+          $scope.rrating = {};
+		  if(!reviewsdata[0].packageid){
+			$scope.noreviews=true;
+			$scope.reviews=false;
+			$scope.eventreviews = reviewsdata;
+		  }else{
+			  $scope.noreviews=false;
+			  $scope.reviews=true;
+			  $scope.eventreviews = reviewsdata;
+			 
+		  }
         });
     if($scope.resortid!=1){
   $scope.resortsSingleCheckout = function(myresortid){
@@ -1099,6 +1123,7 @@ app.controller('ZooCtrl',function($scope,$state,$http,$window,webservices,myconf
        $scope.reviewsdata = {};
        $scope.imagepathurl = myconfig.imagepathurl;
 	   		$scope.data={};
+			$scope.rating={};
     // $scope.userBookingDetails = {};
       $scope.errorStatus=false;
         webservices.getPackagesForZoo($scope.resortid).success(function(data) {
@@ -1109,8 +1134,13 @@ app.controller('ZooCtrl',function($scope,$state,$http,$window,webservices,myconf
 		
 		webservices.getResortReviews($scope.resortid).success(function(reviewsdata) {
           console.clear();
-          console.log(reviewsdata); 
+          //console.log(reviewsdata); 
           $scope.eventreviews = reviewsdata;
+		  // console.log($scope.eventreviews.pricereview);
+			//  for(i=0;i<=reviewsdata.pricereview;i++){
+			//	  reviewsdata.pricereview;
+			//	  console.log(reviewsdata.pricereview);
+			//  }
         });
        $scope.resortsMultiCheckout = function(myresortid){
         //console.log("Resort id is: "+myresortid);
@@ -1189,7 +1219,16 @@ app.controller('EventDetailsCtrl',function($scope,$state,$http,$window,webservic
         webservices.getEventReviews($scope.eventid).success(function(reviewsdata) {
           //console.clear();
           //console.log(reviewsdata); 
-          $scope.eventreviews = reviewsdata;
+          //$scope.eventreviews = reviewsdata;
+		  if(!reviewsdata[0].packageid){
+			$scope.noreviews=true;
+			$scope.reviews=false;
+			$scope.eventreviews = reviewsdata;
+		  }else{
+			  $scope.noreviews=false;
+			  $scope.reviews=true;
+			  $scope.eventreviews = reviewsdata;
+		  }
         });
 
        $scope.resortsSingleCheckout = function(myresortid){
@@ -1256,7 +1295,20 @@ app.controller('PlaceDetailsCtrl',function($scope,$state,$http,webservices,mycon
 		webservices.getPlaceReviews($scope.placeid).success(function(reviewsdata) {
           //console.clear();
           //console.log(reviewsdata); 
-          $scope.eventreviews = reviewsdata;
+          
+		  if(!reviewsdata[0].packageid){
+			$scope.noreviews=true;
+			$scope.reviews=false;
+			$scope.eventreviews = reviewsdata;
+		  }else{
+			  $scope.noreviews=false;
+			  $scope.reviews=true;
+			  $scope.eventreviews = reviewsdata;
+			  $scope.rating=[];
+			  for(i=0;i<=reviewsdata.pricereview;i++){
+				  $scope.rating[i];
+			  }
+		  }
         });
 		$scope.submitresortreview = function(){
 
@@ -1743,9 +1795,11 @@ app.factory('webservices', function($http,myconfig){
     },
 
     getPackagesBasedOnResortIdToShowPrice: function(packageid){
-
+	
       var url = myconfig.webservicesurl+'/getPackagesBasedOnResortIdToShowPrice.php';
+	  
       return $http.post(url, { packageid:packageid })
+	  //console.log("url is ");
       
     },
     
@@ -1838,6 +1892,27 @@ app.controller('LoginCtrl', function($scope, $http, $state,$window, process) {
       }
     })
   };
+});
+
+app.controller('ResortSearchCtrl1', function($scope,$state,$http,webservices,myconfig) {
+   $scope.search={};
+
+  $scope.searchresult=[];
+   
+   $scope.onSearchChange = function(){
+
+        webservices.getResortsBasedOnSearchCriteria($scope.search.name).success(function(data) {
+            $scope.searchresult=data;
+            //console.log("hellos this is test"+$scope.search.name);
+            console.log($scope.searchresult);
+        });
+    
+      }
+
+       $scope.bookThisResort = function(resortid){
+          alert("clicked resort id is: "+resortid);
+       }
+
 });
 
 

@@ -1,24 +1,34 @@
 <ion-view class="pane" view-title="">
+<ion-nav-buttons side="left">
+
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
+        </button>
+		
+      </ion-nav-buttons>
+	   
   <ion-content>
-    <div class="list list-inset">
-      
-      <div class="col-100">
-        <div class="col-50" style="display:inline-block;">
+  <div class="row topsearch">
+	  <div class="col col-100">
+        <div class="col col-50 tax-col" style="display:inline-block;">
           
           <label class="item item-input">
             
-            <input type="date" name="" ng-model="search.date" placeholder="0">
+            <input type="date" name="" ng-model="search.date" placeholder="Select Date">
           </label>
 
 
         </div>
-         <div class="col-50" style="float:right;">
+         <div class="col col-50 tax-col text-right" style="float:right;">
         <label class="item item-input">
           <i class="icon ion-search placeholder-icon"></i>
-          <input type="text" placeholder="Type a word" ng-model="search.name" ng-change="onSearchChange()">
+          <input type="text" placeholder="Enter Event Name" ng-model="search.name" ng-change="onSearchChange()">
         </label>
         </div>
       </div>
+      </div>
+   <div class="list list-inset search-list">
+      
+      
 
       <ion-list >
         <ion-item  type="item-text-wrap" href="#/sidemenu/eventdetails/{{s.eventid}}" ng-repeat="s in searchresult | filter:search.name" >
@@ -40,7 +50,7 @@
           <div class="col col-10">
           </div>
           <div class="col col-20">
-            <a href="#/sidemenu/eventdetails/{{e.eventid}}"class="button button-outline button-balanced">View</a>
+            <a href="#/sidemenu/eventdetails/{{e.eventid}}"class="button button-small button-outline button-calm">View</a>
           </div>
         </div>
       </div>

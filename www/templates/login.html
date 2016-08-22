@@ -31,17 +31,16 @@
       </ion-nav-buttons>
 	<ion-content class="has-header has-footer">
 	   <div class="card">
-		    <div class = "col header text-center">
-		        <h3>Sign In</h3>
-		    </div>
-		    <hr>
+		    
 		    <form name="login" ng-submit="submit(data)" novalidate>
 			    <div class="list">
-			        <label class="item item-input" ng-class="{ 'has-errors' : login.username.$invalid && !login.username.$pristine, 'no-errors' : login.username.$valid}">
-			          <input type="email" name="username" placeholder="Enter Email" ng-model="data.username" required>
+			        <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : login.username.$invalid && !login.username.$pristine, 'no-errors' : login.username.$valid}">
+			          <span class="input-label">User Name</span>
+					  <input type="email" name="username" placeholder="Enter Email" ng-model="data.username" required>
 			        </label>
-			        <label class="item item-input" ng-class="{ 'has-errors' : login.password.$invalid && !login.password.$pristine, 'no-errors' : login.password.$valid}">
-			          <input type="password" name="password" placeholder="Enter Password" ng-model="data.password" required>
+			        <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : login.password.$invalid && !login.password.$pristine, 'no-errors' : login.password.$valid}">
+			          <span class="input-label">Password</span>
+					  <input type="password" name="password" placeholder="Enter Password" ng-model="data.password" required>
 			        </label>
 			    </div>
 			    <div class="error-container last-error-container" ng-show="errormessages">
@@ -57,7 +56,7 @@
 		            </div>
 		        </div>
 			    <div class="padding">
-			        <button class="button button-block button-balanced" ng-disabled="login.$invalid">
+			        <button class="button button-block button-calm" ng-disabled="login.$invalid">
 			          Submit
 			        </button>
 			        <p class="text-center">

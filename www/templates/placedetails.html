@@ -8,17 +8,13 @@
   <ion-content>
     <img class="full-image" src="{{imagepathurl+'assets/places/'+userBookingDetails[0].photoname}}" style="width:100%;height:150px;">
     <div class="row">
-      <div class="col col-80">
+      <div class="col col-100">
 	  <h5>{{userBookingDetails[0].place}}</h5>
-      <p>{{userBookingDetails[0].otherinfo}}</p>
+      <p class="details">{{userBookingDetails[0].otherinfo}}</p>
       <p>{{userBookingDetails[0].address}}</p>
           
       </div>
-      <div class="col col-10">
-      </div>
-      <div class="col col-10">
-       <!-- <p><b><i class="icon ion-map" style="font-size: 25px;"></i></p>-->
-      </div>
+      
     </div>
     <hr>
   
@@ -33,19 +29,22 @@
 		<div class="row">
 	<div class="col col-100">
 		<center>
-	<button class="button button-outline button-balanced" ng-click="submitresortreview()">Leave a Review</button>
+	<button class="button button-small button-outline button-calm" ng-click="submitresortreview()" ng-show="withsession">Leave a Review</button>
 	</center>
 	</div>
 	</div>
 	<div class="list list-inset" >
 	<h5><b>User Reviews</b></h5>
-    <a class="item item-avatar" href="" ng-repeat="r in eventreviews">
+    <a class="item item-avatar" href="" ng-repeat="r in eventreviews" ng-show="reviews">
       <img src="img/icon.png">
-	  <p> <rating ng-model="r.pricereview" max="5" ></rating></p>
+	  <p><i class="ion ion-star" ng-repeat="i in rating"></i> 
+	  <rating ng-model="r.pricereview" max="5" ></rating></p>
       <h2>{{r.name}}</h2>
       <p>{{r.subject}}</p>
       <p>{{r.review}}</p>
     </a>
+	<br><h4 ng-show="noreviews"><b style="float:left;">No Reviews</b>
+	</h4>
 	
 
 </div>

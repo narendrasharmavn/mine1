@@ -3546,7 +3546,9 @@ ion-infinite-scroll {
   z-index: 1; }
 
 .view {
-  z-index: 1; }
+  z-index: 1;
+    background-image: url(/img/bg.jpg);
+  }
 
 .pane,
 .view {

@@ -5,16 +5,20 @@
         </button>
 
       </ion-nav-buttons>
+	  
   <ion-content>
-      <div class="list list-inset">
-      
-      
-       <div>
+      <div class="row topsearch">
+      <div class="col col-100">
       <label class="item item-input">
         <i class="icon ion-search placeholder-icon"></i>
-        <input type="text" placeholder="Type a word" ng-model="search.name" ng-change="onSearchChange()">
+        <input type="text" placeholder="Enter Place Name" ng-model="search.name" ng-change="onSearchChange()">
       </label>
       </div>
+      </div>
+	<div class="list list-inset search-list">
+      
+      
+       
       
       <ion-list>
       <ion-item  type="item-text-wrap" href="#/sidemenu/placedetails/{{p.plid}}" ng-repeat="p in searchresult | filter:search.name" >
@@ -22,7 +26,6 @@
       </ion-item>
     </ion-list>
     </div>
-
 
       <div class="card" ng-repeat="p in placesData">
         <img class="full-image" src="{{imagepathurl+'assets/places/'+p.photoname}}" style="width:100%;height:150px;">
@@ -34,7 +37,7 @@
           <div class="col col-10">
           </div>
           <div class="col col-20">
-            <a href="#/sidemenu/placedetails/{{p.plid}}"class="button button-outline button-medium button-balanced">View</a>
+            <a href="#/sidemenu/placedetails/{{p.plid}}"class="button button-small button-outline button-medium button-calm">View</a>
           </div>
         </div>
       </div>

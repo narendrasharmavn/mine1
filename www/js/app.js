@@ -66,6 +66,34 @@ app.config(function($stateProvider, $urlRouterProvider) {
     }
   })
   
+  .state('sidemenu.resortsearch', {
+    url: '/resortsearch',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/resortsearch.html',
+        controller: 'ResortSearchCtrl1'
+      }
+    }
+  }) 
+  .state('sidemenu.eventsearch', {
+    url: '/eventsearch',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/eventsearch.html',
+        controller: 'EventSearchCtrl'
+      }
+    }
+  })  
+  .state('sidemenu.placesearch', {
+    url: '/placesearch',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/placesearch.html',
+        controller: 'PlaceSearchCtrl'
+      }
+    }
+  })
+  
   .state('sidemenu.forgotpassword', {
     url: '/forgotpassword',
     views: {

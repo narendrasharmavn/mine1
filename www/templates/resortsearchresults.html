@@ -1,21 +1,24 @@
-<ion-view class="pane" view-title="Book4Holiday">
+<ion-view class="pane" view-title="">
 <ion-nav-buttons side="left">
 
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
         </button>
-
+		
       </ion-nav-buttons>
+	  
   <ion-content class="has-header has-footer">
-    
-    <div class="list list-inset">
-      
-      
-       <div>
+   <div class="row topsearch">
+   <div class="col col-100">
       <label class="item item-input">
         <i class="icon ion-search placeholder-icon"></i>
-        <input type="text" placeholder="Type a word" ng-model="search.name" ng-change="onSearchChange()">
+        <input type="text" placeholder="Enter Resort Name" ng-model="search.name" ng-change="onSearchChange()">
       </label>
       </div>
+      </div>
+   <div class="list list-inset search-list">
+      
+      
+      
       
       <ion-list>
       <ion-item  type="item-text-wrap" href="#/sidemenu/resortdetails/{{r.resortid}}" ng-repeat="r in searchresult | filter:search.name" >
@@ -23,7 +26,6 @@
       </ion-item>
     </ion-list>
     </div>
-   
     <div class="card" ng-repeat="r in resortsData">
       <img class="full-image" src="{{imagepathurl+'assets/resortimages/'+r.bannerimage}}" style="width:100%;height:150px;">
       <div class="row">
@@ -35,7 +37,7 @@
         <div class="col col-10">
         </div>
         <div class="col col-20">
-          <a href="#/sidemenu/resortdetails/{{r.resortid}}"class="button button-outline button-balanced">View</a>
+          <a href="#/sidemenu/resortdetails/{{r.resortid}}"class="button button-small button-outline button-calm">View</a>
         </div>
       </div>
     </div>

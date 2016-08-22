@@ -4,10 +4,49 @@
 .padv { padding-top:20px; 
         padding-bottom:20px;
 		font-size:20px;	}
-.pane, .view { background-image: url(/img/body_bg.jpg); }
+.homeview { background-image: url(http://book4holiday.com/beta/assets/bg.jpg) }
+/*.regcard{background:transparent !important;}*/
 .mybtn{
 	    font-size: 20px !important;
 }
+.tax-col{
+border-style:none;
+}
+.kidmealtextbox{
+    background: rgba(10, 157, 199, 0.37);
+    color: white !important;
+    height: 50px !important;
+    padding: 5px !important;
+	font-size: 25px !important;
+}
+.topsearch{
+background: rgba(17, 193, 243, 0.52);
+}
+.search-results{
+        background: rgb(0, 0, 0) !important;
+    color: #ffffff;
+}
+.list-inset{
+opacity : 0.9;
+}
+.item-content{
+background:rgba(245, 245, 220, 0.67) !important;
+}
+.search-list{
+    position: fixed !important;
+    padding-top: 1px;
+    width: 100%;
+    padding-bottom: 1px;
+    padding-left: 0;
+    margin-bottom: 20px;
+    z-index: 9999 !important;
+	margin:0px !important;
+}
+.hometoprow{    
+	padding-bottom: 0%;
+	padding-top: 5%;
+	background: rgba(0, 0, 0, 0.25);
+	}
 .bar-clrcust { background-color:#A3C845; }
 .clrcust { color:#e29e46; }
 	p{
@@ -15,6 +54,7 @@
 	}
 .title { color:#fff !important; }
 
+.details{ text-align : justify; }
 
 .amtside{
 	text-align:right;
@@ -23,19 +63,24 @@
          padding-bottom:20px;
 		 font-size:17px; 
 		 background:#ebd6bb; }
-.padvi { background-color: #f7f4f4;
+.homebtn{ color: white; }
+.padvi { /*background-color: #f7f4f4;
     border-radius: 5px;
-    border: 1px solid #f9f9f9;}
+    border: 1px solid #f9f9f9;*/}
 .padvii { background-color:#FFF; border-radius: 5px;}
 .padviii { background-color:#FFF;border-radius: 5px; }
 .padviv { background-color:#FFF; border-radius: 5px;}
 
-.customicon { color:#04727f; }	 
+.customicon { /* color:#04727f; */ color: #ffffff }	 
 .customicon1 { color:#ff9800; }
 .customicon2 { color:#387ef5; }
 .customicon3 { color:#9c27b0; }
 
-.padicon { text-decoration:none; }
+.padicon { text-decoration:none; }\
+
+.navbar{
+	background: rgba(51, 205, 95, 0.38) !important;
+}
 
 .error-msg{
 	padding: 7px;
