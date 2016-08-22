@@ -1,4 +1,4 @@
-var app = angular.module('starter.controllers', ['ngSanitize','ionic.rating']);
+var app = angular.module('starter.controllers', ['ngSanitize','ionic.rating','angular-datepicker']);
 
 var handleOpenURL = function(url) {
     //alert("RECEIVED URL: " + url);
@@ -457,7 +457,7 @@ app.controller('checkOutOptionCtrl',function($scope,$state,$http,webservices,myc
     $scope.o.customerid = localStorage.getItem("holidayCustomerId");
     
     
-    webservices.saveUserSelectedSessionAndUserSelectionsAndUserTotalsEvents($scope.c,$scope.o, $scope.usertotals, $scope.userselectedoptions ).success(function (response) {
+    webservices.saveUserSelectedSessionAndUserSelectionsAndUserTotals($scope.c,$scope.o, $scope.usertotals, $scope.userselectedoptions ).success(function (response) {
         console.clear();
         console.log(response);
         var paymenturl = myconfig.webservicesurl+"/confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
@@ -721,12 +721,7 @@ $scope.taxBreakUp = function(){
 
                    $scope.calculatedData=response;
                    
-                   //$scope.calculatedData.push({'dateofvisit':$scope.dateofvisit},{obj:response});
-                   //$scope.calculatedData.dateofvisit=$scope.dateofvisit;
-                  // console.log($scope.calculatedData); 
-                  // console.log($scope.userChoosen); 
-                   //console.log("date of visit aadded in on object si: "+$scope.calculatedData.dateofvisit);  
-                  })
+                    })
                           
             });
 
@@ -738,6 +733,7 @@ $scope.taxBreakUp = function(){
 app.controller('MultiCheckOutCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup){
       console.clear();
       //alert("hello");
+      $( "#datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
         $scope.date = new Date();
         $scope.userChoosen = {};
        $scope.resortid = $state.params.resortid;
@@ -858,7 +854,8 @@ app.controller('SingleBookingCtrl',function($scope,$state,$http,webservices,myco
 
 app.controller('EventSingleCheckOutCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup){
   console.clear();
-  $scope.date = new Date();
+  
+  
         $scope.userChoosen = {};
        $scope.packageid = $state.params.packageid;
        $scope.userBookingDetails={};
@@ -870,19 +867,50 @@ app.controller('EventSingleCheckOutCtrl',function($scope,$state,$http,webservice
        webservices.getEventPackagesBasedOnPackageId($scope.packageid).success(function(data) {
         //console.log("Inside MultiCheckOutCtrl controller : "+data[0].bannerimage); 
             $scope.userBookingDetails = data;
-			//console.log(data);
+			     console.log(data);
 			
 			$scope.maxdate = data[0].todate;
+      $scope.maxdate = $scope.maxdate.split("-").reverse().join("-");
 			$scope.mindate = data[0].fromdate;
-			
-			console.log($scope.mindate);
-			
+      $scope.mindate = $scope.mindate.split("-").reverse().join("-");
+      var todayDate = new Date(); //Today Date
+       var dateOne = new Date(data[0].fromdate);
+       var mindate = new Date();
+       //alert("Today date is :"+todayDate);
+       //alert("dateOne date is :"+dateOne);
+       if (todayDate>dateOne) {
+        //alert("today date is greater than");
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
 
+        var yyyy = today.getFullYear();
+        if(dd<10){
+            dd='0'+dd
+        } 
+        if(mm<10){
+            mm='0'+mm
+        } 
+        var today = dd+'-'+mm+'-'+yyyy;
+
+        mindate = today;
+        alert("mindate today greater than"+mindate);
+    $( "#datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: today, maxDate: $scope.maxdate});
+       }else{
+        //alert("today date is less than");
+        mindate=$scope.mindate;
+        //alert($scope.mindate);
+        //alert($scope.maxdate);
+    $( "#datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: $scope.mindate, maxDate: $scope.maxdate});
+       }
+
+    
         });
 		
        $scope.proceed  = function(){
           $scope.count = 0;
           $scope.userChoosen = [];
+          console.log($scope.userBookingDetails[0].childprice);
           angular.forEach($scope.userBookingDetails, function(item){
                    
                    $scope.userChoosen.push({
@@ -911,6 +939,20 @@ app.controller('EventSingleCheckOutCtrl',function($scope,$state,$http,webservice
                          //console.log('Thank you for not eating my delicious ice cream cone');
                        });
 
+
+
+                   }else if($scope.userBookingDetails[0].childprice==0 && $scope.userBookingDetails[0].mobileadultqty==0){
+                    
+
+                    var alertPopup = $ionicPopup.alert({
+                         title: 'Alert!',
+                         template: 'Please book atleast one adult ticket'
+                       });
+
+                       alertPopup.then(function(res) {
+                        $scope.userBookingDetails[0].mobilechildqty=0;
+                         console.log('Thank you for not eating my delicious ice cream cone');
+                       });
 
 
                    }else if($scope.count==$scope.userBookingDetails.length){
@@ -944,6 +986,7 @@ app.controller('EventSingleCheckOutCtrl',function($scope,$state,$http,webservice
 app.controller('ResortSingleCheckOutCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup){
   console.clear();
 $scope.date = new Date();
+$( "#datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
   //alert("asdf");
         //console.log("this is single checkout resort");
         $scope.usrdata={};
@@ -992,6 +1035,19 @@ $scope.date = new Date();
                          //console.log('Thank you for not eating my delicious ice cream cone');
                        });
 
+
+
+                   }else if($scope.userBookingDetails[0].childprice==0 && $scope.userBookingDetails[0].mobileadultqty==0){
+                   
+
+                    var alertPopup = $ionicPopup.alert({
+                         title: 'Alert!',
+                         template: 'Please book atleast one adult ticket'
+                       });
+
+                       alertPopup.then(function(res) {
+                         $scope.userBookingDetails[0].mobilechildqty=0;
+                       });
 
 
                    }else if($scope.count==$scope.userBookingDetails.length){
@@ -1400,6 +1456,7 @@ app.controller('EventSearchCtrl',function($scope,$state,$http,webservices,myconf
   console.clear();
 
    $scope.search={};
+   $( "#datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
 
         $scope.searchresult=[];
         
