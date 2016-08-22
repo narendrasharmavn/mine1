@@ -733,7 +733,22 @@ $scope.taxBreakUp = function(){
 app.controller('MultiCheckOutCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup){
       console.clear();
       //alert("hello");
-      $( "#datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
+      var daysToDisable = [1];
+      $( ".datepicker" ).datepicker(
+        {dateFormat: "dd-mm-yy", minDate: 0,beforeShowDay: disableSpecificWeekDays}
+        );
+
+      function disableSpecificWeekDays(date) {
+                var day = date.getDay();
+                for (i = 0; i < daysToDisable.length; i++) {
+                    if ($.inArray(day, daysToDisable) != -1) {
+                        return [false];
+                    }
+                }
+                return [true];
+            }
+
+
         $scope.date = new Date();
         $scope.userChoosen = {};
        $scope.resortid = $state.params.resortid;
@@ -894,14 +909,14 @@ app.controller('EventSingleCheckOutCtrl',function($scope,$state,$http,webservice
         var today = dd+'-'+mm+'-'+yyyy;
 
         mindate = today;
-        alert("mindate today greater than"+mindate);
-    $( "#datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: today, maxDate: $scope.maxdate});
+        //alert("mindate today greater than"+mindate);
+    $( ".datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: today, maxDate: $scope.maxdate});
        }else{
         //alert("today date is less than");
         mindate=$scope.mindate;
         //alert($scope.mindate);
         //alert($scope.maxdate);
-    $( "#datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: $scope.mindate, maxDate: $scope.maxdate});
+    $( ".datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: $scope.mindate, maxDate: $scope.maxdate});
        }
 
     
@@ -986,7 +1001,7 @@ app.controller('EventSingleCheckOutCtrl',function($scope,$state,$http,webservice
 app.controller('ResortSingleCheckOutCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup){
   console.clear();
 $scope.date = new Date();
-$( "#datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
+$( ".datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
   //alert("asdf");
         //console.log("this is single checkout resort");
         $scope.usrdata={};
@@ -1170,7 +1185,15 @@ app.controller('ResortDetailsCtrl',function($scope,$state,$http,webservices,myco
 });
 
 app.controller('ZooCtrl',function($scope,$state,$http,$window,webservices,myconfig,$ionicPopup){
-  console.clear();
+  //console.clear();
+
+  $scope.repeater = function (range) {
+    var arr = []; 
+    for (var i = 0; i < range; i++) {
+        arr.push(i);
+    }
+    return arr;
+}
         
        $scope.resortid = $state.params.id;
 
@@ -1456,7 +1479,7 @@ app.controller('EventSearchCtrl',function($scope,$state,$http,webservices,myconf
   console.clear();
 
    $scope.search={};
-   $( "#datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
+   $( ".datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
 
         $scope.searchresult=[];
         
