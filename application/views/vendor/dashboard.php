@@ -29,13 +29,14 @@ include 'header.php';
 									<section class="panel panel-featured-left panel-featured-primary">
 										<div class="panel-body">
 											<div class="widget-summary">
+											<div class="form-horizontal">
 												<?php 
-								            	echo form_open_multipart('Vendor/getticketdata',array('class' => 'form-horizontal'));
+								            	
 								        		?>
 								        		<div class="form-group">
 												  <label class="col-md-4 control-label" for="textinput">Ticket Number</label>  
 												  <div class="col-md-4">
-												  <input id="tckno" name="tckno" type="text" onchange="getTicketdata()" placeholder="Enter / Scan Ticket No." class="form-control input-md">
+												  <input id="tckno" name="tckno" type="text"  placeholder="Enter / Scan Ticket No." class="form-control input-md">
 												  </div>
 												  <div class="col-md-4">
 												    <button type="button" id="update" name="update" onclick="getTicketdata()" class="btn btn-primary">Get</button>
@@ -44,7 +45,7 @@ include 'header.php';
 
 												<!-- Button -->
 												
-								        	</form>
+								        	</div>
 								        </br>
 								        	<div class="row">
 								        	<table class="table table-bordered">

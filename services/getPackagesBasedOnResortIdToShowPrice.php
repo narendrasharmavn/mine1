@@ -23,7 +23,7 @@ if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
         //echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
         
-        $resortIdDetails[] = $row;
+        $resortIdDetails[] =utf8ize($row);
         //$resortIdDetails[] = ;
         //echo "id: " . $row["eventname"]."<br>";
     }
@@ -31,12 +31,22 @@ if (mysqli_num_rows($result) > 0) {
     echo "0 results";
 }
 //echo "amar";
-
+//print_r($resortIdDetails);
 echo json_encode($resortIdDetails,true);
 //echo json_last_error_msg();
 
 
 
+function utf8ize($mixed) {
+if (is_array($mixed)) {
+    foreach ($mixed as $key => $value) {
+        $mixed[$key] = utf8ize($value);
+    }
+} else if (is_string ($mixed)) {
+    return utf8_encode($mixed);
+}
+return $mixed;
+}
 
 mysqli_close($conn);
 

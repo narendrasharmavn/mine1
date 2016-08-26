@@ -2,17 +2,18 @@
     $query = $this->db->query("SELECT * FROM tblsliders WHERE status=1");
 ?>
 <style>
+
 @media (min-width:300px) and (max-width:1280px) {
   .barsearchm { display:none; } 
   .carousel { margin-top: 5px !important; }          /* style.css - 2120 / add customedia css */
   .margin_61 { background-color:#FFFFFF !important; }      /* add customedia css */
   
-  .events-thumb { margin-left: 45px !important;
-                  min-width: 352px !important;
+  .events-thumb { margin-left: 20px !important;
+                  min-width: 350px !important;
                  min-height: 0px !important; }
 
-  .places-thumb { margin-left: 45px !important;
-                  min-width: 352px !important;
+  .places-thumb { margin-left: 20px !important;
+                  min-width: 350px !important;
                  min-height: 0px !important; }                       /* add customedia css */
           /* add customedia css */
   #social_footer p { text-align: center !important; }      /* add customedia css */
@@ -106,8 +107,8 @@
             <div data-p="225.00" style="display: none;">
 			<a href="<?php echo $k->link; ?>">
                 <img data-u="image" src="<?php echo base_url(); ?>assets/sliderimages/<?php echo $k->image; ?>" />
-                <div class="slider-title"><?php echo $k->title; ?></div>
-                <div class="slider-cap1"><?php echo $k->subtitle; ?></div>
+                <!--<div class="slider-title"><?php echo $k->title; ?></div>
+                <div class="slider-cap1"><?php echo $k->subtitle; ?></div>-->
               
                 </a>
             </div>
@@ -250,6 +251,7 @@ $i++;
             ?>
 
               
+
                 
                 
             </div>
@@ -369,7 +371,7 @@ if (count($events->result())>0) {
                        </a>
                     </div>
                     <div class="tour_title">
-                        <h3 class="eventtitle">
+                        <!--<h3 class="eventtitle">
                             <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> "> 
                            
                             
@@ -378,7 +380,7 @@ if (count($events->result())>0) {
                           
                             </a>
 							
-                        </h3>
+                        </h3>-->
 						 <p class="eventdate">
 
                                         <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?>" style="color:black;">From : <?php
@@ -457,14 +459,20 @@ if (count($query->result())>0) {
                     
                 ?>
                 <div class="col-md-3 col-sm-6 text-center places-thumb">
+				 <div class="img_container">
                     <p>
-                        <a href="<?php echo site_url().'places/'.$placetitleurl.'/'.$k->plid; ?>"><img src="<?php echo base_url(); ?>/assets/places/<?php echo $photoname; ?>" alt="Pic" width="800" height="450" style="min-height: 200px;" class="img-responsive"></a>
+                        <a href="<?php echo site_url().'places/'.$placetitleurl.'/'.$k->plid; ?>">
+						<img src="<?php echo base_url(); ?>/assets/places/<?php echo $photoname; ?>" alt="Pic" width="800" height="450" style="height: 200px;" class="img-responsive">
                   </p>
-                  <div class="place_title">
+				   <div class="short_info">
+                            <i class="icon_set_1_icon-44"></i><?php echo $placename; ?>
+		       </div></a>
+			   </div>
+                  <!--<div class="place_title">
                     <h3><a href="<?php echo site_url().'places/'.$placetitleurl.'/'.$k->plid; ?>"><?php echo $placename; ?></a></h3>
-</div>                   
+</div>                -->   
                    <p style="padding: 5px;">
-                        <?php echo substr($pdescription,0,100); ?>
+                        <?php echo substr($pdescription,0,100)."...."; ?>
                     </p>
                 </div>
                 
@@ -503,6 +511,9 @@ function myFunctionFocusOut(){
 
 
 $('document').ready(function(){
+
+    $(".indexmyhome").hide();
+    $(".indexmyhome").css('display','-webkit-inline-box');
 
    $( ".datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
 
@@ -669,6 +680,8 @@ $("#searchform2").validate({
         
     });
 
+
+/*
 $(window).scroll(function() {
 
     if ($(this).scrollTop()>3)
@@ -680,7 +693,7 @@ $(window).scroll(function() {
       $('.featured-overlay').fadeIn(500);
      }
  });
-
+*/
 
 
 </script>

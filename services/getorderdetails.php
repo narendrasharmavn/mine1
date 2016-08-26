@@ -22,39 +22,13 @@ if (isset($postdata)) {
     //echo "Server returns: " . $tktno;
     
     
-    $sql = "SELECT * FROM tblbookings b left join tblpayments p on p.ticketnumber=b.ticketnumber left join tblpackages pk on pk.packageid=b.packageid where b.ticketnumber='$tktno' and b.booking_status='booked' and b.payment_status='paid'";
+    $sql = "select p.ticketnumber as ticketnumber, p.adultpriceperticket as adultpriceperticket, p.childpriceperticket as childpriceperticket, p.numberofadults as quantity, p.numberofchildren as childqty, p.noofkidsmeal as noofkidsmeal, p.kidsmealprice as kidsmealprice, ROUND((p.servicetax + p.internetcharges + p.swachhbharath + p.krishkalyancess),2) as taxes, p.amount as amount, p.totalcost as totalcost, DATE_FORMAT(b.dateofvisit,'%d-%m-%Y') as dateofvisit from tblpayments p, tblbookings b where p.ticketnumber=b.ticketnumber and p.status = 'paid' and p.ticketnumber =  '$tktno'";
+	//echo $sql;
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) {
            
-           $dateofvisit=$row['dateofvisit'];
-           $packagename=$row['packagename'];
-           $quantity = $row['numberofadults'];
-           $childqty = $row['numberofchildren'];
-           $adultpriceperticket = $row['adultpriceperticket'];
-           $childpriceperticket = $row['childpriceperticket'];
-           $adultstickets = $quantity*$adultpriceperticket;
-           $childtickets = $childqty*$childpriceperticket;
-           $kidsmealqty = $row['noofkidsmeal'];
-           $kidsmealprice = $row['kidsmealprice'];
-           $kidmealsprice = $kidsmealqty*$kidsmealprice;
-           $packageid = $row['packageid'];
-           $gettax = "SELECT * FROM tblpackages where packageid='$packageid'";
-           $result1 = mysqli_query($conn, $gettax);
-            if (mysqli_num_rows($result1) > 0) {
-                while($rows = mysqli_fetch_assoc($result1)) {
-                   $servicetax = $row['servicetax'];
-                }
-            }
-            $subtotal = $adultstickets+$childtickets+$kidmealsprice;
-            $calculatedInternetCharges = $row['internetcharges'];
-            $calculatedServiceTax = $row['servicetax'];
-            $calculatedSwachhBharath = $row['swachhbharath'];
-            $calculatedKkCess = $row['krishkalyancess'];
-            $taxes = ceil($calculatedInternetCharges+$calculatedServiceTax+$calculatedSwachhBharath+$calculatedKkCess);
-
-            $total = ceil($subtotal+$calculatedServiceTax+$calculatedInternetCharges+$calculatedSwachhBharath+$calculatedKkCess);
-
+          $orderdetails[]=$row;
         }
         $status=true;
         //echo "Server returns: " . $username.",".$useremail.",".$usermobile; 
@@ -66,21 +40,6 @@ if (isset($postdata)) {
 	$status=false;
 }
 
-$statusArray = array(
-'statusone'=>$status,
-'ticketnumber'=>$tktno,
-'dateofvisit'=>$dateofvisit,
-'quantity'=>$quantity,
-'childqty'=>$childqty,
-'childtickets'=>$childtickets,
-'adultstickets'=>$adultstickets,
-'kidsmealqty'=>$kidsmealqty,
-'kidmealsprice'=>$kidmealsprice,
-'packagename'=>$packagename,
-'taxes'=>$taxes,
-'total'=>$total
-    );
-
-echo json_encode($statusArray,true);
+echo json_encode($orderdetails,true);
 
 ?>

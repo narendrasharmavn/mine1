@@ -11,6 +11,11 @@ $ticketnumber = $request->ticketnumber;
 
 $userdetails = array();
 
+$ticketnumber = trim($ticketnumber);
+
+$ticketnumber = str_replace("=",'',$ticketnumber);
+
+//echo "this is from php script:".$ticketnumber;
 
 
 $sql2 = "SELECT * FROM tblpayments WHERE ticketnumber='$ticketnumber'";
@@ -27,17 +32,20 @@ if (mysqli_num_rows($result) > 0) {
         //$userdetails[] = ;
         //echo "id: " . $row["eventname"]."<br>";
     }
+    echo json_encode($userdetails,true);
 } else {
     echo "0 results";
 }
 //echo "amar";
 
-echo json_encode($userdetails,true);
+
 //echo json_last_error_msg();
 
 
 
 
 mysqli_close($conn);
+
+
 
 ?>

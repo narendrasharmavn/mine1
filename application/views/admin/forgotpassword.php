@@ -38,30 +38,34 @@
 		<!-- start: page -->
 		<section class="body-sign">
 			<div class="center-sign">
-				<a href="/" class="logo pull-left">
-					<h3>Matrimony</h3>
-				</a>
-
+				<h3 class="logo pull-left" style="color: #0088cc;">Book4Holiday Vendor login</h3>
 				<div class="panel panel-sign">
 					<div class="panel-title-sign mt-xl text-right">
 						<h2 class="title text-uppercase text-weight-bold m-none"><i class="fa fa-user mr-xs"></i> Forgot password</h2>
 					</div>
 					<div class="panel-body">
 						
-						<form name="details" id="details" method="post" action="sendotp" id="contact" class="well">
+						<?php 
+				          echo form_open('Admin/submitfogotpassword',array('class' => 'form-horizontal','id' => 'forgotpassword'));
+
+				        ?>
 				        <?php echo $this->session->flashdata('success'); ?> 
 							
 
 							<div class="form-group mb-lg">
-								<label>Mobile</label>
+								<label>Email</label>
 								<div class="input-group input-group-icon">
-									<input name="mobile" type="text" class="form-control input-lg"  />
+									<input name="email" id="email" type="text" class="form-control input-lg"  />
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-user"></i>
 										</span>
 									</span>
+                                                                       
 								</div>
+                                                                <span class="text-danger">
+										<?php echo form_error('packagetype'); ?>
+									</span>
 							</div>
 
 							<div class="row">
@@ -79,27 +83,25 @@
 				<p class="text-center text-muted mt-md mb-md">&copy; Copyright 2014. All Rights Reserved.</p>
 			</div>
 		</section>
-		<!-- end: page -->
-
-		<!-- Vendor -->
-		<script src="<?php echo base_url(); ?>assets/assets/vendor/jquery/jquery.js"></script>
-		<script src="<?php echo base_url(); ?>assets/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-		<script src="<?php echo base_url(); ?>assets/assets/vendor/bootstrap/js/bootstrap.js"></script>
-		<script src="<?php echo base_url(); ?>assets/assets/vendor/nanoscroller/nanoscroller.js"></script>
-		<script src="<?php echo base_url(); ?>assets/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-		<script src="<?php echo base_url(); ?>assets/assets/vendor/magnific-popup/magnific-popup.js"></script>
-		<script src="<?php echo base_url(); ?>assets/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
-		
-		<!-- Theme Base, Components and Settings -->
-		<script src="<?php echo base_url(); ?>assets/assets/javascripts/theme.js"></script>
-		
-		<!-- Theme Custom -->
-		<script src="<?php echo base_url(); ?>assets/assets/javascripts/theme.custom.js"></script>
-		
-		<!-- Theme Initialization Files -->
-		<script src="<?php echo base_url(); ?>assets/assets/javascripts/theme.init.js"></script>
-
-	
-            
-	</body>
-</html>
+	<?php
+ include 'footer.php'; 
+ ?>
+<script type="text/javascript">
+var $j = jQuery.noConflict();
+$("document").ready(function(){
+   $j("#forgotpassword").validate({
+       // Specify the validation rules
+        rules: {
+             email: "required"
+        },
+        // Specify the validation error messages
+        messages: {
+             email: "Please Enter Email"
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+   });
+   
+});
+</script>

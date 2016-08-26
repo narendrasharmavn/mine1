@@ -92,6 +92,8 @@
             //responsive code end
         };
 
+        /*
+
         $(window).scroll(function() {
           if ($(this).scrollTop()>0)
           {
@@ -102,6 +104,8 @@
           $('#').fadeIn();
           }
         });
+
+*/
 
     </script>
 
@@ -226,20 +230,26 @@
 if($this->uri->segment(1)=='home' || $this->uri->segment(1)==''){
 ?>
                            <!-- <li style="background:rgb(0, 153, 204);" id="li-search-book-toggle">
-                                <a href="#" class="show-submenu" style="color:white;" id="search-book-toggle" >Search</a>
-                                
-  <?php } ?>                          </li> <!---->
-  <?php
-//if($this->uri->segment(1)=='home' || $this->uri->segment(1)==''){
-?>
-                            <li style="background:rgb(0, 153, 204)" id="li-search-book-toggle">
-                                <a href="#" class="show-submenu" style="color:white;" id="search-book-toggle" ><i class="fa fa-search"></i> &nbsp; Search</a>
+                                <a href="#" class="show-submenu" style="color:white;" id="search-book-toggle" >Search</a></li> <!---->
+                                <li style="background:rgb(0, 153, 204)" id="li-search-book-toggle">
+                                <a class="show-submenu" style="color:white;" id="search-book-toggle">Home</a>
                                 
   <?php //} ?>                          </li>
-							<li>
+  <?php }else{
+
+    ?>
+<li class="indexmyhome">
                                 <a href="<?php echo site_url().'home';?>" class="show-submenu">Home </a>
                                 
                             </li>
+    <?php
+    } ?>                          
+  
+  <?php
+//if($this->uri->segment(1)=='home' || $this->uri->segment(1)==''){
+?>
+                            
+							
                             <li >
                                 <a href="javascript:void(0);" class="show-submenu">Kids Dayout </a>
                                 

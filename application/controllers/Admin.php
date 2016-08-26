@@ -165,6 +165,14 @@ class Admin extends CI_Controller {
     public function vendorcomissionreports($vendorid='',$fromdate='',$todate='')
     {
       error_reporting(0);
+      if ($fromdate!='') {
+      $fromdate = date("Y-m-d", strtotime($fromdate));
+    }
+     if ($todate!='') {
+      $todate = date("Y-m-d", strtotime($todate));
+    }
+
+
       if (!$this->session->userdata('username')) 
        redirect('admin/login');
       //echo $vendorid."<br>";
@@ -246,8 +254,12 @@ class Admin extends CI_Controller {
     error_reporting(0);
     $username = $this->input->post('username');
     //echo $username."<br>";
-    $password = $this->input->post('password');
+    //$password = $this->input->post('password');
+    //echo  $password."<br>";
     $usertype = $this->input->post('usertype');
+    $password = hash('sha512', $this->input->post('password'));
+    //echo $convertedpassword;
+     
     $numberOfRows=$this->Adminmodel->checkLoginCredentials($username,$password,$usertype);
 
     if ($usertype=="admin") {
@@ -269,7 +281,7 @@ class Admin extends CI_Controller {
            $this->session->set_userdata('username',$username);
            redirect('vendor/dashboard');
       }
-    }
+    } 
   }
 
 
@@ -356,30 +368,16 @@ class Admin extends CI_Controller {
      if (!$this->session->userdata('username')) 
           redirect('admin/login');
 
-         $this->form_validation->set_rules("resortname", "Resortname", "trim|required");
-         $this->form_validation->set_rules("vendorname", "Vendorname", "trim|required");
-         $this->form_validation->set_rules("packagename", "packagename", "trim|required");
-         $this->form_validation->set_rules("description", "description", "trim|required");
-         $this->form_validation->set_rules("aprice", "Adult Price", "trim|required");
-         $this->form_validation->set_rules("cprice", "Child Price", "trim|required");
-         $this->form_validation->set_rules("packagetype", "packagetype", "trim|required");
-         $this->form_validation->set_rules("servicetax", "Internet & Handling Charges", "trim|required");
-         $this->form_validation->set_rules("tags", "Tags", "trim|required");
+        
          //$this->form_validation->set_rules('userfile','Product Image','callback_validate_image');
 
-
-        if ($this->form_validation->run() == FALSE)
-        {  
 
             $data['resortData'] = $this->Adminmodel->getCompleteResortsData();
             $data['eventsData'] = $this->Adminmodel->getCompleteEventsData();
             $vendorsdata = $this->Adminmodel->getVendorsData();
             $data['vendorData'] = $vendorsdata->result();                       
-            $this->load->view('admin/addpackages',$data);
             //redirect('admin/addpackages');
             //validation fails
-
-        }else{
 
            $this->validate_bannerimagePackages();
                 //all validations correct
@@ -399,6 +397,10 @@ class Admin extends CI_Controller {
             $servicetax = $this->input->post('servicetax');
             //echo "servicetax : ".$servicetax."<br>";
             $expirydate = $this->input->post('expirydate');
+            if ($expirydate!='') {
+                $expirydate = date("Y-m-d", strtotime($expirydate));
+              # code...
+            }
             //echo "expirydate : ".$expirydate."<br>";
             $tags = $this->input->post('tags');
             //echo "tags : ".$tags."<br>";
@@ -435,19 +437,10 @@ class Admin extends CI_Controller {
              'mobilechildqty' => 0,
              'eventid'    =>  $eventname
             );
-            
-            
-            $this->db->insert('tblpackages', $data);
-            
-            
-            //$this->output->enable_profiler(TRUE);
-            $this->session->set_flashdata('success','<div class="alert alert-success text-center">Package Created</div>');
-            
-            redirect('admin/addpackages');
-            
-            
-        }
-
+           $this->db->insert('tblpackages', $data);
+           //$this->output->enable_profiler(TRUE);
+           $this->session->set_flashdata('success','<div class="alert alert-success text-center">Package Created</div>');
+           redirect('admin/addpackages');  
 
     }
 
@@ -511,6 +504,12 @@ class Admin extends CI_Controller {
           $eventname = $this->input->post('eventname');
           //echo $eventname."<br>";
           $kprice = $this->input->post('kprice');
+          $expirydate = $this->input->post('expirydate');
+          if ($expirydate!='') {
+           $expirydate = date("Y-m-d", strtotime($expirydate));
+          }
+
+          
           //echo $kprice."<br>";
           $bannerimage =  $this->input->post('bannerimage');
           //echo "bannerimage is :".$bannerimage."<br>";
@@ -536,6 +535,7 @@ class Admin extends CI_Controller {
                  'packageimage' => $bannerimage ,
                  'packagetags' => $tags ,
                  'packagetype' => $packagetype ,
+                 'expirydate' => $expirydate ,
                  'eventid'    =>  $eventname
               );
 
@@ -563,6 +563,7 @@ class Admin extends CI_Controller {
                  'packageimage' => $this->imagename ,
                  'packagetags' => $tags ,
                  'packagetype' => $packagetype ,
+                 'expirydate' => $expirydate ,
                  'eventid'    =>  $eventname
               );
 
@@ -641,7 +642,13 @@ class Admin extends CI_Controller {
     error_reporting(0);
     $vendorid = $this->input->post('vendorid');
     $fromdate = $this->input->post('fromdate');
+    if ($fromdate!='') {
+      $fromdate = date("Y-m-d", strtotime($fromdate));
+    }
     $todate = $this->input->post('todate');
+    if ($todate!='') {
+      $todate = date("Y-m-d", strtotime($todate));
+    }
 
     if($vendorid!='' && $fromdate=='' && $todate==''){
 
@@ -962,6 +969,7 @@ public function submitvendordata(){
             $email = $this->input->post('email');
             //echo "email : ".$email."<br>";
             $password = $this->input->post('password');
+            //echo $password."<br>";
             $description = $this->input->post('description');
             //echo "description : ".$description."<br>";
             $websitelink = $this->input->post('websitelink');
@@ -970,11 +978,17 @@ public function submitvendordata(){
             //echo "kidsmealprice : ".$kidsmealprice."<br>";
             $btype = $this->input->post('btype');
             //echo "btype : ".$btype."<br>";
-
+     
+            // converted password //
+            $convertedpassword = hash('sha512', $this->input->post('password'));
+            //echo $convertedpassword."<br>";
+            // converted password //
+                                              
             $processedResults = $this->db->query("SELECT * FROM tblvendors WHERE email='$email' AND status=1");
         $rws =  $processedResults->num_rows();
-
-        if ($rws>1) {
+         //echo "No Of Rows : ".$rws;
+                      
+        if ($rws>0) {
           $this->session->set_flashdata('error-msg','<div class="alert alert-success text-center">Email Id Already exists. Please choose a different one</div>');
           $data['results'] = $this->Adminmodel->getVendorsData();
     
@@ -997,7 +1011,7 @@ public function submitvendordata(){
                    'landline' => $landline,
                    'mobile' => $mobile,
                    'email' => $email,
-                   'password' => $password,
+                   'password' => $convertedpassword,
                    'latitude' => 0,
                    'longitude' => 0,
                    'description' => $description,
@@ -1026,7 +1040,7 @@ public function submitvendordata(){
                    'landline' => $landline,
                    'mobile' => $mobile,
                    'email' => $email,
-                   'password' => $password,
+                   'password' => $convertedpassword,
                    'latitude' => 0,
                    'longitude' => 0,
                    'description' => $description,
@@ -2270,10 +2284,48 @@ public function submitvendordata(){
 
     public function forgotpassword()
     {
-      if (!$this->session->userdata('username')) 
-              redirect('admin/login');
+      
         $this->load->view('admin/forgotpassword');
     }
+
+    public function forgotpwdtemplate()
+    {
+        $this->load->view('admin/forgotpwdtemplate'); 
+    }
+
+    public function submitfogotpassword()
+    {
+       $email = $this->input->post('email');
+       //echo $email;
+       
+       $resetpassword =  rand(9999,999999);
+       $convertedpassword = hash('sha512', $resetpassword);
+       $data = array(
+                 'password' => $convertedpassword
+              );
+
+       $this->db->where('email', $email);
+       $this->db->update('tblvendors', $data); 
+
+       $this->sendingFailEmail($email,$resetpassword);
+       redirect('admin/login');
+    }
+
+    public function sendingFailEmail($email,$resetpassword)
+{
+  $data['resetpassword']=$resetpassword;
+  $this->load->library('email');
+     
+  $this->email
+    ->from('info@book4holiday.com', 'Book4Holiday')
+    ->to($email)
+    ->subject('Forgot Password For Vendor')
+    ->message($this->load->view('admin/forgotpwdtemplate',$data,true))
+    ->set_mailtype('html');
+
+  // send email
+  $this->email->send();
+}
 
     public function sendotp()
     {
@@ -2697,37 +2749,51 @@ public function submitvendordata(){
     $this->load->view('admin/editusers');
   }
 
-  public function submiteditusers()
-  {
-    $username = $this->input->post('username');
-    //echo $username;
-    $department = $this->input->post('department');
-    //echo $department;
-    $email = $this->input->post('email');
-    //echo $email;
-    $password = $this->input->post('password');
-    //echo $password;
-    $designation = $this->input->post('designation');
-    //echo $designation;
-    $mobile = $this->input->post('mobile');
-    //echo $mobile;
-    $userid = $this->input->post('userid');
-    //echo $userid;
-
-    
+public function submiteditusers()
+{
+ $username = $this->input->post('username');
+ //echo $username;
+ $department = $this->input->post('department');
+ //echo $department;
+ $email = $this->input->post('email');
+ //echo $email;
+ $password = $this->input->post('password');
+echo $password."<br>";
+ $designation = $this->input->post('designation');
+ //echo $designation;
+ $mobile = $this->input->post('mobile');
+ //echo $mobile;
+ $userid = $this->input->post('userid');
+ //echo $userid;
+ 
+ $convertedpassword = hash('sha512', $this->input->post('password')); 
+  echo $convertedpassword;
+ if($password==null || $password=='')
+ {
+     $data = array(
+    'username'=> $username,
+    'department'=> $department,
+    'email' => $email,
+    'mobile' => $mobile,
+    'designation' => $designation
+     );
+ }else {
     $data = array(
-       'username'=> $username,
-       'department'=> $department,
-       'email' => $email,
-       'password' => $password,
-       'mobile' => $mobile,
-       'designation' => $designation,
-    );
+    'username'=> $username,
+    'department'=> $department,
+    'email' => $email,
+    'password' => $convertedpassword,
+    'mobile' => $mobile,
+    'designation' => $designation
+     );
+ }
+ 
 
-    $this->db->update('tblusers', $data, array('userid' => $userid));
-    redirect('admin/editusers');
-    
-  }
+ $this->db->update('tblusers', $data, array('userid' => $userid));
+ redirect('admin/editusers');
+ 
+}
+
 
   
 }

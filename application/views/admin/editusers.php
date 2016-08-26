@@ -83,7 +83,7 @@
 							<div class="form-group">
 								<label for="inputEmail3" class="col-sm-5 control-label pull-left">Password</label>
 								<div class="col-sm-7">
-									<input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" value="<?php echo $row->password; ?>">
+									<input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" value="">
 									<span class="text-danger">
 										<?php echo form_error('password'); ?>
 									</span>
@@ -146,8 +146,8 @@
           
         // Specify the validation rules
         rules: {
-            username: "required",
-			password : "required"
+            username: "required"
+			
 			
 			
 			
@@ -155,8 +155,8 @@
         
         // Specify the validation error messages
         messages: {
-             username: "UserName Should not be Empty",
-			password : "Password Should not be Empty"
+             username: "UserName Should not be Empty"
+			
 			
 			
             

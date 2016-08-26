@@ -16,16 +16,21 @@ if (isset($postdata)) {
 	//echo "Server returns: " . $username.",".$password.",".$convertedpassword; 
     
     
-    //$sql = "";
-    $result = mysqli_query($conn, "insert into placereviews (pricereview, subject, review, customerid, reviewgivendate, placeid,status) 
-	values ('$rating','$subject','$review', '$customerid', now(),'$resortid',1 )");
+   if ($customerid!='') {
 
-    if (mysqli_query($conn, $sql)) {
-				    $status=true;
-				} else {
-				     $status=false;
-				    //echo "false";
-				}
+   	$sql = "insert into placereviews (pricereview, subject, review, customerid, reviewgivendate, placeid,status) values ('$rating','$subject','$review', '$customerid', now(),'$resortid',1 )";
+
+					if (mysqli_query($conn, $sql)) {
+					    //echo "New record created successfully";
+					    $status=true;
+					} else {
+					     $status=false;
+					}
+   	
+   }
+
+				
+
 
 }
 

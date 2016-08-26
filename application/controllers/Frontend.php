@@ -370,7 +370,9 @@ class Frontend extends CI_Controller {
             $searchterm =  str_replace("-"," ",$searchterm);
             $this->session->set_userdata('searchtype',$searchtype);
             $this->session->set_userdata('searchterm',$searchterm);
-            $searchdate = date('Y-m-d', strtotime($searchdate));
+            if ($searchdate!='') {
+             $searchdate = date('Y-m-d', strtotime($searchdate));
+            }
             $this->session->set_userdata('searchdate',$searchdate);
             $this->eventsGridView();
     }
@@ -412,9 +414,9 @@ class Frontend extends CI_Controller {
     public function indexsearch2(){
       
                     
-                        $searchtype = $this->input->post('searchtype');
-                        $searchterm = addslashes($this->input->post('searchterm'));
-                        $searchdate = $this->input->post('date');
+                        $searchtype = $this->input->post('searchtype2');
+                        $searchterm = addslashes($this->input->post('searchterm2'));
+                        $searchdate = $this->input->post('date2');
 
                          $searchterm =  str_replace(" ","-",$searchterm);
                          $searchdate =  str_replace(" ","-",$searchdate);
@@ -456,6 +458,30 @@ class Frontend extends CI_Controller {
 
     }
 
+    public function resendSMS(){
+
+      $mobile = $this->input->post('mobile');
+
+       $randNumber = rand(9999,99999);
+      $msg = "Your OTP number is : ".$randNumber;
+      $this->sendsms($mobile,$msg);
+      $this->session->unset_userdata('otp-resort-booking');
+      $this->session->set_userdata( 'otp-resort-booking' ,$randNumber);
+
+    }
+
+    public function resendSMSEvents(){
+
+      $mobile = $this->input->post('mobile');
+
+       $randNumber = rand(9999,99999);
+      $msg = "Your OTP number is : ".$randNumber;
+      $this->sendsms($mobile,$msg);
+      $this->session->unset_userdata('otp-event-booking');
+      $this->session->set_userdata( 'otp-event-booking' ,$randNumber);
+
+    }
+
     public function nosessionhandler(){
       $name = $this->input->post('name');
       $mobile = $this->input->post('mobile');
@@ -483,7 +509,14 @@ class Frontend extends CI_Controller {
                       $this->db->insert('tblcustomers',$customerData);
                       $customerid = $this->db->insert_id();
 
-                     $ticketnumber = date('Ymdhisu');
+                    $m = microtime(true);
+                    $m = str_replace(".","",$m);
+
+                    if($m==null || $m=='undefined' || $m==''){
+                      $ticketnumber = date('Ymdhis');
+                    }else{
+                      $ticketnumber = $m;
+                    }
                      $this->session->set_userdata('ticketnumber',$ticketnumber);
 
                     $bookingsdata = array(
@@ -519,6 +552,10 @@ class Frontend extends CI_Controller {
                         'noofkidsmeal' => $this->session->userdata('kidsmealqty'),
                         'kidsmealprice' => $this->session->userdata('kidsmealprice'),
                         'ticketnumber' => $ticketnumber,
+                        'internetcharges'=> $this->session->userdata('internetcharges'),
+                        'swachhbharath'=> $this->session->userdata('swachhbharath'),
+                        'krishkalyancess'=>$this->session->userdata('kkcess')
+
 
                     );
 
@@ -559,13 +596,12 @@ class Frontend extends CI_Controller {
                         'number' => $mobile,
                         'dateofcreation' => date('Y-m-d'),
                         'regtype' => 'Guest'
-
-
                         );
 
                       $this->db->insert('tblcustomers',$customerData);
                       $customerid = $this->db->insert_id();
 
+              $this->session->set_userdata('customerid',$customerid);
               $packageIdArray = $this->session->userdata('packageIdArray');
               $numberofadults = $this->session->userdata('numberofadultsArray');
               $numberofchildren = $this->session->userdata('numberofchildrenArray');
@@ -573,7 +609,14 @@ class Frontend extends CI_Controller {
               $dateofvisit = $this->session->userdata('dateofvisit');
               $vendorid = $this->session->userdata('vendorid');
 
-              $ticketnumber = date('Ymdhisu');
+              $m = mcrotime(true);
+                    $m = str_replace(".","",$m);
+
+                    if($m==null || $m=='undefined' || $m==''){
+                      $ticketnumber = date('Ymdhis');
+                    }else{
+                      $ticketnumber = $m;
+                    }
               $this->session->set_userdata('ticketnumber',$ticketnumber);
               $calculatedinternetcharges = 0;
               $calculatedadultprice=0;
@@ -623,35 +666,17 @@ class Frontend extends CI_Controller {
                  
             }//end of for loop
 
-            $kidsmealqty = $this->session->userdata('kidsmealqty');
-               // echo "calculated  adult price ".$calculatedadultprice."\n";
-                //echo "calculated  child price ".$calculatedchildprice."\n";
-
-               $calculatedkidsmealprice =  $kidsmealqty * $this->db->get_where('tblvendors' , array('vendorid' =>$vendorid))->row()->kidsmealprice;
-                //echo "calculated  kids meal PRICE ".$calculatedkidsmealprice."\n";
-                //now apply tax on kids meal price
-                $calculatedinternetcharges += ( ( $calculatedkidsmealprice * $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->kidsmealtax )/100  );
-
-                //echo "calculatedkidsmealprice price ".$calculatedkidsmealprice."\n";
-                 //echo "calculatedinternetcharges price ".$calculatedinternetcharges."<br>";
-                //now calculate service tax over internet charges
-                $calculatedservicetax = round( $calculatedinternetcharges * ( $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->servicetax  )/100,1);
-                 
-                //now calculate swachh cess
-                $calculatedswacchcess = round( $calculatedinternetcharges * ( $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->swachcess  )/100,1);
-                //now calculate krishi cess
-                $calculatedkrishicess = round( $calculatedinternetcharges * ( $this->db->get_where('taxmaster' , array('taxid' =>1))->row()->krishicess  )/100,1);
-
-
-                //echo "calculatedservicetax price ".$calculatedservicetax."\n";
-                //echo "calculatedswacchcess price ".$calculatedswacchcess."\n";
-                //echo "calculatedkrishicess price ".$calculatedkrishicess."\n";
-                
-
-                $total = 0;
-                $total += ( $calculatedadultprice + $calculatedchildprice + $calculatedkidsmealprice + $calculatedinternetcharges + $calculatedservicetax + $calculatedswacchcess + $calculatedkrishicess );
-                $total = round($total,1);
-                /*
+            
+              $calculatedadultprice = $this->session->userdata('calculatedadultprice');
+              $calculatedchildprice = $this->session->userdata('calculatedchildprice');
+              $calculatedkidsmealprice = $this->session->userdata('calculatedkidsmealprice');
+              $calculatedinternetcharges = $this->session->userdata('internetcharges');
+              $calculatedservicetax = $this->session->userdata('servicetax');
+              $calculatedswacchcess = $this->session->userdata('swachhbharath');
+              $calculatedkrishicess = $this->session->userdata('kkcess');
+              $total = $this->session->userdata('total');
+              
+              /*
                 echo "calculatedadultprice price ".$calculatedadultprice."\n";
                 echo "calculatedchildprice price ".$calculatedchildprice."\n";
                 echo "calculatedkidsmealprice price ".$calculatedkidsmealprice."\n";
@@ -660,8 +685,8 @@ class Frontend extends CI_Controller {
                 echo "calculatedswacchcess price ".$calculatedswacchcess."\n";
                 echo "calculatedkrishicess price ".$calculatedkrishicess."\n";
           echo "total price ".$total."\n";
-          */
-		  
+          
+		  */
 		
 
           $bokIdArr = $this->session->userdata('bookingsIdArray');
@@ -669,7 +694,7 @@ class Frontend extends CI_Controller {
           
                 
 
-                      $this->insertDataIntotblpaymentsForMultiCheckoutNoSession($total,$ticketnumber,$customerid,$totalAdultTickets,$totalChildTickets,$calculatedkidsmealprice);
+                      $this->insertDataIntotblpaymentsForMultiCheckoutNoSession($total,$ticketnumber,$customerid,$totalAdultTickets,$totalChildTickets,$calculatedkidsmealprice,$calculatedinternetcharges , $calculatedservicetax ,$calculatedswacchcess,$calculatedkrishicess);
 
                     $paymentIdArr = $this->session->userdata('paymentsIdArray');
 
@@ -731,8 +756,16 @@ class Frontend extends CI_Controller {
 
         $this->db->insert('tblcustomers',$customerData);
         $customerid = $this->db->insert_id();
+       $this->session->set_userdata('customerid',$customerid);
 
-        $ticketnumber = date('Ymdhisu');
+        $m = microtie(true);
+                    $m = str_replace(".","",$m);
+
+                    if($m==null || $m=='undefined' || $m==''){
+                      $ticketnumber = date('Ymdhis');
+                    }else{
+                      $ticketnumber = $m;
+                    }
 		
         $this->session->set_userdata('ticketnumber',$ticketnumber);
       $bookingsdata = array(
@@ -766,6 +799,9 @@ class Frontend extends CI_Controller {
           'status' => 'unpaid',
           'bookingid' => $this->session->userdata('bookingsid'),
           'ticketnumber' => $ticketnumber,
+          'internetcharges'=> $this->session->userdata('internetcharges'),
+          'swachhbharath'=> $this->session->userdata('swachhbharath'),
+          'krishkalyancess'=> $this->session->userdata('kkcess'),
 
       );
 
@@ -791,6 +827,7 @@ class Frontend extends CI_Controller {
     public function confirmbookings(){
 
       $packageid = $this->input->post('packageid');
+      $resortid = $this->input->post('resortid');
       $dateofvisit = $this->input->post('dateofvisit');
       $dateofvisit = str_replace('/', '-', $dateofvisit);
       $dateofvisit = date("Y-m-d", strtotime($dateofvisit));
@@ -815,12 +852,13 @@ class Frontend extends CI_Controller {
       $childrenprice = $numberofchildren * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->childprice;
       $childrenprice = round($childrenprice, 2);
       $childrenprice = sprintf("%.2f", $childrenprice);
-      
+       //echo "this is what child price is: ".$childrenprice."\n\n";
       
       //calculate kids meal price
-      $kidsmealprice = $kidsmealqty * $this->db->get_where('tblvendors' , array('vendorid' => $vendorid ))->row()->kidsmealprice;
+      $kidsmealprice = $kidsmealqty * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->kidsmealprice;
       $kidsmealprice = round($kidsmealprice, 2);
       $kidsmealprice = sprintf("%.2f", $kidsmealprice);
+       //echo "this is what kidsmealprice price is: ".$kidsmealprice."\n\n";
      
       //echo $kidsmealprice;
       $subtotal = $adultprice + $childrenprice + $kidsmealprice;
@@ -897,7 +935,14 @@ class Frontend extends CI_Controller {
       $this->session->set_userdata('dateofvisit',$dateofvisit);
       $this->session->set_userdata('currenturl',$currenturl);
 
-      $ticketnumber = date('Ymdhisu');
+      $m = microtime(true);
+                    $m = str_replace(".","",$m);
+
+                    if($m==null || $m=='undefined' || $m==''){
+                      $ticketnumber = date('Ymdhis');
+                    }else{
+                      $ticketnumber = $m;
+                    }
       $this->session->set_userdata('ticketnumber',$ticketnumber);
 
       $bookingsdata = array(
@@ -917,6 +962,10 @@ class Frontend extends CI_Controller {
 
 
       );
+
+      if ($resortid==1) {
+        
+      }
 
 
      if ($this->session->userdata('holidayEmail')) {
@@ -988,8 +1037,15 @@ class Frontend extends CI_Controller {
 
        array_push($this->bookingsIdArray,$this->db->insert_id()); 
        $this->session->set_userdata('bookingsIdArray',$this->bookingsIdArray);
+
+/*
+
+       echo "this is internetcharges values".$this->session->userdata('internetcharges')."\n";
+       echo "this is swachhbharath values".$this->session->userdata('swachhbharath')."\n";
+       echo "this is session values".$this->session->userdata('internetcharges')."\n";
+       echo "this is session values".$this->session->userdata('internetcharges')."\n";
     
-   
+   */
     }
 
 
@@ -998,7 +1054,7 @@ class Frontend extends CI_Controller {
        $bookingsdata = array(
           'dateofvisit' => $dateofvisit,
           'date'=>date('Y-m-d'),
-          'userid' => $customerid,
+          'userid' => $this->session->userdata('customerid'),
           'quantity' => $noofadults,
           'booking_status' => 'pending',
           'packageid'=>$packageid,
@@ -1046,7 +1102,14 @@ class Frontend extends CI_Controller {
       $vendorid = $this->input->post('vendorid');
 
       
-      $ticketnumber = date('Ymdhisu');
+      $m = microtime(true);
+                    $m = str_replace(".","",$m);
+
+                    if($m==null || $m=='undefined' || $m==''){
+                      $ticketnumber = date('Ymdhis');
+                    }else{
+                      $ticketnumber = $m;
+                    }
 
 
       $calculatedinternetcharges = 0;
@@ -1104,9 +1167,10 @@ class Frontend extends CI_Controller {
 
       $calculatedchildprice = round($calculatedchildprice, 2);
       $calculatedchildprice = sprintf("%.2f", $calculatedchildprice);
-     // echo "calculated  adult price ".$calculatedadultprice."\n";
+      //echo "calculated  adult price ".$calculatedadultprice."\n";
       //echo "calculated  child price ".$calculatedchildprice."\n";
 
+      //echo "vendor id is: ".$vendorid."\n";
      $calculatedkidsmealprice =  $kidsmealqty * $this->db->get_where('tblvendors' , array('vendorid' =>  $vendorid ))->row()->kidsmealprice ;
      $calculatedkidsmealprice = round($calculatedkidsmealprice, 2);
       $calculatedkidsmealprice = sprintf("%.2f", $calculatedkidsmealprice);
@@ -1145,17 +1209,19 @@ class Frontend extends CI_Controller {
       $total += ( $calculatedadultprice + $calculatedchildprice + $calculatedkidsmealprice + $calculatedinternetcharges + $calculatedservicetax + $calculatedswacchcess + $calculatedkrishicess );
       $total = round($total, 2);
       $total = sprintf("%.2f", $total);
-      
-      //echo "calculated adult price is: ".$calculatedadultprice."\n";
-     // echo "calculatedchildprice price is: ".$calculatedchildprice."\n";
-     // echo "calculatedkidsmealprice price is: ".$calculatedkidsmealprice."\n";
-     // echo "calculatedinternetcharges is: ".$calculatedinternetcharges."\n";
-     // echo "calculatedservicetax price is: ".$calculatedservicetax."\n";
-     // echo "calculatedswacchcess price is: ".$calculatedswacchcess."\n";
-      //echo "calculatedkrishicess price is: ".$calculatedkrishicess."\n";
-      //echo "Total is: ".$total."<br>";
-      //$total = round($total,1);
+
+
       /*
+      echo "calculated adult price is: ".$calculatedadultprice."\n";
+     echo "calculatedchildprice price is: ".$calculatedchildprice."\n";
+      echo "calculatedkidsmealprice price is: ".$calculatedkidsmealprice."\n";
+      echo "calculatedinternetcharges is: ".$calculatedinternetcharges."\n";
+      echo "calculatedservicetax price is: ".$calculatedservicetax."\n";
+     echo "calculatedswacchcess price is: ".$calculatedswacchcess."\n";
+      echo "calculatedkrishicess price is: ".$calculatedkrishicess."\n";
+      echo "Total is: ".$total."<br>";
+     
+      
       echo "calculatedadultprice price ".$calculatedadultprice."\n";
       echo "calculatedchildprice price ".$calculatedchildprice."\n";
       echo "calculatedkidsmealprice price ".$calculatedkidsmealprice."\n";
@@ -1234,6 +1300,9 @@ echo "true";
           'ticketnumber'=>$ticketnumber,
           'status'=>'unpaid',
           'totalcost'=> $total,
+          'adultpriceperticket'=>$this->session->userdata('calculatedadultprice'),
+          'childpriceperticket'=>$this->session->userdata('calculatedchildprice'),
+          'kidsmealprice'=>$this->session->userdata('kidsmealprice'),
           'numberofadults' => $totalAdultTickets,
           'numberofchildren' => $totalChildTickets,
           'noofkidsmeal'=>$this->session->userdata('kidsmealqty'),
@@ -1252,12 +1321,12 @@ echo "true";
 
   }
 
-  public function insertDataIntotblpaymentsForMultiCheckoutNoSession($total,$ticketnumber,$customerid,$totalAdultTickets,$totalChildTickets,$calculatedkidsmealprice){
+  public function insertDataIntotblpaymentsForMultiCheckoutNoSession($total,$ticketnumber,$customerid,$totalAdultTickets,$totalChildTickets,$calculatedkidsmealprice,$calculatedinternetcharges , $calculatedservicetax ,$calculatedswacchcess,$calculatedkrishicess){
 
     $total = $this->session->userdata('total');
     $noofkidsmeal = $this->session->userdata('noofkidsmeal');
     $paymentsdata = array(
-          'customerid' => $this->session->userdata('holidayCustomerId'),
+          'customerid' => $this->session->userdata('customerid'),
           'transaction_id'=>date('Ymdhisu'),
           'transdate' => date('Y-m-d'),
           'amount' => $total,
@@ -1270,8 +1339,11 @@ echo "true";
           'servicetax' => $this->session->userdata('servicetax'),
           'internetcharges'=> $this->session->userdata('internetcharges'),
           'swachhbharath'=>$this->session->userdata('swachhbharath'),
-          'krishkalyancess' => $this->session->userdata('krishkalyancess'),
-          'kidsmealprice' => $calculatedkidsmealprice
+          'krishkalyancess' => $this->session->userdata('kkcess'),
+          'kidsmealprice' => $calculatedkidsmealprice,
+          'adultpriceperticket' => $this->session->userdata('calculatedadultprice'),
+          'childpriceperticket' => $this->session->userdata('calculatedchildprice'),
+          'kidsmealprice' => $this->session->userdata('kidsmealprice'),
       );
     
         $this->db->insert('tblpayments',$paymentsdata); 
@@ -1376,7 +1448,14 @@ echo "true";
       $this->session->set_userdata('swachhbharath',$calculatedSwachhBharat);
       $this->session->set_userdata('kkcess',$calculatedKkCess);
      
-      $ticketnumber = date('Ymdhisu');
+                    $m = microtime(true);
+                    $m = str_replace(".","",$m);
+
+                    if($m==null || $m=='undefined' || $m==''){
+                      $ticketnumber = date('Ymdhis');
+                    }else{
+                      $ticketnumber = $m;
+                    }
       $this->session->set_userdata('ticketnumber',$ticketnumber);
       
       $this->session->set_userdata('vendorid',$vendorid);
@@ -1533,17 +1612,24 @@ echo "true";
 
                $eventname = $this->db->get_where('tblevents' , array('eventid' =>$eventid))->row()->eventname;
 
+               $elocation = $this->db->get_where('tblevents' , array('eventid' =>$eventid))->row()->location;
+
                $resortid = $this->db->get_where('tblpackages' , array('packageid' =>$packageid))->row()->resortid;
 
                $resortname = $this->db->get_where('tblresorts' , array('resortid' =>$resortid))->row()->resortname;
+
+               $rlocation = $this->db->get_where('tblresorts' , array('resortid' =>$resortid))->row()->location;
                $name="";
+               $location="";
                if ($eventname!='') {
                  $name = $eventname;
+                 $location=$elocation;
                }else{
                 $name = $resortname;
+                $location=$rlocation;
                }
 
-               echo $name;
+              // echo $name;
 
 
 
@@ -1582,21 +1668,24 @@ echo "true";
 
         //insert into table transactions
         $this->db->insert('tbltransactions',$tbltransactionsdata); 
-        $mobile = $this->db->get_where('tblcustomers' , array('customer_id' => $this->session->userdata('holidayCustomerId') ))->row()->number;
+        $mobile = $_POST['udf3'];
+
+        $dateofvisit = date("d-m-Y", strtotime($dateofvisit));
 
         $msg = "Thank you for booking at ".$name." Date is: ".$dateofvisit." Your Booking Id is: ".$ticketnumber;
         $this->sendsms($mobile,$msg);
-        $this->sendingEmailTickets($_POST['udf2']);
+        $this->sendingEmailTickets($_POST['udf2'],$ticketnumber,$name,$location);
+        //echo " post email id is: ".$_POST['udf2']."<br>";
   
       }else{
 
 
         //send sms if transaction failed
-        $mobile = $this->db->get_where('tblcustomers' , array('customer_id' => $this->session->userdata('holidayCustomerId') ))->row()->number;
+        $mobile = $_POST['udf3'];
 
         $msg = "OOP's Your Transaction at Book4Holiday Failed. Transaction Id is : ".$ticketnumber;
         $this->sendsms($mobile,$msg);
-        $this->sendingEmailTickets($_POST['udf2']);
+        $this->sendingFailEmail($_POST['udf2'],$ticketnumber);
 
         $paymentsdata = array(
           'banktransaction'=>$_POST['bank_txn'],
@@ -1633,9 +1722,9 @@ echo "true";
 
      
 
-       $this->load->view('frontend/header');
+    $this->load->view('frontend/header');
      $this->load->view('frontend/response',$paymentsdata);
-     //$this->load->view('frontend/response');
+    
 
     }
 
@@ -1658,6 +1747,8 @@ echo "true";
                $resortid =  $this->db->get_where('tblpackages' , array('packageid' =>$packageid))->row()->resortid;
 
                $name =  $this->db->get_where('tblresorts' , array('resortid' =>$resortid))->row()->resortname;
+
+               $location =  $this->db->get_where('tblresorts' , array('resortid' =>$resortid))->row()->location;
 
       $servicetax = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->servicetax;
 
@@ -1734,20 +1825,23 @@ echo "true";
 
         //insert into table transactions
         $this->db->insert('tbltransactions',$tbltransactionsdata); 
-        $mobile = $this->db->get_where('tblcustomers' , array('customer_id' => $this->session->userdata('holidayCustomerId') ))->row()->number;
+        $mobile = $_POST['udf3'];
+        $dateofvisit = date("d-m-Y", strtotime($dateofvisit));
 
-        $msg = "Thank you for booking at ".$name." Date is: ".$dateofvisit." Your Booking Id is: ".$ticketnumber;
+        $msg = "Thank you for booking at ".$name.". Date is: ".$dateofvisit.". Your Booking Id is: ".$ticketnumber;
+        //echo $msg."<br>mobile is: ";
+        //echo $mobile."<br>";
         $this->sendsms($mobile,$msg);
-        $this->sendingEmailTickets($_POST['udf2']);
+        $this->sendingEmailTickets($_POST['udf2'],$ticketnumber,$name,$location);
   
       }else{
 
         //send sms if transaction failed
-        $mobile = $this->db->get_where('tblcustomers' , array('customer_id' => $this->session->userdata('holidayCustomerId') ))->row()->number;
+        $mobile = $_POST['udf3'];
 
         $msg = "OOP's Your Transaction at Book4Holiday Failed. Transaction Id is : ".$ticketnumber;
         $this->sendsms($mobile,$msg);
-        $this->sendingEmailTickets($_POST['udf2']);
+        $this->sendingFailEmail($_POST['udf2'],$ticketnumber);
 
         $paymentsdata = array(
           'banktransaction'=>$_POST['bank_txn'],
@@ -1784,9 +1878,9 @@ echo "true";
 
      
 
-       $this->load->view('frontend/header');
+     $this->load->view('frontend/header');
      $this->load->view('frontend/response2',$paymentsdata);
-     //$this->load->view('frontend/response');
+    
 
     }
 
@@ -1801,7 +1895,7 @@ echo "true";
 
       $this->load->library('pagination');
 
-      $numberOfRows = $this->FrontEndModel->getNumberOfRowsForSearchResorts();
+      //$numberOfRows = $this->FrontEndModel->getNumberOfRowsForSearchResorts();
 
 
        //pagination settings
@@ -1852,7 +1946,7 @@ echo "true";
           $resortid =  $query2->result()[0]->resortid;
           redirect('resorts/'.$resortname.'/'.$resortid);
         }else{
-			$sql3 = "SELECT * FROM tblresorts WHERE (resortid !=1) AND (location LIKE '%$searchterm%' OR resortname LIKE '%$searchterm%' OR description LIKE '%$searchterm%') LIMIT 4";
+			$sql3 = "SELECT * FROM tblresorts WHERE status=1 AND resortid !=1 AND (location LIKE '%$searchterm%' OR resortname LIKE '%$searchterm%' OR description LIKE '%$searchterm%') LIMIT 4";
 			$query2 = $this->db->query($sql3);
 		}
         $data['getdata'] = $query2;
@@ -2299,8 +2393,10 @@ echo "true";
         $this->pagination->initialize($config);
 
         $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+        $searchterm = $this->session->userdata('searchterm');
 		
-		$sql= "select * from tblevents where status=1 and (todate>='".$this->session->userdata('searchdate')."') AND eventname='".$this->session->userdata('searchterm')."'";
+		$sql= "select * from tblevents where status=1 and (fromdate<='".$this->session->userdata('searchdate')."' OR todate>='".$this->session->userdata('searchdate')."') AND eventname='".$this->session->userdata('searchterm')."'";
 		$query2 =$this->db->query($sql);
 		if(count($query2->result())==1){
          // echo '<pre>';
@@ -2311,7 +2407,7 @@ echo "true";
           $eventid =  $query2->result()[0]->eventid;
           redirect('eventdetails/'.$eventname.'/'.$eventid);
         }else{
-			$sql3 = "SELECT * FROM tblevents WHERE status=1 AND (todate>='".$this->session->userdata('searchdate')."') AND (location LIKE '%".$this->session->userdata('searchterm')."%' OR eventname LIKE '%".$this->session->userdata('searchterm')."%' OR description LIKE '%".$this->session->userdata('searchterm')."%' ) order by eventid limit 4";
+			$sql3 = "SELECT * FROM tblevents WHERE status=1 AND (todate>='".$this->session->userdata('searchdate')."' AND fromdate<='".$this->session->userdata('searchdate')."') AND (location LIKE '%".$this->session->userdata('searchterm')."%' OR eventname LIKE '%".$this->session->userdata('searchterm')."%' OR description LIKE '%".$this->session->userdata('searchterm')."%' ) order by eventid limit 4";
 			$query2 =$this->db->query($sql3);
 		}
 
@@ -2396,7 +2492,7 @@ echo "true";
       $price = $this->input->post('price');
       $date = $this->input->post('date');
       if ($price=='' && $date=='') {
-        $sql = "SELECT * FROM tblevents WHERE status=1 AND (fromdate<='".$this->session->userdata('searchdate')."' OR todate>='".$this->session->userdata('searchdate')."') AND (location LIKE '%".$this->session->userdata('searchterm')."%' OR eventname LIKE '%".$this->session->userdata('searchterm')."%' OR description LIKE '%".$this->session->userdata('searchterm')."%' ) ORDER BY eventid desc LIMIT 4";
+        $sql = "SELECT * FROM tblevents WHERE status=1 AND (fromdate<='".$this->session->userdata('searchdate')."' AND todate>='".$this->session->userdata('searchdate')."') AND (location LIKE '%".$this->session->userdata('searchterm')."%' OR eventname LIKE '%".$this->session->userdata('searchterm')."%' OR description LIKE '%".$this->session->userdata('searchterm')."%' ) ORDER BY eventid desc LIMIT 4";
         //echo $sql."<br>";
 
         
@@ -2412,6 +2508,7 @@ echo "true";
 
                  $query2 = $this->db->query($sql2);
                  $row =$query2->row();
+                 if($row->minprice!=''){
         ?>
         <div class="col-md-4 col-sm-4 events-thumb1" style="visibility: visible;">
 
@@ -2453,6 +2550,7 @@ echo "true";
         </div><!-- End col-md-6 -->
 
         <?php 
+       }//condition show only if price is not empty
         
       }
 
@@ -2501,8 +2599,9 @@ echo "true";
 
                  $query2 = $this->db->query($sql2);
                  $row =$query2->row();
+                  if($row->minprice!=''){
         ?>
-        <div class="col-md-4 col-sm-4 events-thumb1 "  style="visibility: visible; ">
+        <div class="col-md-4 col-sm-4 events-thumb"  style="visibility: visible; ">
 
     
                   
@@ -2542,7 +2641,7 @@ echo "true";
         </div><!-- End col-md-6 -->
 
         <?php
-
+ }//condition show only if price is not empty
         $last_id = $k->eventid;
         
       }
@@ -2747,8 +2846,9 @@ echo "true";
 
                  $query2 = $this->db->query($sql2);
                  $row =$query2->row();
+                 if($row->minprice!=''){
         ?>
-        <div class="col-md-4 col-sm-4 events-thumb1 "  style="visibility: visible; ">
+        <div class="col-md-4 col-sm-4 events-thumb"  style="visibility: visible; ">
 
     
                   
@@ -2784,6 +2884,7 @@ echo "true";
         </div><!-- End col-md-6 -->
 
         <?php 
+         }//condition show only if price is not empty
         
       }
 
@@ -2920,7 +3021,7 @@ echo "true";
       
     }
 
-    public function sendsms($mobile='',$message=''){
+    public function sendsms($mobile,$message){
 
                 // sms start
                 
@@ -3231,13 +3332,26 @@ public function getPackageAmountAndSetMarkUp(){
 
                              $this->sendsms($mobile,$msg);
 
-                            echo "true";
+                            echo $randNumber;
 
                            }else{
                           
                             echo "false";
                             
                            }
+
+    }
+
+
+    public function registrationresendotp(){
+      $mobile = $this->input->post('mobile');
+
+      $randNumber = rand(9999,99999);
+      $msg = 'Your OTP is: '.$randNumber;
+
+                             $this->sendsms($mobile,$msg);
+
+                            echo $randNumber;
 
     }
 
@@ -3252,19 +3366,11 @@ public function getPackageAmountAndSetMarkUp(){
                     $cpassword = $this->input->post('cpassword');
                     $mobile = $this->input->post('mobile');
                     $otp = $this->input->post('otp');
-                    //$url = $this->input->post('url');
-
                     
-
-                            $OTP_CHECK = $this->session->userdata('register-otp');
-                            //echo $OTP_CHECK."<BR>";
-                            //echo $otp."<BR>";
-                            if($OTP_CHECK==$otp){
-
-                              //insert
-                            $convertedpassword = hash('sha512', $password);
+                    //insert
+                    $convertedpassword = hash('sha512', $password);
+            
                     
-                            
                             $dt = date('Y-m-d');
 
           $this->db->query("insert into tblcustomers (name,username,password,number,dateofcreation,regtype) VALUES ('$name','$email','$convertedpassword','$mobile','$dt','registration')");
@@ -3324,7 +3430,7 @@ public function getPackageAmountAndSetMarkUp(){
 <tr>
 <td colspan="2">Dear <strong>Customer </strong>, <br>
 <br>
-below are your account details </td>
+Below are your account details </td>
 </tr>
 <tr>
 <td colspan="2">&nbsp;</td>
@@ -3478,12 +3584,7 @@ tickets on the go<br>
 
                               echo "true";
 
-                            }else{
-                              echo "false";
-                              //echo "false1";
-                           }
-                      
-    }
+ }
 
 
     public function validate_email(){
@@ -3549,10 +3650,11 @@ tickets on the go<br>
                               );
 
                   $this->db->where('username', $email);
+                  $this->db->where('regtype', 'registration');
                   $this->db->update('tblcustomers', $data); 
                   $msg = 'Your password is: '.$resetpassword;
 
-  $mobile =  $this->db->get_where('tblcustomers' , array('username' =>$email))->row()->number;
+                $mobile =  $this->db->get_where('tblcustomers' , array('username' =>$email,'regtype' => 'registration'))->row()->number;
                  // echo $email."<br>";
                   //echo $msg."<br>";
                   //echo $mobile."<br>";
@@ -3582,10 +3684,10 @@ tickets on the go<br>
           }
           else
           {
-            $this->session->set_userdata('holidayEmail',$email);
+           $this->session->set_userdata('holidayEmail',$email);
            $this->session->set_userdata('holidayCustomerName',$this->FrontEndModel->getNameOfCustomerOnEmail($email));
            $this->session->set_userdata('holidayCustomerId',$this->FrontEndModel->getIdOfCustomerOnEmail($email));
-           redirect('frontend/index');
+           redirect('home');
         }   
                      
 
@@ -3604,7 +3706,7 @@ tickets on the go<br>
     public function logout()
     {
         $this->session->sess_destroy();
-        redirect('frontend/index');
+        redirect('home');
     }
 
     
@@ -3780,7 +3882,7 @@ tickets on the go<br>
       <tr>
       <td colspan="2">Dear <strong>Customer </strong>, <br>
       <br>
-      below are your account details </td>
+      Below are your account details </td>
       </tr>
       <tr>
       <td colspan="2">&nbsp;</td>
@@ -3984,309 +4086,78 @@ tickets on the go<br>
 
 
 
-    public function sendingEmailTickets($email)
+    public function sendingEmailTickets($email,$ticketnumber,$name,$location)
     {
-      $to=$email;
-      $subject = "Book4Holiday Tickets";
-      $headers = "MIME-Version: 1.0"."\r\n";
-      $headers .= "Content-Type: text/html; charset=ISO-8859-1"."\r\n";
-      $headers .= 'From: Book4Holiday Support <info@book4holiday.com>'."\r\n";
-      $message='<html>
-<head>
-<meta charset="utf-8">
-<title>Untitled Document</title>
-</head>
+      $data['ticketnumber']=$ticketnumber;
+      $data['name']=$name;
+      $data['location']=$location;
+      $packageid = $this->db->get_where('tblbookings' , array('ticketnumber' =>$ticketnumber))->row()->packageid;
 
-<body>
+      $data['packagename'] = $this->db->get_where('tblpackages' , array('packageid' =>$packageid))->row()->amount;
 
-<table cellpadding="0" cellspacing="0" width="100%" border="0" align="center" style="padding:25px 0 15px 0">
-      <tbody><tr>
-        <td width="100%" valign="top">
-          <table cellpadding="0" cellspacing="0" width="600" border="0" align="center" bgcolor="f2f2f2">
-            <tbody>
-              <tr>
-                <td valign="top">
-                  <table cellpadding="0" cellspacing="0" width="600" border="0" align="center">
-                    <tbody><tr>
-                      <td valign="top" width="300" style="background-color:#1f2533;padding-top:10px">
-                        <a href="#" style="text-decoration:none;color:#010101" target="_blank" data-saferedirecturl="#"><!--<img alt="BookMyShow" height="70" border="0" width="200" style="margin:0px auto" src="book4.png" class="CToWUd">--><h3 style="color:#FFF; font-family:Arial Black; font-size:18px; padding-left:30px;">Book <span style="color:#49ba8e;">4</span> Holiday</h3>
-</a>
-                      </td>
-                      <td valign="top" width="300" style="background-color:#1f2533;color:#ffffff;font-size:12px;font-weight:bold;font-family:Arial,sans-serif;text-align:right;padding:20px 30px 0px 10px;word-spacing:1px;line-height:16px"> YOUR TICKET<br><a style="text-decoration:none;color:#74777e;font-weight:bold;font-size:11px;color:rgb(176,176,176);text-transform:uppercase"> Scan and Enter</a></td>
-                    </tr>
-                  </tbody></table>
-                </td>
-              </tr>
-              <tr>
-                <td valign="top">
-                  <table cellpadding="0" cellspacing="0" width="600" border="0" align="center">
-                    <tbody><tr>
-                      <td valign="top" width="500" style="background-color:#ffffff;color:#666666;font-size:15px;font-family:Arial,sans-serif;text-align:left;padding:30px 10px 20px 30px;line-height:20px">Dear <span>Customer</span>, <br>Your ticket(s) are <b>Confirmed</b>! </td>
-                      <td valign="top" width="100" style="background-color:#ffffff;color:#666666;font-size:12px;font-family:Arial,sans-serif;text-align:left;padding:30px 20px 20px 10px;line-height:20px">Booking ID <br><span style="font-size:20px;font-weight:bold">'.$this->session->userdata('bookingid').'</span></td>
-                    </tr>
-                  </tbody></table>
-                </td>
-              </tr>
-              <tr>
-                <td valign="top" style="background-color:#f2f2f2;color:#666666;font-size:12px;font-family:Arial,sans-serif;text-align:left;padding:10px 40px 20px 40px;line-height:20px">
-                  <img src="https://ci4.googleusercontent.com/proxy/lh5OJtSOO9gpklDNH62Tmy0cR-LQc2M-OEXcJVGmtIeDqR83L2aLvL7qYxoBtXwgAmCRYmUAVmYKCpV563yu23OzA9B2H4W6YD5rKbKyje_7iPa60PKWUfA-cQJwWxtEZIGztNFxznFDR5pKRn4lJqiuUB9EpfsHiaxnebp8cNVsnCoSTvmD6zoJjUATpI2CuhisalE=s0-d-e1-ft#https://in.bookmyshow.com/secure/barcode/?IsImage=Y&amp;strBarcodeType=qrcode&amp;strBarcodeTxt=B05334880775&amp;intHeight=100&amp;intWidth=100" style="width:100px;min-height:100px;float:right" class="CToWUd">
-                  <p style="font-size:14px;float:left;width:70%;padding-top:20px">Please find your holiday tickets attached to this mail or to download your ticket, <a href="#" style="text-decoration:none;color:#4073cf;font-weight:bold" target="_blank" data-saferedirecturl="#">click here</a></p>
-                </td>
-              </tr>
-              <tr>
-                <td valign="top">
-                  <table cellpadding="0" cellspacing="0" width="540" border="0" align="center" bgcolor="#1f2533">
-                    <tbody><tr>
-                      <td width="15">
-                      </td><td width="370" valign="top" style="color:#ffffff;font-size:15px;font-family:Arial,sans-serif;text-align:left;padding:25px 10px 25px 15px;line-height:24px;border-right:1px dotted #ffffff">
-                        <span style="font-size:20px;color:#ffffff;font-weight:bold">'.$this->db->get_where('tblvendors' , array('vendorid' => $this->session->userdata('vendorid') ))->row()->vendorname.'</span>
-                        <br>
-                        <span>
-                          <span>Your Ticket no: W34C567Q, </span> 
-                          <span><span>'.$this->db->get_where('tblvendors' , array('vendorid' => $this->session->userdata('vendorid') ))->row()->Address1.'</span><span></span></span>
-                        <br><span class="aBn" data-term="goog_1116116412" tabindex="0"><span class="aQJ">1:15pm</span></span> | <span style="overflow:hidden;float:left;line-height:0px">2016-04-23T13:15:00+05:30</span>23 Apr - 28 Apr, 2016</span></td>
-                      <td width="140" valign="top" style="color:#ffffff;font-size:15px;font-family:Arial,sans-serif;text-align:center;padding:25px 10px 15px 10px;line-height:20px">
-                        <img src="">
-                        <br>
-                        <b style="width:100%;float:left;word-break:break-all"></b>
-                        <br>
-                      </td>
-                      <td width="15">
-                    </td></tr>
-                  </tbody></table>
-                </td>
-              </tr>
-              <tr>
-                <td valign="top">
-                  <table cellpadding="0" cellspacing="0" width="540" border="0" align="center" bgcolor="#ffffff" style="border:1px solid #e1e5e8;margin-bottom:15px">
-                    <tbody>
-                      <tr>
-                        <td width="538" valign="top">
-                          <table cellpadding="0" cellspacing="0" width="488" border="0" align="center">
-                            <tbody>
-                              <tr>
-                                <td width="488" valign="top" style="background-color:#ffffff;color:#666666;font-size:12px;font-weight:bold;font-family:Arial,sans-serif;text-align:left;padding:15px 10px 5px 0px;line-height:20px;
-                                border-bottom:1px solid #efefef;letter-spacing:3px">OTHER ITEMS
-                                  </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td valign="top" style="width:478px;padding:0 30px">
-                          <table cellpadding="0" cellspacing="0" border="0" align="left" style="width:478px;border-bottom:1px dotted #e1e5e8;padding:10px 0">
-                            <tbody>
-                              <tr>
-                                <td valign="top" style="background-color:#ffffff;color:#666666;font-size:12px;font-family:Arial,sans-serif;text-align:left;padding:5px 0;line-height:20px;width:100%">
-                                  <strong style="color:#0e1422;font-size:13px">Book 4 Holiday (Adults('.$this->session->set_userdata('numberofadults').') children('.$this->session->set_userdata('numberofchildren').'))</strong>
-                                  <br>Booking Confirmation Number - '.$this->db->get_where('tblbookings' , array('vendorid' => $this->session->userdata('vendorid') ))->row()->ticketnumber.'</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </td>
-              </tr>
-              <tr>
-                <td valign="top">
-                  <table cellpadding="0" cellspacing="0" width="538" border="0" align="center" bgcolor="#ffffff" style="border:1px solid #e1e5e8">
-                    <tbody><tr>
-                      <td width="538" valign="top">
-                        <table cellpadding="0" cellspacing="0" width="538" border="0" align="center" bgcolor="#ffffff" style="padding:0 30px">
-                          <tbody>
-                            <tr>
-                              <td valign="top" style="width:478px;background-color:#ffffff;color:#666666;font-size:12px;font-family:Arial,sans-serif;text-align:left;padding:10px 10px 10px 0;border-bottom:1px solid #e1e5e8">
-                                <span style="font-size:12px">ORDER SUMMARY </span>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="538" valign="top">
-                        <table cellpadding="0" cellspacing="0" width="538" border="0" align="center">
-                          <tbody>
-                            <tr>
-                              <td style="width:30px">
-                              </td><td valign="top" style="width:265px;background-color:#ffffff;color:#666666;font-size:15px;font-family:Arial,sans-serif;text-align:left;padding:10px 10px 10px 0;border-bottom:2px dotted #bfbfbf">
-                                <span style="font-size:14px;font-weight:bold">TICKET AMOUNT</span>
-                              </td>
-                              <td valign="top" width="213" style="background-color:#ffffff;color:#666666;font-size:12px;font-family:Arial,sans-serif;text-align:right;padding:10px 0 10px 10px;border-bottom:2px dotted #bfbfbf">Rs.'.$this->session->set_userdata('totalcost')-$this->session->set_userdata('servicetax').'</td>
-                              <td style="width:30px">
-                            </td></tr>
-                          </tbody>
-                        </table>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td valign="top" width="538">
-                        <table cellpadding="0" cellspacing="0" width="538" border="0" align="center">
-                          <tbody>
-                            <tr>
-                              <td style="width:30px">
-                              </td><td valign="top" style="width:265px;padding:10px 10px 10px 0;background-color:#ffffff;color:#1f2533;font-size:13px;font-family:Arial,sans-serif;text-align:left;line-height:20px">
-                                <strong>Quantity</strong>
-                              </td>
-                              <td valign="top" width="213" style="background-color:#ffffff;color:#1f2533;font-size:12px;font-family:Arial,sans-serif;text-align:right;padding:0 0 0 10px;vertical-align:top">
-                                <br>
-                                <strong>'.$this->session->set_userdata('numberofadults')+$this->session->set_userdata('numberofchildren').'</strong>
-                              </td>
-                              <td style="width:30px">
-                            </td></tr>
-                          </tbody>
-                        </table>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td valign="top" width="538">
-                        <table cellpadding="0" cellspacing="0" width="538" border="0" align="center">
-                          <tbody>
-                            <tr>
-                              <td style="width:30px">
-                              </td><td valign="top" style="width:265px;padding:10px 0 10px 0;background-color:#ffffff;color:#1f2533;font-size:13px;font-family:Arial,sans-serif;text-align:left">
-                                <strong></strong>
-                              </td>
-                              <td valign="top" width="213" style="background-color:#ffffff;color:#1f2533;font-size:12px;font-family:Arial,sans-serif;text-align:right;vertical-align:top">
-                                <br>
-                                <strong></strong>
-                              </td>
-                              <td style="width:30px">
-                            </td></tr>
-                            
-                            <tr>
-                              <td style="width:30px">
-                              </td><td valign="top" style="width:265px;background-color:#ffffff;color:#666666;font-size:9px;font-family:Arial,sans-serif;text-align:left;line-height:20px">Service Tax @ 10%</td>
-                              <td valign="top" width="213" style="background-color:#ffffff;color:#666666;font-size:9px;font-family:Arial,sans-serif;text-align:right;vertical-align:top">Rs.'.$this->session->set_userdata('servicetax').'</td>
-                              <td style="width:30px">
-                            </td></tr>
+      $data['amount'] = $this->db->get_where('tblbookings' , array('ticketnumber' =>$ticketnumber))->row()->amount;
 
-                            
-                           
-                            
-                          </tbody>
-                        </table>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td valign="top" width="538">
-                        <table cellpadding="0" cellspacing="0" width="538" border="0" align="center">
-                          <tbody><tr>
-                            <td style="width:30px">
-                            </td><td valign="top" style="width:265px;padding:10px 10px 10px 0;background-color:#ffffff;color:#1f2533;font-size:13px;font-family:Arial,sans-serif;text-align:left;line-height:20px">
-                              <strong></strong>
-                            </td>
-                            <td valign="top" width="213" style="background-color:#ffffff;color:#1f2533;font-size:12px;font-family:Arial,sans-serif;text-align:right;padding:0 0 0 10px;vertical-align:top">
-                              <br>
-                              <strong></strong>
-                            </td>
-                            <td style="width:30px">
-                          </td></tr>
-                        </tbody></table>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td valign="top" width="538">
-                        <table cellpadding="0" cellspacing="0" width="538" border="0" align="center">
-                          <tbody><tr>
-                            <td style="width:30px">
-                            </td><td valign="top" style="width:265px;padding:10px 10px 10px 0;background-color:#ffffff;color:#1f2533;font-size:13px;font-family:Arial,sans-serif;text-align:left;line-height:20px">
-                              <strong></strong>
-                            </td>
-                            <td valign="top" width="213" style="background-color:#ffffff;color:#1f2533;font-size:12px;font-family:Arial,sans-serif;text-align:right;padding:0 0 0 10px;vertical-align:top">
-                              <br>
-                              <strong></strong>
-                            </td>
-                            <td style="width:30px">
-                          </td></tr>
-                        </tbody></table>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td valign="top" width="538">
-                        <table cellpadding="0" cellspacing="0" width="538" border="0" align="center">
-                          <tbody><tr>
-                            <td style="width:30px">
-                            </td><td valign="top" style="width:265px;padding:15px 10px 0px 0;background-color:#ffffff;color:#666666;font-size:16px;font-family:Arial,sans-serif;text-align:left;border-top:2px dotted #bfbfbf">
-                              <strong>AMOUNT PAYABLE</strong>
-                            </td>
-                            <td valign="top" width="213" style="padding:15px 10px 15px 0;font-size:18px;font-weight:bold;font-family:Arial,sans-serif;text-align:right;background-color:#ffffff;color:#666666;border-top:2px dotted #bfbfbf">Rs.'.$this->session->set_userdata('totalcost').'</td>
-                            <td style="width:30px">
-                          </td></tr>
-                        </tbody></table>
-                      </td>
-                    </tr>
-                  </tbody></table>
-                </td>
-              </tr>
-              <tr>
-                <td valign="top" width="540">
-                  <table cellpadding="0" cellspacing="0" width="540" border="0" align="center">
-                    <tbody><tr>
-                      <td valign="top" width="202" style="background-color:#efefef;color:#666666;font-size:12px;font-family:Arial,sans-serif;text-align:left;padding:10px 10px 35px 0px;line-height:20px">
-                        <b>BOOKING DATE &amp; TIME</b>
-                        <br>'.$this->db->get_where('tblbookings' , array('bookingid' => $this->session->userdata('bookingsid') ))->row()->date.'<span class="aBn" data-term="goog_1116116413" tabindex="0"><span class="aQJ">8:59am</span></span></td>
-                      <td valign="top" width="143" style="background-color:#efefef;color:#666666;font-size:12px;font-family:Arial,sans-serif;text-align:left;padding:10px 10px 35px 10px;line-height:20px">
-                        <b></b>
-                        <br></td>
-                      <td valign="top" width="195" style="background-color:#efefef;color:#666666;font-size:12px;font-family:Arial,sans-serif;text-align:left;padding:10px 10px 35px 10px;line-height:20px">
-                        <b>CONFIRMATION NUMBER</b>
-                        <br>
-                        <span>'.$this->db->get_where('tblpayments' , array('bookingid' => $this->session->userdata('bookingsid') ))->row()->transaction_id.'</span>
-                      </td>
-                    </tr>
-                  </tbody></table>
-                </td>
-              </tr>
-              <tr>
-                <td valign="top" width="540" style="background-color:#ffffff">
-                  <table cellpadding="0" cellspacing="0" width="540" border="0" align="center">
-                    <tbody><tr>
-                      <td valign="top" width="540" style="color:#666666;font-size:12px;font-family:Arial,sans-serif;text-align:justify;padding:30px 0 40px;line-height:20px">
-                        <span style="font-size:12px">
-                          <b>Important Instructions</b>
-                        </span>
-                        <br>
-                        <br>
-                          Tickets once booked cannot be exchanged, cancelled or refunded.<br>
-                          The Credit Card and Credit Card Holder must be present at the ticket counter while collecting the ticket(s).<br>
-                          Service Tax &amp; Swachh Bharat Cess collected and paid to the department.<br>
-                          Business Auxiliary Services. PAN Based STC No. AABCB3428PST002.<br></td>
-                    </tr>
-                  </tbody></table>
-                </td>
-              </tr>
-              <tr>
-                <td valign="top">
-                  <table cellpadding="0" cellspacing="0" width="600" border="0" align="center" bgcolor="1F2533">
-                    <tbody><tr>
-                      <td valign="top" width="260" style="background-color:#1f2533;color:#49ba8e;font-size:12px;font-family:Arial,sans-serif;text-align:left;padding:20px 10px 15px 20px">For any further assistance<br><a href="mailto:helpdesk@BookMyShow.com" style="text-decoration:none;color:#49ba8e;font-weight:bold" target="_blank">helpdesk@book4holiday.com</a></td>
-                      <td style="width:200px;vertical-align:top;background-color:#1f2533;text-align:right;padding:25px 0 15px 0">
-                        <img src="https://ci3.googleusercontent.com/proxy/ox1pr8SuruzQrAsTBgtdjSlHhf0BodFY1HY033BSEDpQQx41C7mSyS3nVKhXYKB2WK98ymYskV6_gH0967w5847IDkg85kno18hz0PjzvlWj2HI=s0-d-e1-ft#http://cnt.in.bookmyshow.com/webin/emailer/helpline-phone.png" alt="helpline phone" width="18" height="20" border="0" class="CToWUd">
-                      </td>
-                      <td style="width:105px;vertical-align:top;padding:25px 0 15px 10px;text-align:left;background-color:#1f2533;color:#49ba8e;line-height:14px;font-size:12px;font-weight:bold">
-                        <a href="tel:+912261445050" style="text-decoration:none;color:#49ba8e" target="_blank">+91 40 2345 6789</a>
-                      </td>
-                    </tr>
-                  </tbody></table>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </td>
-      </tr>
-    </tbody></table>
+      $data['dateofvisit'] = $this->db->get_where('tblbookings' , array('ticketnumber' =>$ticketnumber))->row()->dateofvisit;
 
-</body>
-</html>
-';
-      
-      mail($to, $subject, $message, $headers);
+       $data['numberofadults'] = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->numberofadults;
 
-      //user email ends here
+       $data['adultpriceperticket'] = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->adultpriceperticket;
+
+       $data['numberofchildren'] = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->numberofchildren;
+
+       $data['childpriceperticket'] = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->childpriceperticket;
+
+
+       $data['noofkidsmeal'] = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->noofkidsmeal;
+
+       $data['kidsmealprice'] = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->kidsmealprice;
+
+       $data['internetcharges'] = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->internetcharges;
+
+       $data['servicetax'] = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->servicetax;
+
+       $data['swachhbharath'] = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->swachhbharath;
+
+       $data['krishkalyancess'] = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->krishkalyancess;
+
+       $data['total'] = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->totalcost;
+
+     $this->load->library('email');
+     
+
+$this->email
+    ->from('info@book4holiday.com', 'Book4Holiday')
+    ->to($email)
+    ->subject('Booking Details')
+    ->message($this->load->view('frontend/successemail',$data,true))
+    ->set_mailtype('html');
+
+// send email
+$this->email->send();
+    }
+
+
+    
+
+    public function sendingFailEmail($email,$ticketnumber)
+    {
+      $data['ticketnumber']=$ticketnumber;
+      $data['amount'] = $this->db->get_where('tblbookings' , array('ticketnumber' =>$ticketnumber))->row()->amount;
+
+      $data['dateofvisit'] = $this->db->get_where('tblbookings' , array('ticketnumber' =>$ticketnumber))->row()->dateofvisit;
+
+     $this->load->library('email');
+     
+
+$this->email
+    ->from('info@book4holiday.com', 'Book4Holiday')
+    ->to($email)
+    ->subject('Booking Details')
+    ->message($this->load->view('frontend/failureemail',$data,true))
+    ->set_mailtype('html');
+
+// send email
+$this->email->send();
     }
 
 

@@ -14,7 +14,7 @@ $userdetails = $request->userdetails;
 
 $vendorid="";
 
-$ticketnumber=date('Ymdhisu');
+$ticketnumber=date('Ymdhis');
 for($i=0;$i<count($userselectedoptions);$i++){
 
  $packageid = $userselectedoptions[$i]->packageid;
@@ -29,13 +29,13 @@ for($i=0;$i<count($userselectedoptions);$i++){
 $adultqty = $userselectedoptions[$i]->adultqty;
 $childqty = $userselectedoptions[$i]->childqty;
 
-
+$dt=date('Y-m-d');
     if ($adultqty!=0 || $childqty!=0) {
 
        
 
         $sql2 = "INSERT INTO tblbookings (date, dateofvisit, userid,quantity,booking_status,payment_status,ticketnumber,packageid,visitorstatus,vendorid,childqty)
-            VALUES ('Y-m-d', '$dateofvisit', '$o->customerid','$adultqty','pending','pending','$ticketnumber','$packageid','absent',$vendorid,'$childqty')";
+            VALUES ('$dt', '$dateofvisit', '$o->customerid','$adultqty','pending','pending','$ticketnumber','$packageid','absent',$vendorid,'$childqty')";
 
             if (mysqli_query($conn, $sql2)) {
                 //echo "New record created successfully";

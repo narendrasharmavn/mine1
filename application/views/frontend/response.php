@@ -3,7 +3,7 @@
                 </div>
 
                 <?php
-$ticketnumber= $this->session->userdata('ticketnumber');
+              $ticketnumber= $this->session->userdata('ticketnumber');
                 ?>
 
 <div class="container margin_60">
@@ -73,8 +73,13 @@ $ticketnumber= $this->session->userdata('ticketnumber');
 
         ?>
         <div class="thxorder">
-            <!-- <h3 class="inner">Thank you!</h3> -->
-                <p style="font-size:18px; font-family: calibri; font-weight:bold; text-align:center;">You can view all your transactions in 'MY ORDERS' section of your account.</p>
+           
+           <?php if($this->session->userdata('holidayCustomerName')){
+            ?>
+            <p style="font-size:18px; font-family: calibri; font-weight:bold; text-align:center;">You can view all your transactions in 'MY ORDERS' section of your account.</p>
+
+            <?php } ?>
+
                 <hr>
                 <a class="btn_full_outline" target="_blank" href="<?php echo base_url().'index.php/invoice/'.$this->session->userdata('ticketnumber'); ?>">View your invoice</a>
         </div>
@@ -148,6 +153,9 @@ $ticketnumber= $this->session->userdata('ticketnumber');
      $swachhbharath = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->swachhbharath;
      $kkcess = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->krishkalyancess;
      $taxes = $servicetax+$swachhbharath+$kkcess;
+     //echo "servicetax".$servicetax."<br>";
+     //echo "swachhbharath".$swachhbharath."<br>";
+     //echo "kkcess".$kkcess."<br>";
       ?>
       
     </td>
@@ -158,7 +166,7 @@ $ticketnumber= $this->session->userdata('ticketnumber');
   <tr><td width="150">Adult Tickets </td><td class="tdrt">Rs.<?php echo  $adultpriceperticket;  ?></td></tr>
   <tr><td width="150">Child Tickets </td><td class="tdrt">Rs.<?php echo  $childpriceperticket;  ?></td></tr>
   <tr><td width="150">Kids Meal Price </td><td class="tdrt">Rs.<?php echo  $kidsmealprice;  ?></td></tr>
-  <tr><td width="150">TotalTicket Cost </td><td class="tdrt">Rs.<?php echo  $ticketcost;  ?></td></tr>
+  <tr><td width="150">Total Ticket Cost </td><td class="tdrt">Rs.<?php echo  $ticketcost;  ?></td></tr>
 </table>
 <table class="table table-bordered" style="font-size:12px;line-height: 1.5em;background-color: transparent; width:400px;">
     <tr><td width="150">Internet & Handling Charges</td><td class="tdrt">Rs. <?php echo $this->session->userdata('internetcharges');  ?></td></tr>
@@ -193,6 +201,27 @@ $ticketnumber= $this->session->userdata('ticketnumber');
 
 <?php
      include 'scripts.php';
+     //clear session values
+
+     /*
+    
+     $this->session->unset_userdata('packageid');
+      $this->session->unset_userdata('totalcost');
+      $this->session->unset_userdata('adultpriceperticket');
+      $this->session->unset_userdata('childpriceperticket');
+      $this->session->unset_userdata('kidsmealprice');
+      $this->session->unset_userdata('numberofadults');
+      $this->session->unset_userdata('numberofchildren');
+      $this->session->unset_userdata('kidsmealqty');
+      $this->session->unset_userdata('servicetax');
+      $this->session->unset_userdata('internetcharges');
+      $this->session->unset_userdata('swachhbharath');
+      $this->session->unset_userdata('kkcess');
+      $this->session->unset_userdata('vendorid');
+      $this->session->unset_userdata('dateofvisit');
+      $this->session->unset_userdata('currenturl');
+
+      */
     
       ?>
      </body>

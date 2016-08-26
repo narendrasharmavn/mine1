@@ -71,8 +71,13 @@ class Vendor extends CI_Controller {
     error_reporting(0);
     $vendorid = $this->input->post('vendorid');
     $fromdate = $this->input->post('fromdate');
+    if ($fromdate!='') {
+      $fromdate = date("d-m-Y", strtotime($fromdate));
+    }
     $todate = $this->input->post('todate');
-
+    if ($todate!='') {
+      $todate = date("Y-m-d", strtotime($todate));
+    }
       
       $vendorb=$this->db->query("SELECT b.bookingid,b.date, b.quantity,b.childqty, b.amount,b.ticketnumber,p.packagename,c.name FROM tblbookings b,tblpackages p,tblcustomers c,tblvendors v where b.packageid=p.packageid and b.userid=c.customer_id and v.vendorid='$vendorid' and b.date BETWEEN '$fromdate' AND '$todate' and b.booking_status='booked' and b.payment_status='paid' ORDER BY b.date DESC");
       foreach ($vendorb->result() as $k) {
@@ -786,6 +791,11 @@ print_r($data);
           $packagetype = $this->input->post('packagetype');
           $events = $this->input->post('events');
           $bannerimage = $this->input->post('bannerimage');
+          $expirydate = $this->input->post('expirydate');
+           if ($expirydate!='') {
+      $expirydate = date("Y-m-d", strtotime($expirydate));
+    }
+
         
         if (!$this->upload->do_upload('userfile'))
         {
@@ -801,7 +811,8 @@ print_r($data);
            'packageimage' => $bannerimage,
            'packagetags' => $tags,
            'packagetype' => $packagetype,
-           'eventid' => $events                               
+           'eventid' => $events,
+           'expirydate' => $expirydate                               
           );
           $this->db->update('tblpackages', $data, array('packageid' => $pacakgeid));
         }else{
@@ -817,7 +828,8 @@ print_r($data);
            'packageimage' => $this->imagename,
            'packagetags' => $tags,
            'packagetype' => $packagetype,
-           'eventid' => $events                               
+           'eventid' => $events,
+           'expirydate' => $expirydate                               
           );
           $this->db->update('tblpackages', $data, array('packageid' => $pacakgeid));
         }
@@ -955,6 +967,91 @@ print_r($data);
 	        redirect('admin/login');
 	    }
 
+            public function editdetails()
+            {
+                $this->load->view('vendor/editdetails');                    
+            }
+                            
+            public function submiteditusers()
+{
+   $email = $this->input->post('email');
+   //echo $email."<br>";
+               
+   $name = $this->input->post('name');
+   //echo $name."<br>";
+   
+   $address1 = $this->input->post('address1');
+   //echo $address1."<br>"; 
+
+   $address2 = $this->input->post('address2');
+   //echo $address2."<br>"; 
+
+   $city = $this->input->post('city');
+   //echo $city."<br>"; 
+
+   $landline = $this->input->post('landline');
+   //echo $landline."<br>"; 
+
+   $website = $this->input->post('website');
+   //echo $website."<br>"; 
+
+   $password = $this->input->post('password');
+   //echo $password."<br>"; 
+
+   $password = $this->input->post('password');
+   //echo $password."<br>";
+   
+   $convertedpassword = hash('sha512', $this->input->post('password')); 
+   //echo $convertedpassword."<br>";
+
+   $pincode = $this->input->post('pincode');
+   //echo $pincode."<br>";
+
+   $mobile = $this->input->post('mobile');
+   //echo $mobile."<br>";
+
+   $vendorid = $this->input->post('vendorid');
+   //echo $vendorid."<br>";
+
+    if($password==null || $password=='')
+    {
+
+      $data = array(
+       'email'=> $email,
+       'vendorname'=> $name,
+       'Address1' => $address1,
+       
+       'Address2' => $address2,
+       'city' => $city,
+       'landline' => $landline,
+       'website' => $website,
+       'pincode' => $pincode,
+       'mobile' => $mobile
+       
+    );
+       
+    }else{
+       $data = array(
+       'email'=> $email,
+       'vendorname'=> $name,
+       'Address1' => $address1,
+       'password' => $convertedpassword,
+       'Address2' => $address2,
+       'city' => $city,
+       'landline' => $landline,
+       'website' => $website,
+       'pincode' => $pincode,
+       'mobile' => $mobile
+       
+       );
+    }
+
+    
+
+    $this->db->update('tblvendors', $data, array('vendorid' => $vendorid));
+    redirect('vendor/editdetails');
+
+}
 
 }
 

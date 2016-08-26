@@ -3,10 +3,9 @@
           
 
             fieldset, label { margin: 0; padding: 0; }
-           
-            
 
-            .ratingg { 
+
+          .ratingg { 
                 border: none;
                 float: left;
             }
@@ -46,7 +45,7 @@
         <?php
           $todaysDate = date('Y-m-d');
 
-            $packages = $this->db->query("SELECT * from tblpackages WHERE resortid='$resortid' AND status=1 AND expirydate>='$todaysDate'");
+            $packages = $this->db->query("SELECT * from tblpackages WHERE resortid='$resortid' AND status=1");
 
             //echo "SELECT * from tblpackages WHERE resortid='$resortid' AND status=1 AND expirydate>='$todaysDate'";
 
@@ -130,6 +129,7 @@
         </script>
 
        
+ <input type="hidden" name="resortid" value="<?php echo $resortid;   ?>">
  
         <div class="collapse" id="collapseMap">
            <!-- <div id="mapp" class="map"></div>-->
@@ -171,7 +171,20 @@
         
        
                         <h1><?php echo $resortResults->resortname; ?></h1>
-                        <span><?php echo $resortResults->location; ?></span>
+                        <span><?php 
+                        
+                             
+
+$vendorid = $this->db->get_where('tblresorts' , array('resortid' =>$resortid))->row()->vendorid;
+$vendorname = $this->db->get_where('tblvendors' , array('vendorid' =>$vendorid))->row()->vendorname;
+
+echo $vendorname." , ";
+
+                             
+
+
+
+                        echo $resortResults->location; ?></span>
                         
                     
             <div class="row">
@@ -226,7 +239,7 @@
                       <div class="tour_list_desc">
              
                 <h4><?php echo $k->packagename;   ?></h4>
-                <p><?php echo $k->description;   ?></p>
+                <p  style="line-height:15px;"><?php echo $k->description;   ?></p>
             </div>  
         </div>
         
@@ -454,7 +467,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                     </div>
                                     </div>
                     <div class="row kids">
-                        <div class="col-md-6 col-sm-6">
+                        <div class="col-md-6 col-sm-6 addkidsmeallink">
                             <a href="" data-toggle="modal" data-target="#kidsmealpopup">Add Kids Meal</a>
                             
                         </div>
@@ -590,7 +603,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <div class="row">
 
                         
-                                                  
+            <div class="alert alert-danger" role="alert" style="display:none;"></div>           
                         <div class="col-md-6">
                                 <div class="form-group">
                                     <label style="float: left;margin-top:4px;">Rate Us</label>
@@ -619,8 +632,9 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <label>Comments</label>
                         <textarea name="reviewtext" id="review_text" class="form-control" class="form-control" style="height:100px;" placeholder="Write your Comments" required></textarea>
                     </div>
-                    <input type="submit" value="Submit" class="btn_1" id="submit-review">
+                    <button type="button" value="Submit" class="btn_1" id="review-button">Submit</button>
                 </form>
+                
                 <div id="message-review" class="alert alert-warning">
                 </div>
             </div>
@@ -686,11 +700,68 @@ var exchange_rate = 1;
     price_per_child = 10;
     exchange_rate = 1;
 
+    
+
+    
+
+    $(document).ready(function(){
+
+        $('#review-button').click(function(){
+
+            var subject =  $('input[name="subject"]').val();
+            var reviewtext =  $('#review_text').val();
+            if(subject.trim()=='' && reviewtext.trim()==''){
+                
+                $('.alert-danger').text('Please Fill the subject and reivew');
+                $('.alert-danger').css('display','block');
+                
+            }else if(subject.trim()==''){
+                $('.alert-danger').text('Please Fill the subject');
+                $('.alert-danger').css('display','block');
+            }else if(reviewtext.trim()==''){
+                $('.alert-danger').text('Please Fill the Review');
+                $('.alert-danger').css('display','block');
+            }else{
+                //form.submit();
+                document.getElementById('review-form').submit();
+            }
+
+
+        });
+
+
+
+        
+
+    });
+
+
+function disableSpecificWeekDays(date) {
+                var day = date.getDay();
+                for (i = 0; i < daysToDisable.length; i++) {
+                    if ($.inArray(day, daysToDisable) != -1) {
+                        return [false];
+                    }
+                }
+                return [true];
+            }
+
+
 
 //$(document).ready(function(){
  //$('.carousel').carousel({interval: 2000});
     //loadMap();
+    var resortid = $("input[name='resortid']").val();
+    if (resortid==1) {
+
+        var daysToDisable = [1];
+     $( ".datepickerj" ).datepicker(
+        {dateFormat: "dd-mm-yy", minDate: 0,beforeShowDay: disableSpecificWeekDays}
+        );
+
+    }
      $( ".datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
+
      $('.datepickerj').datepicker('setDate', null);
      $('.theiaStickySidebar').hide();
      //document.getElementsByClassName("book-now").disabled = true
@@ -843,6 +914,20 @@ function showmap()
 
 
 function bookthispackage(packageId){
+
+
+
+var kmpforhide = $('input[name="kidsmealprice"]').val();
+//alert(kmpforhide);
+if (kmpforhide==0 && kmpforhide==undefined) {
+$('.addkidsmeallink').hide();
+}else{
+$('.addkidsmeallink').show();
+}
+
+
+
+
     $('.datepickerj').datepicker('setDate', null);
 
     $('.over2').css('display','block');
@@ -954,7 +1039,7 @@ $('.book-now').on('click',function(){
         var packageid = $('#packageid').val();
         var vendorid = $('#vendorid').val();
         var totalcost = $('.total-cost').html();
-
+        var resortid = $('input[name="resortid"]').val();
         var adultpriceperticket = $('.adultprice').html();
         var childpriceperticket = $('.childprice').html();
         var numberofadults = $('.adults-number').html();
@@ -971,6 +1056,7 @@ $('.book-now').on('click',function(){
         url: '<?php echo site_url("frontend/confirmbookings")?>',
         data: {
             dateofvisit: dateofvisit,
+            resortid:resortid,
             packageid:packageid,
             vendorid:vendorid,
             totalcost:totalcost,
@@ -992,8 +1078,7 @@ $('.book-now').on('click',function(){
                     //alert("Please login to book tickets");
                      window.location.href="<?php echo site_url().'confirm-booking-resorts'; ?>";
                 }else{
-                    alert(res);
-                    window.console.log("this si "+res);
+                    console.log(res);
                 }        //$('#email').html(res);
         },
                 error: function (xhr, ajaxOptions, thrownError) {

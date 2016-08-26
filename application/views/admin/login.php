@@ -1,4 +1,3 @@
-
 <!Doctype html>
 <html class="fixed">
 	<head>
@@ -57,7 +56,7 @@
 							<div class="form-group mb-lg">
 								<label>Select Login Type</label>
 								<div class="input-group input-group-icon">
-									<select name="usertype" class="form-control input-lg">
+									<select name="usertype" class="form-control input-lg" onchange="showLink(this.value)">
 										<option value="">Select</option>
 										<option value="admin">Admin</option>
 										<option value="vendor">Vendor</option>
@@ -110,10 +109,10 @@
 									<button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign In</button>
 
 								</div>
-							<!--	<div class="col-sm-4 text-right">
+							<div class="col-sm-4 text-right" id="showlink">
 									<a href="<?php echo base_url(); ?>index.php/admin/forgotpassword">Forgot Password</a>
 								</div>
-							</div> -->
+							</div>
 
 							
 						</form>
@@ -144,4 +143,21 @@
 		<script src="<?php echo base_url(); ?>assets/assets/javascripts/theme.init.js"></script>
 
 	</body>
+<script type="text/javascript">
+function showLink(x)
+{
+   var usertype = x;
+   if(usertype=='admin')
+   {
+      $('#showlink').hide();
+   }else {
+      $('#showlink').show();
+   }
+}
+</script>
 </html>
+<script type="text/javascript">
+$("document").ready(function(){
+   $('#showlink').hide();
+});
+</script>

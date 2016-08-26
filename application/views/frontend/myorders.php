@@ -21,11 +21,9 @@
 
         <div class="step">
             <?php
-            $query = $this->db->query("SELECT * from tblbookings b LEFT JOIN tblpackages p ON b.packageid=p.packageid LEFT join tblcustomers c ON b.userid=c.customer_id WHERE b.userid='".$this->session->userdata('holidayCustomerId')."' and b.booking_status='booked' and b.payment_status='paid' ORDER BY b.date DESC");
+            $query = $this->db->query("SELECT * from tblbookings b LEFT JOIN tblpackages p ON b.packageid=p.packageid LEFT join tblcustomers c ON b.userid=c.customer_id WHERE b.userid='".$this->session->userdata('holidayCustomerId')."' AND c.regtype='registration' AND b.booking_status='booked' and b.payment_status='paid' ORDER BY b.date DESC");
 
             if(count($query->result())>0){
-
-            
 
             ?>
            <table class="table table-striped confirm">

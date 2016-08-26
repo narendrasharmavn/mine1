@@ -4,7 +4,7 @@
       // Wait for window load
       $(window).load(function() {
         // Animate loader off screen
-        $(".se-pre-con").fadeOut("slow");;
+        $(".se-pre-con").fadeOut("slow");
       });
     </script>
 
@@ -62,9 +62,11 @@
 
                  $query2 = $this->db->query($sql);
                  $row =$query2->row();
+                 if($row->minprice!=''){
+
              ?>
                           
-        <div class="col-md-4 col-sm-4 events-thumb1 text-center " style="visibility: visible; ">
+        <div class="col-md-4 col-sm-4 events-thumb text-center " style="visibility: visible; ">
 
     
                   
@@ -101,7 +103,7 @@
 
 
                           <?php
-
+                             }//condition show only if price is not empty
                           $last_id = $k->eventid;
                     }
 
@@ -151,7 +153,8 @@ $(document).ready(function() {
         
         $(window).scroll(function() {       
             if($(window).scrollTop() + $(window).height() == $(document).height())  
-            {           
+            {          
+            //alert("hello"); 
                 if(is_loading == false)
                 {
                     //alert(last_id);

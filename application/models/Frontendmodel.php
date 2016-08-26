@@ -38,7 +38,7 @@ class FrontEndModel extends CI_Model {
 
     public function getAutoFillSearchDataResorts($searchterm){
 
-      $query = $this->db->query("SELECT resortid,resortname FROM tblresorts WHERE (resortid !=1) AND (location LIKE '%$searchterm%' OR resortname LIKE '%$searchterm%' OR description LIKE '%$searchterm%') LIMIT 4");
+      $query = $this->db->query("SELECT resortid,resortname FROM tblresorts WHERE status=1 AND (resortid !=1) AND (location LIKE '%$searchterm%' OR resortname LIKE '%$searchterm%' OR description LIKE '%$searchterm%') LIMIT 4");
 
       //echo "SELECT resortid,resortname FROM tblresorts WHERE (resortid !=1) AND (location LIKE '%$searchterm%' OR resortname LIKE '%$searchterm%' OR description LIKE '%$searchterm%') LIMIT 4"."<br>";
 
@@ -50,7 +50,7 @@ class FrontEndModel extends CI_Model {
 
     public function getAutoFillSearchDataPlaces($searchterm){
 
-      $query = $this->db->query("SELECT plid,place FROM tblplaces WHERE address LIKE '%$searchterm%' OR place LIKE '%$searchterm%' OR city LIKE '%$searchterm%' OR description LIKE '%$searchterm%' OR otherinfo LIKE '%$searchterm%' LIMIT 4");
+      $query = $this->db->query("SELECT plid,place FROM tblplaces WHERE status=1 AND (address LIKE '%$searchterm%' OR place LIKE '%$searchterm%' OR city LIKE '%$searchterm%' OR description LIKE '%$searchterm%' OR otherinfo LIKE '%$searchterm%') LIMIT 4");
 
       return $query;
 
@@ -120,7 +120,7 @@ class FrontEndModel extends CI_Model {
       $queryString="";
       $priceString="";
       $dateString="";
-      $eventsQuery = "SELECT e.* FROM tblevents e WHERE e.status=1 AND (e.fromdate<='".$this->session->userdata('searchdate')."' OR e.todate>='".$this->session->userdata('searchdate')."') AND ( e.location LIKE '%".$this->session->userdata('searchterm')."%' OR e.eventname LIKE '%".$this->session->userdata('searchterm')."%' OR e.description LIKE '%".$this->session->userdata('searchterm')."%' ) ";
+      $eventsQuery = "SELECT e.* FROM tblevents e WHERE e.status=1 AND (e.fromdate<='".$this->session->userdata('searchdate')."' AND e.todate>='".$this->session->userdata('searchdate')."') AND ( e.location LIKE '%".$this->session->userdata('searchterm')."%' OR e.eventname LIKE '%".$this->session->userdata('searchterm')."%' OR e.description LIKE '%".$this->session->userdata('searchterm')."%' ) ";
       foreach ($filters as $key => $value) {
         //echo $key."  ".$value."<br><br>";
         if ($key=="date") {
@@ -129,23 +129,23 @@ class FrontEndModel extends CI_Model {
           {
             $startdate = date('Y-m-d');
             $enddate = date('Y-m-d');
-            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' AND e.fromdate<='$enddate')  ";
           }else if($value=="tomorrow")
           {
             $startdate = date('Y-m-d');
             $d=strtotime("tomorrow");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' AND e.fromdate<='$enddate')  ";
           }else if($value=="tweek"){
             $startdate = date('Y-m-d');
             $d = strtotime("+1 week");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' AND e.fromdate<='$enddate')  ";
           }else{
             $startdate = date('Y-m-d');
             $d=strtotime("next Saturday");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' AND e.fromdate<='$enddate')  ";
           }
         }else{
 
@@ -405,23 +405,23 @@ class FrontEndModel extends CI_Model {
           {
             $startdate = date('Y-m-d');
             $enddate = date('Y-m-d');
-            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' AND e.fromdate<='$enddate')  ";
           }else if($value=="tomorrow")
           {
             $startdate = date('Y-m-d');
             $d=strtotime("tomorrow");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' AND e.fromdate<='$enddate')  ";
           }else if($value=="tweek"){
             $startdate = date('Y-m-d');
             $d = strtotime("+1 week");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' AND e.fromdate<='$enddate')  ";
           }else{
             $startdate = date('Y-m-d');
             $d=strtotime("next Saturday");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' AND e.fromdate<='$enddate')  ";
           }
         }else{
 
@@ -456,7 +456,7 @@ class FrontEndModel extends CI_Model {
                 //echo "count is: ".count($priceResults->row())."<br>";
                 if ($price->minprice!='') {
                     ?>
-        <div class="col-md-4 col-sm-4 events-thumb1 "  style="visibility: visible; ">
+        <div class="col-md-4 col-sm-4 events-thumb"  style="visibility: visible; ">
 
     
                   
@@ -546,23 +546,23 @@ class FrontEndModel extends CI_Model {
           {
             $startdate = date('Y-m-d');
             $enddate = date('Y-m-d');
-            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' AND e.fromdate<='$enddate')  ";
           }else if($value=="tomorrow")
           {
             $startdate = date('Y-m-d');
             $d=strtotime("tomorrow");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' AND e.fromdate<='$enddate')  ";
           }else if($value=="tweek"){
             $startdate = date('Y-m-d');
             $d = strtotime("+1 week");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' AND e.fromdate<='$enddate')  ";
           }else{
             $startdate = date('Y-m-d');
             $d=strtotime("next Saturday");
             $enddate = date("Y-m-d", $d);
-            $dateString .=" (e.todate>='$startdate' OR e.fromdate<='$enddate')  ";
+            $dateString .=" (e.todate>='$startdate' AND e.fromdate<='$enddate')  ";
           }
         }else{
 
@@ -599,7 +599,7 @@ class FrontEndModel extends CI_Model {
                 if ($price->minprice!='') {
                     ?>
 
-                    <div class="col-md-4 col-sm-4 events-thumb1 "  style="visibility: visible; ">
+                    <div class="col-md-4 col-sm-4 events-thumb"  style="visibility: visible; ">
 
     
                   
@@ -715,7 +715,7 @@ public function validateEmail($email){
     
 
     public function getNameOfCustomerOnEmail($email){
-        $processedResults = $this->db->query("SELECT name FROM tblcustomers WHERE username='$email' ");
+        $processedResults = $this->db->query("SELECT name FROM tblcustomers WHERE username='$email' AND regtype='registration'");
         $row = $processedResults->row();
         return $row->name;
 
@@ -813,7 +813,7 @@ public function validateEmail($email){
    
 
     public function  getIdOfCustomerOnEmail($email){
-        $processedResults = $this->db->query("SELECT customer_id FROM tblcustomers WHERE username='$email' ");
+        $processedResults = $this->db->query("SELECT customer_id FROM tblcustomers WHERE username='$email' AND regtype='registration' ");
         $row = $processedResults->row();
         return $row->customer_id;
 

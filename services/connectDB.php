@@ -3,9 +3,9 @@ header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 ob_start();
 $servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "book";
+$username = "book4hol_holiday";
+$password = "book4hol_holiday@123";
+$dbname = "book4hol_holiday";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);

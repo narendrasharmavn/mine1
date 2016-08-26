@@ -4,7 +4,7 @@
 		text-align:right;
 	}
 	</style>
-        <div class="container" style="margin-top:65px;min-height:450px;">
+        <div class="container" style="margin-top:65px;min-height:500px;">
             <div class="row">
 			    <div class="col-md-12 col-xs-12">
 				
@@ -25,7 +25,7 @@
                                     <INPUT TYPE="hidden" NAME="AccountNo" value="85654125485412">
 
                                     <INPUT TYPE="hidden" NAME="ru" value="<?php echo base_url(); ?>index.php/response">
-                                    <input type="hidden" name="bookingid" value="<?php echo  date('Ymdhisu'); ?>"/>
+                                    <input type="hidden" name="udf9" value="<?php echo  date('Ymdhisu'); ?>"/>
 
 
                             <div id="errordiv"></div>
@@ -68,11 +68,11 @@
                                 <label for="exampleInputEmail2" class="control-label">Email*</label> &nbsp; &nbsp;
                                 <?php
                                  if (!$this->session->userdata('holidayCustomerName')) {
-                                    echo '<input type="email" name="udf2" class="form-control" id="email" onchange="emailvalidation()"  placeholder="abcd@example.com">';
+                                    echo '<input type="email" name="udf2" class="form-control" id="email"  placeholder="abcd@example.com">';
 
                                  }else{
                                     ?>
-                                    <input type="email" name="udf2" class="form-control" id="email" placeholder="abcd@example.com" onchange="emailvalidation()" value="<?php echo $this->session->userdata('holidayEmail');  ?>">
+                                    <input type="email" name="udf2" class="form-control" id="email" placeholder="abcd@example.com" value="<?php echo $this->session->userdata('holidayEmail');  ?>">
 
                                     <?php
                                  }
@@ -114,9 +114,10 @@
 									<br/>
                                     <button type="button" class="btn btn_1 green otp-check">Verify</button>
                                     <button type="button" class="btn btn_1 green re-enter-details">Edit Details</button>
-                                
-                                
-                              </div>
+                                    <br/>
+                                     <span>*Did not recieve OTP in 120 seconds ?, please click <a class="resend-otp">click here</a></span>
+
+                                </div>
                               <?php
 
                            }  
@@ -151,7 +152,7 @@
   <tr><td width="150">Adult Tickets </td><td class="tdrt"><i class="fa fa-inr"></i><?php echo  $adultpriceperticket;  ?></td></tr>
   <tr><td width="150">Child Tickets </td><td class="tdrt"><i class="fa fa-inr"></i><?php echo  $childpriceperticket;  ?></td></tr>
   <tr><td width="150">Kids Meal Price </td><td class="tdrt"><i class="fa fa-inr"></i><?php echo  $kidsmealprice;  ?></td></tr>
-  <tr><td width="150">TotalTicket Cost </td><td class="tdrt"><i class="fa fa-inr"></i><?php echo  $ticketcost;  ?></td></tr>
+  <tr><td width="150">Total Ticket Cost </td><td class="tdrt"><i class="fa fa-inr"></i><?php echo  $ticketcost;  ?></td></tr>
 </table>
 <table class="table table-bordered" style="font-size:12px;line-height: 1.5em;background-color: transparent;">
 	<tr><td width="150">Internet & Handling Charges</td><td class="tdrt"><i class="fa fa-inr"></i> <?php echo $this->session->userdata('internetcharges');  ?></td></tr>
@@ -219,8 +220,7 @@ $('document').ready(function(){
         // Specify the validation rules
         rules: {
           customername:{
-          required:  true,
-          lettersonly:true
+          required:  true
           },
            udf2: {
                 required:true,
@@ -237,8 +237,7 @@ $('document').ready(function(){
         // Specify the validation error messages
         messages: {
           customername:{
-          required:  'Name cannot be blank',
-          lettersonly:'Name should contain only letters'
+          required:  'Name cannot be blank'
           },
             udf2: {
               required:'Email Address cannot be blank',
@@ -310,8 +309,10 @@ $('.otp-check').on('click', function() {
 
     if(otp==''){
       $('.otp-error').text('OTP cannot be blank');
+      $('.otp-error').fadeIn();
     }else if(!pattern.test($('input[name="otp"]').val())){
       $('.otp-error').text('OTP should contain only numbers');
+      $('.otp-error').fadeIn();
     }else{
           //ajax code
           $('.otp-error').text('');
@@ -328,6 +329,7 @@ $('.otp-check').on('click', function() {
               document.getElementById("payment-form").submit();
              }else if(data.trim()=="false"){
               $('.otp-error').text('OTP is wrong');
+              $('.otp-error').fadeIn();
              }else{
               console.log(data);
              }
@@ -341,6 +343,35 @@ $('.otp-check').on('click', function() {
 
 });
 
+
+
+$('.resend-otp').on('click', function() {
+    var mobile = $('input[name="udf3"]').val()
+    //ajax submit
+
+                    $.ajax({
+                    type: "POST",
+                    url: '<?php echo site_url("frontend/resendSMS")?>',
+                    data: {
+                       mobile:mobile
+                    },
+                    success: function(res) {
+                        console.log(res);
+                        //hide show particular divs
+                       $('.otp-error').text("New OTP sent");
+                       $('.otp-error').fadeOut(5000);
+                        
+                    },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                console.log(xhr.status);
+                                console.log(thrownError);
+                                console.log(xhr.responseText);
+                             
+                            }
+                    });
+
+        //end of ajax submit
+});
 
 
 $('.re-enter-details').on('click', function() {
@@ -367,39 +398,6 @@ $('.cancel-booking').on('click', function() {
     window.location.href=currenturl;
 
 });
-
-
-function emailvalidation()
-    {
-        var useremail = $('#email').val();
-        //alert(useremail);
-
-        $.ajax({
-            type: "POST",
-            url: '<?php echo base_url()."emailvalidation/"?>example.php',
-            data: {
-                useremail:useremail
-            },
-            success: function(res) {
-                console.log('validation email : '+res);
-                if($.trim(res)=='bool(true)')
-                {
-                    console.log('email is valid');
-                    $('#errordiv').html('Email is valid');
-                    //document.getElementById("emailvalidation").style.color = "green";
-                }else{
-                   console.log('email is not valid');
-                   $('#errordiv').html('Email is not valid');
-                   //document.getElementById("emailvalidation").style.color = "red";
-                }
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                    console.log(xhr.responseText);
-            }          
-        });
-    }
 
 
 

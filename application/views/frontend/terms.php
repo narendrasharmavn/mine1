@@ -53,18 +53,19 @@
   }
 </style>
 
-<div class="container">
+<div class="container" style="min-height: 600px;">
  
 
 	<div class="row">
-		<div class="col-xs-12">
+		<div class="col-xs-12" style="margin-top:50px;">
 			
-			<svg id="bcTarget"></svg>
+			
 			<h2>Terms and Conditions of eTicket Purchase</h2>
 			<hr>
 			<div class="row">
 
-<ol style="line-height: 1.5em; font-size: 14px;">
+<!-- #######  YAY, I AM THE SOURCE EDITOR! #########-->
+<ol>
 <li style="text-align: justify;">Your purchase entitles you to a visit to the Nehru Zoological Park once, within the validity period of the purchased ticket.</li>
 <li style="text-align: justify;">Ticket Validity:
 <ol>

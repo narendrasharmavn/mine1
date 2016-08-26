@@ -55,4 +55,10 @@
             </div><!-- End row -->
         </div><!-- End container -->
     </footer><!-- End footer -->
+
+    <script type="text/javascript">
+        $('.indexmyhome').css('display','-webkit-inline-box');
+        $('.indexmyhome').css('display','-moz-inline-box');
+        $('.indexmyhome').css('display','-o-inline-box');
+    </script>
    

@@ -14,18 +14,22 @@ $mobile = test_input($c->mobile);
 $last_id="";
 
 $randNumber="";
-$sql = "INSERT INTO tblcustomers (name, username, number,regtype) VALUES ('$name', '$email', '$mobile','registration')";
+$dt = date('Y-m-d');
 
-if (mysqli_query($conn, $sql)) {
-    $last_id = mysqli_insert_id($conn);
-    $randNumber =  rand(99999,999999);
-	$text1='Your OTP is: '.$randNumber;
-	sendSMS($text1,$mobile,$conn);
+if($email!='')
+{
+        $sql = "INSERT INTO tblcustomers (name, username, number,regtype,dateofcreation) VALUES ('$name', '$email', '$mobile','Guest','$dt')";
 
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        if (mysqli_query($conn, $sql)) {
+            $last_id = mysqli_insert_id($conn);
+            $randNumber =  rand(99999,999999);
+        	$text1='Your OTP is: '.$randNumber;
+        	sendSMS($text1,$mobile,$conn);
+
+        } else {
+            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        }
 }
-
 
 
 $otpdata = array(

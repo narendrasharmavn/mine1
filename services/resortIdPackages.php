@@ -6,7 +6,7 @@ $resortIdDetails = array();
 $adultqty = 0;
 
 
-$sql2 = "SELECT r.bannerimage as bannerimage,p.description as description,p.packagename as packagename,p.adultprice as adultprice,p.childprice as childprice,p.packageid as packageid, r.resortname as resortname FROM tblresorts r LEFT JOIN tblpackages p ON r.resortid=p.resortid WHERE r.resortid='$resortid'";
+$sql2 = "SELECT r.bannerimage as bannerimage,p.description as description,p.packagename as packagename,p.adultprice as adultprice,p.childprice as childprice,p.packageid as packageid,p.mobileadultqty as mobileadultqty,p.mobilechildqty as mobilechildqty, r.location as location, r.resortname as resortname FROM tblresorts r LEFT JOIN tblpackages p ON r.resortid=p.resortid WHERE r.resortid='$resortid'";
 //echo $sql2."<br>";
 //mysqli_set_charset("utf8");
 $result = mysqli_query($conn, $sql2);
@@ -19,15 +19,13 @@ if (mysqli_num_rows($result) > 0) {
         $resortIdDetails[] = utf8ize($row);
         //$resortIdDetails[] = ;
         //echo "id: " . $row["eventname"]."<br>";
-
     }
-	echo json_encode($resortIdDetails,true);
 } else {
-    echo "zero";
+    echo "0 results";
 }
 //echo "amar";
 
-
+echo json_encode($resortIdDetails,true);
 //echo json_last_error_msg();
 
 

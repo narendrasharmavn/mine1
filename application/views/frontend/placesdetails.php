@@ -222,7 +222,7 @@
                     <h3>Description</h3>
                 </div>
                 <div class="col-md-9">
-                    <p>
+                    <p style="line-height:15px;">
                 <?php echo $row->description; ?>
 </p>
               </div>
@@ -425,7 +425,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <div class="row">
 
                         
-                                                  
+                <div class="alert alert-danger" role="alert" style="display:none;"></div>                
                         <div class="col-md-6">
                                 <div class="form-group">
                                     <label style="float: left;">Rate Us</label>
@@ -454,7 +454,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <label>Comments</label>
                         <textarea name="reviewtext" id="review_text" class="form-control" style="height:100px;" placeholder="Write your review" required></textarea>
                     </div>
-                    <input type="submit" value="Submit" class="btn_1" id="submit-review" >
+                    <input type="button" id="review-button" value="Submit" class="btn_1">
                 </form>
                 <div id="message-review" class="alert alert-warning">
                 </div>
@@ -488,6 +488,29 @@ var exchange_rate = 1;
     price_per_person = 62;
     price_per_child = 10;
     exchange_rate = 1;
+
+    $('#review-button').click(function(){
+
+            var subject =  $('input[name="subject"]').val();
+            var reviewtext =  $('#review_text').val();
+            if(subject.trim()=='' && reviewtext.trim()==''){
+                
+                $('.alert-danger').text('Please Fill the subject and reivew');
+                $('.alert-danger').css('display','block');
+                
+            }else if(subject.trim()==''){
+                $('.alert-danger').text('Please Fill the subject');
+                $('.alert-danger').css('display','block');
+            }else if(reviewtext.trim()==''){
+                $('.alert-danger').text('Please Fill the Review');
+                $('.alert-danger').css('display','block');
+            }else{
+                //form.submit();
+                document.getElementById('review-form').submit();
+            }
+
+
+        });
 
 
 //$(document).ready(function(){

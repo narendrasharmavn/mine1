@@ -28,6 +28,7 @@ class ProcessPayment {
 		$postFields .= "&ru=".$_POST['ru'];
 		$postFields .= "&udf3=".$_POST['udf3'];
 		$postFields .= "&udf2=".$_POST['udf2'];
+		$postFields .= "&udf9=".$_POST['udf9'];
 		// Not required for merchant
 		//$postFields .= "&bankid=".$_POST['bankid'];
 

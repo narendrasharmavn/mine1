@@ -91,7 +91,7 @@
                                                     <div class="form-group">
 										                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Expiry Date</label>
 										                <div class="col-sm-7 col-xs-7">
-										                  <input type="text" style="cursor:default;background-color:white;" class="form-control" name="expirydate" id="expirydate" placeholder="Enter event date" value="<?php echo set_value('expirydate'); ?>">
+										                  <input type="text" style="cursor:default;background-color:white;" class="form-control" name="expirydate" id="expirydate" placeholder="Enter Expiry date" value="<?php echo set_value('expirydate'); ?>" readonly>
 														  <span class="text-danger"><?php echo form_error('expirydate'); ?></span>
 										                </div>
 									                </div>

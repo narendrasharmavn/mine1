@@ -36,7 +36,7 @@
                                 
                                 <div class="form-group">
                                     <label>Email<span style="color:red;">*</span></label>
-                                    <input type="email" name="email" class=" form-control" placeholder="Email" onchange="emailvalidation()" value="<?php echo set_value('email'); ?>" required>
+                                    <input type="email" name="email" class=" form-control" placeholder="Email" value="<?php echo set_value('email'); ?>" required>
                                     <span class="text-danger emailvalidation"><?php echo form_error('email'); ?></span>
                                 </div>
                                 <div class="form-group">
@@ -72,6 +72,8 @@
                                     </div>
 
                                     <button type="button" class="btn_1 green btn_full check_otp">Verify</button>
+
+                                    <button type="button" class="btn_1 green btn_full resend_otp">Resend OTP</button>
                                     
                             </div>
         
@@ -187,19 +189,19 @@ $.ajax({
             mobile: $('input[name="mobile"]').val()
               },
         success: function(res) {
-            console.log(res);
+            //console.log(res);
 
-                if (res.trim()=="true") {
-                    //console.log("inside true "+res.trim());
+                if(res.trim()=="false") {
+                    //console.log("inside false "+res.trim());
+                     $('#errordiv').html('Email Id or Phone Number already exists. Please use a different one');
+                }else{
+                     var data = res.trim();
+                     //console.log("data is: "+data);
+                     localStorage.setItem("otp", data);
                     $('#otp-form').css('display','block');
                     $('#otp-form').show();
                     $('#register-form').hide();
                     $('#errordiv').html('We have sent an OTP to your mobile. Please check and input it');
-                } else if(res.trim()=="false") {
-                    //console.log("inside false "+res.trim());
-                     $('#errordiv').html('Email Id or Phone Number already exists. Please use a different one');
-                }else{
-                    //console.log(res);
                 }        //$('#email').html(res);
         },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -225,27 +227,58 @@ $.ajax({
 
 
 
+  $('.resend_otp').on('click', function() {
+     var mobile = $('input[name="mobile"]').val();
+
+     $.ajax({
+        type: "POST",
+        url: '<?php echo site_url("frontend/registrationresendotp")?>',
+        data: {
+                    mobile:mobile
+        },
+        success: function(res) {
+           var data = res.trim();
+           localStorage.setItem("otp", data);
+           $('.otp-error').html('New OTP Sent');
+           $('.otp-error').fadeOut(5000);
+        },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                    console.log(xhr.responseText);
+                 
+                }
+        });
+
+
+});
+
+
+
 
 
 
 $('.check_otp').on('click', function() {
     var pattern = /^\d+$/;
+    var otp = localStorage.getItem("otp");
 
     $(".otp-view").css('display','block');
 
     if ($('input[name="otp"]').val()=='') {
         $('.otp-error').html('OTP cannot be blank');
-    }else if(!pattern.test($('input[name="otp"]').val())){
-         $('.otp-error').html('OTP should contain only numbers');
+         $('.otp-error').fadeIn();
+    }else if($('input[name="otp"]').val()!=otp){
+        $('.otp-error').html('Entered OTP is wrong');
+        $('.otp-error').fadeIn();
     }else{
+        $('.otp-error').fadeIn();
         $('.otp-error').html('');
-                //ajax code
 
-    $.ajax({
+       $.ajax({
         type: "POST",
         url: '<?php echo site_url("frontend/registerconfirm")?>',
         data: {
-            name: $('input[name="name"]').val(),
+                    name: $('input[name="name"]').val(),
                     email: $('input[name="email"]').val(),
                     mobile: $('input[name="mobile"]').val(),
                     password:$('input[name="password"]').val(),
@@ -254,11 +287,8 @@ $('.check_otp').on('click', function() {
         },
         success: function(res) {
             //console.log($.trim(res));
-            if ($.trim(res)=="true") {
+            if (res.trim()=="true") {
                 window.location.href="<?php echo site_url().'login'; ?>";
-            }else if($.trim(res)=="false11-book"){
-                 $('.otp-error').text('OTP is wrong. Please try again');
-                 console.log('OTP is wrong. Please try again');
             }else{
                 console.log("else part "+res);
             }
@@ -277,7 +307,8 @@ $('.check_otp').on('click', function() {
 //alert("all clear");
                 //ajax code
 
-          }
+
+    }
 
     });
 
@@ -287,37 +318,11 @@ $('.re-enter-details').on('click', function() {
     $('#register-form').show();
 });
 
-function emailvalidation()
-    {
-        var useremail = $('input[name="email"]').val();
-        //alert(useremail);
 
-        /*$.ajax({
-            type: "POST",
-            url: '<?php echo base_url()."emailvalidation/"?>example.php',
-            data: {
-                useremail:useremail
-            },
-            success: function(res) {
-                console.log('validation email : '+res);
-                if($.trim(res)=='bool(true)')
-                {
-                    console.log('email is valid');
-                    $('.emailvalidation').html('Email is valid');
-                    document.getElementById("emailvalidation").style.color = "green";
-                }else{
-                   console.log('email is not valid');
-                   $('.emailvalidation').html('Email is not valid');
-                   document.getElementById("emailvalidation").style.color = "red";
-                }
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                    console.log(xhr.responseText);
-            }          
-        });*/
-    }
+
+
+
+
 
 
       </script>

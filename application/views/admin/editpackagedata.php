@@ -44,7 +44,7 @@
 								         <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Vendor Name *</label>
 								                <div class="col-sm-7 col-xs-7">
-								                  <select name="vendorname" class="form-control">
+								                  <select name="vendorname" id="vendorname" class="form-control" onchange="getResort(), getEvent()">
 								                  	<option value="">Select Vendor name</option>
 								                  	<?php
 
@@ -71,7 +71,7 @@
 											<div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Resort Name *</label>
 								                <div class="col-sm-7 col-xs-7">
-								                  <select name="resortname" class="form-control">
+								                  <select name="resortname" id="resortname" class="form-control">
 								                  	<option value="">Select resort name</option>
 								                  	<?php
 
@@ -173,7 +173,7 @@
 							                <div id="hevents" class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Event Name *</label>
 								                <div class="col-sm-7 col-xs-7">
-								                  <select name="eventname" class="form-control">
+								                  <select name="eventname" id="eventname" class="form-control">
 								                  	<option value="">Select Event name</option>
 								                  	<?php
 
@@ -194,6 +194,15 @@
 								                </div>
 								               
 							                </div>
+											<div class="form-group" id="expdate" style="margin-right: 442px;">
+												<label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Expiry Date *</label>
+												<div class="col-sm-7 col-xs-7">
+													<input type="text" class="form-control" style="cursor:default;background:white;" readonly name="expirydate" id="expirydate" placeholder="Enter event date" value="<?php echo date("d-m-Y", strtotime($packageData->expirydate)); ?>">
+														<span class="text-danger">
+															<?php echo form_error('expirydate'); ?>
+														</span>
+													</div>
+												</div>
                                             
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Package Image</label>
@@ -221,7 +230,56 @@
 
 
 	<script type="text/javascript">
+	function getResort()
+	{
 
+        var vid = $("#vendorname").val();
+
+        //alert(vid);
+
+        $.ajax({
+
+	      type: "POST",
+
+	      url: '<?php echo site_url("admin/getResort")?>',
+
+	      data: {vid:vid},
+
+	      success: function(res) {
+
+	        //alert(res); 
+
+	        $("#resortname").html(res);
+
+	      }
+
+        }); 
+
+	}
+	function getEvent()
+	{
+        var vid = $("#vendorname").val();
+
+        //alert(vid);
+
+        $.ajax({
+
+	      type: "POST",
+
+	      url: '<?php echo site_url("admin/getEvent")?>',
+
+	      data: {vid:vid},
+	      success: function(res) {
+
+	        //alert(res); 
+
+	        $("#eventname").html(res);
+
+	      }
+
+        });
+
+	}
 	 function showEvent(x)
         {
             var pkg = x;
@@ -232,7 +290,7 @@
                 $('#hevents').hide();
             }
         }
-
+		
 
 	</script>
 						
@@ -241,10 +299,11 @@
  include 'footer.php'; 
 
  ?>
-<script src="//code.jquery.com/jquery-1.9.1.js"></script>
-		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
  <script type="text/javascript">
+ var $j = jQuery.noConflict();
     $("document").ready(function(){
+
+    	$( "#expirydate" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
 
     	var packagename = $("#packagetype").val();
     	if(packagename=="event")

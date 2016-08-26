@@ -196,7 +196,7 @@ include 'header.php';
 												</div>
 												<div class="widget-summary-col">
 													<div class="summary">
-														<h4 class="title">Commission Today</h4>
+														<h4 class="title">Internet and Handling Charges</h4>
 														<?php
 
 														 $gettotalcommissionstoday = $this->db->query("SELECT sum(servicetax) as servicetax FROM tblpayments WHERE status='paid' and transactiontime>=date_format(now(),'%Y-%m-%d')");

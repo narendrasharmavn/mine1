@@ -3,7 +3,7 @@ include 'connectDB.php';
 
 $sliderdata = array();
 
-$sql = "SELECT * FROM tblsliders2 WHERE status=1";
+$sql = "SELECT * FROM tblsliders WHERE status=1";
 //mysqli_set_charset("utf8");
 $result = mysqli_query($conn, $sql);
 //mysqli_set_charset($conn,"utf8");

@@ -20,12 +20,13 @@ if (mysqli_num_rows($result) > 0) {
         //$resortIdDetails[] = ;
         //echo "id: " . $row["eventname"]."<br>";
     }
+    echo json_encode($resortIdDetails,true);
 } else {
-    echo "0 results";
+    echo "no reviews";
 }
 //echo "amar";
 
-echo json_encode($resortIdDetails,true);
+
 //echo json_last_error_msg();
 
 

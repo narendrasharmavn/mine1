@@ -1,12 +1,12 @@
 <?php
 include 'connectDB.php';
 
-$eventid = $_GET['placeid'];
+$placeid = $_GET['placeid'];
 $resortIdDetails = array();
 $adultqty = 0;
 
 
-$sql2 = "select c.name,r.subject,r.review,r.pricereview from placereviews r left join tblcustomers c on r.customerid=c.customer_id where r.placeid='$eventid' order by prid desc limit 5";
+$sql2 = "select c.name,r.subject,r.review,r.pricereview from placereviews r left join tblcustomers c on r.customerid=c.customer_id where r.placeid='$placeid' order by prid desc limit 5";
 
 //echo $sql2."\n";
 //mysqli_set_charset("utf8");
@@ -21,12 +21,13 @@ if (mysqli_num_rows($result) > 0) {
         //$resortIdDetails[] = ;
         //echo "id: " . $row["eventname"]."<br>";
     }
+    echo json_encode($resortIdDetails,true);
 } else {
-    echo "0 results";
+    echo "no reviews";
 }
 //echo "amar";
 
-echo json_encode($resortIdDetails,true);
+
 //echo json_last_error_msg();
 
 

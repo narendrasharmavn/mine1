@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,27 +14,27 @@
 <body>
   
 <?php
+session_start();
 $data1 = json_decode($_GET['data'],true);
 //print_r($data1);
-
+$_SESSION['ticketnumber'] = $data1['ticketnumber'];
 //echo "data is: ".$data1['ticketnumber'];
 
 ?>
 <div class="container">
   <h2>Book4Holiday</h2>
   <p>Press Pay to take you to payment gateway</p>
-  <form action="<?php echo 'http://fornextit.com/book4holiday/'.'merchant/';  ?>submit.php" method="post" id="payment-form">
+  <form action="<?php echo 'http://book4holiday.com/beta/'.'merchant/';  ?>submit.php" method="post" id="payment-form">
 		<input type="hidden" name="amount" class=" form-control" placeholder="" value="<?php echo round($data1['total'],0); ?>" readonly>
         <INPUT TYPE="hidden" NAME="udf1" value="NSE">
-        <INPUT TYPE="hidden" NAME="udf9" value="<?php echo $data1['ticketnumber'];   ?>">
+        
 		<INPUT TYPE="hidden" NAME="product" value="NSE">
                                     <INPUT TYPE="hidden" NAME="TType" value="NBFundTransfer">
-
                                     <INPUT TYPE="hidden" NAME="clientcode" value="9654">
                                     <INPUT TYPE="hidden" NAME="AccountNo" value="85654125485412">
 
-                                    <INPUT TYPE="hidden" NAME="ru" value="<?php echo 'http://fornextit.com/bookmobile/responsemulticheckout.php'; ?>">
-                                    <input type="hidden" name="bookingid" value="<?php echo  date('Ymdhisu'); ?>"/>
+                                    <INPUT TYPE="hidden" NAME="ru" value="<?php echo 'http://book4holiday.com/beta/services/responsemulticheckout.php'; ?>">
+                                    <input type="hidden" name="udf9" value="<?php echo  date('Ymdhisu'); ?>"/>
 									<INPUT TYPE="hidden" NAME="ticketnumber" value="<?php echo $data1['ticketnumber'];   ?>">
  <input type="hidden" name="udf3" class="form-control" id="mobile" placeholder="Enter Your mobile" value="<?php echo $data1['mobile'];   ?>">
 <input type="hidden" name="udf2" class="form-control" id="email" placeholder="abcd@example.com" value="<?php echo $data1['email'];   ?>">

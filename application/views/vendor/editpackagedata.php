@@ -60,6 +60,7 @@
 											    //echo $amount."<br>"; 
 											    
 											    $packagetags = $rows->packagetags;
+											    $expirydate = $rows->expirydate;
 											    //echo $packagetags."<br>";
 											    $packagetype = $rows->packagetype;
 											    //echo $packagetype."<br>";
@@ -169,6 +170,13 @@
 												  <span class="text-danger"><?php echo form_error('event'); ?></span>
 								                </div>
 							                </div>
+											   <div class="form-group" style="margin-right: 442px;">
+										                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Expiry Date</label>
+										                <div class="col-sm-7 col-xs-7">
+										                  <input type="text" style="cursor:default;background-color:white;" readonly class="form-control" name="expirydate" id="expirydate" placeholder="Enter Expiry date" value="<?php echo  date("d-m-Y", strtotime($expirydate)); ?>">
+														  <span class="text-danger"><?php echo form_error('expirydate'); ?></span>
+										                </div>
+									                </div>
 
 							                <input type="hidden" class="form-control" name="bannerimage" id="bannerimage"  value="<?php echo $rows->packageimage; ?>">
 
@@ -208,12 +216,14 @@
  include 'footer.php'; 
 
  ?>
-<script src="//code.jquery.com/jquery-1.9.1.js"></script>
-		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
  
 
  <script type="text/javascript">
+  var $j = jQuery.noConflict();
     $("document").ready(function(){
+		$( "#expirydate" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
+		
+    	
     	var packagename = $("#packagetype").val();
     	if(packagename=="event")
     	{
@@ -221,9 +231,7 @@
     	}else{
             $('#hevents').hide();
         }
-			$("#editpackages").validate({
-    
-          
+			$j("#editpackages").validate({
         // Specify the validation rules
         rules: {
             packagetype : "required",

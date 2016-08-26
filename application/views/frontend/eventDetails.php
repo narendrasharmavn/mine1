@@ -44,11 +44,13 @@
 
         <?php
         $photoName = "";
+        $vendorid;
 
         $query2 = $this->db->query("SELECT * from tbleventphotos WHERE eventid='$eventid'");
 
         foreach ($query2->result() as $k) {
               $photoName=$k->photoname;
+              $vendorid=$k->vendorid;
         }
 
             $todaysDate = date('Y-m-d');
@@ -124,7 +126,20 @@
 
 
                         <h1><?php echo $eventResults->eventname; ?></h1>
-                        <span><?php echo $eventResults->location; ?> (From : <?php echo date("d-m-Y", strtotime( $eventResults->fromdate)); ?> To : <span id="etdate"><?php echo  date("d-m-Y", strtotime( $eventResults->todate)); ?></span>)</span>
+                        <span>
+                            <?php
+                             
+
+$vendorid = $this->db->get_where('tblevents' , array('eventid' =>$eventid))->row()->vendorid;
+$vendorname = $this->db->get_where('tblvendors' , array('vendorid' =>$vendorid))->row()->vendorname;
+
+echo $vendorname." , ";
+
+                              ?>
+                            <?php echo $eventResults->location; ?> (From :<span > <?php echo date("d-m-Y", strtotime( $eventResults->fromdate)); ?></span> To : <span ><?php echo  date("d-m-Y", strtotime( $eventResults->todate)); ?></span>)</span>
+
+                            <input type="hidden" value="<?php echo date("d-m-Y", strtotime( $eventResults->fromdate)); ?>" id="efdate">
+                            <input type="hidden" value="<?php echo  date("d-m-Y", strtotime( $eventResults->todate)); ?>" id="etdate">
                         
 					
             <div class="row">
@@ -133,7 +148,7 @@
                 </div>
                 <div class="col-md-9">
                 <br>
-                <p>
+                <p style="line-height:15px;">
                     <?php echo $eventResults->description;  ?>
                 </p>
 <div class="row">
@@ -512,7 +527,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <div class="row">
 
                         
-                                                  
+    <div class="alert alert-danger" role="alert" style="display:none;"></div>                   
                         <div class="col-md-6">
                                 <div class="form-group">
                                     <label style="float: left;margin-top:4px;">Rate Us</label>
@@ -541,7 +556,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <label>Comments</label>
                         <textarea name="reviewtext" id="review_text" class="form-control" class="form-control" style="height:100px;" placeholder="Write your Comments" required></textarea>
                     </div>
-                    <input type="submit" value="Submit" class="btn_1" id="submit-review">
+                    <input type="button" id="review-button" value="Submit" class="btn_1">
                 </form>
                 <div id="message-review" class="alert alert-warning">
                 </div>
@@ -608,12 +623,67 @@ var exchange_rate = 1;
     price_per_child = 10;
     exchange_rate = 1;
 
+     $('#review-button').click(function(){
+
+            var subject =  $('input[name="subject"]').val();
+            var reviewtext =  $('#review_text').val();
+            if(subject.trim()=='' && reviewtext.trim()==''){
+                
+                $('.alert-danger').text('Please Fill the subject and reivew');
+                $('.alert-danger').css('display','block');
+                
+            }else if(subject.trim()==''){
+                $('.alert-danger').text('Please Fill the subject');
+                $('.alert-danger').css('display','block');
+            }else if(reviewtext.trim()==''){
+                $('.alert-danger').text('Please Fill the Review');
+                $('.alert-danger').css('display','block');
+            }else{
+                //form.submit();
+                document.getElementById('review-form').submit();
+            }
+
+
+        });
+
+    
+
 
 //$(document).ready(function(){
  //$('.carousel').carousel({interval: 2000});
     //loadMap();
-	var etdate = $('#etdate').text();
-       $( ".datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0, maxDate: etdate});
+    var etdate = $('#etdate').val();
+	var efdate = $('#efdate').val();
+    var fromdate = efdate.split("-").reverse().join("-");
+    var todayDate = new Date(); //Today Date
+       var dateOne = new Date(fromdate);
+       var mindate = new Date();
+       
+       if (todayDate>dateOne) {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+
+        var yyyy = today.getFullYear();
+        if(dd<10){
+            dd='0'+dd
+        } 
+        if(mm<10){
+            mm='0'+mm
+        } 
+        var today = dd+'-'+mm+'-'+yyyy;
+
+        mindate = today;
+        //alert("mindate today greater than"+mindate);
+    $( ".datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: mindate, maxDate: etdate});
+       }else{
+        mindate=efdate;
+        //alert(mindate);
+    $( ".datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: efdate, maxDate: etdate});
+       }
+       
+
+
 
 
      $('.theiaStickySidebar').hide();
@@ -867,7 +937,7 @@ $('.book-now').on('click',function(){
     $('#book-selection-error').html('Please select a date');
 }else if($('.total-cost').text()==0 || $('.total-cost').text()==''){
         $('#book-selection-error').show();
-        $('#book-selection-error').html('Total cannot be zero');
+        $('#book-selection-error').html('Please book atleast one ticket.');
 }else if ($('#adults').val()==0 && $('#children').val()==0){
         $('#book-selection-error').show();
         //alert("Please Select a Date");

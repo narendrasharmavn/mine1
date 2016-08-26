@@ -1,12 +1,12 @@
 <?php
 include 'connectDB.php';
 
-$eventid = $_GET['eventid'];
+$resortid = $_GET['resortid'];
 $resortIdDetails = array();
 $adultqty = 0;
 
 
-$sql2 = "select c.name,r.subject,r.review,r.pricereview from resortreviews r left join tblcustomers c on r.customerid=c.customer_id where r.resortname='$eventid' order by r.rrid desc limit 5";
+$sql2 = "select c.name,r.subject,r.review,r.pricereview from resortreviews r left join tblcustomers c on r.customerid=c.customer_id where r.resortname='$resortid' order by r.rrid desc limit 5";
 
 //mysqli_set_charset("utf8");
 $result = mysqli_query($conn, $sql2);
@@ -19,12 +19,13 @@ if (mysqli_num_rows($result) > 0) {
         $resortIdDetails[] = utf8ize($row);
         
     }
+    echo json_encode($resortIdDetails,true);
 } else {
-    echo "0 results";
+    echo "no reviews";
 }
 //echo "amar";
 
-echo json_encode($resortIdDetails,true);
+
 //echo json_last_error_msg();
 
 

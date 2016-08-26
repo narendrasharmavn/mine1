@@ -6,6 +6,21 @@
         background-color: #2875b8;
         color:black;
     }
+	.fadeInDown {
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+}
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.four{
+	text-align: center;
+    color: white;
+    font-weight: bolder;
+}
 
 </style>
 <script type="text/javascript">
@@ -15,37 +30,14 @@
         });
       };
     </script>
-<section id="hero" class="login">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-                    <div id="login">
-                        <div class="text-center">
-
-                        </div>
-                       
-
-                        <?php      
-                            
-                             echo $this->session->flashdata('error-msg'); 
-
-                                echo form_open('register-error',array('name'=>'registerform','method'=>'post'));
-                            ?>
-                            
-                                <div class="form-group">
-                                    404 Page Not found 
-                                </div>
-                               
-      
-                                
-                            </form>
-
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="hero">
+ 	<div class="intro_title error">
+    	<h1 class="animated fadeInDown">404</h1>
+        <p class="four">Oops!! Page not found</p>
+       <a href="<?php echo base_url(); ?>home" class="animated fadeInUp btn_1 green">Back to home</a>
+	</div>
+                
+</section>
 
     <?php include 'footer.php'; ?>
 

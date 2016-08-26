@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html class="fixed">
 	<head>
@@ -328,6 +327,12 @@
 										    <li class="nav-active">
 												<a href="<?php echo site_url(); ?>vendor/addpackages">
 													<span>Packages</span>
+												</a>
+											</li>
+
+											<li class="nav-active">
+												<a href="<?php echo site_url(); ?>vendor/editdetails">
+													<span>Change Password</span>
 												</a>
 											</li>
 									    </ul>	

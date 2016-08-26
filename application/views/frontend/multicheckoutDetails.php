@@ -46,7 +46,7 @@
         <?php
           $todaysDate = date('Y-m-d');
 
-            $packages = $this->db->query("SELECT * from tblpackages WHERE resortid='$resortid' AND status=1 AND expirydate>='$todaysDate'");
+            $packages = $this->db->query("SELECT * from tblpackages WHERE resortid='$resortid' AND status=1");
 
              
 
@@ -156,7 +156,14 @@
               
         <div class="col-md-8 col-sm-8">
                         <h1><?php echo $resortResults->resortname; ?></h1>
-                        <span><?php echo $resortResults->location; ?></span>
+                        <span><?php
+
+                        $vendorid = $this->db->get_where('tblresorts' , array('resortid' =>$resortid))->row()->vendorid;
+$vendorname = $this->db->get_where('tblvendors' , array('vendorid' =>$vendorid))->row()->vendorname;
+
+echo $vendorname." , ";
+
+                         echo $resortResults->location; ?></span>
                         
                     
             <div class="row">
@@ -186,8 +193,9 @@
                     <td>No.of Kids</td>
                     </thead>
 					<?php
-					$vvendorid = $this->db->get_where('tblpackages' , array('resortid' => $resortResults->resortid ))->row()->vendorid;
-					$vkidsmealprice = $this->db->get_where('tblvendors' , array('vendorid' => $vvendorid ))->row()->kidsmealprice;
+					
+					$vkidsmealprice = $this->db->get_where('tblvendors' , array('vendorid' => $vendorid ))->row()->kidsmealprice;
+                    //echo "vendorid is: ".$vkidsmealprice."<br>";
 					?>
 					 <input type="hidden" value="<?php echo $vkidsmealprice; ?>" id="kidsmeal-price" class="qty2 form-control <?php echo 'kidsmeal-price-'.$vkidsmealprice; ?>" >               
 			   <?php
@@ -390,7 +398,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                         <div class="form-group">
                             <label><i class="icon-calendar-7"></i> Select a date</label>
                             <input type="hidden" value="" id="packageid">
-                            <input type="hidden" value="<?php echo $resortResults->vendorid; ?>" id="vendorid">
+                            <input type="hidden" value="<?php echo $vendorid; ?>" id="vendorid">
                             <div class="inner-addon right-addon">
                               <i class="glyphicon fa fa-calendar"></i>
                               <input type="text" class="form-control datepickerj" id="datepickerj" readonly="readonly" placeholder="Pick a Date" style="cursor:default;" />
@@ -521,7 +529,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <div class="row">
 
                         
-                                                  
+        <div class="alert alert-danger" role="alert" style="display:none;"></div>                
                         <div class="col-md-6">
                                 <div class="form-group">
                                     <label style="float: left;">Rate Us</label>
@@ -550,7 +558,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                     <label>Comments</label>
                         <textarea name="reviewtext" id="review_text" class="form-control" style="height:100px;" placeholder="Write your review" required></textarea>
                     </div>
-                    <input type="submit" value="Submit" class="btn_1" id="submit-review">
+                    <input type="button" id="review-button" value="Submit" class="btn_1">
                 </form>
                 <div id="message-review" class="alert alert-warning">
                 </div>
@@ -625,10 +633,47 @@ var exchange_rate = 1;
     exchange_rate = 1;
 
 
+    $('#review-button').click(function(){
+
+            var subject =  $('input[name="subject"]').val();
+            var reviewtext =  $('#review_text').val();
+            if(subject.trim()=='' && reviewtext.trim()==''){
+                
+                $('.alert-danger').text('Please Fill the subject and reivew');
+                $('.alert-danger').css('display','block');
+                
+            }else if(subject.trim()==''){
+                $('.alert-danger').text('Please Fill the subject');
+                $('.alert-danger').css('display','block');
+            }else if(reviewtext.trim()==''){
+                $('.alert-danger').text('Please Fill the Review');
+                $('.alert-danger').css('display','block');
+            }else{
+                //form.submit();
+                document.getElementById('review-form').submit();
+            }
+
+
+        });
+
+
+function disableSpecificWeekDays(date) {
+                var day = date.getDay();
+                for (i = 0; i < daysToDisable.length; i++) {
+                    if ($.inArray(day, daysToDisable) != -1) {
+                        return [false];
+                    }
+                }
+                return [true];
+            }
+
 //$(document).ready(function(){
  //$('.carousel').carousel({interval: 2000});
     //loadMap();
-     $( ".datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
+    var daysToDisable = [1];
+     $( ".datepickerj" ).datepicker(
+        {dateFormat: "dd-mm-yy", minDate: 0,beforeShowDay: disableSpecificWeekDays}
+        );
      $('.datepickerj').datepicker('setDate', null);
 
      var packageId = document.getElementsByName('packagename[]');
@@ -874,13 +919,15 @@ function calculateBookings(){
     console.log("Cost charges Adult "+calculate_adult);
     console.log("Cost charges Child "+calculate_child);
     */
-    console.log("Internet Handling charges "+internethandlingcharges);
+    //console.log("Internet Handling charges "+internethandlingcharges);
      //get kids meal tax
         var kidsmealtax = $('.kids-meal-tax').val();
-        var calculatedkidmealtax = kidsmealtax * (  $('#kidsmeal').val() * $('#kidsmeal-price').val() )/100;
+        var calculatedkidsmealprice = $('#kidsmeal').val() * $('#kidsmeal-price').val();
+        var calculatedkidmealtax = kidsmealtax * ( calculatedkidsmealprice  )/100;
+        console.log("Kids Meal price is: "+calculatedkidsmealprice+"\n");
         internetCharges = internetCharges + calculatedkidmealtax;
         internetCharges = round( internetCharges,2 );
-    console.log("Internet charges "+internetCharges);
+    //console.log("Internet charges "+internetCharges);
     //replace adult tickets and price
     sumOfAdultPrice = round(sumOfAdultPrice,2);
     sumOfChildPrice = round(sumOfChildPrice,2);

@@ -58,6 +58,8 @@
 
                  $query2 = $this->db->query($sql);
                  $row =$query2->row();
+
+                 if($row->minprice!=''){
                           ?>
 
                           
@@ -95,6 +97,7 @@
 
 
                           <?php
+                        }//condition show only if price is not empty
 
                           $last_id = $k->eventid;
                     }
@@ -211,34 +214,34 @@ $(document).ready(function() {
                 $('#sessionvalue').val(sessionValue);
 
                 $.ajax({
-        type: "POST",
-        url: '<?php echo site_url("frontend/sortpricedateforeventsAjax")?>',
-        data: {
-            'date':date,
-           'price':price,
-           'lastid':lastidone,
-           'limit':limit,
-           'sessionValue':sessionValue
-           
-                        },
-        success: function(data) {
-                        if(data!='')
-                        {
-                            $("#results").append(data);                 
-                            $('.loader_image').hide();                  
-                            
-                          
-                        }
-        },
-                        error: function (xhr, ajaxOptions, thrownError) {
-                            console.log(xhr.status);
-                            console.log(thrownError);
-                            console.log(xhr.responseText);
-                         
-                        }
+                  type: "POST",
+                  url: '<?php echo site_url("frontend/sortpricedateforeventsAjax")?>',
+                  data: {
+                      'date':date,
+                     'price':price,
+                     'lastid':lastidone,
+                     'limit':limit,
+                     'sessionValue':sessionValue
+                     
+                                  },
+                  success: function(data) {
+                                  if(data!='')
+                                  {
+                                      $("#results").append(data);                 
+                                      $('.loader_image').hide();                  
+                                      
+                                    
+                                  }
+                  },
+                                  error: function (xhr, ajaxOptions, thrownError) {
+                                      console.log(xhr.status);
+                                      console.log(thrownError);
+                                      console.log(xhr.responseText);
+                                   
+                                  }
 
 
-        }); //end of ajax
+                  }); //end of ajax
 
 
 
