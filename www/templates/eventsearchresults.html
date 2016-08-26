@@ -9,20 +9,20 @@
   <ion-content>
   <div class="row topsearch">
 	  <div class="col col-100">
-        <div class="col col-50 tax-col" style="display:inline-block;">
+        <div class="col col-41 tax-col" style="display:inline-block;">
           
           <label class="item item-input">
             
             
-          <input type="text" class="datepicker" placeholder="Select a date" ng-model="search.date" /> 
+          <input type="text" class="datepicker" placeholder="Select a date" ng-model="search.date" readonly style="cursor:default;background:white;"  /> 
           </label>
 
 
         </div>
-         <div class="col col-50 tax-col text-right" style="float:right;">
+         <div class="col col-41 tax-col text-right" style="float:right;">
         <label class="item item-input">
           <i class="icon ion-search placeholder-icon"></i>
-          <input type="text" placeholder="Enter Event Name" ng-model="search.name" ng-change="onSearchChange()">
+          <input type="text" placeholder="Event Name" ng-model="search.name" ng-change="onSearchChange()">
         </label>
         </div>
       </div>

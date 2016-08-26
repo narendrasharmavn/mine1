@@ -56,9 +56,9 @@
 	<h5><b>User Reviews</b></h5>
     <a class="item item-avatar" href="" ng-repeat="r in eventreviews">
       <img src="img/icon.png">
-	  	   <p>{{r.pricereview}}</p><rating ng-model="r.pricereview" style="pointer-events: none;
-   cursor: default;"></rating>
-      <h2>{{i}}-{{r.name}}</h2>
+	  	   <p><rating ng-model="r.pricereview" style="pointer-events: none;
+   cursor: default;"></rating></p>
+      <h2>{{r.name}}</h2>
       <p>{{r.subject}}</p>
       <p>{{r.review}}</p>
     </a>

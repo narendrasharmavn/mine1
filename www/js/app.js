@@ -124,6 +124,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
     }
   })
 
+
+  .state('sidemenu.ordersummary', {
+    url: '/ordersummary/:ticketnumber',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/ordersummary.html',
+        controller: 'SummaryCtrl'
+      }
+    }
+  })
+
+
   .state('sidemenu.map', {
     url: '/map',
     views: {
@@ -276,6 +288,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
        }
     },
       params: {
+       dateofvisit: null,
        usertotals: null,
        userselectedoptions:null
      },
@@ -363,10 +376,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
           controller:'ResponseCtrl'
          
             }
-      },
-      params: {
-       ticketnumber:null
-     }  
+      }
+      
 
     })
 

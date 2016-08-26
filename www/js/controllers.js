@@ -27,16 +27,21 @@ app.run(function($ionicPlatform,$state) {
       StatusBar.styleDefault();
     }
 
+    
+
     if(window.localStorage.getItem("ticketnumber") !== null && window.localStorage.getItem("ticketnumber") !== "")
       {
-        //alert("ticket number match");
-        var ticketnumber = window.localStorage.getItem("ticketnumber");
-        $state.go('sidemenu.response',{ticketnumber:ticketnumber});        
+
+        $state.go('sidemenu.response');   
+        
+             
       }else{
-        //alert("ticket number no match");
-       //window.localStorage.setItem("ticketnumber", '3213131');
+        //alert("no ticket number");
+       //window.localStorage.setItem("ticketnumber", 'a');
         
       }
+
+     
 
 
   });
@@ -62,8 +67,9 @@ app.constant('myconfig', {
 
 app.controller('ResponseCtrl',function($scope,$ionicSlideBoxDelegate,$ionicNavBarDelegate,$state,myconfig,process,webservices){
   $ionicNavBarDelegate.showBackButton(false);
-  $scope.ticketnumber = $state.params.ticketnumber;
+  $scope.ticketnumber = window.localStorage.getItem("ticketnumber");
   //console.log("ticketnumber is: "+ticketnumber);
+  //alert("ticketnumber is: "+$scope.ticketnumber);
   $scope.userData = {};
   $scope.res = {};
   $scope.res.success=false;
@@ -72,6 +78,7 @@ app.controller('ResponseCtrl',function($scope,$ionicSlideBoxDelegate,$ionicNavBa
    webservices.getUserDetailsWithTicketNumber($scope.ticketnumber).success(function (response) {
         console.clear();
         console.log(response);
+        //alert(response);
         $scope.userData = response[0];
         if ($scope.userData.responsestatus=="Ok") {
           $scope.res.success=true;
@@ -129,7 +136,7 @@ app.controller('TestCtrl',function($scope,$state,$http,webservices,myconfig,$ion
 
 });
 
-app.controller('CheckOutOptionEventCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup,$window){
+app.controller('CheckOutOptionEventCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup,$window,$ionicLoading){
   console.clear();
 
   $scope.c={};
@@ -140,17 +147,20 @@ app.controller('CheckOutOptionEventCtrl',function($scope,$state,$http,webservice
   $scope.userselectedoptions = $state.params.userselectedoptions;
   
   if(localStorage.getItem("holidayCustomerEmail") !== null && localStorage.getItem("holidayCustomerEmail") !== ""){
+    $ionicLoading.show({
+      template: "Loading..."
+   });
     $scope.c.email = localStorage.getItem("holidayCustomerEmail");
     $scope.c.name = localStorage.getItem("holidayCustomerName");
     $scope.c.mobile = localStorage.getItem("holidayCustomerMobile");
-    $scope.o.customerid = localStorage.getItem("holidayCustomerId");
+    $scope.c.customerid = localStorage.getItem("holidayCustomerId");
     
     
-    webservices.saveUserSelectedSessionAndUserSelectionsAndUserTotalsEvents($scope.c,$scope.o, $scope.usertotals, $scope.userselectedoptions ).success(function (response) {
+    webservices.saveUserSelectedSessionAndUserSelectionsAndUserTotalsEventsWithLogin($scope.c,$scope.usertotals, $scope.userselectedoptions ).success(function (response) {
         console.clear();
         console.log(response);
         var paymenturl = myconfig.webservicesurl+"/confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
-		console.log(paymenturl);
+		    console.log(paymenturl);
         var finalurl = myconfig.webservicesurl+"/test.php";
         var responseurl = myconfig.webservicesurl+"/responsemulticheckout.php";
                       try {
@@ -173,9 +183,11 @@ app.controller('CheckOutOptionEventCtrl',function($scope,$state,$http,webservice
                                   var eventurl = event.url;
                                    ref.close();
                                    var tkt = eventurl.split("/ticketnumber");
-                                   //alert("extracted information"+tkt[1]);
+                                   ////alert("extracted information"+tkt[1]);
                                    window.localStorage.setItem("ticketnumber", tkt[1]);
-                                   $window.location.reload(true);
+                                   $ionicLoading.hide();
+                                   window.location.href="index.html";
+
                                }    
                           }
                           function Close(event) {
@@ -223,15 +235,20 @@ app.controller('CheckOutOptionEventCtrl',function($scope,$state,$http,webservice
        $scope.checkotp = function(c){
 
         if (c.otp==$scope.o.otp) {
+          $ionicLoading.show({
+            template: 'Loading .....'
+          });
           //OTP matches
-         webservices.saveUserSelectedSessionAndUserSelectionsAndUserTotalsEvents($scope.c,$scope.o, $scope.usertotals,   $scope.userselectedoptions ).success(function (response) {
-                  console.clear();
+          
+          $scope.c.customerid=$scope.o.customerid;
+         webservices.saveUserSelectedSessionAndUserSelectionsAndUserTotalsEvents($scope.c, $scope.usertotals, $scope.userselectedoptions ).success(function (response) {
+                  //console.clear();
                   console.log(response);
                   var paymenturl = myconfig.webservicesurl+"/confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
                   var finalurl = myconfig.webservicesurl+"/test.php";
                   var responseurl = myconfig.webservicesurl+"/responsemulticheckout.php";
                       try {
-                          ref = window.open(paymenturl,'_blank','location=no'); //encode is needed if you want to send a variable with your link if not you can use ref = window.open(url,'_blank','location=no');
+                               ref = window.open(paymenturl,'_blank','location=no'); //encode is needed if you want to send a variable with your link if not you can use ref = window.open(url,'_blank','location=no');
                                ref.addEventListener('loadstop', LoadStop);
                                ref.addEventListener('exit', Close);
                           }
@@ -250,9 +267,11 @@ app.controller('CheckOutOptionEventCtrl',function($scope,$state,$http,webservice
                                   var eventurl = event.url;
                                    ref.close();
                                    var tkt = eventurl.split("/ticketnumber");
-                                   //alert("extracted information"+tkt[1]);
+                                   ////alert("extracted information"+tkt[1]);
                                    window.localStorage.setItem("ticketnumber", tkt[1]);
-                                   $window.location.reload(true);
+                                   $ionicLoading.hide();
+                                   window.location.href="index.html";
+
                                }    
                           }
                           function Close(event) {
@@ -284,11 +303,12 @@ app.controller('CheckOutOptionEventCtrl',function($scope,$state,$http,webservice
 });
 
 
-app.controller('checkOutOptionResortsCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup,$window){
+app.controller('checkOutOptionResortsCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup,$window,$ionicLoading){
   console.clear();
+ 
+      
+ 
 
-
-  console.clear();
   $scope.c={};
   $scope.o=[];
   $scope.c.proceedguest=true;
@@ -297,23 +317,30 @@ app.controller('checkOutOptionResortsCtrl',function($scope,$state,$http,webservi
   $scope.userselectedoptions = $state.params.userselectedoptions;
   $scope.dateofvisit = $state.params.dateofvisit;
 
-  console.log($scope.dateofvisit);
+ 
 
   if(localStorage.getItem("holidayCustomerEmail") !== null && localStorage.getItem("holidayCustomerEmail") !== ""){
+    
+    $ionicLoading.show({
+      template: "Loading..."
+    });
+    
     $scope.c.email = localStorage.getItem("holidayCustomerEmail");
     $scope.c.name = localStorage.getItem("holidayCustomerName");
     $scope.c.mobile = localStorage.getItem("holidayCustomerMobile");
-    $scope.o.customerid = localStorage.getItem("holidayCustomerId");
+    $scope.c.customerid = localStorage.getItem("holidayCustomerId");
+
     
     
-    webservices.saveUserSelectedSessionAndUserSelectionsAndUserTotalsEvents($scope.c,$scope.o, $scope.usertotals, $scope.userselectedoptions ).success(function (response) {
-        console.clear();
+    
+    webservices.saveUserSelectedSessionAndUserSelectionsAndUserTotalsResortsWithLogin($scope.c,$scope.usertotals, $scope.userselectedoptions ).success(function (response) {
+        //console.clear();
         console.log(response);
-        var paymenturl = myconfig.webservicesurl+"/confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
+        //var paymenturl = myconfig.webservicesurl+"/confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
         var finalurl = myconfig.webservicesurl+"/test.php";
                   var responseurl = myconfig.webservicesurl+"/responsemulticheckout.php";
                       try {
-                          ref = window.open(paymenturl,'_blank','location=no'); //encode is needed if you want to send a variable with your link if not you can use ref = window.open(url,'_blank','location=no');
+                               ref = window.open(paymenturl,'_blank','location=no'); //encode is needed if you want to send a variable with your link if not you can use ref = window.open(url,'_blank','location=no');
                                ref.addEventListener('loadstop', LoadStop);
                                ref.addEventListener('exit', Close);
                           }
@@ -334,7 +361,10 @@ app.controller('checkOutOptionResortsCtrl',function($scope,$state,$http,webservi
                                    var tkt = eventurl.split("/ticketnumber");
                                    //alert("extracted information"+tkt[1]);
                                    window.localStorage.setItem("ticketnumber", tkt[1]);
-                                   $window.location.reload(true);
+                                   $ionicLoading.hide();
+                                   window.location.href="index.html";
+
+                                   
                                }    
                           }
                           function Close(event) {
@@ -377,6 +407,11 @@ app.controller('checkOutOptionResortsCtrl',function($scope,$state,$http,webservi
        $scope.checkotp = function(c){
 
         if (c.otp==$scope.o.otp) {
+            
+            $ionicLoading.show({
+            template: 'Loading .....'
+          });
+          
           //OTP matches
          webservices.saveUserSelectedDataResortSingleCheckOut($scope.c,$scope.o, $scope.usertotals,   $scope.userselectedoptions ).success(function (response) {
                   console.clear();
@@ -406,7 +441,10 @@ app.controller('checkOutOptionResortsCtrl',function($scope,$state,$http,webservi
                                    var tkt = eventurl.split("/ticketnumber");
                                    //alert("extracted information"+tkt[1]);
                                    window.localStorage.setItem("ticketnumber", tkt[1]);
-                                   $window.location.reload(true);
+                                   $ionicLoading.hide();
+                                   window.location.href="index.html";
+
+                                   
                                }    
                           }
                           function Close(event) {
@@ -441,27 +479,33 @@ app.controller('checkOutOptionResortsCtrl',function($scope,$state,$http,webservi
   });
 
 
-app.controller('checkOutOptionCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup,$window){
+app.controller('checkOutOptionCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup,$window,$ionicLoading){
   console.clear();
   $scope.c={};
   $scope.o=[];
   $scope.c.proceedguest=true;
   $scope.c.otpview=false;
   $scope.usertotals = $state.params.usertotals;
+  $scope.usertotals.dateofvisit = $state.params.dateofvisit;
   $scope.userselectedoptions = $state.params.userselectedoptions;
+
+  console.log($scope.usertotals);
   
   if(localStorage.getItem("holidayCustomerEmail") !== null && localStorage.getItem("holidayCustomerEmail") !== ""){
+    $ionicLoading.show({
+      template: "Loading..."
+    });
     $scope.c.email = localStorage.getItem("holidayCustomerEmail");
     $scope.c.name = localStorage.getItem("holidayCustomerName");
     $scope.c.mobile = localStorage.getItem("holidayCustomerMobile");
-    $scope.o.customerid = localStorage.getItem("holidayCustomerId");
+    $scope.c.customerid = localStorage.getItem("holidayCustomerId");
     
     
-    webservices.saveUserSelectedSessionAndUserSelectionsAndUserTotals($scope.c,$scope.o, $scope.usertotals, $scope.userselectedoptions ).success(function (response) {
-        console.clear();
+    webservices.saveUserSelectedSessionAndUserSelectionsAndUserTotalsMultiCheckOutWithLogin($scope.c, $scope.usertotals, $scope.userselectedoptions ).success(function (response) {
+        //console.clear();
         console.log(response);
         var paymenturl = myconfig.webservicesurl+"/confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
-		console.log(paymenturl);
+		    console.log(paymenturl);
         var finalurl = myconfig.webservicesurl+"/test.php";
                   var responseurl = myconfig.webservicesurl+"/responsemulticheckout.php";
                       try {
@@ -484,9 +528,11 @@ app.controller('checkOutOptionCtrl',function($scope,$state,$http,webservices,myc
                                   var eventurl = event.url;
                                    ref.close();
                                    var tkt = eventurl.split("/ticketnumber");
-                                   //alert("extracted information"+tkt[1]);
+                                   ////alert("extracted information"+tkt[1]);
                                    window.localStorage.setItem("ticketnumber", tkt[1]);
-                                   $window.location.reload(true);
+                                   $ionicLoading.hide();
+                                   window.location.href="index.html";
+
                                }    
                           }
                           function Close(event) {
@@ -514,7 +560,7 @@ app.controller('checkOutOptionCtrl',function($scope,$state,$http,webservices,myc
        $scope.submit = function(c){
         
           webservices.sendUserLoginAsGuest(c).success(function (response) {
-                  console.clear();
+                  //console.clear();
                   $scope.o=response;
                   console.log($scope.o); 
                   $scope.c.proceedguest=true;
@@ -527,9 +573,12 @@ app.controller('checkOutOptionCtrl',function($scope,$state,$http,webservices,myc
        $scope.checkotp = function(c){
 
         if (c.otp==$scope.o.otp) {
+          $ionicLoading.show({
+            template: 'Loading .....'
+         });
           //OTP matches
          webservices.saveUserSelectedSessionAndUserSelectionsAndUserTotals($scope.c,$scope.o, $scope.usertotals,   $scope.userselectedoptions ).success(function (response) {
-                  console.clear();
+                  //console.clear();
                   console.log(response);
                   var paymenturl = myconfig.webservicesurl+"/confirm.php?data="+encodeURIComponent(JSON.stringify(response));
                   var finalurl = myconfig.webservicesurl+"/test.php";
@@ -554,9 +603,11 @@ app.controller('checkOutOptionCtrl',function($scope,$state,$http,webservices,myc
                                   var eventurl = event.url;
                                    ref.close();
                                    var tkt = eventurl.split("/ticketnumber");
-                                   //alert("extracted information"+tkt[1]);
+                                   ////alert("extracted information"+tkt[1]);
                                    window.localStorage.setItem("ticketnumber", tkt[1]);
-                                   $window.location.reload(true);
+                                   $ionicLoading.hide();
+                                   window.location.href="index.html";
+
                                }    
                           }
                           function Close(event) {
@@ -605,14 +656,14 @@ console.log("single booking controller");
     console.log($scope.calculatedData); 
     console.log($scope.userChoosen); 
    
-    $state.go('sidemenu.checkoutoptionresorts',{usertotals:$scope.calculatedData,userselectedoptions:$scope.userChoosen});
+    $state.go('sidemenu.checkoutoptionresorts',{usertotals:$scope.calculatedData,userselectedoptions:$scope.userChoosen,dateofvisit:$scope.dateofvisit});
   }
 
 $scope.taxBreakUp = function(){
 
   var alertPopup = $ionicPopup.alert({
      title: 'Tax Break Up',
-     template: '<div class="row"><div class="col col-50 tax-col">Internet Handling Charges:</div> <div class="col col-50 text-right tax-col"style="float:right">Rs.' +$scope.calculatedData.internetchargeswithouttotal+
+     template: '<div class="row"><div class="col col-50 tax-col">Internet Handling Charges:</div> <div class="col col-50 text-right tax-col"style="float:right">Rs.' +$scope.calculatedData.internetcharges+
 '</div></div><div class="row"><div class="col col-50 tax-col">Service tax :</div> <div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.servicetax+
 '</div></div><div class="row"><div class="col col-50 tax-col">Swachh Bharat :</div><div class="col col-50 text-right tax-col"style="float:right"> Rs '+$scope.calculatedData.swachcess+
 '</div></div><div class="row"><div class="col col-50 tax-col">Krishi Cess : </div><div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.krishicess+'</div></div>'
@@ -1093,8 +1144,9 @@ $( ".datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
 
 
 
-app.controller('ResortDetailsCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup){
+app.controller('ResortDetailsCtrl',function($window,$scope,$state,$http,webservices,myconfig,$ionicPopup){
   console.clear();
+  $scope.errormessages=false;
         $scope.date = new Date();
        $scope.resortid = $state.params.id;
 		$scope.data={};
@@ -1127,14 +1179,15 @@ app.controller('ResortDetailsCtrl',function($scope,$state,$http,webservices,myco
           //console.clear();
           //console.log(reviewsdata); 
           $scope.rrating = {};
-		  if(!reviewsdata[0].packageid){
+          $scope.eventreviews = reviewsdata;
+		  if(reviewsdata=="no reviews"){
 			$scope.noreviews=true;
 			$scope.reviews=false;
-			$scope.eventreviews = reviewsdata;
+			
 		  }else{
 			  $scope.noreviews=false;
 			  $scope.reviews=true;
-			  $scope.eventreviews = reviewsdata;
+			 
 			 
 		  }
         });
@@ -1146,41 +1199,63 @@ app.controller('ResortDetailsCtrl',function($scope,$state,$http,webservices,myco
     }
 	$scope.submitresortreview = function(){
 
+
+    
 	  var alertPopup = $ionicPopup.alert({
 		 title: 'Submit Review', scope: $scope,
-		 template: '<div class="list"><center><rating name="rating" ng-model="data.rating" max="5"></rating></center><label class="item item-input"><input type="text" ng-model="data.subject" name="subject" placeholder="Subject"></label><label class="item item-input"><textarea name="review" ng-model="data.review" placeholder="Comments"></textarea></label></div>',
+		 template: '<div class="list"><center><rating name="rating" ng-model="data.rating" max="5"></rating></center><label class="item item-input"><input type="text" ng-model="data.subject" name="subject" placeholder="Subject"></label><label class="item item-input"><textarea name="review" ng-model="data.review" placeholder="Comments"></textarea></label><div ng-show="errormessages"><p>Please Fill Subject & Review</p></div></div>',
 		 buttons: [
-		 { text: 'Cancel' },
+		 { 
+        text: 'Cancel',
+        type: 'button-default',
+
+      onTap: function(e) {
+
+         // e.preventDefault() will stop the popup from closing when tapped.
+
+         //e.preventDefault();
+
+      } 
+     },
 		 {
-                  text: '<b>Ok</b>',
-                  type: 'button-balanced',
-                  onTap: function(e) {
-                    if ($scope.data.review!="") {
-						
-						} else {
-                      return $scope.data;
-                    }
-                  }
-                }
+        text: '<b>Ok</b>',
+        type: 'button-balanced',
+        onTap: function(e) {
+           
+            if (!$scope.data.review) 
+            {
+              
+              //don't allow the user to close unless he enters wifi password
+              $scope.errormessages=true;  
+              e.preventDefault();
+              
+            }else if(!$scope.data.subject){
+              $scope.errormessages=true;  
+               e.preventDefault();
+            } else {
+              
+               return $scope.data;
+
+            }
+          
+        }
+      }
 			]
 		 });
 	
 
-   alertPopup.then(function(res) {
-	  $scope.data.customerid = localStorage.getItem("holidayCustomerId");
-              webservices.submitResortReviews($scope.data,$scope.resortid).success(function (response) {
-                   console.clear();
-				   console.log(response); 
-
-                 
-                  })
-              
-                          
-            });
-
-  
-  
-}
+    alertPopup.then(function(res) {
+      
+      
+      $scope.data.customerid = localStorage.getItem("holidayCustomerId");
+          webservices.submitResortReviews($scope.data,$scope.resortid).success(function (response) {
+      console.clear();
+      console.log(response); 
+      $window.location.reload();
+       
+      })         
+    });
+  }
 
 });
 
@@ -1194,7 +1269,7 @@ app.controller('ZooCtrl',function($scope,$state,$http,$window,webservices,myconf
     }
     return arr;
 }
-        
+        $scope.errormessages=false;
        $scope.resortid = $state.params.id;
 
        //console.log("details id is: "+$scope.resortid);
@@ -1231,17 +1306,38 @@ app.controller('ZooCtrl',function($scope,$state,$http,$window,webservices,myconf
 
 	  var alertPopup = $ionicPopup.alert({
 		 title: 'Submit Review', scope: $scope,
-		 template: '<div class="list"><center><rating name="rating" ng-model="data.rating" max="5"></rating></center><label class="item item-input"><input type="text" ng-model="data.subject" name="subject" placeholder="Subject"></label><label class="item item-input"><textarea name="review" ng-model="data.review" placeholder="Comments"></textarea></label></div>',
+		 template: '<div class="list"><center><rating name="rating" ng-model="data.rating" max="5"></rating></center><label class="item item-input"><input type="text" ng-model="data.subject" name="subject" placeholder="Subject"></label><label class="item item-input"><textarea name="review" ng-model="data.review" placeholder="Comments"></textarea></label><div ng-show="errormessages"><p>Please Fill Subject & Review</p></div></div>',
 		 buttons: [
-		 { text: 'Cancel' },
+		 { 
+        text: 'Cancel',
+        type: 'button-default',
+
+        onTap: function(e) {
+
+           // e.preventDefault() will stop the popup from closing when tapped.
+
+           //e.preventDefault();
+
+        } 
+     },
 		 {
                   text: '<b>Ok</b>',
                   type: 'button-balanced',
                   onTap: function(e) {
-                    if ($scope.data.review!="") {
-						
-						} else {
-                      return $scope.data;
+                    if (!$scope.data.review) 
+                    {
+                      
+                      //don't allow the user to close unless he enters wifi password
+                      $scope.errormessages=true;  
+                      e.preventDefault();
+                      
+                    }else if(!$scope.data.subject){
+                      $scope.errormessages=true;  
+                       e.preventDefault();
+                    } else {
+                      
+                       return $scope.data;
+
                     }
                   }
                 }
@@ -1271,6 +1367,7 @@ app.controller('ZooCtrl',function($scope,$state,$http,$window,webservices,myconf
 app.controller('EventDetailsCtrl',function($scope,$state,$http,$window,webservices,myconfig,$ionicPopup){
   console.clear();
         console.clear();
+        $scope.errormessages=false;
        $scope.eventid = $state.params.id;
 	   $scope.nopackage=false;
        $scope.data={};
@@ -1297,16 +1394,16 @@ app.controller('EventDetailsCtrl',function($scope,$state,$http,$window,webservic
 		
         webservices.getEventReviews($scope.eventid).success(function(reviewsdata) {
           //console.clear();
-          //console.log(reviewsdata); 
-          //$scope.eventreviews = reviewsdata;
-		  if(!reviewsdata[0].packageid){
+          console.log(reviewsdata); 
+          $scope.eventreviews = reviewsdata;
+		  if(reviewsdata=="no reviews"){
 			$scope.noreviews=true;
 			$scope.reviews=false;
-			$scope.eventreviews = reviewsdata;
+			
 		  }else{
 			  $scope.noreviews=false;
 			  $scope.reviews=true;
-			  $scope.eventreviews = reviewsdata;
+			  
 		  }
         });
 
@@ -1318,18 +1415,41 @@ app.controller('EventDetailsCtrl',function($scope,$state,$http,$window,webservic
 
 	  var alertPopup = $ionicPopup.alert({
 		 title: 'Submit Review', scope: $scope,
-		 template: '<div class="list"><center><rating name="rating" ng-model="data.rating" max="5"></rating></center><label class="item item-input"><input type="text" ng-model="data.subject" name="subject" placeholder="Subject"></label><label class="item item-input"><textarea name="review" ng-model="data.review" placeholder="Comments"></textarea></label></div>',
+		 template: '<div class="list"><center><rating name="rating" ng-model="data.rating" max="5"></rating></center><label class="item item-input"><input type="text" ng-model="data.subject" name="subject" placeholder="Subject"></label><label class="item item-input"><textarea name="review" ng-model="data.review" placeholder="Comments"></textarea></label><div ng-show="errormessages"><p>Please Fill Subject & Review</p></div></div>',
 		 buttons: [
-		 { text: 'Cancel' },
+		 { 
+        text: 'Cancel',
+        type: 'button-default',
+        onTap: function(e) {
+
+           // e.preventDefault() will stop the popup from closing when tapped.
+
+           //e.preventDefault();
+
+        }  
+     },
 		 {
                   text: '<b>Ok</b>',
                   type: 'button-balanced',
                   onTap: function(e) {
-                    if ($scope.data.review!="") {
-						
-						} else {
-                      return $scope.data;
-                    }
+                  
+                  if (!$scope.data.review) 
+                  {
+                    
+                    //don't allow the user to close unless he enters wifi password
+                    $scope.errormessages=true;  
+                    e.preventDefault();
+                    
+                  }else if(!$scope.data.subject){
+                    $scope.errormessages=true;  
+                     e.preventDefault();
+                  } else {
+                    
+                     return $scope.data;
+
+                  }
+
+                   
                   }
                 }
 			]
@@ -1341,7 +1461,7 @@ app.controller('EventDetailsCtrl',function($scope,$state,$http,$window,webservic
               webservices.submitEventReviews($scope.data,$scope.eventid).success(function (response) {
                    //console.clear();
 				   $window.location.reload(true);
-				   //console.log(response); 
+				   console.log(response); 
 					
                  
                   })
@@ -1357,7 +1477,7 @@ app.controller('EventDetailsCtrl',function($scope,$state,$http,$window,webservic
 
 app.controller('PlaceDetailsCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup,$window){
   console.clear();
-        
+      $scope.errormessages=false;
        $scope.placeid = $state.params.id;
 		$scope.data={};
        //console.log("details id is: "+$scope.eventid);
@@ -1374,37 +1494,58 @@ app.controller('PlaceDetailsCtrl',function($scope,$state,$http,webservices,mycon
 		webservices.getPlaceReviews($scope.placeid).success(function(reviewsdata) {
           //console.clear();
           //console.log(reviewsdata); 
-          
-		  if(!reviewsdata[0].packageid){
+          $scope.eventreviews = reviewsdata;
+		  if(reviewsdata=="no reviews"){
 			$scope.noreviews=true;
 			$scope.reviews=false;
-			$scope.eventreviews = reviewsdata;
+			
 		  }else{
 			  $scope.noreviews=false;
 			  $scope.reviews=true;
-			  $scope.eventreviews = reviewsdata;
+			  
 			  $scope.rating=[];
-			  for(i=0;i<=reviewsdata.pricereview;i++){
-				  $scope.rating[i];
-			  }
+			  
 		  }
         });
 		$scope.submitresortreview = function(){
 
 	  var alertPopup = $ionicPopup.alert({
 		 title: 'Submit Review', scope: $scope,
-		 template: '<div class="list"><center><rating name="rating" ng-model="data.rating" max="5"></rating></center><label class="item item-input"><input type="text" ng-model="data.subject" name="subject" placeholder="Subject"></label><label class="item item-input"><textarea name="review" ng-model="data.review" placeholder="Comments"></textarea></label></div>',
+		 template: '<div class="list"><center><rating name="rating" ng-model="data.rating" max="5"></rating></center><label class="item item-input"><input type="text" ng-model="data.subject" name="subject" placeholder="Subject"></label><label class="item item-input"><textarea name="review" ng-model="data.review" placeholder="Comments"></textarea></label><div ng-show="errormessages"><p>Please Fill Subject & Review</p></div></div>',
 		 buttons: [
-		 { text: 'Cancel' },
+		 { 
+         text: 'Cancel',
+          type: 'button-default',
+
+      onTap: function(e) {
+
+         // e.preventDefault() will stop the popup from closing when tapped.
+
+         //e.preventDefault();
+
+      }  
+     },
 		 {
                   text: '<b>Ok</b>',
                   type: 'button-balanced',
                   onTap: function(e) {
-                    if ($scope.data.review!="") {
-						
-						} else {
-                      return $scope.data;
-                    }
+                     
+                      if (!$scope.data.review) 
+                      {
+                        
+                        //don't allow the user to close unless he enters wifi password
+                        $scope.errormessages=true;  
+                        e.preventDefault();
+                        
+                      }else if(!$scope.data.subject){
+                        $scope.errormessages=true;  
+                         e.preventDefault();
+                      } else {
+                        
+                         return $scope.data;
+
+                      }
+
                   }
                 }
 			]
@@ -1600,6 +1741,14 @@ app.factory('webservices', function($http,myconfig){
       var url = myconfig.webservicesurl+'/getPlacesBasedOnSearchCriteria.php';
       return $http.post(url, {search:searchkeyword})
       
+    },//getOrdersBasedOnTicketNumber($state.params.ticketnumber)
+
+    getOrdersBasedOnTicketNumber: function(ticketnumber){
+
+      var url = myconfig.webservicesurl+'/getOrdersBasedOnTicketNumber.php';
+      return $http.post(url, {ticketnumber:ticketnumber})
+
+
     },
 
 
@@ -1709,17 +1858,14 @@ app.factory('webservices', function($http,myconfig){
      console.log("Event ID is: "+eventid); 
     return $http.get(url)
         .success(function(reviewsdata, status, headers,config){
-          //console.log('data success');
-          //console.log("Data Length: "+data.length+"\n"); // for browser console
-          console.log("Data Is: "+reviewsdata[0].bannerimage); // for browser console
-          //return data; // for UI
+          
         })
         .error(function(reviewsdata, status, headers,config){
           console.log('data error');
         })
   },
   getResortReviews: function(resortid){
-      var url = myconfig.webservicesurl+'/getResortReviews.php?eventid='+resortid;
+      var url = myconfig.webservicesurl+'/getResortReviews.php?resortid='+resortid;
       console.log("url is: "+url);
      console.log("Resort ID is: "+resortid); 
     return $http.get(url)
@@ -1733,16 +1879,13 @@ app.factory('webservices', function($http,myconfig){
           console.log('data error');
         })
   },
-	getPlaceReviews: function(resortid){
-      var url = myconfig.webservicesurl+'/getPlaceReviews.php?placeid='+resortid;
+	getPlaceReviews: function(placeid){
+      var url = myconfig.webservicesurl+'/getPlaceReviews.php?placeid='+placeid;
       console.log("url is: "+url);
-     console.log("Resort ID is: "+resortid); 
+     
     return $http.get(url)
         .success(function(reviewsdata, status, headers,config){
-          //console.log('data success');
-          //console.log("Data Length: "+data.length+"\n"); // for browser console
-          console.log("Data Is: "+reviewsdata[0].bannerimage); // for browser console
-          //return data; // for UI
+          
         })
         .error(function(reviewsdata, status, headers,config){
           console.log('data error');
@@ -1839,7 +1982,18 @@ app.factory('webservices', function($http,myconfig){
       var url = myconfig.webservicesurl+'/loginAsGuest.php';
       return $http.post(url, { obj:c })
       
-    },//sendUserSelectedOptionsToServer end    
+    },//sendUserSelectedOptionsToServer end   
+
+
+    saveUserSelectedSessionAndUserSelectionsAndUserTotalsMultiCheckOutWithLogin: function($userdetails,usertotals,userselectedoptions){
+
+      var url = myconfig.webservicesurl+'/saveMultiChecktOutWithLogin.php';
+      return $http.post(url, { userdetails:$userdetails, usertotals:usertotals, userselectedoptions:userselectedoptions })
+      
+    },//saveUserSelectedSessionAndUserSelectionsAndUserTotals($scope.o, $scope.usertotals,   $scope.userselectedoptions )
+
+    
+ 
 
     saveUserSelectedSessionAndUserSelectionsAndUserTotals: function($userdetails,o,usertotals,userselectedoptions){
 
@@ -1857,11 +2011,33 @@ app.factory('webservices', function($http,myconfig){
       
     },
 
+    saveUserSelectedSessionAndUserSelectionsAndUserTotalsResortsWithLogin: function(userdetails,usertotals,userselectedoptions){
 
-     saveUserSelectedSessionAndUserSelectionsAndUserTotalsEvents: function(userdetails,o,usertotals,userselectedoptions){
+      //console.log("inside factory method\n");
+      //console.log(o);
+      var url = myconfig.webservicesurl+'/saveLoggedInSelectionsResortBooking.php';
+      return $http.post(url, { userdetails:userdetails,usertotals:usertotals, userselectedoptions:userselectedoptions })
+      
+    },//saveUserSelectedSessionAndUserSelectionsAndUserTotalsResortsWithLogin($scope.o, $scope.usertotals,   $scope.userselectedoptions )
 
+    
+    saveUserSelectedSessionAndUserSelectionsAndUserTotalsEventsWithLogin: function(userdetails,usertotals,userselectedoptions){
+
+      //console.log("inside factory method\n");
+      //console.log(o);
+      var url = myconfig.webservicesurl+'/saveGuestCheckOutEventDetailsWithLogin.php';
+      return $http.post(url, { userdetails:userdetails,usertotals:usertotals, userselectedoptions:userselectedoptions })
+      
+    },//saveUserSelectedSessionAndUserSelectionsAndUserTotalsEventsWithLogin($scope.o, $scope.usertotals,   $scope.userselectedoptions )
+
+    
+
+     saveUserSelectedSessionAndUserSelectionsAndUserTotalsEvents: function(userdetails,usertotals,userselectedoptions){
+
+      //console.log("inside factory method\n");
+      //console.log(o);
       var url = myconfig.webservicesurl+'/saveGuestCheckOutEventDetails.php';
-      return $http.post(url, { userdetails:userdetails, o:o, usertotals:usertotals, userselectedoptions:userselectedoptions })
+      return $http.post(url, { userdetails:userdetails,usertotals:usertotals, userselectedoptions:userselectedoptions })
       
     },//saveUserSelectedSessionAndUserSelectionsAndUserTotals($scope.o, $scope.usertotals,   $scope.userselectedoptions )
 
@@ -1962,8 +2138,8 @@ app.controller('LoginCtrl', function($scope, $http, $state,$window, process) {
         localStorage.setItem("holidayCustomerName", $scope.responsecustomername);
         localStorage.setItem("holidayCustomerMobile", $scope.responsemobile);
         localStorage.setItem("holidayCustomerId", $scope.responseid);
-		$window.location.reload(true);
-        $state.go('sidemenu.home');
+		    //$window.location.reload(true);
+        window.location.href="index.html";
 		
       }else{
         console.log($scope.responseotp);  
@@ -2097,7 +2273,7 @@ app.controller('RegisterCtrl', function($scope, $http, $state, process) {
        console.log(response);  
        //$scope.otpresponse=response.otp;
       })
-      $state.go('sidemenu.home');
+      $state.go('sidemenu.login');
     }else{
       $scope.otperror=true;
       $state.go('sidemenu.register');
@@ -2178,15 +2354,18 @@ app.controller('MyaccountCtrl', function($scope, $http, $state, process) {
 
 
 app.controller('MyordersCtrl', function($scope, $http, $state, process) {
-  $scope.data = {};
+  $scope.BookingData = {};
   $scope.hidesummary = true;
   $scope.errormsg = false;
+  var holidayCustomerEmail = localStorage.getItem("holidayCustomerEmail");
   if(localStorage.getItem("holidayCustomerEmail") !== null && localStorage.getItem("holidayCustomerEmail") !== "")
   {
-    process.getuserordersdata(localStorage.getItem("holidayCustomerEmail")).success(function (response) 
+    //alert(holidayCustomerEmail);
+    process.getuserordersdata(holidayCustomerEmail).success(function (response) 
     {
-      $scope.data=response;
-      console.log($scope.data);
+    //alert(holidayCustomerEmail);
+      $scope.BookingData=response;
+       console.log("Data Length: "+$scope.BookingData.length+"\n");
       
     })
   }else{
@@ -2197,29 +2376,43 @@ app.controller('MyordersCtrl', function($scope, $http, $state, process) {
 });
 
 app.controller('SummaryCtrl', function($scope, $ionicPopup, $http, $state, process) {
-  $scope.showAlert = function() {
-    var alertPopup = $ionicPopup.alert({
-      title: 'Tax Charges',
-      templateUrl: 'templates/taxes.html'
-    });
-
-    alertPopup.then(function(res) {
-      console.log('Tax Popup Clicked');
-    });
-  };
 
   $scope.tckno = $state.params.ticketnumber;
-  console.log($scope.tckno); 
+  //console.log($scope.tckno); 
   $scope.data = {};
   
   process.getorderdetails($scope.tckno).success(function (response) 
   {
-    $scope.data=response;
-    console.log($scope.data);
-    console.log($scope.data.adultstickets);
+    $scope.data = response[0];
+  $scope.kidsmealprice = response[0].noofkidsmeal * response[0].kidsmealprice;
+   console.log(response);
+  //$scope.taxes = response[0].internetcharges + response[0].krishkalyancess + response[0].servicetax + response[0].swachhbharath; 
+    //console.log($scope.data.adultstickets);
   })
   
 });
+
+
+
+app.controller('OrderSummaryCtrl', function($scope, $http, $state, process,webservices) {
+  console.clear();
+  
+  console.log("Ticket number is: "+$state.params.ticketnumber);
+  
+  $scope.orders = [];
+
+  webservices.getOrdersBasedOnTicketNumber($state.params.ticketnumber).success(function(data) {
+            $scope.orders=data;
+            //console.log("hellos this is test"+$scope.search.name);
+            console.log(data);
+        });
+
+});
+
+
+
+
+
 
 
 app.controller('MapCtrl', function($scope, $ionicLoading, $compile) {

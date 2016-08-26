@@ -56,11 +56,12 @@
 	</div>
 	</div>
    <div class="list list-inset" >
-	<h5 ><b style="float:left;">User Reviews</b>
+	<h5 ><b style="float:left;" ng-hide="noreviews">User Reviews</b>
 	</h5>
     <a class="item item-avatar" href="" ng-repeat="r in eventreviews" ng-show="reviews">
       <img src="img/icon.png">
-	  	  <p><i class="ion ion-start" ng-repeat="pricereview in r.eventreviews"></i> <!--<rating ng-model="r.pricereview"></rating>--></p>
+	  	  <p><i class="ion ion-start" ng-repeat="pricereview in r.eventreviews"></i> <rating ng-model="r.pricereview" max="5" style="pointer-events: none;
+   cursor: default;" ></rating></p>
       <h2>{{r.name}}</h2>
       <p>{{r.subject}}</p>
       <p>{{r.review}}</p>

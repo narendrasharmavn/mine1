@@ -1,14 +1,15 @@
-<ion-view class="pane" view-title="Book4Holiday">
+  <ion-view class="pane" view-title="Book4Holiday">
 <ion-nav-buttons side="left">
 
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
         </button>
 
       </ion-nav-buttons>
-  <ion-content>
-    <div class="col col-100">
+  <ion-content class="has-header has-footer">
+     <div class="col col-100">
       <center>
-        <h3>-Order Summary-</h3>
+        <h3>Order Summary</h3>
+    
       </center>
       <hr>
     </div>
@@ -16,8 +17,8 @@
       <div class="row">
         <div class="col col-100">
           <center>
-          <h5>{{data.packagename}}</h5>
           <p>Ticket Number : {{data.ticketnumber}}</p>
+      <p>Date of Visit : {{data.dateofvisit}}</p>
           </center>
         </div>
       </div>
@@ -26,38 +27,24 @@
         <div class="col col-70">
           <p>Adult Tickets ({{data.quantity}})</p>
           <p>Child Tickets ({{data.childqty}})</p>
-          <p>Kids Meal Price ({{data.kidsmealqty}})</p>
-          <p>TotalTicket Cost</p>
-        </div>
-        <div class="col col-30">
-          <p>Rs.<span>{{data.adultstickets}}</span></p> 
-          <p>Rs.<span>{{data.childtickets}}</span></p>
-          <p>Rs.<span>{{data.kidmealsprice}}</span></p> 
-          <p>Rs.<span></span></p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col col-70">
+          <p>Kids Meal Price ({{data.noofkidsmeal}})</p>
           <p>Taxes</p>
-          <p>Date of Visit</p>
-        </div>
-        <div class="col col-30">
-          <p>Rs.<span>{{data.taxes}}</span></p>
-          <p>{{data.dateofvisit}}</p> 
-        </div>
+           </div>
+        <div class="col col-30 text-right">
+          <p>Rs.<span>{{data.adultpriceperticket}}</span></p> 
+          <p>Rs.<span>{{data.childpriceperticket}}</span></p>
+          <p>Rs.<span>{{kidsmealprice}}</span></p> 
+          <p>Rs.<span>{{data.taxes}}</span></p> 
+         </div>
       </div>
-      <div class="row">
-        <div class="col col-100">
-          <p ng-click="showAlert()"><span style="color:green;">% Show Service tax breakup</span></p>
-        </div>
-      </div>
+
       <hr>
       <div class="row">
         <div class="col col-70">
           <p><b>Total</b></p>
         </div>
-        <div class="col col-30">
-          <p><b>Rs.<span>{{data.total}}</span></b></p>
+        <div class="col col-30 text-right">
+          <p><b>Rs.<span>{{data.totalcost}}</span></b></p>
         </div>
       </div>
     </div>
