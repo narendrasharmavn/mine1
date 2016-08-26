@@ -493,7 +493,22 @@ var exchange_rate = 1;
 
             var subject =  $('input[name="subject"]').val();
             var reviewtext =  $('#review_text').val();
-            if(subject.trim()=='' && reviewtext.trim()==''){
+
+            for (i = 0; i < document.getElementsByName('pricerating').length; i++) {
+                if(document.getElementsByName('pricerating')[i].checked == true) {
+                    var ratingValue = document.getElementsByName('pricerating')[i].value;
+                    break;
+                }
+        }
+       
+
+
+            if(ratingValue==undefined){
+                
+                $('.alert-danger').text('Please rate us');
+                $('.alert-danger').css('display','block');
+                
+            }else if(subject.trim()=='' && reviewtext.trim()==''){
                 
                 $('.alert-danger').text('Please Fill the subject and reivew');
                 $('.alert-danger').css('display','block');

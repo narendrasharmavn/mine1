@@ -457,7 +457,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                                 <input type="hidden" name="per-child-price" value="0"  class="pcp" >
                         </div>
                     </div>
-                                        <div class="col-md-6 col-sm-6">
+                    <div class="col-md-6 col-sm-6 childqtyhide">
                         <div class="form-group">
                             <label>Children</label>
                             <div class="numbers-row" data-min="0">
@@ -490,7 +490,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                          <i class="fa fa-inr"></i> <span class="adultprice">0</span>
                     </td>
                 </tr>
-                <tr>
+                <tr class="childqtyhide">
                     <td>
                         Children (<span class="children-number">0</span>)                   </td>
                     <td class="text-right">
@@ -708,11 +708,26 @@ var exchange_rate = 1;
 
         $('#review-button').click(function(){
 
+            
             var subject =  $('input[name="subject"]').val();
             var reviewtext =  $('#review_text').val();
-            if(subject.trim()=='' && reviewtext.trim()==''){
+
+            for (i = 0; i < document.getElementsByName('pricerating').length; i++) {
+                if(document.getElementsByName('pricerating')[i].checked == true) {
+                    var ratingValue = document.getElementsByName('pricerating')[i].value;
+                    break;
+                }
+        }
+       
+
+            if(ratingValue==undefined){
                 
-                $('.alert-danger').text('Please Fill the subject and reivew');
+                $('.alert-danger').text('Please rate us');
+                $('.alert-danger').css('display','block');
+                
+            }else if(subject.trim()=='' && reviewtext.trim()==''){
+                
+                $('.alert-danger').text('Please Fill the subject and review');
                 $('.alert-danger').css('display','block');
                 
             }else if(subject.trim()==''){
@@ -981,6 +996,10 @@ $('.pap').val(adultprice);
 
 var childprice = $("#"+childPriceId).val();
 console.log("\nchild price is: "+childprice);
+if (childprice==0) {
+    
+    $('.childqtyhide').hide();
+}
 $('.pcp').val(childprice);
 
 //alert($('#'+serviceTaxId).val());
@@ -1000,7 +1019,7 @@ if (kidsmealprice>0) {
 }
 
 $('html, body').animate({
-    scrollTop: 500
+    scrollTop: 400
     
 }, 1000);
 

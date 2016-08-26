@@ -21,7 +21,9 @@
 
         <div class="step">
             <?php
-            $query = $this->db->query("SELECT * from tblbookings b LEFT JOIN tblpackages p ON b.packageid=p.packageid LEFT join tblcustomers c ON b.userid=c.customer_id WHERE b.userid='".$this->session->userdata('holidayCustomerId')."' AND c.regtype='registration' AND b.booking_status='booked' and b.payment_status='paid' ORDER BY b.date DESC");
+            $query = $this->db->query("SELECT * from tblbookings b LEFT join tblpayments pay ON b.ticketnumber=pay.ticketnumber LEFT JOIN tblpackages p ON b.packageid=p.packageid LEFT join tblcustomers c ON b.userid=c.customer_id WHERE b.userid='".$this->session->userdata('holidayCustomerId')."' AND c.regtype='registration' AND b.booking_status='booked' and b.payment_status='paid' ORDER BY b.date DESC");
+
+            
 
             if(count($query->result())>0){
 
@@ -57,7 +59,7 @@
                 
                 <td><span><?php echo $k->quantity;   ?></span></td>
                 <td><span><?php echo $k->childqty;   ?></span></td>
-                <td>Rs. <span><?php echo $k->amount;   ?></span></td>
+                <td>Rs. <span><?php echo $k->totalcost;   ?></span></td>
            
                 
                 <td><a href="<?php echo site_url().'invoice/'.$k->ticketnumber; ?>" target='_blank'>View Ticket</a></td>
