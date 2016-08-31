@@ -24,7 +24,7 @@ $_SESSION['ticketnumber'] = $data1['ticketnumber'];
 <div class="container">
   <center><h2>Book4Holiday</h2></center>
   <p>Press Pay to take you to payment gateway</p>
-  <form action="<?php echo 'http://book4holiday.com/beta/'.'merchant/';  ?>submit.php" method="post" id="payment-form" >
+  <form action="<?php echo 'https://book4holiday.com/beta/'.'merchant/';  ?>submit.php" method="post" id="payment-form" >
 		<input type="hidden" name="amount" class=" form-control" placeholder="" value="<?php echo round($data1['total'],0); ?>" readonly>
         <INPUT TYPE="hidden" NAME="udf1" value="NSE">
         
@@ -34,7 +34,7 @@ $_SESSION['ticketnumber'] = $data1['ticketnumber'];
                                     <INPUT TYPE="hidden" NAME="clientcode" value="9654">
                                     <INPUT TYPE="hidden" NAME="AccountNo" value="85654125485412">
 
-                                    <INPUT TYPE="hidden" NAME="ru" value="<?php echo 'http://book4holiday.com/beta/services/responsemulticheckout.php'; ?>">
+                                    <INPUT TYPE="hidden" NAME="ru" value="<?php echo 'https://book4holiday.com/beta/services/responsemulticheckout.php'; ?>">
                                     <input type="hidden" name="udf9" value="<?php echo  date('Ymdhisu'); ?>"/>
 									<INPUT TYPE="hidden" NAME="ticketnumber" value="<?php echo $data1['ticketnumber'];   ?>">
  <input type="hidden" name="udf3" class="form-control" id="mobile" placeholder="Enter Your mobile" value="<?php echo $data1['mobile'];   ?>">

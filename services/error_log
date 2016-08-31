@@ -8,3 +8,4 @@
 [26-Aug-2016 21:55:15 UTC] PHP Fatal error:  Call to undefined function base_url() in /home/book4holiday/public_html/beta/services/responsemulticheckout.php on line 90
 [26-Aug-2016 23:46:01 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home/book4holiday/public_html/beta/services/getuserordersdata.php on line 28
 [26-Aug-2016 23:46:01 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home/book4holiday/public_html/beta/services/getuserordersdata.php on line 28
+[30-Aug-2016 12:11:20 UTC] PHP Parse error:  syntax error, unexpected '{' in /home/book4holiday/public_html/beta/services/checkIfKidsMealPriceIsZeroOrNot.php on line 18
