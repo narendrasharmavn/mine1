@@ -30,14 +30,14 @@
       <div class="row">
         <div class="col col-70">
           <p>Adult Tickets ({{data.quantity}})</p>
-          <p>Child Tickets ({{data.childqty}})</p>
-          <p>Kids Meal Price ({{data.noofkidsmeal}})</p>
+          <p ng-if="data.childqty != 0">Child Tickets ({{data.childqty}})</p>
+          <p ng-if="data.noofkidsmeal != 0">Kids Meal Price ({{data.noofkidsmeal}})</p>
           <p>Taxes</p>
            </div>
         <div class="col col-30 text-right">
           <p>Rs.<span>{{data.adultpriceperticket}}</span></p> 
-          <p>Rs.<span>{{data.childpriceperticket}}</span></p>
-          <p>Rs.<span>{{kidsmealprice}}</span></p> 
+          <p ng-if="data.childpriceperticket!=0">Rs.<span>{{data.childpriceperticket}}</span></p>
+          <p ng-if="kidsmealprice!=0">Rs.<span>{{kidsmealprice}}</span></p> 
           <p>Rs.<span>{{data.taxes}}</span></p> 
          </div>
       </div>

@@ -35,9 +35,13 @@
           <div class="col col-50">Adult Tickets</div>
           <div class="col col-50">{{userData.numberofadults}}</div>
       </div>
-      <div class="row">
+      <div class="row" ng-if="userData.numberofchildren!=0">
           <div class="col col-50">Child Tickets</div>
           <div class="col col-50">{{userData.numberofchildren}}</div>
+      </div>
+      <div class="row" ng-if="userData.noofkidsmeal!=0">
+          <div class="col col-50">Kids Meal Qty</div>
+          <div class="col col-50">{{userData.noofkidsmeal}}</div>
       </div>
     <div class="row">
           <div class="col col-50">Amount</div>
