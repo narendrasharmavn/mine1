@@ -35,7 +35,7 @@
       
       
 
-      <ion-list >
+      <ion-list ng-if="search.name!=''">
         <ion-item  type="item-text-wrap" href="#/sidemenu/eventdetails/{{s.eventid}}" ng-repeat="s in searchresult | filter:search.name" >
           {{s.eventname}}
         </ion-item>

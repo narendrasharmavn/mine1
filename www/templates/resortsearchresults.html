@@ -24,7 +24,7 @@
       
       
       
-      <ion-list>
+      <ion-list ng-if="search.name!=''">
       <ion-item  type="item-text-wrap" href="#/sidemenu/resortdetails/{{r.resortid}}" ng-repeat="r in searchresult | filter:search.name" >
         {{r.resortname}}
       </ion-item>

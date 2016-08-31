@@ -1,15 +1,22 @@
 <ion-view class="pane" view-title="Book4Holiday">
 <ion-nav-buttons side="left">
 
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
-        </button>
-		
+        <!-- <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
+        </button>-->
+    
+    
+        <a href="#/sidemenu/home" ><li class="button button-icon ion-ios-home-outline"></li>
+        </a>
+    
       </ion-nav-buttons>
 	   
   <ion-content class="has-header has-footer">
+      <div class="list">
 
-	    <div class="list list-inset">
         <label class="item item-input item-select">
+          <div class="input-label">
+            Select Type
+          </div>
           <select ng-model="search.searchterm" ng-change="searchtermchange(search.searchterm)">
             <option value="">Choose your search</option>
             <option value="events">Events</option>
@@ -17,7 +24,10 @@
             <option value="places">Places</option>
           </select>
         </label>
-        <br>
+
+      </div>
+	    <div class="list">
+        
 
         <!--events search-->
         <label class="item item-input" ng-if="search.searchterm=='events'">
