@@ -84,12 +84,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
       }
     }
   })  
-  .state('sidemenu.placesearch', {
-    url: '/placesearch',
+  .state('sidemenu.search', {
+    url: '/search',
     views: {
       'menuContent': {
-        templateUrl: 'templates/placesearch.html',
-        controller: 'PlaceSearchCtrl'
+        templateUrl: 'templates/search.html',
+        controller: 'SearchCtrl'
       }
     }
   })

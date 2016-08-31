@@ -15,13 +15,13 @@
         <div class="col col-80">
         
           <h3>{{userBookingDetails[0].resortname}}</h3>
-		  <p>Location : <b>{{userBookingDetails[0].location}}</b></p>
+		      <p>Location : <b>{{userBookingDetails[0].location}}</b></p>
           <br>
          
 		
 
       </div>
-	  <div class="col col-20 text-right"><a href="geo://{{userBookingDetails[0].latitude}},{{userBookingDetails[0].longitude}}?q={{userBookingDetails[0].resortname}}"><i class="ion ion-map"></i></a></div>
+	  <div class="col col-20 text-right"><a href="geo://{{userBookingDetails[0].latitude}},{{userBookingDetails[0].longitude}}?q={{userBookingDetails[0].resortname}}" ng-if="userBookingDetails[0].longitude!=0"><i class="ion ion-map" style="font-size: 30px;"></i></a></div>
      
     </div>
 	<div class="row">

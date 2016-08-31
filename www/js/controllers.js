@@ -1444,7 +1444,7 @@ $ionicLoading.show({
 });
 
 app.controller('EventDetailsCtrl',function($scope,$state,$http,$window,webservices,myconfig,$ionicPopup){
-  console.clear();
+        
         console.clear();
         $scope.errormessages=false;
        $scope.eventid = $state.params.id;
@@ -1557,6 +1557,7 @@ app.controller('PlaceDetailsCtrl',function($scope,$state,$http,webservices,mycon
         webservices.getPlaceDetailsOnPlaceId($scope.placeid).success(function(data) {
         //console.log("Inside ResortDetails controller : "+data[0].bannerimage); 
             $scope.userBookingDetails = data;
+            console.log(data);
         });
 		
 		webservices.getPlaceReviews($scope.placeid).success(function(reviewsdata) {
@@ -1726,6 +1727,67 @@ app.controller('EventSearchCtrl',function($scope,$state,$http,webservices,myconf
 });
 
 
+app.controller('SearchCtrl',function($scope,$state,$http,webservices,myconfig){
+  console.clear();
+
+  
+  $scope.oneventssearch = function(eventname){
+    console.log(eventname);
+
+     webservices.getEventNamesBasedOnSearchKeyword(eventname).success(function(data) {
+            $scope.searchresult=data;
+            //console.log("hellos this is test"+$scope.search.name);
+            console.log($scope.searchresult);
+        });
+
+  }
+
+
+  $scope.onResortSearch = function(resortname){
+    console.log(resortname);
+
+     webservices.getResortNamesBasedOnSearchKeyword(resortname).success(function(data) {
+            $scope.searchresult=data;
+            //console.log("hellos this is test"+$scope.search.name);
+            console.log($scope.searchresult);
+        });
+
+  }
+
+   $scope.search={};
+
+        $scope.searchresult=[];
+        
+        
+       $scope.searchtype = $state.params.searchtype;
+
+       //console.log("search type is: "+$scope.searchtype);
+
+        $scope.placesData={};
+        $scope.imagepathurl = myconfig.imagepathurl;
+        //alert("these are events");
+         webservices.getPlaces().success(function(data) { 
+            $scope.placesData = data;
+        });
+
+       $scope.bookThisPlace = function(placeid){
+          alert("clicked place id is: "+placeid);
+       }
+
+        $scope.onSearchChange = function(){
+
+        webservices.getPlacesBasedOnSearchCriteria($scope.search.name).success(function(data) {
+            $scope.searchresult=data;
+            //console.log("hellos this is test"+$scope.search.name);
+            console.log($scope.searchresult);
+        });
+    
+      }
+
+
+});
+
+
 app.controller('PlaceSearchCtrl',function($scope,$state,$http,webservices,myconfig){
   console.clear();
 
@@ -1802,13 +1864,32 @@ app.factory('webservices', function($http,myconfig){
       
     },//
 
+    getResortNamesBasedOnSearchKeyword: function(resortname)
+    {
+
+      var url = myconfig.webservicesurl+'/getResortNamesBasedOnSearchKeyword.php';
+      return $http.post(url, {search:resortname})
+      
+    },//getOrdersBasedOnTicketNumber($state.params.ticketnumber) getEventNamesBasedOnSearchKeyword(eventname)
+
+
+
+    getEventNamesBasedOnSearchKeyword: function(eventname)
+    {
+
+      var url = myconfig.webservicesurl+'/getEventNamesBasedOnSearchKeyword.php';
+      return $http.post(url, {search:eventname})
+      
+    },//getOrdersBasedOnTicketNumber($state.params.ticketnumber) getEventNamesBasedOnSearchKeyword(eventname)
+
+
     getPlacesBasedOnSearchCriteria: function(searchkeyword)
     {
 
       var url = myconfig.webservicesurl+'/getPlacesBasedOnSearchCriteria.php';
       return $http.post(url, {search:searchkeyword})
       
-    },//getOrdersBasedOnTicketNumber($state.params.ticketnumber)
+    },//getOrdersBasedOnTicketNumber($state.params.ticketnumber) getEventNamesBasedOnSearchKeyword(eventname)
 
     getOrdersBasedOnTicketNumber: function(ticketnumber){
 
