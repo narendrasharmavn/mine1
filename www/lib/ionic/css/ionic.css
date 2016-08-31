@@ -3943,6 +3943,7 @@ a.subdued {
     .bar.bar-positive.bar-footer {
       background-image: linear-gradient(180deg, #0c60ee, #0c60ee 50%, transparent 50%); }
   .bar.bar-calm {
+	  
     border-color: #0a9dc7;
     background-color: #11c1f3;
     background-image: linear-gradient(0deg, #0a9dc7, #0a9dc7 50%, transparent 50%);
@@ -8573,7 +8574,7 @@ progress {
  * --------------------------------------------------
  */
 .button {
-text-transform:uppercase;
+
   border-color: transparent;
   background-color: #f8f8f8;
   color: #444;

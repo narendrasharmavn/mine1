@@ -1,8 +1,12 @@
 <ion-view class="pane" view-title="Book4Holiday">
 <ion-nav-buttons side="left">
 
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
-        </button>
+       <!-- <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
+        </button>-->
+		
+		
+        <a href="#/sidemenu/home" ><li class="button button-icon ion-ios-home-outline"></li>
+        </a>
 
       </ion-nav-buttons>
   <ion-content class="has-footer">
@@ -14,9 +18,9 @@
     </div>
     <div class="card">
       <div class="item item-text-wrap">
-        <div class="row">
+        <div class="row" ng-if="calculatedData.adultprice!=0">
           <div class="col col-70">
-            <p>Adults( {{calculatedData.adultqty}}  )</p>
+            <p>Adults Tickets( {{calculatedData.adultqty}}  )</p>
           </div>
           
           <div class="col col-30">
@@ -24,17 +28,17 @@
           </div>
         </div>
         
-        <div class="row">
+        <div class="row" ng-if="calculatedData.childprice!=0">
           <div class="col col-70">
-            <p>Children ( {{calculatedData.childqty}}  )</p>
+            <p>Children Tickets( {{calculatedData.childqty}}  )</p>
           </div>
           
-          <div class="col col-30">
+          <div class="col col-30" >
             <p class="amtside">Rs. {{calculatedData.childprice}}</p>
           </div>
         </div>
 
-        <div class="row">
+        <div class="row" ng-if="calculatedData.kidsmealprice!=0">
           <div class="col col-70">
             <p>KidsMeal ( {{calculatedData.kidsmealqty}}  )</p>
           </div>
@@ -53,7 +57,7 @@
           </div>
         </div>
 
-         <button class="button button-icon" ng-click="taxBreakUp()" style="color:blue; text-decoration:underline;">Tax Break Up <i class="ion ion-plus"></i></button>
+         <button class="button button-icon taxbreakup" ng-click="taxBreakUp()"><i class="ion ion-plus"></i> Tax Break Up <i class="ion ion-plus"></i></button>
         <hr>
         <div class="row">
           <div class="col col-70">

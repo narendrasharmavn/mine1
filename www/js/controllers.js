@@ -100,14 +100,17 @@ app.controller('ResponseCtrl',function($scope,$ionicSlideBoxDelegate,$ionicNavBa
 
   });
 
-app.controller('HomeCtrl',function($scope,$ionicSlideBoxDelegate,$state,myconfig,process){
+app.controller('HomeCtrl',function($scope,$ionicSlideBoxDelegate,$state,myconfig,process,$ionicLoading){
   $scope.data = {};
   $scope.imagepathurl = myconfig.imagepathurl;
-  
+  $ionicLoading.show({
+      template: "Please Wait."
+   });
   process.getslidersdata().success(function (response) 
   {
     console.log(response);
     $scope.data = response;
+	$ionicLoading.hide();
   })
 
   //console.log("constant value is: "+myconfig.webservicesurl);
@@ -123,6 +126,14 @@ app.controller('HomeCtrl',function($scope,$ionicSlideBoxDelegate,$state,myconfig
     $scope.slideIndex = index;
   };
   
+  $scope.repeatDone = function() {
+	  $ionicSlideBoxDelegate.update();
+	  //$ionicSlideBoxDelegate.slide($scope.week.length - 1, 1);
+	};
+	
+	
+
+ 
 
 });
 
@@ -336,11 +347,11 @@ app.controller('checkOutOptionResortsCtrl',function($scope,$state,$http,webservi
     webservices.saveUserSelectedSessionAndUserSelectionsAndUserTotalsResortsWithLogin($scope.c,$scope.usertotals, $scope.userselectedoptions ).success(function (response) {
         //console.clear();
         console.log(response);
-        //var paymenturl = myconfig.webservicesurl+"/confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
+        var paymenturl = myconfig.webservicesurl+"/confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
         var finalurl = myconfig.webservicesurl+"/test.php";
                   var responseurl = myconfig.webservicesurl+"/responsemulticheckout.php";
                       try {
-                               ref = window.open(paymenturl,'_blank','location=no'); //encode is needed if you want to send a variable with your link if not you can use ref = window.open(url,'_blank','location=no');
+                               ref = window.open(paymenturl,'_self','location=no,clearcache=yes'); //encode is needed if you want to send a variable with your link if not you can use ref = window.open(url,'_blank','location=no');
                                ref.addEventListener('loadstop', LoadStop);
                                ref.addEventListener('exit', Close);
                           }
@@ -699,13 +710,35 @@ app.controller('MultiBookingCtrl',function($scope,$state,$http,webservices,mycon
   console.clear();
   //console.clear();
   $scope.userChoosen = $state.params.obj;
-  popup();
+  $scope.kidsmealprice;
+  webservices.checkIfKidsMealPriceIsZeroOrNot($scope.userChoosen[0].packageid).success(function (response) {
+                   //console.log(response.kidsmealprice); 
+
+                   $scope.kidsmealprice = response.kidsmealprice;
+                   //alert($scope.kidsmealprice);
+                   if ($scope.kidsmealprice!=0) {
+                               popup();
+                              }else{
+                               $scope.data.kidsmealqty=0;
+                               webservices.sendUserSelectedOptionsToServer($scope.userChoosen,$scope.data.kidsmealqty,$scope.dateofvisit).success(function (response) {
+                               console.log(response); 
+
+                               $scope.calculatedData=response;
+                               
+                                })
+
+                              }
+                   
+                    })
+
+
+  //popup();
   $scope.data={};
   $scope.data.kidsmealqty=0;
   $scope.calculatedData={};
   $scope.dateofvisit = $state.params.dateofvisit;
 
-  console.log($scope.dateofvisit);
+  console.log($scope.userChoosen[0].packageid);
 
   $scope.submit= function(){
     console.log($scope.calculatedData); 
@@ -781,8 +814,55 @@ $scope.taxBreakUp = function(){
 
   });
 
-app.controller('MultiCheckOutCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup){
+app.controller('MultiCheckOutCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup,$ionicLoading){
       console.clear();
+
+        // increment for + button //
+       $ionicLoading.show({
+		  template: "Please Wait."
+	   });
+        $scope.increment = function(){
+          $scope.userBookingDetails[$index].mobileadultqty+=1;
+
+        }//end of increment
+
+       // increment for + button //
+
+        // decrement for - button //
+       
+        $scope.decrement = function(){
+          $scope.userBookingDetails.mobileadultqty-=1;
+          if($scope.userBookingDetails.mobileadultqty<0)
+          {
+            $scope.userBookingDetails.mobileadultqty=0;
+          }
+
+        }//end of decrement
+
+       // decrement for - button //
+
+       // cincrement for + button //
+       
+        $scope.cincrement = function(){
+          $scope.userBookingDetails.mobilechildqty+=1;
+
+        }//end of increment
+
+       // cincrement for + button //
+
+        // cdecrement for - button //
+       
+        $scope.cdecrement = function(){
+          $scope.userBookingDetails.mobilechildqty-=1;
+          if($scope.userBookingDetails.mobilechildqty<0)
+          {
+            $scope.userBookingDetails.mobilechildqty=0;
+          }
+
+        }//end of cdecrement
+
+       // cdecrement for - button //
+
       //alert("hello");
       var daysToDisable = [1];
       $( ".datepicker" ).datepicker(
@@ -815,9 +895,9 @@ app.controller('MultiCheckOutCtrl',function($scope,$state,$http,webservices,myco
             $scope.userBookingDetails = data;
             //console.clear();
             //console.log(data);
-
+			$ionicLoading.hide();
         });
-
+       
 
        $scope.proceed  = function(){
        
@@ -832,7 +912,7 @@ app.controller('MultiCheckOutCtrl',function($scope,$state,$http,webservices,myco
                     childqty:item.mobilechildqty
                    });
 
-                   //alert(item.mobileadultqty);
+                   
 
                     if ((item.mobileadultqty==0 && item.mobilechildqty==0)  || (item.mobileadultqty==undefined && item.mobilechildqty==undefined)) {
                       //alert("Please book atleast one ticket");
@@ -840,6 +920,8 @@ app.controller('MultiCheckOutCtrl',function($scope,$state,$http,webservices,myco
                    } 
 
                });
+          //alert($scope.count);
+          //alert($scope.userBookingDetails.length);
       			  
               if ($scope.usrdata.dateofvisit==undefined) {
                          var alertPopup2 = $ionicPopup.alert({
@@ -1065,7 +1147,7 @@ $( ".datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
       $scope.errorStatus=false;
        webservices.getPackagesBasedOnResortIdToShowPrice($scope.packageid).success(function(data) {
         //console.log("Inside MultiCheckOutCtrl controller : "+data[0].bannerimage); 
-		console.log(data);
+		        console.log(data);
             $scope.userBookingDetails = data;
              
 
@@ -1144,13 +1226,15 @@ $( ".datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
 
 
 
-app.controller('ResortDetailsCtrl',function($window,$scope,$state,$http,webservices,myconfig,$ionicPopup){
+app.controller('ResortDetailsCtrl',function($window,$scope,$state,$http,webservices,myconfig,$ionicPopup,$ionicLoading){
   console.clear();
   $scope.errormessages=false;
         $scope.date = new Date();
        $scope.resortid = $state.params.id;
 		$scope.data={};
-	   
+	   $ionicLoading.show({
+      template: "Please Wait."
+   });
 		//$scope.data.comments;
        //console.log("details id is: "+$scope.i;
        $scope.userBookingDetails = {};
@@ -1180,6 +1264,7 @@ app.controller('ResortDetailsCtrl',function($window,$scope,$state,$http,webservi
           //console.log(reviewsdata); 
           $scope.rrating = {};
           $scope.eventreviews = reviewsdata;
+		  $ionicLoading.hide();
 		  if(reviewsdata=="no reviews"){
 			$scope.noreviews=true;
 			$scope.reviews=false;
@@ -1196,6 +1281,11 @@ app.controller('ResortDetailsCtrl',function($window,$scope,$state,$http,webservi
         //console.log("Resort id is: "+myresortid);
         $state.go('sidemenu.singlecheckout', {"packageid": myresortid});
        }
+	   $scope.showmap = function(latitude,longitude){
+		 //alert(latitude+","+longitude);
+        //console.log("Resort id is: "+myresortid);
+        $state.go('sidemenu.map', {"latitude": latitude,"longitude": longitude});
+       }
     }
 	$scope.submitresortreview = function(){
 
@@ -1206,35 +1296,38 @@ app.controller('ResortDetailsCtrl',function($window,$scope,$state,$http,webservi
 		 template: '<div class="list"><center><rating name="rating" ng-model="data.rating" max="5"></rating></center><label class="item item-input"><input type="text" ng-model="data.subject" name="subject" placeholder="Subject"></label><label class="item item-input"><textarea name="review" ng-model="data.review" placeholder="Comments"></textarea></label><div ng-show="errormessages"><p>Please Fill Subject & Review</p></div></div>',
 		 buttons: [
 		 { 
-        text: 'Cancel',
-        type: 'button-default',
+      text: 'Cancel',
+       onTap: function(e) {
 
-      onTap: function(e) {
+           // e.preventDefault() will stop the popup from closing when tapped.
 
-         // e.preventDefault() will stop the popup from closing when tapped.
+           //e.preventDefault();
 
-         //e.preventDefault();
-
-      } 
+        } 
      },
 		 {
         text: '<b>Ok</b>',
         type: 'button-balanced',
         onTap: function(e) {
-           
-            if (!$scope.data.review) 
-            {
-              
-              //don't allow the user to close unless he enters wifi password
+            if(!$scope.data.rating){
+              $scope.errormessages=true;
+              e.preventDefault(); 
+            }else if(!$scope.data.review){
               $scope.errormessages=true;  
-              e.preventDefault();
-              
+              e.preventDefault();   
             }else if(!$scope.data.subject){
               $scope.errormessages=true;  
                e.preventDefault();
-            } else {
+            }else {
               
-               return $scope.data;
+               //return $scope.data;
+               $scope.data.customerid = localStorage.getItem("holidayCustomerId");
+                webservices.submitResortReviews($scope.data,$scope.resortid).success(function (response) {
+                console.clear();
+                console.log(response); 
+                $window.location.reload();
+                 
+                }) 
 
             }
           
@@ -1242,26 +1335,15 @@ app.controller('ResortDetailsCtrl',function($window,$scope,$state,$http,webservi
       }
 			]
 		 });
-	
-
-    alertPopup.then(function(res) {
-      
-      
-      $scope.data.customerid = localStorage.getItem("holidayCustomerId");
-          webservices.submitResortReviews($scope.data,$scope.resortid).success(function (response) {
-      console.clear();
-      console.log(response); 
-      $window.location.reload();
-       
-      })         
-    });
   }
 
 });
 
-app.controller('ZooCtrl',function($scope,$state,$http,$window,webservices,myconfig,$ionicPopup){
+app.controller('ZooCtrl',function($scope,$state,$http,$window,webservices,myconfig,$ionicPopup,$ionicLoading){
   //console.clear();
-
+$ionicLoading.show({
+      template: "Please Wait."
+   });
   $scope.repeater = function (range) {
     var arr = []; 
     for (var i = 0; i < range; i++) {
@@ -1269,6 +1351,7 @@ app.controller('ZooCtrl',function($scope,$state,$http,$window,webservices,myconf
     }
     return arr;
 }
+
         $scope.errormessages=false;
        $scope.resortid = $state.params.id;
 
@@ -1284,6 +1367,7 @@ app.controller('ZooCtrl',function($scope,$state,$http,$window,webservices,myconf
         //console.log("Inside ResortDetails controller : "+data[0].bannerimage); 
             $scope.userBookingDetails = data;
             console.log(data);
+			
         });
 		
 		webservices.getResortReviews($scope.resortid).success(function(reviewsdata) {
@@ -1295,6 +1379,7 @@ app.controller('ZooCtrl',function($scope,$state,$http,$window,webservices,myconf
 			//	  reviewsdata.pricereview;
 			//	  console.log(reviewsdata.pricereview);
 			//  }
+			$ionicLoading.hide();
         });
        $scope.resortsMultiCheckout = function(myresortid){
         //console.log("Resort id is: "+myresortid);
@@ -1324,19 +1409,24 @@ app.controller('ZooCtrl',function($scope,$state,$http,$window,webservices,myconf
                   text: '<b>Ok</b>',
                   type: 'button-balanced',
                   onTap: function(e) {
-                    if (!$scope.data.review) 
-                    {
-                      
-                      //don't allow the user to close unless he enters wifi password
+                    if(!$scope.data.rating){
+                      $scope.errormessages=true;
+                      e.preventDefault(); 
+                    }else if(!$scope.data.review){
                       $scope.errormessages=true;  
                       e.preventDefault();
-                      
                     }else if(!$scope.data.subject){
                       $scope.errormessages=true;  
                        e.preventDefault();
                     } else {
                       
-                       return $scope.data;
+                       $scope.data.customerid = localStorage.getItem("holidayCustomerId");
+              webservices.submitResortReviews($scope.data,$scope.resortid).success(function (response) {
+                   console.clear();
+           console.log(response); 
+          $window.location.reload(true);
+                 
+                  })
 
                     }
                   }
@@ -1345,17 +1435,6 @@ app.controller('ZooCtrl',function($scope,$state,$http,$window,webservices,myconf
 		 });
 	
 
-   alertPopup.then(function(res) {
-	  $scope.data.customerid = localStorage.getItem("holidayCustomerId");
-              webservices.submitResortReviews($scope.data,$scope.resortid).success(function (response) {
-                   console.clear();
-				   console.log(response); 
-					$window.location.reload(true);
-                 
-                  })
-              
-                          
-            });
 
   
   
@@ -1419,7 +1498,7 @@ app.controller('EventDetailsCtrl',function($scope,$state,$http,$window,webservic
 		 buttons: [
 		 { 
         text: 'Cancel',
-        type: 'button-default',
+        
         onTap: function(e) {
 
            // e.preventDefault() will stop the popup from closing when tapped.
@@ -1433,19 +1512,25 @@ app.controller('EventDetailsCtrl',function($scope,$state,$http,$window,webservic
                   type: 'button-balanced',
                   onTap: function(e) {
                   
-                  if (!$scope.data.review) 
-                  {
-                    
-                    //don't allow the user to close unless he enters wifi password
+                  if(!$scope.data.rating){
+                    $scope.errormessages=true;
+                    e.preventDefault(); 
+                  }else if(!$scope.data.review){ 
                     $scope.errormessages=true;  
                     e.preventDefault();
-                    
                   }else if(!$scope.data.subject){
                     $scope.errormessages=true;  
                      e.preventDefault();
                   } else {
                     
-                     return $scope.data;
+                      $scope.data.customerid = localStorage.getItem("holidayCustomerId");
+                      webservices.submitEventReviews($scope.data,$scope.eventid).success(function (response) {
+                      //console.clear();
+                      $window.location.reload(true);
+                      console.log(response); 
+          
+                 
+                  })
 
                   }
 
@@ -1454,23 +1539,6 @@ app.controller('EventDetailsCtrl',function($scope,$state,$http,$window,webservic
                 }
 			]
 		 });
-	
-
-   alertPopup.then(function(res) {
-	  $scope.data.customerid = localStorage.getItem("holidayCustomerId");
-              webservices.submitEventReviews($scope.data,$scope.eventid).success(function (response) {
-                   //console.clear();
-				   $window.location.reload(true);
-				   console.log(response); 
-					
-                 
-                  })
-              
-                          
-            });
-
-  
-  
 }
 
 });
@@ -1530,19 +1598,25 @@ app.controller('PlaceDetailsCtrl',function($scope,$state,$http,webservices,mycon
                   type: 'button-balanced',
                   onTap: function(e) {
                      
-                      if (!$scope.data.review) 
-                      {
-                        
-                        //don't allow the user to close unless he enters wifi password
+                      if(!$scope.data.rating){
+                        $scope.errormessages=true;
+                        e.preventDefault(); 
+                      }else if(!$scope.data.review){
                         $scope.errormessages=true;  
                         e.preventDefault();
-                        
                       }else if(!$scope.data.subject){
                         $scope.errormessages=true;  
                          e.preventDefault();
                       } else {
                         
-                         return $scope.data;
+                          $scope.data.customerid = localStorage.getItem("holidayCustomerId");
+              webservices.submitPlaceReviews($scope.data,$scope.placeid).success(function (response) {
+                   //console.clear();
+           $window.location.reload(true);
+           //console.log(response); 
+           
+                 
+                  })
 
                       }
 
@@ -1553,14 +1627,7 @@ app.controller('PlaceDetailsCtrl',function($scope,$state,$http,webservices,mycon
 	
 
    alertPopup.then(function(res) {
-	  $scope.data.customerid = localStorage.getItem("holidayCustomerId");
-              webservices.submitPlaceReviews($scope.data,$scope.placeid).success(function (response) {
-                   //console.clear();
-				   $window.location.reload(true);
-				   //console.log(response); 
-					 
-                 
-                  })
+	 
               
                          
             });
@@ -1963,6 +2030,15 @@ app.factory('webservices', function($http,myconfig){
     return $http.post(url, { obj:data,placeid:placeid })
       
     },
+
+    checkIfKidsMealPriceIsZeroOrNot: function(packageid){
+
+      var url = myconfig.webservicesurl+'/checkIfKidsMealPriceIsZeroOrNot.php';
+      return $http.post(url, { packageid:packageid })
+      
+    },//sendUserSelectedOptionsToServer end 
+
+
 	sendUserSelectedOptionsToServer: function(userSelections,kidsmealqty,dateofvisit){
 
       var url = myconfig.webservicesurl+'/multiCheckOutUserSelections.php';
@@ -2365,7 +2441,8 @@ app.controller('MyordersCtrl', function($scope, $http, $state, process) {
     {
     //alert(holidayCustomerEmail);
       $scope.BookingData=response;
-       console.log("Data Length: "+$scope.BookingData.length+"\n");
+       console.log(response);
+       //console.log("Data Length: "+$scope.BookingData.length+"\n");
       
     })
   }else{
@@ -2415,11 +2492,16 @@ app.controller('OrderSummaryCtrl', function($scope, $http, $state, process,webse
 
 
 
-app.controller('MapCtrl', function($scope, $ionicLoading, $compile) {
-
+app.controller('MapCtrl', function($scope, $state, $ionicLoading, $compile,$window) {
+  console.clear();
+ $scope.latitude = $state.params.latitude;
+ $scope.longitude = $state.params.longitude;
+ 
+ //$scope.map = {};
   function initialize() 
   {
-    var myLatlng = new google.maps.LatLng(17.351002, 78.447850);
+    alert("inside initialize");
+    var myLatlng = new google.maps.LatLng($scope.latitude, $scope.longitude);
     var mapOptions = {
       center: myLatlng,
       zoom: 14,
@@ -2448,12 +2530,12 @@ app.controller('MapCtrl', function($scope, $ionicLoading, $compile) {
     })
 
     $scope.map = map;
+	
   }
   google.maps.event.addDomListener(window, 'load', initialize);
-  ionic.Platform.ready(initialize); 
-  $scope.clickTest = function() {
-    alert('Example of infowindow with ng-click')
-  };
+  //$window.location.reload();
+ 
+  
 });
 
 

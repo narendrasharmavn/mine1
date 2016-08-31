@@ -1,35 +1,46 @@
-<ion-view class="pane" view-title="">
+<ion-view class="pane" view-title="{{userBookingDetails[0].eventname}}">
+<ion-nav-buttons side="left">
+
+       <!-- <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
+        </button>-->
+		
+		
+        <a href="#/sidemenu/home" ><li class="button button-icon ion-ios-home-outline"></li>
+        </a>
+
+      </ion-nav-buttons>
   <ion-content>
     <img class="full-image" src="{{imagepathurl+'assets/eventimages/'+userBookingDetails[0].bannerimage}}" style="width:100%;height:150px;">
     <div class="row">
       <div class="col col-100">
         
-          <h5>{{userBookingDetails[0].eventname}}</h5>
-          
+          <h3><b>{{userBookingDetails[0].eventname}}</b></h3>
+          <p style="color:green;">{{userBookingDetails[0].fromdate}} - {{userBookingDetails[0].todate}} </p>
+
          <p class="details"> {{userBookingDetails[0].eventdescription}}
         </p>
-		<p style="color:red;">{{userBookingDetails[0].fromdate}} - {{userBookingDetails[0].todate}} </p>
-
+		
       </div>
      
     </div>
     <hr>
     <div class="row" ng-repeat="e in userBookingDetails" ng-show="package">
 	
-      <div class="col col-70">
+      <div class="col col-75">
         <p>
           <p>{{e.packagename}}</p>
+            <p>
+       {{userBookingDetails[0].packagedescription}}
+      </p>
           <br>
            Adults (Per Ticket) <span>Rs. {{e.adultprice}} </span></br>
 		   Children (Per Ticket) <span>Rs. {{e.childprice}}  </span>
         </p>
-        <p>
-       {{userBookingDetails[0].packagedescription}}
-      </p>
+      
       </div>
       
       <div class="col col-30 text-right">
-	  <a href="#/sidemenu/eventsinglecheckout/{{e.packageid}}" class="button button-small button-outline button-calm">Book</a>
+	  <a href="#/sidemenu/eventsinglecheckout/{{e.packageid}}" class="button button-small button-outline button-calm">Book Now</a>
        
       </div>
     </div>
@@ -46,7 +57,7 @@
 	<div class="list list-inset" >
 	<h5 ng-hide="noreviews"><b>User Reviews </b></h5>
     <a class="item item-avatar" href="" ng-repeat="r in eventreviews">
-      <img src="img/icon.png">
+      <img src="img/usericon.png">
 	  <p> <rating ng-model="r.pricereview" max="5" style="pointer-events: none;
    cursor: default;" ></rating></p>
       <h2>{{r.name}}</h2>

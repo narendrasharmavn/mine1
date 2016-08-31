@@ -9,8 +9,12 @@
 <ion-view class="pane" view-title="Book4Holiday">
 <ion-nav-buttons side="left">
 
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
-        </button>
+       <!-- <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
+        </button>-->
+		
+		
+        <a href="#/sidemenu/home" ><li class="button button-icon ion-ios-home-outline"></li>
+        </a>
 
       </ion-nav-buttons>
   <ion-content class="has-header has-footer">
@@ -23,7 +27,7 @@
         <div class="item item-button-right" >
     
           Tkt No. <b>{{c.ticketnumber}}</b> <p>Date of Visit : {{c.date}}</p>
-          <p>Package Name : {{c.packagename}} </p><p>Amount Paid : {{c.amount}}</p>
+          <p>Package Name : {{c.packagename}} </p><p>Amount Paid : {{c.totalcost}}</p>
         </div>
         </a>
       </div>

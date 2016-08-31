@@ -1,8 +1,12 @@
 <ion-view class="pane" view-title="Book4Holiday">
 <ion-nav-buttons side="left">
 
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
-        </button>
+       <!-- <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
+        </button>-->
+		
+		
+        <a href="#/sidemenu/home" ><li class="button button-icon ion-ios-home-outline"></li>
+        </a>
 
       </ion-nav-buttons>
   <ion-content class="has-footer">
@@ -16,7 +20,7 @@
       <div class="item item-text-wrap">
        <div class="row">
           <div class="col col-70">
-            <p>Adults( {{calculatedUserData.adultqty}}  )</p>
+            <p>Adults Tickets ( {{calculatedUserData.adultqty}}  )</p>
           </div>
           
           <div class="col col-30">
@@ -26,7 +30,7 @@
         
         <div class="row">
           <div class="col col-70">
-            <p>Children ( {{calculatedUserData.childqty}}  )</p>
+            <p>Children Tickets( {{calculatedUserData.childqty}}  )</p>
           </div>
           
           <div class="col col-30">
@@ -43,7 +47,7 @@
           </div>
         </div>
 
-         <button class="button button-icon" ng-click="taxBreakUp()" style="color:blue; text-decoration:underline;">Tax Break Up <i class="ion ion-plus"></i></button>
+         <button class="button button-icon taxbreakup" ng-click="taxBreakUp()"><i class="ion ion-plus"></i> Tax Break Up </button>
         <hr>
         <div class="row">
           <div class="col col-70">

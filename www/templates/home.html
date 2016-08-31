@@ -1,13 +1,46 @@
-<ion-view class="pane homeview" view-title="Book4Holiday">
+<ion-view class="pane" view-title="">
 <ion-nav-buttons side="left">
 
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
-        </button>
+       <!-- <button class="button button-icon button-clear ion-navicon" menu-toggle="left" >
+        </button>-->
+		
+		
+        <a href="#/sidemenu/home" ><li class="button button-icon ion-ios-home-outline"></li>
+        </a>
+     
 
       </ion-nav-buttons>
   <ion-content class="has-header">
-    
-	<div class="row hometoprow">
+    <ion-slide-box on-slide-changed="slideChanged(index)">
+		     <ion-slide ng-repeat="s in data" repeat-done="repeatDone()">
+				<div id="logo">
+					<img class="full-image" src="{{imagepathurl+'assets/sliderimages/'+s.image}}" style="width:100%;height:210px;"/>
+				</div>
+			</ion-slide>
+			
+			<!--<ion-slide>
+				<div id="logo">
+					<img class="full-image" src="http://book4holiday.com/beta/assets/sliderimages/2.jpg" style="width:100%;height:210px;"/>
+				</div>
+			</ion-slide>
+			<ion-slide>
+				<div id="logo">
+					<img class="full-image" src="http://book4holiday.com/beta/assets/sliderimages/4.jpg" style="width:100%;height:210px;"/>
+				</div>
+			</ion-slide>
+			<ion-slide>
+				<div id="logo">
+					<img class="full-image" src="http://book4holiday.com/beta/assets/sliderimages/8.jpg" style="width:100%;height:210px;"/>
+				</div>
+			</ion-slide>
+			<ion-slide>
+				<div id="logo">
+					<img class="full-image" src="http://book4holiday.com/beta/assets/sliderimages/10.jpg" style="width:100%;height:210px;"/>
+				</div>
+			</ion-slide>-->
+			
+        </ion-slide-box>
+	<!--<div class="row hometoprow">
 		<a href="#/sidemenu/resortsearchresults/resorts" class="col col-25 padv padvi padicon homebtn">
 			  <div class="padicon">
 			<center><i class="icon ion-leaf customicon"></i></center>
@@ -31,38 +64,8 @@
 			<center><i class="icon ion-ios-paw customicon"></i></center>
 			<center class="htitle">Zoo Tickets</center>
 		  </div></a>
-		</div>  
-		<div class="col col-100">
-		<ion-slide-box on-slide-changed="slideChanged(index)">
-		    <!--<ion-slide ng-repeat="s in data">
-				<div id="logo">
-					<img class="full-image" src="{{imagepathurl+'assets/sliderimages/slider2/'+s.image}}" style="width:100%;height:210px;"/>
-				</div>
-			</ion-slide>-->
-			
-			<ion-slide>
-				<div id="logo">
-					<img class="full-image" src="http://book4holiday.com/beta/assets/sliderimages/2.jpg" style="width:100%;height:210px;"/>
-				</div>
-			</ion-slide>
-			<ion-slide>
-				<div id="logo">
-					<img class="full-image" src="http://book4holiday.com/beta/assets/sliderimages/4.jpg" style="width:100%;height:210px;"/>
-				</div>
-			</ion-slide>
-			<ion-slide>
-				<div id="logo">
-					<img class="full-image" src="http://book4holiday.com/beta/assets/sliderimages/8.jpg" style="width:100%;height:210px;"/>
-				</div>
-			</ion-slide>
-			<ion-slide>
-				<div id="logo">
-					<img class="full-image" src="http://book4holiday.com/beta/assets/sliderimages/10.jpg" style="width:100%;height:210px;"/>
-				</div>
-			</ion-slide>
-			
-        </ion-slide-box>
-    </div>
+		</div>  -->
+		
 		<!--<div class="list list-inset">
 			<label class="item item-input">
 				<i class="icon ion-search placeholder-icon"></i>
@@ -70,6 +73,31 @@
 			 </label>
 	    </div>
 		-->
+		<div class="list">
+
+		  <a class="item item-icon-left" href="#/sidemenu/zoo/1">
+			<i class="icon ion-ios-paw"></i>
+			Zoo Tickets
+		  </a>
+		  
+		  <a class="item item-icon-left" href="#/sidemenu/resortsearchresults/resorts">
+			<i class="icon ion-leaf"></i>
+			Resorts
+		  </a>
+
+		  <a class="item item-icon-left" href="#/sidemenu/eventsearchresults/events">
+			<i class="icon ion-headphone"></i>
+			Events
+			<!--<i class="icon ion-ios-telephone-outline"></i>-->
+		  </a>
+
+		  <a class="item item-icon-left" href="#/sidemenu/placesearchresults/places">
+			<i class="icon ion-map"></i>
+			Places
+			
+		  </a>
+
+		</div>
 		<div class="row">
 			<div class="col col-33 padv">
 				<center>

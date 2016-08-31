@@ -8,7 +8,7 @@
 
       
       <ion-nav-buttons side="right">
-        <a href="#/sidemenu/home" ><li class="button button-icon ion-ios-home-outline"></li>
+        <a href="#/sidemenu/home" ><li class="button button-icon ion-android-search"></li>
         </a>
       </ion-nav-buttons>
     </ion-nav-bar>
@@ -19,12 +19,13 @@
     <ion-header-bar class="bar-calm navbar">
       <h1 class="title">Menu</h1>
     </ion-header-bar>
+    
     <ion-content>
       <ion-list>
-        <ion-item menu-close href="#/sidemenu/home" ng-show="withsession">
-          Hey {{name}} ,this is Home
+        <ion-item menu-close ng-show="withsession">
+          <b>Welcome, {{name}}</b>
         </ion-item>
-        <ion-item menu-close href="#/sidemenu/home" ng-show="withoutsession">
+        <ion-item menu-close href="#/sidemenu/home" ng-show="show">
           Home
         </ion-item>
         <ion-item menu-close ng-show="show">

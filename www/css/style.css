@@ -1,10 +1,32 @@
 /* Empty. Add your own CSS if you like */
 
+ .red:before {
+    color: red;
+    }
+
+    .green:before {
+    color: green;
+    }
+
+    .flex_row {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row; 
+    flex-direction: row;
+    }
 .col-50 { border:1px solid #ccc; }
 .padv { padding-top:20px; 
         padding-bottom:20px;
 		font-size:20px;	}
 .homeview { background-image: url(http://book4holiday.com/beta/assets/bg.jpg) }
+.taxbreakup{
+	color: #11c1f3;
+    font-style: italic;
+    text-transform: none;
+    /* font-variant: small-caps !important; */
+    font-family: verdana;
+    font-size: 12px;
+}
 /*.regcard{background:transparent !important;}*/
 .mybtn{
 	    font-size: 20px !important;
@@ -160,10 +182,10 @@ ul.rating li i {
 	text-align: right;
 }
 .ui-datepicker .ui-datepicker-prev:before {
-	content: "\e079";
+	content: "<<<";
 }
 .ui-datepicker .ui-datepicker-next:before {
-	content: "\e080";
+	content: ">>>";
 }
 .ui-datepicker .ui-icon {
 	display: none;
@@ -187,6 +209,17 @@ ul.rating li i {
 .ui-datepicker .ui-datepicker-calendar td:hover {
 	background-color: #eee;
 	cursor: pointer;
+}
+div.hscroller {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%); 
+}
+.button.button.button-icon.button-clear.ion-navicon
+{
+	display : none;
 }
 .ui-datepicker .ui-datepicker-calendar td a {
 	text-decoration: none;

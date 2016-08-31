@@ -9,7 +9,7 @@ var app = angular.module('starter', ['ionic', 'starter.controllers']);
 
 
 app.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
+  $ionicPlatform.ready(function(initialize) {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -137,7 +137,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 
   .state('sidemenu.map', {
-    url: '/map',
+    url: '/map/:latitude/:longitude',
     views: {
       'menuContent': {
         templateUrl: 'templates/map.html',
