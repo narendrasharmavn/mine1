@@ -30,7 +30,7 @@
                 <div class="col-md-2 col-sm-3">
                     <h3>Quick Links</h3>
                     <ul>
-                     <li><a href="<?php echo site_url().'terms' ?>">Terms and conditions</a></li>
+                        <li><a href="<?php echo site_url().'terms' ?>">Terms and conditions</a></li>
                         <li><a href="<?php echo site_url().'payment-policy' ?>">Payment Policy</a></li>
                         <li><a href="<?php echo site_url().'cancellation-policy' ?>">Cancellation Policy</a></li>
                         
@@ -42,14 +42,16 @@
             <div class="row">
                 <div class="col-md-12">
                     <div id="social_footer">
-                        <!--<ul>
-                            <li><a href="#"><i class="icon-facebook"></i></a></li>
+                        <ul>
+                            <li><a href="#"><img src="<?php echo base_url(); ?>assets/frontend/img/android_app_store.png"></a></li> &nbsp;
+                            <li><a href="#"><img src="<?php echo base_url(); ?>assets/frontend/img/windows_app_store.png"></a></li> &nbsp;
+                            <li><a href="#"><img src="<?php echo base_url(); ?>assets/frontend/img/apple_store_icon.png"></a></li>  &nbsp;
+                        <!--<li><a href="#"><i class="icon-facebook"></i></a></li>
                             <li><a href="#"><i class="icon-twitter"></i></a></li>
-                            <li><a href="#"><i class="icon-google"></i></a></li>
-                            <li><a href="#"><i class="icon-youtube-play"></i></a></li>
-                            <li><a href="#"><i class="icon-linkedin"></i></a></li>
-                        </ul>-->
-                        <p>© Book4Holiday 2016</p>
+                            <li><a href="#"><i class="icon-youtube-play"></i></a></li>-->
+                            <li class="pull-right"> © Book4Holiday 2016 </li>
+                        </ul>
+                        <p></p>
                     </div>
                 </div>
             </div><!-- End row -->
