@@ -100,8 +100,9 @@ app.controller('ResponseCtrl',function($scope,$ionicSlideBoxDelegate,$ionicNavBa
 
   });
 
-app.controller('HomeCtrl',function($scope,$ionicSlideBoxDelegate,$state,myconfig,process,$ionicLoading){
+app.controller('HomeCtrl',function($scope,$ionicSlideBoxDelegate,$state,myconfig,process,$ionicLoading,$ionicNavBarDelegate){
   $scope.data = {};
+   //$ionicNavBarDelegate.showBackButton(false);
   $scope.imagepathurl = myconfig.imagepathurl;
   $ionicLoading.show({
       template: "Please Wait."
@@ -1797,13 +1798,15 @@ app.controller('PlaceSearchCtrl',function($scope,$state,$http,webservices,myconf
         
         
        $scope.searchtype = $state.params.searchtype;
+       $scope.type = $state.params.type;
 
        //console.log("search type is: "+$scope.searchtype);
 
         $scope.placesData={};
         $scope.imagepathurl = myconfig.imagepathurl;
         //alert("these are events");
-         webservices.getPlaces().success(function(data) { 
+       
+         webservices.getPlaces($scope.type).success(function(data) { 
             $scope.placesData = data;
         });
 
@@ -1916,8 +1919,8 @@ app.factory('webservices', function($http,myconfig){
 
     },//getEvents end
 
-    getPlaces: function(){
-      return $http.get(myconfig.webservicesurl+'/placepull.php')
+    getPlaces: function(type){
+      return $http.get(myconfig.webservicesurl+'/placepull.php?type='+type)
         .success(function(data, status, headers,config){
           console.log('data success');
           console.log("Data Length: "+data.length+"\n"); // for browser console

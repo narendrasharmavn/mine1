@@ -208,7 +208,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
   .state('sidemenu.placesearchresults', {
-    url: '/placesearchresults/:searchtype',
+    url: '/placesearchresults/:searchtype/:type',
     views: {
       'menuContent': {
         templateUrl: 'templates/placesearchresults.html',
