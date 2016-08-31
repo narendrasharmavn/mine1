@@ -335,6 +335,12 @@
 													<span>Change Password</span>
 												</a>
 											</li>
+
+                                            <li class="nav-active">
+												<a href="<?php echo site_url(); ?>vendor/createusers">
+													<span>Create Users</span>
+												</a>
+											</li>
 									    </ul>	
                                     </li>
 

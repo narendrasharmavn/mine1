@@ -21,7 +21,7 @@ if (isset($postdata)) {
         //echo "Server returns: " . $userid; 
     } 
     
-    $sql = "SELECT * from tblbookings b LEFT JOIN tblpackages p ON b.packageid=p.packageid LEFT join tblcustomers c ON b.userid=c.customer_id WHERE b.userid='$userid' and b.booking_status='booked' and b.payment_status='paid' ORDER BY b.date DESC";
+    $sql = "SELECT * from tblbookings b left join tblpayments pay ON b.ticketnumber=pay.ticketnumber LEFT JOIN tblpackages p ON b.packageid=p.packageid LEFT join tblcustomers c ON b.userid=c.customer_id WHERE b.userid='$userid' and b.booking_status='booked' and b.payment_status='paid' ORDER BY b.date DESC";
 
     //echo $sql;
     $result = mysqli_query($conn, $sql);

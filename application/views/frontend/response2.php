@@ -156,8 +156,25 @@
     </td>
   </tr>
   <tr><td width="150">Adult Tickets </td><td class="tdrt">Rs.<?php echo  $adultpriceperticket;  ?></td></tr>
-  <tr><td width="150">Child Tickets </td><td class="tdrt">Rs.<?php echo  $childpriceperticket;  ?></td></tr>
-  <tr><td width="150">Kid Meal Ticket </td><td class="tdrt">Rs.<?php echo  $kidsmealprice;  ?></td></tr>
+
+  <?php
+  if ($childpriceperticket!=0) {
+    ?>
+     <tr><td width="150">Child Tickets </td><td class="tdrt">Rs.<?php echo  $childpriceperticket;  ?></td></tr>
+
+    <?php
+    
+  }
+
+  if ($kidsmealprice!=0) {
+    ?>
+    <tr><td width="150">Kid Meal Ticket </td><td class="tdrt">Rs.<?php echo  $kidsmealprice;  ?></td></tr>
+    <?php
+  }
+
+    ?>
+ 
+  
   <tr><td width="150">Total Ticket Cost </td><td class="tdrt">Rs.<?php echo  $ticketcost;  ?></td></tr>
   </table>
 <table class="table table-bordered" style="font-size:12px;line-height: 1.5em;background-color: transparent;">

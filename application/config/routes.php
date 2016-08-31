@@ -117,6 +117,8 @@ $route['resorts'] = 'frontend/resortsGridView';
 
 
 $route['placesall'] = "frontend/placegridview";
+$route['kidsdayout'] = "frontend/kidsdayout";
+$route['adventure'] = "frontend/adventure";
 
 
 $route['404_override'] = 'frontend/errorfourzerofourfunction';

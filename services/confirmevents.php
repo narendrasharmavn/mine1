@@ -21,7 +21,7 @@ $_SESSION['ticketnumber'] = $data1['ticketnumber'];
 
 ?>
 <div class="container">
-  <h2>Book4Holiday</h2>
+    <center><h2>Book4Holiday</h2></center>
   <p>Press Pay to take you to payment gateway</p>
   <form action="<?php echo 'http://book4holiday.com/beta/'.'merchant/';  ?>submit.php" method="post" id="payment-form" >
 		<input type="hidden" name="amount" class=" form-control" placeholder="" value="<?php echo round($data1['total'],0); ?>" readonly>
@@ -51,7 +51,7 @@ $_SESSION['ticketnumber'] = $data1['ticketnumber'];
      
     </tbody>
   </table>
-  <button type="submit" class="btn btn-success">Confirm To Pay</button>
+  <center><button type="submit" class="btn btn-success">Confirm To Pay</button></center>
   </form>
 </div>
 

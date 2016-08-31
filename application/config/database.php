@@ -76,13 +76,13 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => 'root',
-	'database' => 'book',
+	'username' => 'book4hol_holiday',
+	'password' => 'book4hol_holiday@123',
+	'database' => 'book4hol_holiday',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
-	'db_debug' => TRUE,
+	'db_debug' => FALSE,
 	/*'db_debug' => (ENVIRONMENT !== 'production'),*/
 	'cache_on' => FALSE,
 	'cachedir' => '',

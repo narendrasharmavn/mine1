@@ -18,7 +18,7 @@ error_reporting(0);
 | environments.
 |
 */
-$config['base_url'] = '';
+$config['base_url'] = 'https://book4holiday.com/beta/';
 
 /*
 |--------------------------------------------------------------------------

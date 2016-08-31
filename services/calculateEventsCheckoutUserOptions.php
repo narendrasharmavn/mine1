@@ -48,11 +48,17 @@ for($i=0;$i<count($userselectedoptions);$i++){
 
 $subtotaltax = $internetcharges;
 $servicetax = $internetcharges * ($result1['servicetax'] / 100);
-$servicetax = round($servicetax,1);
+$servicetax = round($servicetax,2);
 $swachcess = $internetcharges * ($result1['swachcess'] / 100);
-$swachcess = round($swachcess,1);
+$swachcess = round($swachcess,2);
+$swachcess = sprintf("%.2f", $swachcess);
+
+
 $krishicess = $internetcharges * ($result1['krishicess'] / 100);
-$krishicess = round($krishicess,1);
+$krishicess = round($krishicess,2);
+$krishicess = sprintf("%.2f", $krishicess);
+
+
 $totaltax = $subtotaltax + $servicetax + $swachcess + $krishicess;
 $total = $adultticketprice + $childticketprice + $internetcharges + $servicetax + $swachcess + $krishicess;
 $total = round($total,2);

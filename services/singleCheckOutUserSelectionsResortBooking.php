@@ -44,9 +44,14 @@ for($i=0;$i<count($request->obj);$i++){
     $servicecharges = $internetcharges * ($result1['servicetax'] / 100);
     $servicecharges = round($servicecharges,2);
     $swachcess = $internetcharges * ($result1['swachcess']/100);
+
     $swachcess = round($swachcess,2);
+    $swachcess = sprintf("%.2f", $swachcess);
+
     $krishicess = $internetcharges * ($result1['krishicess']/100);
     $krishicess = round($krishicess,2);
+    $krishicess = sprintf("%.2f", $krishicess);
+    
     $totaltax = $internetcharges + $servicecharges + $swachcess + $krishicess;
     $total = $adultticketprice + $childticketprice + $kidmealprice + $totaltax;
     $total = round($total,2);

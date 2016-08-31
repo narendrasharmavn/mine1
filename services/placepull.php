@@ -3,7 +3,9 @@ include 'connectDB.php';
 
 $placesData = array();
 
-$sql = "SELECT p.plid as plid,p.place as place,LEFT(p.description, 80) as description ,pp.photoname as photoname FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid GROUP BY p.plid";
+$type = $_GET['type'];
+
+$sql = "SELECT p.plid as plid,p.place as place,LEFT(p.description, 80) as description ,pp.photoname as photoname FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE type='$type' GROUP BY p.plid";
 //mysqli_set_charset("utf8");
 $result = mysqli_query($conn, $sql);
 //mysqli_set_charset($conn,"utf8");

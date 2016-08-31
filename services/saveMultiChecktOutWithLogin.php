@@ -2,6 +2,10 @@
 include 'connectDB.php';
 
 
+$ipaddress = $_SERVER['HTTP_CLIENT_IP']?:($_SERVER['HTTP_X_FORWARDE‌​D_FOR']?:$_SERVER['REMOTE_ADDR']);
+
+
+
 
 $postdata = file_get_contents("php://input");
 
@@ -14,7 +18,16 @@ $userdetails = $request->userdetails;
 
 $vendorid="";
 
-$ticketnumber=date('Ymdhisu');
+$m = microtime(true);
+$m = str_replace(".","",$m);
+
+if($m==null || $m=='undefined' || $m==''){
+  $ticketnumber = date('Ymdhis');
+}else{
+  $ticketnumber = $m;
+}
+
+
 for($i=0;$i<count($userselectedoptions);$i++){
 
  $packageid = $userselectedoptions[$i]->packageid;
@@ -35,8 +48,8 @@ $childqty = $userselectedoptions[$i]->childqty;
     $dt = date('Y-m-d');
     if ($adultqty!=0 || $childqty!=0) {
 
-        $sql2 = "INSERT INTO tblbookings (date, dateofvisit, userid,quantity,booking_status,payment_status,ticketnumber,packageid,visitorstatus,vendorid,childqty)
-            VALUES ('$dt', '$dateofvisit', '$userdetails->customerid','$adultqty','pending','pending','$ticketnumber','$packageid','absent',$vendorid,'$childqty')";
+        $sql2 = "INSERT INTO tblbookings (date, dateofvisit, userid,quantity,booking_status,payment_status,ticketnumber,packageid,visitorstatus,vendorid,childqty,ipaddress)
+            VALUES ('$dt', '$dateofvisit', '$userdetails->customerid','$adultqty','pending','pending','$ticketnumber','$packageid','absent',$vendorid,'$childqty','$ipaddress')";
 
             if (mysqli_query($conn, $sql2)) {
                 //echo "New record created successfully";

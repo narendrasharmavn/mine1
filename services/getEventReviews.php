@@ -6,7 +6,7 @@ $resortIdDetails = array();
 $adultqty = 0;
 
 
-$sql2 = "select c.name,r.subject,r.review,r.pricereview from eventreviews r left join tblcustomers c on r.customerid=c.customer_id where r.resortoreventname='$eventid'";
+$sql2 = "select c.name,r.subject,r.review,r.pricereview from eventreviews r left join tblcustomers c on r.customerid=c.customer_id where r.resortoreventname='$eventid' order by r.rid desc limit 5";
 //echo $sql2."\n";
 //mysqli_set_charset("utf8");
 $result = mysqli_query($conn, $sql2);

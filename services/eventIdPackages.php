@@ -6,7 +6,7 @@ $resortIdDetails = array();
 $adultqty = 0;
 
 
-$sql2 = "SELECT p.packageid as packageid,p.adultprice as adultprice,p.childprice as childprice,p.packagename as packagename,e.bannerimage as bannerimage,e.eventname as eventname,e.description as eventdescription,p.description as packagedescription, DATE_FORMAT(e.fromdate,'%d/%m/%Y') as fromdate, DATE_FORMAT(e.todate,'%d/%m/%Y') as todate FROM tblevents e LEFT JOIN tblpackages p ON e.eventid=p.eventid WHERE e.eventid='$eventid'";
+$sql2 = "SELECT e.latitude,e.longitude,e.location,p.packageid as packageid,p.adultprice as adultprice,p.childprice as childprice,p.packagename as packagename,e.bannerimage as bannerimage,e.eventname as eventname,e.description as eventdescription,p.description as packagedescription, DATE_FORMAT(e.fromdate,'%d/%m/%Y') as fromdate, DATE_FORMAT(e.todate,'%d/%m/%Y') as todate FROM tblevents e LEFT JOIN tblpackages p ON e.eventid=p.eventid WHERE e.eventid='$eventid'";
 //echo $sql2."\n";
 //mysqli_set_charset("utf8");
 $result = mysqli_query($conn, $sql2);

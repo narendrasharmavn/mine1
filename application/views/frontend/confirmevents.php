@@ -112,7 +112,7 @@
                                     
                                     <button type="button" class="btn btn_1 green re-enter-details">Edit Details</button>
                                     <br>
-                                    <span>*Did not recieve OTP in 120 seconds ?, please  <a class="resend-otp"> click here</a></span>
+                                    <span>*Did not recieve OTP in 120 seconds ?, please  <a class="resend-otp" style="cursor:hand;"> click here</a></span>
                                 
                                 
                               </div>
@@ -148,7 +148,18 @@
     </td>
   </tr>
   <tr><td width="150">Adult Tickets </td><td class="tdrt"><i class="fa fa-inr"></i><?php echo  $adultpriceperticket; ?></td></tr>
-  <tr><td width="150">Child Tickets </td><td class="tdrt"><i class="fa fa-inr"></i><?php echo  $childpriceperticket; ?></td></tr>
+  <?php
+  if ($childpriceperticket!=0) {
+    ?>
+
+    <tr><td width="150">Child Tickets </td><td class="tdrt"><i class="fa fa-inr"></i><?php echo  $childpriceperticket; ?></td></tr>
+
+
+    <?php
+    
+  }
+    ?>
+  
   
 	<tr>
     <td width="150">Total Ticket Cost

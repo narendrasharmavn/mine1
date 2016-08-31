@@ -115,7 +115,7 @@
                                     <button type="button" class="btn btn_1 green otp-check">Verify</button>
                                     <button type="button" class="btn btn_1 green re-enter-details">Edit Details</button>
                                     <br/>
-                                     <span>*Did not recieve OTP in 120 seconds ?, please click <a class="resend-otp">click here</a></span>
+                                     <span>*Did not recieve OTP in 120 seconds ?, please click <a class="resend-otp" style="cursor:hand;">click here</a></span>
 
                                 </div>
                               <?php
@@ -150,8 +150,28 @@
     </td>
   </tr>
   <tr><td width="150">Adult Tickets </td><td class="tdrt"><i class="fa fa-inr"></i><?php echo  $adultpriceperticket;  ?></td></tr>
-  <tr><td width="150">Child Tickets </td><td class="tdrt"><i class="fa fa-inr"></i><?php echo  $childpriceperticket;  ?></td></tr>
-  <tr><td width="150">Kids Meal Price </td><td class="tdrt"><i class="fa fa-inr"></i><?php echo  $kidsmealprice;  ?></td></tr>
+  <?php
+  if ($childpriceperticket!=0) {
+    ?>
+
+    <tr><td width="150">Child Tickets </td><td class="tdrt"><i class="fa fa-inr"></i><?php echo  $childpriceperticket;  ?></td></tr>
+
+    <?php
+    
+  }
+
+  if ($kidsmealprice!=0) {
+    ?>
+    <tr><td width="150">Kids Meal Price </td><td class="tdrt"><i class="fa fa-inr"></i><?php echo  $kidsmealprice;  ?></td></tr>
+
+
+    <?php
+    
+  }
+
+    ?>
+  
+  
   <tr><td width="150">Total Ticket Cost </td><td class="tdrt"><i class="fa fa-inr"></i><?php echo  $ticketcost;  ?></td></tr>
 </table>
 <table class="table table-bordered" style="font-size:12px;line-height: 1.5em;background-color: transparent;">

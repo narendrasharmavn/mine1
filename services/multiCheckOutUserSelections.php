@@ -57,14 +57,18 @@ for($i=0;$i<count($request->obj);$i++){
     $servicetax = $subtotaltax * ($result1['servicetax'] / 100);
     $servicetax = sprintf(round($servicetax , 2) == intval($servicetax ) ? "%.2f" : "%.2f", $servicetax );
     $swachcess = $subtotaltax * ($result1['swachcess']/100);
+    //$swachcess = round($swachcess,1);
     $swachcess = sprintf(round($swachcess , 2) == intval($swachcess ) ? "%.2f" : "%.2f", $swachcess );
+
     $krishicess = $subtotaltax * ($result1['krishicess']/100);
-    
-     $krishicess = sprintf(round($krishicess , 2) == intval($krishicess ) ? "%.2f" : "%.2f", $krishicess );
+    //$krishicess = round($krishicess,1);
+    $krishicess = sprintf(round($krishicess , 2) == intval($krishicess ) ? "%.2f" : "%.2f", $krishicess );
+
     $totaltax= $subtotaltax + $servicetax + $swachcess + $krishicess;
-    $totaltax = sprintf(round($totaltax  , 2) == intval($totaltax ) ? "%.2f" : "%.2f", $totaltax );
+    //$totaltax = sprintf(round($totaltax  , 2) == intval($totaltax ) ? "%.2f" : "%.2f", $totaltax );
     $total = $adultticketprice + $childticketprice + $kidmealprice + $totaltax;
-     $total = sprintf(round($total , 2) == intval($total ) ? "%.2f" : "%.2f", $total );
+    
+     //$total = sprintf(round($total , 2) == intval($total ) ? "%.2f" : "%.2f", $total );
     //echo "\n Adult Qty : ".$adultqty."\n Child Qty : ".$childqty."\n Kid Meal Qty : ".$kidsmealqty."\n  Adult Ticket Price : ".$adultticketprice."\n Chicd Ticket Price : ".$childticketprice."\n kidmealprice : ".$kidmealprice;
     //echo "\n kidmealtax ".$kidmealtax;
    //echo "\n internetcharges ".$servicecharges."\n swachcess : ".$swachcess."\n krishicess : ".$krishicess."\n Total : ".$total;

@@ -36,10 +36,10 @@ include 'header.php';
 								        		<div class="form-group">
 												  <label class="col-md-4 control-label" for="textinput">Ticket Number</label>  
 												  <div class="col-md-4">
-												  <input id="tckno" name="tckno" type="text"  placeholder="Enter / Scan Ticket No." class="form-control input-md">
+												  <input id="tckno" name="tckno" type="text" minlength=20  placeholder="Enter / Scan Ticket No." class="form-control input-md">
 												  </div>
 												  <div class="col-md-4">
-												    <button type="button" id="update" name="update" onclick="getTicketdata()" class="btn btn-primary">Get</button>
+												    <button type="submit" id="update" name="update" onclick="getTicketdata(),updateticket()" class="btn btn-primary">Update</button>
 												  </div>
 												</div>
 
@@ -54,9 +54,9 @@ include 'header.php';
 												</tbody>
 											</table>
 										</div>
-										<div class="col-md-4">
+										<!--<div class="col-md-4">
 												    <button type="button" id="update" name="update" onclick="updateticket(),getTicketdata()" class="btn btn-success">Update</button>
-												  </div>
+												  </div>-->
 
 											</div>
 										</div>
@@ -134,8 +134,8 @@ include 'header.php';
 				</section>
 			</div>
 <script type="text/javascript">
-	function updateticket()
-	{   
+	document.getElementById('tckno').onkeydown = function(e){
+	if(e.keyCode == 13){   
 		
 	    var ticketno=$('#tckno').val();
 	    //alert(ticketno);
@@ -163,8 +163,8 @@ include 'header.php';
 	              //alert(xhr.responseText);
 	            }
 	    });
-        
-
+        getTicketdata();
+	}
 	}
 
 	function getTicketdata()

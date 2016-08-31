@@ -251,11 +251,11 @@ if($this->uri->segment(1)=='home' || $this->uri->segment(1)==''){
                             
 							
                             <li >
-                                <a href="javascript:void(0);" class="show-submenu">Kids Dayout </a>
+                                <a href="<?php echo site_url().'kidsdayout' ?>" class="show-submenu">Kids Dayout </a>
                                 
                             </li>
                             <li >
-                                <a href="javascript:void(0);" class="show-submenu">Adventure </a>
+                                <a href="<?php echo site_url().'adventure' ?>" class="show-submenu">Adventure </a>
                                 
                             </li>
                             <li >

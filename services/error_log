@@ -1,1 +1,10 @@
 [26-Aug-2016 15:13:58 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/book4holiday/public_html/beta/services/responsemulticheckout.php on line 93
+[26-Aug-2016 21:46:52 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/book4holiday/public_html/beta/services/responsemulticheckout.php on line 93
+[26-Aug-2016 21:47:52 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/book4holiday/public_html/beta/services/responsemulticheckout.php on line 93
+[26-Aug-2016 21:48:32 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/book4holiday/public_html/beta/services/responsemulticheckout.php on line 93
+[26-Aug-2016 21:51:08 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/book4holiday/public_html/beta/services/responsemulticheckout.php on line 93
+[26-Aug-2016 21:51:17 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/book4holiday/public_html/beta/services/responsemulticheckout.php on line 93
+[26-Aug-2016 21:51:32 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/book4holiday/public_html/beta/services/responsemulticheckout.php on line 94
+[26-Aug-2016 21:55:15 UTC] PHP Fatal error:  Call to undefined function base_url() in /home/book4holiday/public_html/beta/services/responsemulticheckout.php on line 90
+[26-Aug-2016 23:46:01 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home/book4holiday/public_html/beta/services/getuserordersdata.php on line 28
+[26-Aug-2016 23:46:01 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home/book4holiday/public_html/beta/services/getuserordersdata.php on line 28

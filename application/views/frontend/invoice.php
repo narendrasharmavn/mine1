@@ -59,7 +59,7 @@
   }
 </style>
 
-<div class="container">
+<div class="container" style="width:706.771653543px;height:309.921259843px;">
  
 
 	<div class="row">
@@ -237,7 +237,7 @@ foreach ($query->result() as $k) {
 								
 															</tbody>
 						</table>
-						<button class="btn btn-primary" onclick="printfunction()" id="printbtn">Print</button>
+						<button class="btn btn-primary" onclick="print()" id="printbtn">Print</button>
 					</div>
 				</div>
 			</div>
@@ -312,6 +312,15 @@ function printfunction(){
 
 
 
+</script>
+<script language='VBScript'>
+Sub Print()
+       OLECMDID_PRINT = 6
+       OLECMDEXECOPT_DONTPROMPTUSER = 2
+       OLECMDEXECOPT_PROMPTUSER = 1
+       call WB.ExecWB(OLECMDID_PRINT, OLECMDEXECOPT_DONTPROMPTUSER,1)
+End Sub
+document.write "<object ID='WB' WIDTH=0 HEIGHT=0 CLASSID='CLSID:8856F961-340A-11D0-A96B-00C04FD705A2'></object>"
 </script>
 
         </body>

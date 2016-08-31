@@ -769,7 +769,27 @@ public function validateEmail($email){
     public function getNumberOfRowsForPlaces(){
 
 
-         $sQuery = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 GROUP by pp.plid";
+         $sQuery = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='places' GROUP by pp.plid";
+        
+        $query = $this->db->query($sQuery);
+       
+        return $query->num_rows();
+    }
+	
+	public function getKidsDayoutRows(){
+
+
+         $sQuery = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='kids' GROUP by pp.plid";
+        
+        $query = $this->db->query($sQuery);
+       
+        return $query->num_rows();
+    }
+	
+	public function getAdventureRows(){
+
+
+         $sQuery = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='adventure' GROUP by pp.plid";
         
         $query = $this->db->query($sQuery);
        

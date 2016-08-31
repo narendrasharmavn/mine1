@@ -86,7 +86,8 @@ if (mysqli_num_rows($tblbookingsgetdataresult) > 0) {
 
 	// get customer details //
 
-    $getcustomerdetails = "SELECT * FROM tblcustomers WHERE customerid='$customerid'";
+    $getcustomerdetails = "SELECT * FROM tblcustomers WHERE customer_id='$customerid'";
+    
 	$results = mysqli_query($conn, $getcustomerdetails);
 
 	// output data of each row
@@ -222,22 +223,22 @@ if (mysqli_num_rows($tbltransactionsresult) > 0) {
 
 }else{
 
-	$tblbookings = "UPDATE tblbookings SET booking_status='failed',payment_status='failed', WHERE ticketnumber='".$ticketnumber."'";
+	$tblbookings = "UPDATE tblbookings SET booking_status='failed',payment_status='failed' WHERE ticketnumber=".$ticketnumber;
 
 		if (mysqli_query($conn, $tblbookings)) {
 		    //echo "Table b"."<br>";
 		} else {
-		    echo "Error updating record: " . mysqli_error($conn);
+		    echo "Error updating record tblbookings: " . mysqli_error($conn);
 		}
 
 
 
-		$sql = "UPDATE tblpayments SET mmp_txn='".$_POST['mmp_txn']."',mer_txn='".$_POST['mer_txn']."',amount='".$_POST['amt']."',transdate='".$_POST['date']."',banktransaction='".$_POST['bank_txn']."',authorizationcode='".$_POST['auth_code']."',discriminator='".$_POST['discriminator']."',cardnumber='".$_POST['CardNumber']."',billingemail='".$_POST['udf2']."',billingphone='".$_POST['udf3']."',status='paid',responsestatus='".$_POST['f_code']."' WHERE ticketnumber='".$ticketnumber."'";
+		$sql = "UPDATE tblpayments SET mmp_txn='".$_POST['mmp_txn']."',mer_txn='".$_POST['mer_txn']."',amount='".$_POST['amt']."',transdate='".$_POST['date']."',banktransaction='".$_POST['bank_txn']."',authorizationcode='".$_POST['auth_code']."',discriminator='".$_POST['discriminator']."',cardnumber='".$_POST['CardNumber']."',billingemail='".$_POST['udf2']."',billingphone='".$_POST['udf3']."',status='paid',responsestatus='".$_POST['f_code']."' WHERE ticketnumber=".$ticketnumber;
 
 		if (mysqli_query($conn, $sql)) {
 		    //echo "Table payments updated"."<br>";
 		} else {
-		    echo "Error updating record: " . mysqli_error($conn);
+		    echo "Error updating record tblpayments: " . mysqli_error($conn);
 		}
 
 
@@ -268,7 +269,7 @@ function sendSMS($mobile,$smsurl,$smsusername,$smspassword,$smssenderid,$text1)
     
     $text=str_replace(" ","%20",$text1);
     $qry_str = $smsurl.$smsusername."&password=".$smspassword."&to=".$mobile."&from=".$smssenderid."&message=".$text;
-    //echo "Server returns: " .$qry_str;
+    echo "Server returns: " .$qry_str;
     $qrystr = $qry_str;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL,$qry_str);
@@ -286,7 +287,7 @@ function sendSMS($mobile,$smsurl,$smsusername,$smspassword,$smssenderid,$text1)
 function sendEmail($email,$totalcost,$adultpriceperticket,$childpriceperticket,$kidsmealprice,$numberofadults,$numberofchildren,$noofkidsmeal,$servicetax,$internetcharges,$swachhbharath,$krishkalyancess,$ticketnumber,$resortname,$eventname,$eventotime,$eventfromtime,$location,$description,$dateofvisit,$transactiontime)
 {
 	$to=$email;
-    $subject = "Registration Success";
+    $subject = "Transaction Success";
     $headers = "MIME-Version: 1.0"."\r\n";
     $headers .= "Content-Type: text/html; charset=ISO-8859-1"."\r\n";
     $headers .= 'From: Book4Holiday Support <info@book4holiday.com>'."\r\n";
@@ -563,7 +564,7 @@ function sendEmail($email,$totalcost,$adultpriceperticket,$childpriceperticket,$
 function sendFailureEmail($email,$ticketnumber)
 {
 	$to=$email;
-    $subject = "Registration Success";
+    $subject = "Transaction Failed";
     $headers = "MIME-Version: 1.0"."\r\n";
     $headers .= "Content-Type: text/html; charset=ISO-8859-1"."\r\n";
     $headers .= 'From: Book4Holiday Support <info@book4holiday.com>'."\r\n";

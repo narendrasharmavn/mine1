@@ -1546,19 +1546,8 @@ public function submitvendordata(){
 
     public function submitplaces()
     {
-      $this->form_validation->set_rules('pname', 'Place Name', 'required');
-      $this->form_validation->set_rules('description', 'Description', 'required');
-      $this->form_validation->set_rules('city', 'City', 'required');
-      $this->form_validation->set_rules('address', 'Address', 'required');
-      $this->form_validation->set_rules('oinfo', 'Other Info', 'required');
-
-      if ($this->form_validation->run() == FALSE)
-      {   
-          
-        $data['results'] = $this->Adminmodel->getPlacesData();
-        $this->load->view('admin/addplaces',$data);
-
-      }else{
+      
+      
         $pname = $this->input->post('pname');
         $longitude = $this->input->post('longitude');
         $latitude = $this->input->post('latitude');
@@ -1566,6 +1555,8 @@ public function submitvendordata(){
         $city = $this->input->post('city');
         $address = $this->input->post('address');
         $oinfo = $this->input->post('oinfo');
+        $ptype = $this->input->post('ptype');
+	//	echo $ptype;
 
         $data = array(
            'place' => $pname ,
@@ -1577,13 +1568,18 @@ public function submitvendordata(){
            'createdby' => 'admin',
            'createdon' => date('Y-m-d h:i:s'),
            'status' =>1,
-           'description' => $description
+           'description' => $description,
+           'ptype' => $ptype
         );
-
-        $this->db->insert('tblplaces', $data); 
-        $this->session->set_flashdata('success','<div class="alert alert-success text-center">Places Created</div>');
-        redirect('admin/addplaces');
-      }
+		//print_r($data);
+        $insert = $this->db->query("insert into tblplaces (place,latitude,longitude,city,address,createdby,
+		createdon,status,description,otherinfo,type) values ('$pname','$latitude','$longitude','$city','$address','admin',now(),'1',
+		'$description','$oinfo','$ptype')");
+	
+		
+			$this->session->set_flashdata('success','<div class="alert alert-success text-center">Places Created</div>');
+			redirect('admin/addplaces');
+		
     }
 
     public function editaddplaces()

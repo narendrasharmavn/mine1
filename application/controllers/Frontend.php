@@ -487,6 +487,7 @@ class Frontend extends CI_Controller {
       $mobile = $this->input->post('mobile');
       $email = $this->input->post('email');
       $otp = $this->input->post('otp');
+      $ipaddress = $_SERVER['HTTP_CLIENT_IP']?:($_SERVER['HTTP_X_FORWARDE‌​D_FOR']?:$_SERVER['REMOTE_ADDR']);
 
       //check otp correct or not through session
       
@@ -532,7 +533,8 @@ class Frontend extends CI_Controller {
                         'visitorstatus' => 'absent',
                         'vendorid' => $this->session->userdata('vendorid'),
                         'childqty' => $this->session->userdata('numberofchildren'),
-                        'kidsmealqty' => $this->session->userdata('kidsmealqty')
+                        'kidsmealqty' => $this->session->userdata('kidsmealqty'),
+                        'ipaddress' => $ipaddress
    );
 
                     $this->db->insert('tblbookings',$bookingsdata);
@@ -577,6 +579,7 @@ class Frontend extends CI_Controller {
       $mobile = $this->input->post('mobile');
       $email = $this->input->post('email');
       $otp = $this->input->post('otp');
+      $ipaddress = $_SERVER['HTTP_CLIENT_IP']?:($_SERVER['HTTP_X_FORWARDE‌​D_FOR']?:$_SERVER['REMOTE_ADDR']);
 
       //check otp correct or not through session
 	  //echo "otp is: ".$OTP_CHECK."<BR>";
@@ -609,7 +612,7 @@ class Frontend extends CI_Controller {
               $dateofvisit = $this->session->userdata('dateofvisit');
               $vendorid = $this->session->userdata('vendorid');
 
-              $m = mcrotime(true);
+                    $m = microtime(true);
                     $m = str_replace(".","",$m);
 
                     if($m==null || $m=='undefined' || $m==''){
@@ -661,7 +664,8 @@ class Frontend extends CI_Controller {
                         $calculatedinternetcharges += ( ($noofchildren * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->childprice) * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->servicetax)/100;
 
                         //insert into database
-                        $this->insertDataIntotblbookingsForMultiCheckoutNoSession($dateofvisit,$noofadults,$subtotal,$packageid,$vendorid,$noofchildren,$kidsmealqty,$ticketnumber,$customerid);
+						            
+                        $this->insertDataIntotblbookingsForMultiCheckoutNoSession($dateofvisit,$noofadults,$subtotal,$packageid,$vendorid,$noofchildren,$kidsmealqty,$ticketnumber,$customerid,$ipaddress);
                         //end of insert database
                  
             }//end of for loop
@@ -731,6 +735,7 @@ class Frontend extends CI_Controller {
       $email = $this->input->post('email');
       $name = $this->input->post('name');
       $otp = $this->input->post('otp');
+      $ipaddress = $_SERVER['HTTP_CLIENT_IP']?:($_SERVER['HTTP_X_FORWARDE‌​D_FOR']?:$_SERVER['REMOTE_ADDR']);
 
       $OTP_CHECK = $this->session->userdata('otp-event-booking');
 	  
@@ -748,7 +753,7 @@ class Frontend extends CI_Controller {
           'password' => hash('sha512',rand(9999,99999)),
           'number' => $mobile,
           'dateofcreation' => date('Y-m-d'),
-		  'regtype' => 'Guest'
+		      'regtype' => 'Guest'
 
 
           );
@@ -758,7 +763,7 @@ class Frontend extends CI_Controller {
         $customerid = $this->db->insert_id();
        $this->session->set_userdata('customerid',$customerid);
 
-        $m = microtie(true);
+        $m = microtime(true);
                     $m = str_replace(".","",$m);
 
                     if($m==null || $m=='undefined' || $m==''){
@@ -780,7 +785,8 @@ class Frontend extends CI_Controller {
           'ticketnumber' => $ticketnumber,
           'visitorstatus' => 'absent',
           'vendorid' => $this->session->userdata('vendorid'),
-          'childqty' => $this->session->userdata('numberofchildren')
+          'childqty' => $this->session->userdata('numberofchildren'),
+          'ipaddress' => $ipaddress
 
        );
 
@@ -934,6 +940,7 @@ class Frontend extends CI_Controller {
       $this->session->set_userdata('vendorid',$vendorid);
       $this->session->set_userdata('dateofvisit',$dateofvisit);
       $this->session->set_userdata('currenturl',$currenturl);
+      $ipaddress = $_SERVER['HTTP_CLIENT_IP']?:($_SERVER['HTTP_X_FORWARDE‌​D_FOR']?:$_SERVER['REMOTE_ADDR']);
 
       $m = microtime(true);
                     $m = str_replace(".","",$m);
@@ -958,12 +965,15 @@ class Frontend extends CI_Controller {
           'visitorstatus' => 'absent',
           'vendorid' => $this->session->userdata('vendorid'),
           'childqty' => $this->session->userdata('numberofchildren'),
-          'kidsmealqty' => $this->session->userdata('kidsmealqty')
+          'kidsmealqty' => $this->session->userdata('kidsmealqty'),
+          'ipaddress' => $ipaddress
 
 
       );
 
       if ($resortid==1) {
+
+
         
       }
 
@@ -1008,7 +1018,7 @@ class Frontend extends CI_Controller {
     }
 
 
-    public function insertDataIntotblbookingsForMultiCheckout($dateofvisit,$noofadults,$subtotal,$packageid,$vendorid,$noofchildren,$kidsmealqty,$ticketnumber){
+    public function insertDataIntotblbookingsForMultiCheckout($dateofvisit,$noofadults,$subtotal,$packageid,$vendorid,$noofchildren,$kidsmealqty,$ticketnumber,$ipaddress){
 
        $bookingsdata = array(
           'dateofvisit' => $dateofvisit,
@@ -1023,7 +1033,8 @@ class Frontend extends CI_Controller {
           'visitorstatus' => 'absent',
           'vendorid' => $vendorid,
           'childqty' => $noofchildren,
-          'kidsmealqty' => $kidsmealqty
+          'kidsmealqty' => $kidsmealqty,
+          'ipaddress' => $ipaddress
 
 
       );
@@ -1049,7 +1060,7 @@ class Frontend extends CI_Controller {
     }
 
 
-    public function insertDataIntotblbookingsForMultiCheckoutNoSession($dateofvisit,$noofadults,$subtotal,$packageid,$vendorid,$noofchildren,$kidsmealqty,$ticketnumber,$customerid){
+    public function insertDataIntotblbookingsForMultiCheckoutNoSession($dateofvisit,$noofadults,$subtotal,$packageid,$vendorid,$noofchildren,$kidsmealqty,$ticketnumber,$customerid,$ipaddress){
 
        $bookingsdata = array(
           'dateofvisit' => $dateofvisit,
@@ -1064,16 +1075,15 @@ class Frontend extends CI_Controller {
           'visitorstatus' => 'absent',
           'vendorid' => $vendorid,
           'childqty' => $noofchildren,
-          'kidsmealqty' => $kidsmealqty
-
-
+          'kidsmealqty' => $kidsmealqty,
+          'ipaddress' => $ipaddress
       );
 
 
-     
+     //print_r($bookingsdata);
        # code...
      
-        $this->db->insert('tblbookings',$bookingsdata); 
+       $this->db->insert('tblbookings',$bookingsdata); 
         
 
        array_push($this->bookingsIdArray,$this->db->insert_id()); 
@@ -1100,9 +1110,10 @@ class Frontend extends CI_Controller {
       $kidsmealqty = $this->input->post('kidsmealqty');
       $currenturl = $this->input->post('currenturl');
       $vendorid = $this->input->post('vendorid');
+      $ipaddress = $_SERVER['HTTP_CLIENT_IP']?:($_SERVER['HTTP_X_FORWARDE‌​D_FOR']?:$_SERVER['REMOTE_ADDR']);
 
       
-      $m = microtime(true);
+                    $m = microtime(true);
                     $m = str_replace(".","",$m);
 
                     if($m==null || $m=='undefined' || $m==''){
@@ -1155,8 +1166,7 @@ class Frontend extends CI_Controller {
 
         //insert into database
         if ($this->session->userdata('holidayEmail')) {
-
-            $this->insertDataIntotblbookingsForMultiCheckout($dateofvisit,$noofadults,$subtotal,$packageid,$vendorid,$noofchildren,$kidsmealqty,$ticketnumber);
+            $this->insertDataIntotblbookingsForMultiCheckout($dateofvisit,$noofadults,$subtotal,$packageid,$vendorid,$noofchildren,$kidsmealqty,$ticketnumber,$ipaddress);
 
           }
 
@@ -1370,6 +1380,7 @@ echo "true";
       $calculatedinternetcharges = $this->input->post('calculatedinternetcharges');
       $calculatedservicetax = $this->input->post('calculatedservicetax');
       $currenturl = $this->input->post('currenturl');
+      $ipaddress = $_SERVER['HTTP_CLIENT_IP']?:($_SERVER['HTTP_X_FORWARDE‌​D_FOR']?:$_SERVER['REMOTE_ADDR']);
       
       //calcluate number of adults price
       $adultprice = $numberofadults * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->adultprice;
@@ -1474,9 +1485,8 @@ echo "true";
           'ticketnumber' => $ticketnumber,
           'visitorstatus' => 'absent',
           'vendorid' => $vendorid,
-          'childqty' => $this->session->userdata('numberofchildren')
-
-
+          'childqty' => $this->session->userdata('numberofchildren'),
+          'ipaddress' => $ipaddress
       );
 
 
@@ -3087,7 +3097,7 @@ echo "true";
 
 
 
-        $sql = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 GROUP by pp.plid ORDER by p.plid DESC limit ".$data['page'].", ".$config['per_page'];
+        $sql = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and type='places' GROUP by pp.plid ORDER by p.plid DESC limit ".$data['page'].", ".$config['per_page'];
         //echo $sql."<br>";
 
         $query2 = $this->db->query($sql);
@@ -3101,6 +3111,120 @@ echo "true";
       $this->load->view('frontend/placegridview',$data);
 
 }
+
+  public function kidsdayout()
+    {
+      $this->load->library('pagination');
+
+      $numberOfRows = $this->FrontEndModel->getKidsDayoutRows();
+
+       //echo $numberOfRows."<br>";
+       //pagination settings
+        $config['base_url'] = site_url('frontend/kidsdayout');
+        $config['total_rows'] = $numberOfRows;
+        $config['per_page'] = "12";
+        $config["uri_segment"] = 3;
+        
+
+       
+
+        // integrate bootstrap pagination
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_link'] = false;
+        $config['last_link'] = false;
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['prev_link'] = '«';
+        $config['prev_tag_open'] = '<li class="prev">';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_link'] = '»';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active"><a href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $this->pagination->initialize($config);
+
+        $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+
+
+        $sql = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='kids' GROUP by pp.plid ORDER by p.plid DESC limit ".$data['page'].", ".$config['per_page'];
+       // echo $sql."<br>";
+
+        $query2 = $this->db->query($sql);
+        $data['getdata'] = $query2;
+        
+        $data['pagination'] = $this->pagination->create_links();
+       
+        $data['totalrows'] = $numberOfRows;
+     //   echo $numberOfRows; 
+      $this->load->view('frontend/header');
+     $this->load->view('frontend/kidsdayout',$data);
+
+}
+
+ public function adventure()
+    {
+      $this->load->library('pagination');
+
+      $numberOfRows = $this->FrontEndModel->getAdventureRows();
+
+       //echo $numberOfRows."<br>";
+       //pagination settings
+        $config['base_url'] = site_url('frontend/adventure');
+        $config['total_rows'] = $numberOfRows;
+        $config['per_page'] = "12";
+        $config["uri_segment"] = 3;
+        
+
+       
+
+        // integrate bootstrap pagination
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_link'] = false;
+        $config['last_link'] = false;
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['prev_link'] = '«';
+        $config['prev_tag_open'] = '<li class="prev">';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_link'] = '»';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active"><a href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $this->pagination->initialize($config);
+
+        $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+
+
+        $sql = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='adventure' GROUP by pp.plid ORDER by p.plid DESC limit ".$data['page'].", ".$config['per_page'];
+        //echo $sql."<br>";
+
+        $query2 = $this->db->query($sql);
+        $data['getdata'] = $query2;
+        
+        $data['pagination'] = $this->pagination->create_links();
+       
+        $data['totalrows'] = $numberOfRows;
+     //   echo $numberOfRows; 
+      $this->load->view('frontend/header');
+     $this->load->view('frontend/adventure',$data);
+
+}
+
+
 
 
     public function showResortDetails($resortname='',$resortId=''){
@@ -3380,201 +3504,20 @@ public function getPackageAmountAndSetMarkUp(){
                             // send mail to user //
 
                             $to=$this->input->post('email');
-                            $subject = "Registration Success";
-                            $headers = "MIME-Version: 1.0"."\r\n";
-                            $headers .= "Content-Type: text/html; charset=ISO-8859-1"."\r\n";
-                            $headers .= 'From: Book4Holiday Support <info@book4holiday.com>'."\r\n";
-                            $message='<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-
-</head>
-
-<body>
-
-
-    <table width="700" height="500" bgcolor="black" align="center">
-      <tr>
-        <td>
-              <table cellpadding="0" cellspacing="0" style="width:600px;margin:0 auto;padding:0px;font-family:Arial,Helvetica,sans-serif;font-size:12px">
-<tbody>
-<tr>
-<td style="width:600px">
-<div style="width:600px;float:left">
-<table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="font-size:12px;background-color:#1f2533;padding:15px 15px">
-<tbody>
-<tr>
-<td style="width:300px;padding:8px 0 0 0;text-align:left"><a href="#" style="text-decoration:none;color:#010101" target="_blank" data-saferedirecturl="#"><!--<img alt="BookMyShow" height="70" border="0" width="200" style="margin:0px auto" src="book4.png" class="CToWUd">--><h3 style="color:#FFF; font-family:Arial Black; font-size:18px;">Book <span style="color:#49ba8e;">4</span> Holiday</h3>
-</a></td>
-<td style="width:30px;padding-top:8px;text-align:left"><img alt="helpline phone" height="20" border="0" width="18" src="https://ci3.googleusercontent.com/proxy/ox1pr8SuruzQrAsTBgtdjSlHhf0BodFY1HY033BSEDpQQx41C7mSyS3nVKhXYKB2WK98ymYskV6_gH0967w5847IDkg85kno18hz0PjzvlWj2HI=s0-d-e1-ft#http://cnt.in.bookmyshow.com/webin/emailer/helpline-phone.png" class="CToWUd">
-</td>
-<td style="width:80px;text-align:left;color:#49ba8e;padding-top:5px;line-height:14px">
-<span style="font-size:11px">Helpline:</span> <br>
-<span style="letter-spacing:1px;font-weight:bold"><a href="tel:+912261445050" style="text-decoration:none;color:#49ba8e" target="_blank">6144 5050</a>
-</span></td>
-<td style="width:10px;text-align:left;color:gray;padding-top:10px;line-height:14px;font-size:18px">
-|</td>
-<td style="width:180px;font-size:12px;color:#49ba8e;font-weight:bold;padding-top:17px">
-<a href="mailto:info@Book4Holiday.com" style="text-decoration:none;color:#49ba8e" target="_blank">info@book4holiday.com</a>
-</td>
-</tr>
-</tbody>
-</table>
-<table cellpadding="0" cellspacing="0" style="width:600px;margin:0;padding:0px;float:left;background:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#565656">
-<tbody>
-<tr>
-<td style="width:600px;vertical-align:top">
-<table cellpadding="0" cellspacing="0" style="width:600px;margin:0;padding:15px 10px;float:left;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#565656">
-<tbody>
-<tr>
-<td colspan="2">Dear <strong>Customer </strong>, <br>
-<br>
-Below are your account details </td>
-</tr>
-<tr>
-<td colspan="2">&nbsp;</td>
-</tr>
-<tr>
-<td colspan="2">Username : <strong><a href="#" style="text-decoration:none;" target="_blank">'.$this->input->post('email').'</a></strong></td>
-</tr>
-<tr>
-<td colspan="2">&nbsp;</td>
-</tr>
-<tr>
-<td colspan="2">So now buy all holiday tickets with the best offers on book4holiday</td>
-</tr>
-<tr>
-<td colspan="2">&nbsp;</td>
-</tr>
-<tr>
-<td colspan="2" style="font-size:16px"><a href="#" style="font-weight:bold;text-decoration:underline;color:#49ba8e" target="_blank" data-saferedirecturl="#">www.book4holiday.com</a>
-</td>
-</tr>
-<tr>
-<td colspan="2">&nbsp;</td>
-</tr>
-<tr>
-<td colspan="2" style="color:#d6181f;font-size:20px;font-weight:bold;font-family:Arial,Helvetica,sans-serif">
-Enjoy the Holiday!</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</td>
-</tr>
-
-  <!--3rd line start-->
-
-<tr>
-<td align="center" style="width:600px">
-<table cellpadding="0" cellspacing="0" align="center" style="width:600px;background:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#7c7c7c">
-<tbody>
-<tr>
-<td align="center" style="width:180px;padding:10px 10px 0 20px;vertical-align:top;background:#f2f2f2">
-<table align="center" cellpadding="0" cellspacing="0" style="padding:0;font-size:11px;width:180px;float:left;font-family:Arial,Helvetica,sans-serif;color:#7c7c7c">
-<tbody>
-<tr>
-<td colspan="2" style="padding:5px 0 0 10px;width:170px;font-size:13px;font-weight:bold;color:#7c7c7c">
-Mobile Application</td>
-</tr>
-<tr>
-<td style="width:76px;padding-top:10px"><a href="#" style="text-decoration:none;color:#60abe4" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://mandrillapp.com/track/click/13389779/in.bookmyshow.com?p%3DeyJzIjoiRXJjRWwzZW1DTmlUV2xRY0hWRmt1Zkw4QlpRIiwidiI6MSwicCI6IntcInVcIjoxMzM4OTc3OSxcInZcIjoxLFwidXJsXCI6XCJodHRwOlxcXC9cXFwvaW4uYm9va215c2hvdy5jb21cXFwvbW9iaWxlXFxcL1wiLFwiaWRcIjpcImVlYmU0MzRmZjZmYjRkMGNiZmJhYmE2ODk0NDIzZjYzXCIsXCJ1cmxfaWRzXCI6W1wiOWJiZDYxN2UxNGZiNTQ2NzQzMmEwMmNmMDRlNmNkODIyZWY0NTQwYVwiXX0ifQ&amp;source=gmail&amp;ust=1465902897173000&amp;usg=AFQjCNG0HPjm_qxrPFJ6D8pD9NpvxSFs7w"><img alt="" src="https://ci5.googleusercontent.com/proxy/UkpoyxX1unvOpExFb_lZm0qcM38Fx_Xbdpc10WKaiq0sdx0BUPi018j-SfgUdxKi7SbZLeugOWM7ycoRnXBsM5PI0fXp4JcGxkPlNDS3sZ8B=s0-d-e1-ft#http://cnt.in.bookmyshow.com/webin/emailer/mobile-app01.png" class="CToWUd">
-</a></td>
-<td valign="top" style="width:86px;padding:15px 0 15px 10px;font-size:11px;line-height:14px">
-Holiday<br>
-tickets on the go<br>
-<a href="#" style="text-decoration:none;color:#60abe4" target="_blank" data-saferedirecturl="#">DOWNLOAD APP</a><br>(Coming Soon)</td>
-</tr>
-</tbody>
-</table>
-</td>
-<td align="center" style="width:190px;padding:10px 10px 0 0;vertical-align:top;background:#f2f2f2">
-<table align="center" cellpadding="0" cellspacing="0" style="padding:0;width:190px;font-size:11px;float:left;font-family:Arial,Helvetica,sans-serif;color:#7c7c7c">
-<tbody>
-<tr>
-<td colspan="2" style="padding:5px 0 0 15px;width:175px;font-size:13px;font-weight:bold;color:#7c7c7c">
-</td>
-</tr>
-<tr>
-<td valign="middle" style="width:54px;padding:15px 0 10px 15px;border-left:1px solid #bebebe">
-</td>
-<td style="width:91px;padding:15px 10px 15px 5px;font-size:11px;border-right:1px solid #bebebe">
-<br>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-<td align="center" style="width:180px;padding:10px 10px 0 0;vertical-align:top;background:#f2f2f2">
-<table align="center" cellpadding="0" cellspacing="0" style="padding:0 0 0 10px;width:170px;float:left;font-size:11px;font-family:Arial,Helvetica,sans-serif;color:#7c7c7c">
-<tbody>
-<tr>
-<td colspan="2">
-<a href="#" style="text-decoration:none;">
-<p style="color:#49ba8e; font-family:Arial Black; font-size:18px;">Book <span style="color:#000;">4</span> Holiday</p>
-</a></td>
-</tr>
-<tr>
-<td>Your holiday ends here <br>
-<a href="#" style="text-decoration:none;color:#60abe4" target="_new" data-saferedirecturl="#">Know
- more</a></td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-  <!--footer start-->
-<tr>
-    <td align="center">
-      <a href="#" style="text-decoration:none;">
-<p style="color:#49ba8e; font-family:Arial Black;">Book <span style="color:#000;">4</span> Holiday</p>
-</a>
-    </td>
-    
-    <td style="padding-left:35px;">
-      <a href="#" style="text-decoration:none;"><a href="#" style="text-decoration:none;">
-<p style="color:#000; font-family:Arial,Helvetica,sans-serif; font-size:12px; line-height:20px;">Terms & Conditions <br> Cancelation Policy <br> Privacy Policy</p></a>
-</a>
-    </td>
-    
-    <td style="padding-left:0px;">
-      <a href="#" style="text-decoration:none;"><a href="#" style="text-decoration:none;">
-<p style="color:#000; font-family:Arial,Helvetica,sans-serif; font-size:12px; line-height:20px;"><span style="color:#49ba8e; font-weight:500;">Address:</span> <br> Plot No.21/3, Jay Enclave, 
-<br> Images Garden Road, Madhapur, <br> Hyderabad, TS </p></a>
-</a>
-    </td>
-    
-    
-    
-</tr>
-  <!--footer end-->
-</tbody>
-</table>
-</td>
-
-</tr>
-
-  <!--3rd line end-->
-    <!--footer start-->
-
-    
-</tbody>
-</table>
-            </td>    
-        </tr>
-    </table>
-    
-
-</body>
-</html>
-';
                             
-                            mail($to, $subject, $message, $headers);
+                            $this->load->library('email');
+                            $data['email'] =  $this->input->post('email');
+     
+
+                            $this->email
+                                ->from('info@book4holiday.com', 'Book4Holiday')
+                                ->to($email)
+                                ->subject('Registration Success')
+                                ->message($this->load->view('frontend/registrationemail',$data,true))
+                                ->set_mailtype('html');
+
+                            // send email
+                            $this->email->send();
 
                             //user email ends here //
                             $this->session->set_flashdata('register-success','<div class=alert alert-success text-center>You are successfully registered</div>');

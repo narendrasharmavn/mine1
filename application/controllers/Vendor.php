@@ -22,17 +22,16 @@ class Vendor extends CI_Controller {
 
     public function login()
 	{
-		$this->load->view('admin/login');
+		$this->load->view('vendor/login');
 	}
 
-  public function dashboard()
+	public function dashboard()
 	{
     //error_reporting(0);
     if (!$this->session->userdata('username')) 
-       redirect('admin/login');
-
-   		//get vendor id and store it in session
-   			$this->session->set_userdata('vendorid',$this->VendorModel->getVendorId($this->session->userdata('username')));
+    redirect('admin/login');
+	//get vendor id and store it in session
+   	$this->session->set_userdata('vendorid',$this->VendorModel->getVendorId($this->session->userdata('username')));
    		
  	
       $this->load->view('vendor/dashboard');
@@ -111,44 +110,23 @@ class Vendor extends CI_Controller {
   public function getticketdata()
   {
     $tckno=$this->input->post('ticketno');
-
-    $getticketdata = $this->db->query("SELECT b.bookingid,b.date,b.dateofvisit,b.visitorstatus, b.quantity,b.childqty,b.kidsmealqty, b.amount,b.ticketnumber,p.packagename,c.name FROM tblbookings b,tblpackages p,tblcustomers c,tblvendors v where b.packageid=p.packageid AND ticketnumber='$tckno'");
+    $vendorid = $this->session->userdata('vendorid');
+    $getticketdata = $this->db->query("SELECT b.bookingid,b.dateofvisit,b.visitorstatus,b.ticketnumber,b.vendorid FROM tblbookings b where b.ticketnumber='$tckno' and b.vendorid='$vendorid' and date(b.dateofvisit)=date(now())");
     $k = $getticketdata->row();
     $dateofvisit = $k->dateofvisit;
     //echo $dateofvisit."<br>";
-    $customername = $k->name;
-    //echo $customername."<br>";
-    $quantity = $k->quantity;
-    //echo $quantity."<br>";
-    $childqty = $k->childqty;
-    //echo $childqty."<br>";
-    $kidsmealqty = $k->kidsmealqty;
-    //echo $kidsmealqty."<br>";
+    
     $visitorstatus = $k->visitorstatus;
     //echo $visitorstatus."<br>";
-    echo '<tr>
-                <td>Ticket No.</td>
-                <td>'.$tckno.'</td>
-                <td>Date Of Visit</td>
-                <td>'.date("d-m-Y", strtotime($k->date)).'</td>
-          </tr>
-          <tr>
-                <td>Visitor Name</td>    
-                <td>'.$k->name.'</td>
-                <td>No.of Tickets</td>
-                <td>A - '.$quantity.' <br/>C - '.$childqty.'</td>
-          </tr>
-          <tr>
-                <td>Kid Meal</td>
-                <td>'.$k->kidsmealqty.'</td>
-                <td>Visitor Status</td>
-                <td>
+    echo '
+          <tr><td>
         ';
-        if($visitorstatus=='visited')
+        if($getticketdata->num_rows()>0)
         {
-           echo '<span style="color:green;">'.$visitorstatus.'</span>';
+			echo '<span style="color:red;font-weight:bold;">Not Visited And Updated</span>';
+
         }else{
-           echo '<span style="color:red;">'.$visitorstatus.'</span>';
+			echo '<span style="color:red;font-weight:bold">Visited or Ticket Invalid</span>';
         }
                 
           echo '</td></tr>';      
@@ -1052,7 +1030,59 @@ print_r($data);
     redirect('vendor/editdetails');
 
 }
+public function createusers()
+{
+  $this->session->set_userdata('vendorid',$this->VendorModel->getVendorId($this->session->userdata('username')));
+  $this->load->view('vendor/createusers');
+}
+
+public function submitcreateusers()
+{
+  $vendorid = $this->input->post('vendorid');
+  //echo $vendorid;
+  $username = $this->input->post('username');
+  //echo $username;
+  $department = $this->input->post('department');
+  //echo $department;
+  $email = $this->input->post('email');
+  //echo $email;
+  $password = $this->input->post('password');
+  //echo $password."<br>";
+  $convertedpassword = hash('sha512', $this->input->post('password')); 
+  //echo $convertedpassword;
+  $designation = $this->input->post('designation');
+  //echo $designation;
+  $mobile = $this->input->post('mobile');
+  //echo $mobile;
+  $usertype = $this->input->post('usertype');
+  
+  $data = array(
+    'vendorid'=> $vendorid,
+    'username'=> $username,
+    'department'=> $department,
+    'email' => $email,
+    'password' => $convertedpassword,
+    'mobile' => $mobile,
+    'designation' => $designation,
+    'usertype' => $usertype,
+    'status' => 1
+  );
+  if($this->db->insert('tblusers', $data))
+  {
+    $this->session->set_flashdata('success','<div class="alert alert-success text-center">Users Created</div>');
+    redirect('vendor/createusers');
+  }else
+  {
+    $this->session->set_flashdata('success','<div class="alert alert-danger text-center">Users Failed</div>');
+    redirect('vendor/createusers');
+  }
+  
+}
+
+
 
 }
+
+
 
 ?>
