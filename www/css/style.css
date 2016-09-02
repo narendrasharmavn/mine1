@@ -220,10 +220,7 @@ div.hscroller {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%); 
 }
-.button.button.button-icon.button-clear.ion-navicon
-{
-	display : none;
-}
+
 .ui-datepicker .ui-datepicker-calendar td a {
 	text-decoration: none;
 }
