@@ -667,8 +667,21 @@ console.log("single booking controller");
   $scope.submit= function(){
     console.log($scope.calculatedData); 
     console.log($scope.userChoosen); 
-   
-    $state.go('sidemenu.checkoutoptionresorts',{usertotals:$scope.calculatedData,userselectedoptions:$scope.userChoosen,dateofvisit:$scope.dateofvisit});
+
+    if ($scope.calculatedData.total==0 || $scope.calculatedData.total<0 || $scope.calculatedData.total==null) {
+      var alertPopup = $ionicPopup.alert({
+             title: 'Alert',
+             template: 'Please go back and book atleast one ticket'
+           });
+
+           alertPopup.then(function(res) {
+             console.log('Thank you for not eating my delicious ice cream cone');
+           });
+
+
+    }else{
+      $state.go('sidemenu.checkoutoptionresorts',{usertotals:$scope.calculatedData,userselectedoptions:$scope.userChoosen,dateofvisit:$scope.dateofvisit});
+    }
   }
 
 $scope.taxBreakUp = function(){
@@ -744,8 +757,19 @@ app.controller('MultiBookingCtrl',function($scope,$state,$http,webservices,mycon
   $scope.submit= function(){
     console.log($scope.calculatedData); 
     console.log($scope.userChoosen); 
+    if ($scope.calculatedData.total==0 || $scope.calculatedData.total==null || $scope.calculatedData.total<0) {
+             var alertPopup = $ionicPopup.alert({
+             title: 'Alert',
+             template: 'Please go back and book atleast one ticket'
+           });
+
+           alertPopup.then(function(res) {
+             console.log('Thank you for not eating my delicious ice cream cone');
+           });
+    }else{
    
     $state.go('sidemenu.checkoutoption',{ dateofvisit:$scope.dateofvisit, usertotals:$scope.calculatedData,userselectedoptions:$scope.userChoosen});
+  }
   }
 
 $scope.taxBreakUp = function(){
@@ -913,9 +937,10 @@ app.controller('MultiCheckOutCtrl',function($scope,$state,$http,webservices,myco
                     childqty:item.mobilechildqty
                    });
 
+                   //alert("this is: "+item.mobileadultqty);
                    
 
-                    if ((item.mobileadultqty==0 && item.mobilechildqty==0)  || (item.mobileadultqty==undefined && item.mobilechildqty==undefined)) {
+                    if ((item.mobileadultqty==0 && item.mobilechildqty==0)  || (item.mobileadultqty==null && item.mobilechildqty==null) || (item.mobileadultqty==null && item.mobilechildqty==0) || (item.mobileadultqty==0 && item.mobilechildqty==null)) {
                       //alert("Please book atleast one ticket");
                       $scope.count++;
                    } 
@@ -976,8 +1001,20 @@ app.controller('SingleBookingCtrl',function($scope,$state,$http,webservices,myco
 
  $scope.proceed = function(){
 
-     $state.go('sidemenu.checkoutoptionevents',{ usertotals: $scope.calculatedUserData , userselectedoptions: $scope.userChoosen });
+  if ($scope.calculatedUserData.total==0 || $scope.calculatedUserData.total==null || $scope.calculatedUserData.total<0) {
+    // statement
+    var alertPopup = $ionicPopup.alert({
+             title: 'Alert',
+             template: 'Please go back and book atleast one ticket'
+           });
 
+           alertPopup.then(function(res) {
+             console.log('Thank you for not eating my delicious ice cream cone');
+           });
+  }else{
+
+     $state.go('sidemenu.checkoutoptionevents',{ usertotals: $scope.calculatedUserData , userselectedoptions: $scope.userChoosen });
+}
   }
 
   $scope.taxBreakUp = function(){
@@ -1068,7 +1105,7 @@ app.controller('EventSingleCheckOutCtrl',function($scope,$state,$http,webservice
                     childqty:item.mobilechildqty
                    });
 
-                   if (item.mobileadultqty==0 && item.mobilechildqty==0) {
+                   if ((item.mobileadultqty==0 && item.mobilechildqty==0) || (item.mobileadultqty==null)) {
                       //alert("Please book atleast one ticket");
                       $scope.count++;
                    } 
@@ -1166,7 +1203,7 @@ $( ".datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
                     childqty:item.mobilechildqty
                    });
 
-                   if (item.mobileadultqty==0 && item.mobilechildqty==0) {
+                   if ((item.mobileadultqty==0 && item.mobilechildqty==0) || item.mobileadultqty==null) {
                       //alert("Please book atleast one ticket");
                       $scope.count++;
                    } 
@@ -1294,7 +1331,7 @@ app.controller('ResortDetailsCtrl',function($window,$scope,$state,$http,webservi
     
 	  var alertPopup = $ionicPopup.alert({
 		 title: 'Submit Review', scope: $scope,
-		 template: '<div class="list"><center><rating name="rating" ng-model="data.rating" max="5"></rating></center><label class="item item-input"><input type="text" ng-model="data.subject" name="subject" placeholder="Subject"></label><label class="item item-input"><textarea name="review" ng-model="data.review" placeholder="Comments"></textarea></label><div ng-show="errormessages"><p>Please Fill Subject & Review</p></div></div>',
+		 template: '<div class="list"><center><rating name="rating" ng-model="data.rating" max="5"></rating></center><label class="item item-input"><input type="text" ng-model="data.subject" name="subject" placeholder="Subject"></label><label class="item item-input"><textarea name="review" ng-model="data.review" placeholder="Comments"></textarea></label><div ng-show="errormessages"><p>Please Fill Rating, Subject & Review</p></div></div>',
 		 buttons: [
 		 { 
       text: 'Cancel',
@@ -1392,7 +1429,7 @@ $ionicLoading.show({
 
 	  var alertPopup = $ionicPopup.alert({
 		 title: 'Submit Review', scope: $scope,
-		 template: '<div class="list"><center><rating name="rating" ng-model="data.rating" max="5"></rating></center><label class="item item-input"><input type="text" ng-model="data.subject" name="subject" placeholder="Subject"></label><label class="item item-input"><textarea name="review" ng-model="data.review" placeholder="Comments"></textarea></label><div ng-show="errormessages"><p>Please Fill Subject & Review</p></div></div>',
+		 template: '<div class="list"><center><rating name="rating" ng-model="data.rating" max="5"></rating></center><label class="item item-input"><input type="text" ng-model="data.subject" name="subject" placeholder="Subject"></label><label class="item item-input"><textarea name="review" ng-model="data.review" placeholder="Comments"></textarea></label><div ng-show="errormessages"><p>Please Fill Rating, Subject & Review</p></div></div>',
 		 buttons: [
 		 { 
         text: 'Cancel',
@@ -1495,7 +1532,7 @@ app.controller('EventDetailsCtrl',function($scope,$state,$http,$window,webservic
 
 	  var alertPopup = $ionicPopup.alert({
 		 title: 'Submit Review', scope: $scope,
-		 template: '<div class="list"><center><rating name="rating" ng-model="data.rating" max="5"></rating></center><label class="item item-input"><input type="text" ng-model="data.subject" name="subject" placeholder="Subject"></label><label class="item item-input"><textarea name="review" ng-model="data.review" placeholder="Comments"></textarea></label><div ng-show="errormessages"><p>Please Fill Subject & Review</p></div></div>',
+		 template: '<div class="list"><center><rating name="rating" ng-model="data.rating" max="5"></rating></center><label class="item item-input"><input type="text" ng-model="data.subject" name="subject" placeholder="Subject"></label><label class="item item-input"><textarea name="review" ng-model="data.review" placeholder="Comments"></textarea></label><div ng-show="errormessages"><p>Please Fill Rating, Subject & Review</p></div></div>',
 		 buttons: [
 		 { 
         text: 'Cancel',
@@ -1581,7 +1618,7 @@ app.controller('PlaceDetailsCtrl',function($scope,$state,$http,webservices,mycon
 
 	  var alertPopup = $ionicPopup.alert({
 		 title: 'Submit Review', scope: $scope,
-		 template: '<div class="list"><center><rating name="rating" ng-model="data.rating" max="5"></rating></center><label class="item item-input"><input type="text" ng-model="data.subject" name="subject" placeholder="Subject"></label><label class="item item-input"><textarea name="review" ng-model="data.review" placeholder="Comments"></textarea></label><div ng-show="errormessages"><p>Please Fill Subject & Review</p></div></div>',
+		 template: '<div class="list"><center><rating name="rating" ng-model="data.rating" max="5"></rating></center><label class="item item-input"><input type="text" ng-model="data.subject" name="subject" placeholder="Subject"></label><label class="item item-input"><textarea name="review" ng-model="data.review" placeholder="Comments"></textarea></label><div ng-show="errormessages"><p>Please Fill Rating, Subject & Review</p></div></div>',
 		 buttons: [
 		 { 
          text: 'Cancel',
