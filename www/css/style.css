@@ -1,5 +1,8 @@
 /* Empty. Add your own CSS if you like */
 
+.customicon4{
+	color: #f00;
+}
  .red:before {
     color: red;
     }

@@ -35,7 +35,7 @@
           <input type="text" placeholder="Enter Event Name" ng-model="search.eventname" ng-change="oneventssearch(search.eventname)">
         </label>
         
-        <ion-list ng-if="search.searchterm=='events' && search.eventname!=''">
+        <ion-list ng-if="search.searchterm=='events' && search.eventname!=''" ng-show="search.eventionlist">
         <ion-item  type="item-text-wrap" href="#/sidemenu/eventdetails/{{e.eventid}}" ng-repeat="e in searchresult | filter:search.name" >
           {{e.eventname}}
         </ion-item>
@@ -48,7 +48,7 @@
           <input type="text" placeholder="Enter Resort Name" ng-model="search.resortname" ng-change="onResortSearch(search.resortname)">
         </label>
         
-        <ion-list ng-if="search.searchterm=='resorts' && search.resortname!=''">
+        <ion-list ng-if="search.searchterm=='resorts' && search.resortname!=''" ng-show="search.resortionlist">
         <ion-item  type="item-text-wrap" href="#/sidemenu/resortdetails/{{r.resortid}}" ng-repeat="r in searchresult | filter:search.name" >
           {{r.resortname}}
         </ion-item>
@@ -61,7 +61,7 @@
           <input type="text" placeholder="Enter Place Name" ng-model="search.name" ng-change="onSearchChange()">
         </label>
         
-        <ion-list ng-if="search.searchterm=='places' && search.name!=''">
+        <ion-list ng-if="search.searchterm=='places' && search.name!=''" ng-show="search.placesionlist">
         <ion-item  type="item-text-wrap" href="#/sidemenu/placedetails/{{p.plid}}" ng-repeat="p in searchresult | filter:search.name" >
           {{p.place}}
         </ion-item>

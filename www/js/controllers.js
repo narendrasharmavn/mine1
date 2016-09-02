@@ -1730,9 +1730,23 @@ app.controller('EventSearchCtrl',function($scope,$state,$http,webservices,myconf
 
 app.controller('SearchCtrl',function($scope,$state,$http,webservices,myconfig){
   console.clear();
+  $scope.search={};
+  $scope.search.eventionlist=false;
+  $scope.search.resortionlist=false;
+  $scope.search.placesionlist=false;
 
+        $scope.searchresult=[];
+        
+        
+       $scope.searchtype = $state.params.searchtype;
+
+       //console.log("search type is: "+$scope.searchtype);
   
   $scope.oneventssearch = function(eventname){
+    $scope.search.eventionlist=true;
+  $scope.search.resortionlist=false;
+  $scope.search.placesionlist=false;
+
     console.log(eventname);
 
      webservices.getEventNamesBasedOnSearchKeyword(eventname).success(function(data) {
@@ -1746,6 +1760,9 @@ app.controller('SearchCtrl',function($scope,$state,$http,webservices,myconfig){
 
   $scope.onResortSearch = function(resortname){
     console.log(resortname);
+    $scope.search.eventionlist=false;
+  $scope.search.resortionlist=true;
+  $scope.search.placesionlist=false;
 
      webservices.getResortNamesBasedOnSearchKeyword(resortname).success(function(data) {
             $scope.searchresult=data;
@@ -1755,14 +1772,7 @@ app.controller('SearchCtrl',function($scope,$state,$http,webservices,myconfig){
 
   }
 
-   $scope.search={};
-
-        $scope.searchresult=[];
-        
-        
-       $scope.searchtype = $state.params.searchtype;
-
-       //console.log("search type is: "+$scope.searchtype);
+   
 
         $scope.placesData={};
         $scope.imagepathurl = myconfig.imagepathurl;
@@ -1776,6 +1786,9 @@ app.controller('SearchCtrl',function($scope,$state,$http,webservices,myconfig){
        }
 
         $scope.onSearchChange = function(){
+          $scope.search.eventionlist=false;
+  $scope.search.resortionlist=false;
+  $scope.search.placesionlist=true;
 
         webservices.getPlacesBasedOnSearchCriteria($scope.search.name).success(function(data) {
             $scope.searchresult=data;
