@@ -2481,9 +2481,20 @@ app.controller('RegisterCtrl', function($scope, $http, $state, process) {
       console.log("OTP Success");
       process.insertregister($scope.data.username,$scope.data.email,$scope.data.mobile,$scope.data.password).success(function (response) {
        console.log(response);  
-       //$scope.otpresponse=response.otp;
+       var alertPopup = $ionicPopup.alert({
+             title: 'Alert',
+             template: 'Thank you for Registering with us'
+           });
+
+           alertPopup.then(function(res) {
+             $state.go('sidemenu.login');
+           });
+
+
+
+       
       })
-      $state.go('sidemenu.login');
+      
     }else{
       $scope.otperror=true;
       $state.go('sidemenu.register');

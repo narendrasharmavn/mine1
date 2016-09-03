@@ -72,6 +72,12 @@
                 Something Went Wrong Please Fill The Form Again!!
             </div>
         </div>
+        <div class="error-container last-error-container" ng-show="otperror">
+            <div class="error" ng-message="required">
+              <i class="ion-information-circled"></i> 
+                OTP seems to be wrong!!
+            </div>
+          </div>
         <div class="padding">
           <button class="button button-block button-calm" ng-disabled="register.$invalid">
             Submit
