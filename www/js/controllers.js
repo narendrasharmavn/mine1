@@ -56,7 +56,7 @@ app.constant('myconfig', {
     appName: 'Book4Holiday',
     appVersion: 'development',
     webservicesurl: 'http://book4holiday.com/beta/services',
-    imagepathurl: 'http://book4holiday.com/beta//'
+    imagepathurl: 'http://book4holiday.com/beta/'
 });
 
 // (Amar) Controllers And Web Services Start //
@@ -112,6 +112,7 @@ app.controller('HomeCtrl',function($scope,$ionicSlideBoxDelegate,$state,myconfig
     console.log(response);
     $scope.data = response;
 	$ionicLoading.hide();
+  $ionicSlideBoxDelegate.update();
   })
 
   //console.log("constant value is: "+myconfig.webservicesurl);
@@ -128,7 +129,7 @@ app.controller('HomeCtrl',function($scope,$ionicSlideBoxDelegate,$state,myconfig
   };
   
   $scope.repeatDone = function() {
-	  $ionicSlideBoxDelegate.update();
+	  
 	  //$ionicSlideBoxDelegate.slide($scope.week.length - 1, 1);
 	};
 	
@@ -691,7 +692,7 @@ $scope.taxBreakUp = function(){
      template: '<div class="row"><div class="col col-50 tax-col">Internet Handling Charges:</div> <div class="col col-50 text-right tax-col"style="float:right">Rs.' +$scope.calculatedData.internetcharges+
 '</div></div><div class="row"><div class="col col-50 tax-col">Service tax :</div> <div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.servicetax+
 '</div></div><div class="row"><div class="col col-50 tax-col">Swachh Bharat :</div><div class="col col-50 text-right tax-col"style="float:right"> Rs '+$scope.calculatedData.swachcess+
-'</div></div><div class="row"><div class="col col-50 tax-col">Krishi Cess : </div><div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.krishicess+'</div></div>'
+'</div></div><div class="row"><div class="col col-50 tax-col">Krishi Kisan Cess : </div><div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.krishicess+'</div></div>'
    });
 
    alertPopup.then(function(res) {
@@ -780,7 +781,7 @@ $scope.taxBreakUp = function(){
      template: '<div class="row"><div class="col col-50 tax-col">Internet Handling Charges:</div> <div class="col col-50 text-right tax-col"style="float:right">Rs.' +$scope.calculatedData.internetchargeswithouttotal+
 '</div></div><div class="row"><div class="col col-50 tax-col">Service tax :</div> <div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.servicetax+
 '</div></div><div class="row"><div class="col col-50 tax-col">Swachh Bharat :</div><div class="col col-50 text-right tax-col"style="float:right"> Rs '+$scope.calculatedData.swachcess+
-'</div></div><div class="row"><div class="col col-50 tax-col">Krishi Cess : </div><div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.krishicess+'</div></div>'
+'</div></div><div class="row"><div class="col col-50 tax-col">Krishi Kisan Cess : </div><div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.krishicess+'</div></div>'
    });
 
    alertPopup.then(function(res) {
@@ -1024,7 +1025,7 @@ app.controller('SingleBookingCtrl',function($scope,$state,$http,webservices,myco
           template: '<div class="row"><div class="col col-50 tax-col">Internet Handling Charges:</div> <div class="col col-50 text-right tax-col"style="float:right">Rs.' +$scope.calculatedUserData.internetchargeswithouttotal+
 '</div></div><div class="row"><div class="col col-50 tax-col">Service tax :</div> <div class="col col-50 text-right tax-col" style="float:right">Rs '+$scope.calculatedUserData.servicetax+
 '</div></div><div class="row"><div class="col col-50 tax-col">Swachh Bharat :</div><div class="col col-50 text-right tax-col tax-col" style="float:right"> Rs '+$scope.calculatedUserData.swachcess+
-'</div></div><div class="row"><div class="col col-50 tax-col">Krishi Cess : </div><div class="col col-50 text-right tax-col" style="float:right">Rs '+$scope.calculatedUserData.krishicess+'</div></div>'
+'</div></div><div class="row"><div class="col col-50 tax-col">Krishi Kisan Cess : </div><div class="col col-50 text-right tax-col" style="float:right">Rs '+$scope.calculatedUserData.krishicess+'</div></div>'
    });
 
    alertPopup.then(function(res) {
