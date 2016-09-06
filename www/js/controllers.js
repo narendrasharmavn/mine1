@@ -10,8 +10,21 @@ var handleOpenURL = function(url) {
 };
 
 
-app.run(function($ionicPlatform,$state) {
+app.run(function($ionicPlatform,$state,$ionicPopup) {
   $ionicPlatform.ready(function() {
+    if(window.Connection) {
+                if(navigator.connection.type == Connection.NONE) {
+                    $ionicPopup.confirm({
+                        title: "Internet Disconnected",
+                        content: "The internet is disconnected on your device."
+                    })
+                    .then(function(result) {
+                        if(!result) {
+                            ionic.Platform.exitApp();
+                        }
+                    });
+                }
+            }
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the 
       // for form inputs)
@@ -55,8 +68,8 @@ app.run(function($ionicPlatform,$state) {
 app.constant('myconfig', {
     appName: 'Book4Holiday',
     appVersion: 'development',
-    webservicesurl: 'http://book4holiday.com/beta/services',
-    imagepathurl: 'http://book4holiday.com/beta/'
+    webservicesurl: 'http://book4holiday.com/services',
+    imagepathurl: 'http://book4holiday.com/'
 });
 
 // (Amar) Controllers And Web Services Start //
