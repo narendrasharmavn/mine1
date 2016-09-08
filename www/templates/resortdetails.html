@@ -21,7 +21,7 @@
 		
 
       </div>
-	  <div class="col col-20 text-right"><a href="geo://{{userBookingDetails[0].latitude}},{{userBookingDetails[0].longitude}}?q={{userBookingDetails[0].resortname}}" ng-if="userBookingDetails[0].longitude!=0"><i class="ion ion-map" style="font-size: 30px;"></i></a></div>
+	  <div class="col col-20 text-right"><a href="geo://{{userBookingDetails[0].latitude}},{{userBookingDetails[0].longitude}}?q={{userBookingDetails[0].resortname}}" ng-if="userBookingDetails[0].longitude!=0"><i class="ion ion-location" style="font-size: 30px;"></i></a></div>
      
     </div>
 	<div class="row">
@@ -59,6 +59,7 @@
 	<div class="row">
 	<div class="col col-100">
 		<center>
+    <hr>
 	<button class="button button-small button-outline button-calm" ng-click="submitresortreview()" ng-show="withsession">Leave a Review</button>
 	</center>
 	</div>

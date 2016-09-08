@@ -17,7 +17,7 @@
         <p>
           <b>{{userBookingDetails[0].resortname}}</b> 
            <a href="geo://{{userBookingDetails[0].latitude}},{{userBookingDetails[0].longitude}}?q={{userBookingDetails[0].resortname}}" ng-if="userBookingDetails[0].longitude!=0">
-          <i class="ion ion-map" style="font-size:30px;"></i>
+          <i class="ion ion-location" style="font-size:30px;"></i>
         </a>
 
           </p>
@@ -56,6 +56,7 @@
 		<div class="row">
 	<div class="col col-100">
 		<center>
+    <hr>
 	<button class="button button-outline button-calm" ng-click="submitzooreview()" ng-show="withsession">Leave a Review</button>
 	</center>
 	</div>

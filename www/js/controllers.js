@@ -703,9 +703,9 @@ $scope.taxBreakUp = function(){
   var alertPopup = $ionicPopup.alert({
      title: 'Tax Break Up',
      template: '<div class="row"><div class="col col-50 tax-col">Internet Handling Charges:</div> <div class="col col-50 text-right tax-col"style="float:right">Rs.' +$scope.calculatedData.internetcharges+
-'</div></div><div class="row"><div class="col col-50 tax-col">Service tax :</div> <div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.servicetax+
-'</div></div><div class="row"><div class="col col-50 tax-col">Swachh Bharat :</div><div class="col col-50 text-right tax-col"style="float:right"> Rs '+$scope.calculatedData.swachcess+
-'</div></div><div class="row"><div class="col col-50 tax-col">Krishi Kisan Cess : </div><div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.krishicess+'</div></div>'
+'</div></div><div class="row"><div class="col col-50 tax-col">Service tax (14%) :</div> <div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.servicetax+
+'</div></div><div class="row"><div class="col col-50 tax-col">Swachh Bharat (0.5%) :</div><div class="col col-50 text-right tax-col"style="float:right"> Rs '+$scope.calculatedData.swachcess+
+'</div></div><div class="row"><div class="col col-50 tax-col">Krishi Kalyan Cess (0.5%) : </div><div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.krishicess+'</div></div>'
    });
 
    alertPopup.then(function(res) {
@@ -792,9 +792,9 @@ $scope.taxBreakUp = function(){
      title: 'Tax Break Up',
 	 
      template: '<div class="row"><div class="col col-50 tax-col">Internet Handling Charges:</div> <div class="col col-50 text-right tax-col"style="float:right">Rs.' +$scope.calculatedData.internetchargeswithouttotal+
-'</div></div><div class="row"><div class="col col-50 tax-col">Service tax :</div> <div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.servicetax+
-'</div></div><div class="row"><div class="col col-50 tax-col">Swachh Bharat :</div><div class="col col-50 text-right tax-col"style="float:right"> Rs '+$scope.calculatedData.swachcess+
-'</div></div><div class="row"><div class="col col-50 tax-col">Krishi Kisan Cess : </div><div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.krishicess+'</div></div>'
+'</div></div><div class="row"><div class="col col-50 tax-col">Service tax (14%) :</div> <div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.servicetax+
+'</div></div><div class="row"><div class="col col-50 tax-col">Swachh Bharat (0.5%) :</div><div class="col col-50 text-right tax-col"style="float:right"> Rs '+$scope.calculatedData.swachcess+
+'</div></div><div class="row"><div class="col col-50 tax-col">Krishi Kalyan Cess (0.5%) : </div><div class="col col-50 text-right tax-col"style="float:right">Rs '+$scope.calculatedData.krishicess+'</div></div>'
    });
 
    alertPopup.then(function(res) {
@@ -853,8 +853,13 @@ $scope.taxBreakUp = function(){
 
   });
 
-app.controller('MultiCheckOutCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup,$ionicLoading){
+app.controller('MultiCheckOutCtrl',function($ionicHistory,$rootScope,$scope,$state,$http,webservices,myconfig,$ionicPopup,$ionicLoading){
       console.clear();
+      $rootScope.$ionicGoBack = function(backCount) {
+    $ionicHistory.goBack(backCount);
+    //alert("back button");
+    $( ".datepicker" ).datepicker("hide");
+};
 
         // increment for + button //
        $ionicLoading.show({
@@ -984,6 +989,7 @@ app.controller('MultiCheckOutCtrl',function($scope,$state,$http,webservices,myco
              
                    }else{
                     $scope.errorStatus=false;
+                    $( ".datepicker" ).datepicker("hide");
                     
                     //alert("else part");
                     console.log("count is: "+$scope.count); 
@@ -1036,9 +1042,9 @@ app.controller('SingleBookingCtrl',function($scope,$state,$http,webservices,myco
   var alertPopup = $ionicPopup.alert({
      title: 'Tax Break Up',
           template: '<div class="row"><div class="col col-50 tax-col">Internet Handling Charges:</div> <div class="col col-50 text-right tax-col"style="float:right">Rs.' +$scope.calculatedUserData.internetchargeswithouttotal+
-'</div></div><div class="row"><div class="col col-50 tax-col">Service tax :</div> <div class="col col-50 text-right tax-col" style="float:right">Rs '+$scope.calculatedUserData.servicetax+
-'</div></div><div class="row"><div class="col col-50 tax-col">Swachh Bharat :</div><div class="col col-50 text-right tax-col tax-col" style="float:right"> Rs '+$scope.calculatedUserData.swachcess+
-'</div></div><div class="row"><div class="col col-50 tax-col">Krishi Kisan Cess : </div><div class="col col-50 text-right tax-col" style="float:right">Rs '+$scope.calculatedUserData.krishicess+'</div></div>'
+'</div></div><div class="row"><div class="col col-50 tax-col">Service tax (14%) :</div> <div class="col col-50 text-right tax-col" style="float:right">Rs '+$scope.calculatedUserData.servicetax+
+'</div></div><div class="row"><div class="col col-50 tax-col">Swachh Bharat (0.5%) :</div><div class="col col-50 text-right tax-col tax-col" style="float:right"> Rs '+$scope.calculatedUserData.swachcess+
+'</div></div><div class="row"><div class="col col-50 tax-col">Krishi Kalyan Cess (0.5%) : </div><div class="col col-50 text-right tax-col" style="float:right">Rs '+$scope.calculatedUserData.krishicess+'</div></div>'
    });
 
    alertPopup.then(function(res) {
@@ -1052,8 +1058,13 @@ app.controller('SingleBookingCtrl',function($scope,$state,$http,webservices,myco
 
 });
 
-app.controller('EventSingleCheckOutCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup){
+app.controller('EventSingleCheckOutCtrl',function($ionicHistory,$rootScope,$scope,$state,$http,webservices,myconfig,$ionicPopup){
   console.clear();
+   $rootScope.$ionicGoBack = function(backCount) {
+    $ionicHistory.goBack(backCount);
+    //alert("back button");
+    $( ".datepicker" ).datepicker("hide");
+};
   
   
         $scope.userChoosen = {};
@@ -1171,6 +1182,7 @@ app.controller('EventSingleCheckOutCtrl',function($scope,$state,$http,webservice
                    }else{
                     $scope.errorStatus=false;
                     console.log($scope.userChoosen);
+                    $( ".datepicker" ).datepicker("hide");
                     //console.log($scope.usrdata.dateofvisit);
                     $state.go('sidemenu.singlebooking', { useroptions: $scope.userChoosen,dateofvisit: $scope.usrdata.dateofvisit }, { reload: true });
                    }
@@ -1183,8 +1195,13 @@ app.controller('EventSingleCheckOutCtrl',function($scope,$state,$http,webservice
 
 
 
-app.controller('ResortSingleCheckOutCtrl',function($scope,$state,$http,webservices,myconfig,$ionicPopup){
+app.controller('ResortSingleCheckOutCtrl',function($ionicHistory,$rootScope,$scope,$state,$http,webservices,myconfig,$ionicPopup){
   console.clear();
+   $rootScope.$ionicGoBack = function(backCount) {
+    $ionicHistory.goBack(backCount);
+    //alert("back button");
+    $( ".datepicker" ).datepicker("hide");
+};
 $scope.date = new Date();
 $( ".datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
   //alert("asdf");
@@ -1266,6 +1283,7 @@ $( ".datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
                    }else{
 
                     $scope.errorStatus=false;
+                    $( ".datepicker" ).datepicker("hide");
                     $state.go('sidemenu.singlebookingresort', { obj: $scope.userChoosen,dateofvisit : $scope.usrdata.dateofvisit });
 
                    }
