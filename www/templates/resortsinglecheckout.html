@@ -26,7 +26,7 @@
               <div class="input-label">
                 Date of Visit 
               </div>
-              <input type="text" class="datepicker" placeholder="Select a date" ng-model="usrdata.dateofvisit" style="float:right;cursor:default;background:white;" readonly /> 
+              <input type="text" class="datepicker" side="right" placeholder="Select a date" ng-model="usrdata.dateofvisit" style="float:right;cursor:default;background:white;" readonly /> 
             </label>
 
 
@@ -39,16 +39,16 @@
           {{r.packagename}}
         </div>
         <label class="item item-input">
-          <div class="input-label">
+          <div class="input-label col col-80">
             Adults (Per Ticket) <span>Rs. {{r.adultprice}} </span>
           </div>
-          <input type="number" name="" ng-model="userBookingDetails[$index].mobileadultqty" placeholder="0" class="col col-33 " style="float:right;">
+          <input type="number" name="" ng-model="userBookingDetails[$index].mobileadultqty" placeholder="0" class="col col-20 " side="right" style="float:right;">
         </label>
         <label class="item item-input" ng-if="r.childprice!=0">
-          <div class="input-label">
+          <div class="input-label col col-80">
             Children (Per Ticket) <span>Rs. {{r.childprice}}  </span>
           </div>
-          <input type="number" name=""  ng-model="userBookingDetails[$index].mobilechildqty" placeholder="0" class="col col-33 " style="float:right;" >
+          <input type="number" name=""  ng-model="userBookingDetails[$index].mobilechildqty" placeholder="0" class="col col-20" side="right" style="float:right;" >
         </label>
       </div>
     </div>

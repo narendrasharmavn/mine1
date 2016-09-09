@@ -16,6 +16,7 @@
         
           <h3>{{userBookingDetails[0].resortname}}</h3>
 		      <p>Location : <b>{{userBookingDetails[0].location}}</b></p>
+			 
           <br>
          
 		
@@ -25,7 +26,10 @@
      
     </div>
 	<div class="row">
-	<p class="details" ng-bind-html="userBookingDetails[0].description"> 
+	 <p>{{userBookingDetails[0].rdescription}}</p>
+	</div>
+	<div class="row">
+	<p class="details1" ng-bind-html="userBookingDetails[0].description"> 
         </p>
 	</div>
     <hr>

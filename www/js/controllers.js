@@ -1875,13 +1875,17 @@ app.controller('PlaceSearchCtrl',function($scope,$state,$http,webservices,myconf
   console.clear();
 
    $scope.search={};
+     $scope.pagetype={};
+
 
         $scope.searchresult=[];
+   
         
         
        $scope.searchtype = $state.params.searchtype;
        $scope.type = $state.params.type;
-
+       $scope.pagetype = $scope.type;
+    
        //console.log("search type is: "+$scope.searchtype);
 
         $scope.placesData={};
@@ -1890,6 +1894,22 @@ app.controller('PlaceSearchCtrl',function($scope,$state,$http,webservices,myconf
        
          webservices.getPlaces($scope.type).success(function(data) { 
             $scope.placesData = data;
+			if($scope.placesData[0].type=="kids")
+			{
+				$scope.pagetype="Kids Day Out";
+				console.log($scope.placesData[0].type);
+			}
+			if($scope.placesData[0].type=="adventure")
+			{
+				$scope.pagetype="Adventure";
+				console.log($scope.placesData[0].type);
+			}
+			if($scope.placesData[0].type=="places")
+			{
+				$scope.pagetype="Popular Places";
+				console.log($scope.placesData[0].type);
+			}
+			
         });
 
        $scope.bookThisPlace = function(placeid){
