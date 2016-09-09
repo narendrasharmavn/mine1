@@ -897,6 +897,9 @@ $scope.taxBreakUp = function(){
 app.controller('MultiCheckOutCtrl',function($ionicPlatform,$ionicHistory,$rootScope,$scope,$state,$http,webservices,myconfig,$ionicPopup,$ionicLoading){
       console.clear();
 
+      
+
+
       $rootScope.$ionicGoBack = function(backCount) {
     $ionicHistory.goBack(backCount);
     //alert("back button");
@@ -914,47 +917,20 @@ $ionicPlatform.registerBackButtonAction(function() {
        $ionicLoading.show({
 		  template: "Please Wait."
 	   });
-        $scope.increment = function(){
-          $scope.userBookingDetails[$index].mobileadultqty+=1;
+        
+        
 
-        }//end of increment
-
-       // increment for + button //
-
-        // decrement for - button //
-       
         $scope.decrement = function(){
-          $scope.userBookingDetails.mobileadultqty-=1;
-          if($scope.userBookingDetails.mobileadultqty<0)
-          {
-            $scope.userBookingDetails.mobileadultqty=0;
-          }
-
+          alert("decrement");
         }//end of decrement
 
-       // decrement for - button //
 
-       // cincrement for + button //
+        $scope.increment = function(){
+          alert("increment");          
+        }
+
        
-        $scope.cincrement = function(){
-          $scope.userBookingDetails.mobilechildqty+=1;
-
-        }//end of increment
-
-       // cincrement for + button //
-
-        // cdecrement for - button //
        
-        $scope.cdecrement = function(){
-          $scope.userBookingDetails.mobilechildqty-=1;
-          if($scope.userBookingDetails.mobilechildqty<0)
-          {
-            $scope.userBookingDetails.mobilechildqty=0;
-          }
-
-        }//end of cdecrement
-
-       // cdecrement for - button //
 
       //alert("hello");
       var daysToDisable = [1];
