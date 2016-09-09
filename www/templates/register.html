@@ -40,7 +40,7 @@
         <div class="list">
   
           <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : register.username.$invalid && !register.username.$pristine, 'no-errors' : register.username.$valid}">
-			 <span class="input-label">User Name</span>
+			 <span class="input-label">Name</span>
 		   <input type="text" name="username" ng-model="data.username" placeholder="Name" required>
           </label>
           <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : register.email.$invalid && !register.email.$pristine, 'no-errors' : register.email.$valid}">
@@ -72,12 +72,7 @@
                 Something Went Wrong Please Fill The Form Again!!
             </div>
         </div>
-        <div class="error-container last-error-container" ng-show="otperror">
-            <div class="error" ng-message="required">
-              <i class="ion-information-circled"></i> 
-                OTP seems to be wrong!!
-            </div>
-          </div>
+        
         <div class="padding">
           <button class="button button-block button-calm" ng-disabled="register.$invalid">
             Submit
@@ -89,7 +84,7 @@
         </div>
       </form>
       <div ng-show="enableotp">
-        <form name="otpform" ng-submit="otpsubmit(data)" novalidate>
+        <form name="otpform" novalidate>
            <div class="list">
             <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : otpform.otp.$invalid && !otpform.otp.$pristine, 'no-errors' : otpform.otp.$valid}">
               <span class="input-label">Enter OTP</span>
@@ -97,11 +92,21 @@
             </label>
           </div>
           <div class="padding">
-            <button class="button button-block button-calm" ng-disabled="otpform.$invalid">
+            <button class="button button-block button-calm" ng-click="otpsubmit(data)" ng-disabled="otpform.$invalid">
               Submit
+            </button>
+
+            <button class="button button-block button-calm" ng-click="submit(data)">
+              Resend OTP
             </button>
           </div>
         </form>
+        <div class="error-container last-error-container" ng-show="otperror">
+            <div class="error" ng-message="required">
+              <i class="ion-information-circled"></i> 
+                OTP seems to be wrong!!
+            </div>
+          </div>
       </div>
     </div>
   </ion-content>

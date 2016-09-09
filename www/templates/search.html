@@ -11,7 +11,7 @@
       </ion-nav-buttons>
 	   
   <ion-content class="has-header has-footer">
-      <div class="list">
+      <div class="list" ng-show="search.selectsearch">
 
         <label class="item item-input item-select">
           <div class="input-label">
@@ -26,9 +26,14 @@
         </label>
 
       </div>
+      
+      <div ng-if="search.searchterm!=''" ng-show="search.divSearchTerm" ng-click="showSelection()">
+        <center>
+          <h3> {{search.searchterm | uppercase}} SEARCH</h3>
+        </center>
+      </div>
+    
 	    <div class="list">
-        
-
         <!--events search-->
         <label class="item item-input" ng-if="search.searchterm=='events'">
           <i class="icon ion-search placeholder-icon"></i>

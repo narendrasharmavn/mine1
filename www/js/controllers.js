@@ -258,6 +258,20 @@ app.controller('CheckOutOptionEventCtrl',function($scope,$state,$http,webservice
 
        }//end of submit
 
+       $scope.resendOTP = function(c){
+
+          webservices.sendUserLoginAsGuest(c).success(function (response) {
+                  //console.clear();
+                  $scope.o=response;
+                  console.log($scope.o); 
+                  $scope.c.proceedguest=false;
+                  $scope.c.otpview=true;
+
+                  });
+
+
+       }
+
        $scope.checkotp = function(c){
 
         if (c.otp==$scope.o.otp) {
@@ -430,6 +444,20 @@ app.controller('checkOutOptionResortsCtrl',function($scope,$state,$http,webservi
 
        }//end of submit
 
+       $scope.resendOTP = function(c){
+
+          webservices.sendUserLoginAsGuest(c).success(function (response) {
+                  //console.clear();
+                  $scope.o=response;
+                  console.log($scope.o); 
+                  $scope.c.proceedguest=false;
+                  $scope.c.otpview=true;
+
+                  });
+
+
+       }
+
        $scope.checkotp = function(c){
 
         if (c.otp==$scope.o.otp) {
@@ -580,7 +608,6 @@ app.controller('checkOutOptionCtrl',function($scope,$state,$http,webservices,myc
          }else{
           $scope.c.proceedguest=true;
          }
-
        }//end of check function
 
        $scope.submit = function(c){
@@ -589,12 +616,26 @@ app.controller('checkOutOptionCtrl',function($scope,$state,$http,webservices,myc
                   //console.clear();
                   $scope.o=response;
                   console.log($scope.o); 
-                  $scope.c.proceedguest=true;
+                  $scope.c.proceedguest=false;
                   $scope.c.otpview=true;
 
                   });
 
        }//end of submit
+
+       $scope.resendOTP = function(c){
+
+          webservices.sendUserLoginAsGuest(c).success(function (response) {
+                  //console.clear();
+                  $scope.o=response;
+                  console.log($scope.o); 
+                  $scope.c.proceedguest=false;
+                  $scope.c.otpview=true;
+
+                  });
+
+
+       }
 
        $scope.checkotp = function(c){
 
@@ -853,13 +894,21 @@ $scope.taxBreakUp = function(){
 
   });
 
-app.controller('MultiCheckOutCtrl',function($ionicHistory,$rootScope,$scope,$state,$http,webservices,myconfig,$ionicPopup,$ionicLoading){
+app.controller('MultiCheckOutCtrl',function($ionicPlatform,$ionicHistory,$rootScope,$scope,$state,$http,webservices,myconfig,$ionicPopup,$ionicLoading){
       console.clear();
+
       $rootScope.$ionicGoBack = function(backCount) {
     $ionicHistory.goBack(backCount);
     //alert("back button");
     $( ".datepicker" ).datepicker("hide");
 };
+
+$ionicPlatform.registerBackButtonAction(function() {
+
+    $( ".datepicker" ).datepicker("hide");
+    $ionicHistory.goBack();
+   
+}, 100);
 
         // increment for + button //
        $ionicLoading.show({
@@ -1058,13 +1107,20 @@ app.controller('SingleBookingCtrl',function($scope,$state,$http,webservices,myco
 
 });
 
-app.controller('EventSingleCheckOutCtrl',function($ionicHistory,$rootScope,$scope,$state,$http,webservices,myconfig,$ionicPopup){
+app.controller('EventSingleCheckOutCtrl',function($ionicPlatform,$ionicHistory,$rootScope,$scope,$state,$http,webservices,myconfig,$ionicPopup){
   console.clear();
    $rootScope.$ionicGoBack = function(backCount) {
     $ionicHistory.goBack(backCount);
     //alert("back button");
     $( ".datepicker" ).datepicker("hide");
 };
+
+$ionicPlatform.registerBackButtonAction(function() {
+
+    $( ".datepicker" ).datepicker("hide");
+    $ionicHistory.goBack();
+   
+}, 100);
   
   
         $scope.userChoosen = {};
@@ -1195,13 +1251,22 @@ app.controller('EventSingleCheckOutCtrl',function($ionicHistory,$rootScope,$scop
 
 
 
-app.controller('ResortSingleCheckOutCtrl',function($ionicHistory,$rootScope,$scope,$state,$http,webservices,myconfig,$ionicPopup){
+app.controller('ResortSingleCheckOutCtrl',function($ionicPlatform,$ionicHistory,$rootScope,$scope,$state,$http,webservices,myconfig,$ionicPopup){
   console.clear();
    $rootScope.$ionicGoBack = function(backCount) {
     $ionicHistory.goBack(backCount);
     //alert("back button");
     $( ".datepicker" ).datepicker("hide");
 };
+
+$ionicPlatform.registerBackButtonAction(function() {
+
+    $( ".datepicker" ).datepicker("hide");
+    $ionicHistory.goBack();
+   
+}, 100);
+
+
 $scope.date = new Date();
 $( ".datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
   //alert("asdf");
@@ -1803,13 +1868,29 @@ app.controller('SearchCtrl',function($scope,$state,$http,webservices,myconfig){
   $scope.search.eventionlist=false;
   $scope.search.resortionlist=false;
   $scope.search.placesionlist=false;
+  $scope.search.divSearchTerm=false;
+  $scope.search.selectsearch=true;
 
         $scope.searchresult=[];
         
         
        $scope.searchtype = $state.params.searchtype;
 
-       //console.log("search type is: "+$scope.searchtype);
+$scope.searchtermchange = function(searchterm){
+  
+  if (searchterm!='') {
+    $scope.search.divSearchTerm=true;
+    $scope.search.selectsearch=false;
+  }else{
+    $scope.search.divSearchTerm=false;
+    $scope.search.selectsearch=true;
+  }
+}
+
+$scope.showSelection = function(){
+  $scope.search.divSearchTerm=false;
+    $scope.search.selectsearch=true;
+}
   
   $scope.oneventssearch = function(eventname){
     $scope.search.eventionlist=true;
@@ -2493,7 +2574,7 @@ app.controller('ForgotpasswordCtrl', function($scope, $http, $state, process) {
 });
 
 
-app.controller('RegisterCtrl', function($scope, $http, $state, process) {
+app.controller('RegisterCtrl', function($ionicLoading,$scope, $http, $state, process,$ionicPopup) {
   $scope.errormessages = false;
   $scope.messages = false;
   $scope.enableotp = false;
@@ -2525,14 +2606,19 @@ app.controller('RegisterCtrl', function($scope, $http, $state, process) {
   };
 
   $scope.otpsubmit = function(){
+     $ionicLoading.show({
+            template: 'Loading .....'
+         });
 
     //console.log("formotp :"+$scope.data.otp);
     //console.log("generated otp"+$scope.otpresponse);
     if($scope.data.otp==$scope.otpresponse)
     {
       console.log("OTP Success");
+     
       process.insertregister($scope.data.username,$scope.data.email,$scope.data.mobile,$scope.data.password).success(function (response) {
        console.log(response);  
+       $ionicLoading.hide();
        var alertPopup = $ionicPopup.alert({
              title: 'Alert',
              template: 'Thank you for Registering with us'
@@ -2548,6 +2634,7 @@ app.controller('RegisterCtrl', function($scope, $http, $state, process) {
       })
       
     }else{
+      
       $scope.otperror=true;
       $state.go('sidemenu.register');
     }
