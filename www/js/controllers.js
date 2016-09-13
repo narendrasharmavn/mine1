@@ -10,10 +10,11 @@ var handleOpenURL = function(url) {
 };
 
 
-app.run(function($ionicPlatform,$state,$ionicPopup) {
+app.run(function($ionicLoading,$ionicPlatform,$state,$ionicPopup) {
   $ionicPlatform.ready(function() {
     if(window.Connection) {
                 if(navigator.connection.type == Connection.NONE) {
+                  $ionicLoading.hide();
                     $ionicPopup.confirm({
                         title: "Internet Disconnected",
                         content: "The internet is disconnected on your device."
@@ -920,13 +921,52 @@ $ionicPlatform.registerBackButtonAction(function() {
         
         
 
-        $scope.decrement = function(){
-          alert("decrement");
+        $scope.decrement = function(ind,v){
+          //console.log($scope.userBookingDetails);
+        
+          switch (v) {
+            case 'i':
+              //alert("increament "+ind);
+             //$scope.userBookingDetails[ind]["mobileadultqty"]=
+              //debugger;
+              
+              $scope.userBookingDetails[ind]["mobileadultqty"]= +$scope.userBookingDetails[ind]["mobileadultqty"] + +1;
+            
+             break;
+              case 'd':
+              //alert("decrement "+ind);
+              if ($scope.userBookingDetails[ind]["mobileadultqty"]<=0) {
+                $scope.userBookingDetails[ind]["mobileadultqty"]=0;
+              }else{
+               $scope.userBookingDetails[ind]["mobileadultqty"]= $scope.userBookingDetails[ind]["mobileadultqty"] - 1;
+               }
+              break;
+            default:
+              // statements_def
+              break;
+          }
         }//end of decrement
 
 
-        $scope.increment = function(){
-          alert("increment");          
+        $scope.inc = function(ind,v){
+          //debugger;
+          console.log($scope.userBookingDetails);
+          switch (v) {
+            case 'i':
+              //alert("increament children "+ind);
+              $scope.userBookingDetails[ind]["mobilechildqty"]= +$scope.userBookingDetails[ind]["mobilechildqty"] + +1;
+              break;
+              case 'd':
+              if ($scope.userBookingDetails[ind]["mobilechildqty"]<=0) {
+                $scope.userBookingDetails[ind]["mobilechildqty"]=0;
+              }else{
+              $scope.userBookingDetails[ind]["mobilechildqty"]= $scope.userBookingDetails[ind]["mobilechildqty"] - 1;
+             }
+              break;
+            default:
+              // statements_def
+              break;
+          }       
         }
 
        
@@ -1149,6 +1189,57 @@ $ionicPlatform.registerBackButtonAction(function() {
 
     
         });
+
+
+       $scope.decrement = function(ind,v){
+    //console.log($scope.userBookingDetails);
+  
+    switch (v) {
+      case 'i':
+        //alert("increament "+ind);
+       //$scope.userBookingDetails[ind]["mobileadultqty"]=
+        //debugger;
+        
+        $scope.userBookingDetails[ind]["mobileadultqty"]= +$scope.userBookingDetails[ind]["mobileadultqty"] + +1;
+      
+       break;
+        case 'd':
+        //alert("decrement "+ind);
+        if ($scope.userBookingDetails[ind]["mobileadultqty"]<=0) {
+          $scope.userBookingDetails[ind]["mobileadultqty"]=0;
+        }else{
+         $scope.userBookingDetails[ind]["mobileadultqty"]= $scope.userBookingDetails[ind]["mobileadultqty"] - 1;
+         }
+        break;
+      default:
+        // statements_def
+        break;
+    }
+  }//end of decrement
+
+
+  $scope.inc = function(ind,v){
+    //debugger;
+    console.log($scope.userBookingDetails);
+    switch (v) {
+      case 'i':
+        //alert("increament children "+ind);
+        $scope.userBookingDetails[ind]["mobilechildqty"]= +$scope.userBookingDetails[ind]["mobilechildqty"] + +1;
+        break;
+        case 'd':
+        if ($scope.userBookingDetails[ind]["mobilechildqty"]<=0) {
+          $scope.userBookingDetails[ind]["mobilechildqty"]=0;
+        }else{
+        $scope.userBookingDetails[ind]["mobilechildqty"]= $scope.userBookingDetails[ind]["mobilechildqty"] - 1;
+       }
+        break;
+      default:
+        // statements_def
+        break;
+    }       
+  }
+
+ 
 		
        $scope.proceed  = function(){
           $scope.count = 0;
@@ -1262,6 +1353,57 @@ $( ".datepicker" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
              
 
         });
+
+       $scope.decrement = function(ind,v){
+    //console.log($scope.userBookingDetails);
+  
+    switch (v) {
+      case 'i':
+        //alert("increament "+ind);
+       //$scope.userBookingDetails[ind]["mobileadultqty"]=
+        //debugger;
+        
+        $scope.userBookingDetails[ind]["mobileadultqty"]= +$scope.userBookingDetails[ind]["mobileadultqty"] + +1;
+      
+       break;
+        case 'd':
+        //alert("decrement "+ind);
+        if ($scope.userBookingDetails[ind]["mobileadultqty"]<=0) {
+          $scope.userBookingDetails[ind]["mobileadultqty"]=0;
+        }else{
+         $scope.userBookingDetails[ind]["mobileadultqty"]= $scope.userBookingDetails[ind]["mobileadultqty"] - 1;
+         }
+        break;
+      default:
+        // statements_def
+        break;
+    }
+  }//end of decrement
+
+
+  $scope.inc = function(ind,v){
+    //debugger;
+    console.log($scope.userBookingDetails);
+    switch (v) {
+      case 'i':
+        //alert("increament children "+ind);
+        $scope.userBookingDetails[ind]["mobilechildqty"]= +$scope.userBookingDetails[ind]["mobilechildqty"] + +1;
+        break;
+        case 'd':
+        //alert("children "+ind);
+        if ($scope.userBookingDetails[ind]["mobilechildqty"]<=0) {
+          $scope.userBookingDetails[ind]["mobilechildqty"]=0;
+        }else{
+        $scope.userBookingDetails[ind]["mobilechildqty"]= $scope.userBookingDetails[ind]["mobilechildqty"] - 1;
+       }
+        break;
+      default:
+        // statements_def
+        break;
+    }       
+  }
+
+ 
 
 
        $scope.proceed  = function(){
