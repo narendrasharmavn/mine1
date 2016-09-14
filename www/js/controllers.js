@@ -1907,10 +1907,63 @@ app.controller('ResortSearchCtrl',function($scope,$state,$http,webservices,mycon
 
       $scope.resortsData={};
       $scope.imagepathurl = myconfig.imagepathurl;
+      
+      $scope.lat="";
+      $scope.lng="";
+
+      function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+        var R = 6371; // Radius of the earth in km
+        var dLat = deg2rad(lat2-lat1);  // deg2rad below
+        var dLon = deg2rad(lon2-lon1); 
+        var a = 
+          Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+          Math.sin(dLon/2) * Math.sin(dLon/2)
+          ; 
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        var d = R * c; // Distance in km
+        d=d.toFixed(2);
+        return d;
+      }
+
+      function deg2rad(deg) {
+        return deg * (Math.PI/180)
+      }
+
+
+      if (navigator.geolocation) {
+
+          navigator.geolocation.getCurrentPosition(function (p) {
+           $scope.lat = p.coords.latitude;
+           $scope.lng = p.coords.longitude;
+           //alert("clat,"+p.coords.latitude);
+           //alert("clng,"+p.coords.longitude);
+           
+          });
+
+
+      } 
+
+
     
      webservices.getResorts().success(function(data) { 
           $scope.resortsData = data;
           console.log(data);
+          
+          angular.forEach($scope.resortsData, function(item){
+       
+             console.log(item.latitude+"\n");
+             console.log(item.longitude+"\n");
+             console.log($scope.lat+"\n");
+             console.log($scope.lng+"\n");
+             var distance = getDistanceFromLatLonInKm($scope.lat,$scope.lng,item.latitude,item.longitude);
+             console.log("\n distance is: "+distance);
+             item["distance"] = distance;
+             
+            
+             
+         });
+
       });
 
 
@@ -1954,10 +2007,64 @@ app.controller('EventSearchCtrl',function($scope,$state,$http,webservices,myconf
         $scope.eventsData={};
         $scope.imagepathurl = myconfig.imagepathurl;
         //alert("these are events");
+
+        $scope.lat = "";
+        $scope.lng = "";
+
+        function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+          var R = 6371; // Radius of the earth in km
+          var dLat = deg2rad(lat2-lat1);  // deg2rad below
+          var dLon = deg2rad(lon2-lon1); 
+          var a = 
+            Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+            Math.sin(dLon/2) * Math.sin(dLon/2)
+            ; 
+          var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+          var d = R * c; // Distance in km
+          d=d.toFixed(2);
+          return d;
+        }
+
+        function deg2rad(deg) {
+          return deg * (Math.PI/180)
+        }
+
+        if (navigator.geolocation) {
+
+            navigator.geolocation.getCurrentPosition(function (p) {
+             $scope.lat = p.coords.latitude;
+             $scope.lng = p.coords.longitude;
+             //alert("clat,"+p.coords.latitude);
+             //alert("clng,"+p.coords.longitude);
+             
+            });
+
+
+        } 
+
+          
+
          webservices.getEvents().success(function(data) { 
           console.clear();
             $scope.eventsData = data;
             console.log($scope.eventsData);
+
+            angular.forEach($scope.eventsData, function(item){
+       
+               console.log(item.latitude+"\n");
+               console.log(item.longitude+"\n");
+               console.log($scope.lat+"\n");
+               console.log($scope.lng+"\n");
+               var distance = getDistanceFromLatLonInKm($scope.lat,$scope.lng,item.latitude,item.longitude);
+               console.log("\n distance is: "+distance);
+               item["distance"] = distance;
+               
+              
+               
+           });
+
+
         });
 
 
@@ -2076,8 +2183,28 @@ app.controller('PlaceSearchCtrl',function($scope,$state,$http,webservices,myconf
    $scope.search={};
      $scope.pagetype={};
 
-
+$scope.lat="";
+$scope.lng="";
         $scope.searchresult=[];
+
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+  var R = 6371; // Radius of the earth in km
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1); 
+  var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in km
+  d=d.toFixed(2);
+  return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180)
+}
    
         
         
@@ -2089,25 +2216,54 @@ app.controller('PlaceSearchCtrl',function($scope,$state,$http,webservices,myconf
 
         $scope.placesData={};
         $scope.imagepathurl = myconfig.imagepathurl;
+
+        if (navigator.geolocation) {
+
+            navigator.geolocation.getCurrentPosition(function (p) {
+             $scope.lat = p.coords.latitude;
+             $scope.lng = p.coords.longitude;
+             //alert("clat,"+p.coords.latitude);
+             //alert("clng,"+p.coords.longitude);
+             
+            });
+
+        
+        } 
         //alert("these are events");
        
          webservices.getPlaces($scope.type).success(function(data) { 
             $scope.placesData = data;
-			if($scope.placesData[0].type=="kids")
-			{
-				$scope.pagetype="Kids Day Out";
-				console.log($scope.placesData[0].type);
-			}
-			if($scope.placesData[0].type=="adventure")
-			{
-				$scope.pagetype="Adventure";
-				console.log($scope.placesData[0].type);
-			}
-			if($scope.placesData[0].type=="places")
-			{
-				$scope.pagetype="Popular Places";
-				console.log($scope.placesData[0].type);
-			}
+            
+            angular.forEach($scope.placesData, function(item){
+                   
+                   console.log(item.latitude+"\n");
+                   console.log(item.longitude+"\n");
+                   console.log($scope.lat+"\n");
+                   console.log($scope.lng+"\n");
+                   var distance = getDistanceFromLatLonInKm($scope.lat,$scope.lng,item.latitude,item.longitude);
+                   console.log("\n distance is: "+distance);
+                   item["distance"] = distance;
+                   
+                  
+                   
+               });
+            console.log("Place data is: \n");
+            console.log($scope.placesData);
+      			if($scope.placesData[0].type=="kids")
+      			{
+      				$scope.pagetype="Kids Day Out";
+      				console.log($scope.placesData[0].type);
+      			}
+      			if($scope.placesData[0].type=="adventure")
+      			{
+      				$scope.pagetype="Adventure";
+      				console.log($scope.placesData[0].type);
+      			}
+      			if($scope.placesData[0].type=="places")
+      			{
+      				$scope.pagetype="Popular Places";
+      				console.log($scope.placesData[0].type);
+      			}
 			
         });
 

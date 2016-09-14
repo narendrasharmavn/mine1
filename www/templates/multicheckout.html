@@ -36,38 +36,41 @@
           {{r.packagename}}
         </div>
         <div class="row">
-          <div class="col 50">
+          <div class="col 60">
             Adults (Per Ticket) <span>Rs. {{r.adultprice}} </span>
           </div>
-          <div class="col 20">
+          <div class="">
             <button class="button" ng-click="decrement($index,'d')">
               -
             </button>
           </div>
-          <div class="col 10">
-             <input type="number" name="" ng-model="userBookingDetails[$index].mobileadultqty" placeholder="0" value="0" class="col col-20" side="right" style="float:right;">
+          <div class="">
+             <input type="number" name="" ng-model="userBookingDetails[$index].mobileadultqty" placeholder="0" value="0" style="text-align:center; width:70px; margin-top: 8px;">
           </div>
-          <div class="col 20">
+          <div class="">
             <button class="button" ng-click="decrement($index,'i')">
               +
             </button>
           </div>
         </div>
-        <label class="item item-input">
-         
-         
-        </label>
-        <div class="item item-input" ng-if="r.childprice!=0">
-          <div class="input-label col col-80">
+        <hr>
+        <div class="row" ng-if="r.childprice!=0">
+          <div class="col 60">
             Children (Per Ticket) <span>Rs. {{r.childprice}}  </span>
           </div>
-          <button class="button" ng-click="inc($index,'d')">
+          <div class="">
+            <button class="button" ng-click="inc($index,'d')">
               -
             </button>
-          <input type="number" name=""  ng-model="userBookingDetails[$index].mobilechildqty" placeholder="0" value="0" class="col col-20" side="right" style="float:right;" >
-          <button class="button" ng-click="inc($index,'i')">
+          </div>
+          <div class="">  
+            <input type="number" name=""  ng-model="userBookingDetails[$index].mobilechildqty" placeholder="0" value="0" style="text-align:center; width:70px; margin-top: 8px;">
+          </div>
+          <div class="">
+            <button class="button" ng-click="inc($index,'i')">
              +
-          </button>
+            </button>
+          </div>  
         </div>
       </div>
     </div>
