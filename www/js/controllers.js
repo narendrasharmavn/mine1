@@ -20,6 +20,7 @@ app.run(function($ionicLoading,$ionicPlatform,$state,$ionicPopup) {
                         content: "The internet is disconnected on your device."
                     })
                     .then(function(result) {
+                      window.location.href="index.html";
                         if(!result) {
                             ionic.Platform.exitApp();
                         }
@@ -53,6 +54,24 @@ app.run(function($ionicLoading,$ionicPlatform,$state,$ionicPopup) {
         //alert("no ticket number");
        //window.localStorage.setItem("ticketnumber", 'a');
         
+      }
+
+
+
+      if (navigator.geolocation) {
+
+          navigator.geolocation.getCurrentPosition(function (p) {
+          
+           window.localStorage.setItem("currentlat", p.coords.latitude);
+           window.localStorage.setItem("currentlong", p.coords.longitude);
+           
+           
+          });
+
+
+      }else{
+         window.localStorage.setItem("currentlat", null);
+           window.localStorage.setItem("currentlong", null);
       }
 
      
@@ -1931,33 +1950,42 @@ app.controller('ResortSearchCtrl',function($scope,$state,$http,webservices,mycon
       }
 
 
-      if (navigator.geolocation) {
-
-          navigator.geolocation.getCurrentPosition(function (p) {
-           $scope.lat = p.coords.latitude;
-           $scope.lng = p.coords.longitude;
-           //alert("clat,"+p.coords.latitude);
-           //alert("clng,"+p.coords.longitude);
-           
-          });
+      //calculates distance between two points in km's
+function calcDistance(p1, p2) {
+  return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
+}
 
 
-      } 
+       
 
 
     
-     webservices.getResorts().success(function(data) { 
+     webservices.getResorts().success(function(data) {
+
           $scope.resortsData = data;
           console.log(data);
+          $scope.lat = window.localStorage.getItem("currentlat");
+            $scope.lng = window.localStorage.getItem("currentlong");
+
+          
           
           angular.forEach($scope.resortsData, function(item){
-       
+            
+             var distance;
              console.log(item.latitude+"\n");
              console.log(item.longitude+"\n");
              console.log($scope.lat+"\n");
              console.log($scope.lng+"\n");
-             var distance = getDistanceFromLatLonInKm($scope.lat,$scope.lng,item.latitude,item.longitude);
+             if ($scope.lat!=null) {
+             //distance = getDistanceFromLatLonInKm($scope.lat,$scope.lng,item.latitude,item.longitude);
+             var p1 = new google.maps.LatLng($scope.lat, $scope.lng);
+             var p2 = new google.maps.LatLng(item.latitude, item.longitude);
+             distance =calcDistance(p1, p2);
              console.log("\n distance is: "+distance);
+            }else{
+              distance='';
+            }
+             
              item["distance"] = distance;
              
             
@@ -2030,24 +2058,18 @@ app.controller('EventSearchCtrl',function($scope,$state,$http,webservices,myconf
           return deg * (Math.PI/180)
         }
 
-        if (navigator.geolocation) {
+        function calcDistance(p1, p2) {
+  return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
+}
 
-            navigator.geolocation.getCurrentPosition(function (p) {
-             $scope.lat = p.coords.latitude;
-             $scope.lng = p.coords.longitude;
-             //alert("clat,"+p.coords.latitude);
-             //alert("clng,"+p.coords.longitude);
-             
-            });
-
-
-        } 
 
           
 
          webservices.getEvents().success(function(data) { 
           console.clear();
             $scope.eventsData = data;
+            $scope.lat = window.localStorage.getItem("currentlat");
+            $scope.lng = window.localStorage.getItem("currentlong");
             console.log($scope.eventsData);
 
             angular.forEach($scope.eventsData, function(item){
@@ -2056,9 +2078,17 @@ app.controller('EventSearchCtrl',function($scope,$state,$http,webservices,myconf
                console.log(item.longitude+"\n");
                console.log($scope.lat+"\n");
                console.log($scope.lng+"\n");
-               var distance = getDistanceFromLatLonInKm($scope.lat,$scope.lng,item.latitude,item.longitude);
-               console.log("\n distance is: "+distance);
-               item["distance"] = distance;
+                if ($scope.lat!=null) {
+             //distance = getDistanceFromLatLonInKm($scope.lat,$scope.lng,item.latitude,item.longitude);
+             var p1 = new google.maps.LatLng($scope.lat, $scope.lng);
+             var p2 = new google.maps.LatLng(item.latitude, item.longitude);
+             distance =calcDistance(p1, p2);
+             console.log("\n distance is: "+distance);
+            }else{
+              distance='';
+            }
+             
+             item["distance"] = distance;
                
               
                
@@ -2205,6 +2235,10 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
 function deg2rad(deg) {
   return deg * (Math.PI/180)
 }
+
+function calcDistance(p1, p2) {
+  return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
+}
    
         
         
@@ -2217,36 +2251,35 @@ function deg2rad(deg) {
         $scope.placesData={};
         $scope.imagepathurl = myconfig.imagepathurl;
 
-        if (navigator.geolocation) {
-
-            navigator.geolocation.getCurrentPosition(function (p) {
-             $scope.lat = p.coords.latitude;
-             $scope.lng = p.coords.longitude;
-             //alert("clat,"+p.coords.latitude);
-             //alert("clng,"+p.coords.longitude);
-             
-            });
-
         
-        } 
         //alert("these are events");
        
          webservices.getPlaces($scope.type).success(function(data) { 
             $scope.placesData = data;
             
+            $scope.lat = window.localStorage.getItem("currentlat");
+            $scope.lng = window.localStorage.getItem("currentlong");
             angular.forEach($scope.placesData, function(item){
-                   
+                   var distance='';
                    console.log(item.latitude+"\n");
                    console.log(item.longitude+"\n");
                    console.log($scope.lat+"\n");
                    console.log($scope.lng+"\n");
-                   var distance = getDistanceFromLatLonInKm($scope.lat,$scope.lng,item.latitude,item.longitude);
-                   console.log("\n distance is: "+distance);
-                   item["distance"] = distance;
-                   
+                   //alert($scope.lat);
+                   if ($scope.lat!=null){ //distance = getDistanceFromLatLonInKm($scope.lat,$scope.lng,item.latitude,item.longitude);
+             var p1 = new google.maps.LatLng($scope.lat, $scope.lng);
+             var p2 = new google.maps.LatLng(item.latitude, item.longitude);
+             distance =calcDistance(p1, p2);
+             console.log("\n distance is: "+distance);
+            }else{
+              distance='';
+            }
+             
+             item["distance"] = distance;
                   
                    
                });
+            
             console.log("Place data is: \n");
             console.log($scope.placesData);
       			if($scope.placesData[0].type=="kids")
