@@ -1924,7 +1924,7 @@ app.controller('ResortSearchCtrl',function($scope,$state,$http,webservices,mycon
 
       // console.log("search type is: "+$scope.searchtype);
 
-      $scope.resortsData={};
+      $scope.resortsData=[];
       $scope.imagepathurl = myconfig.imagepathurl;
       
       $scope.lat="";
@@ -2032,7 +2032,7 @@ app.controller('EventSearchCtrl',function($scope,$state,$http,webservices,myconf
        //console.log("search type is: "+$scope.searchtype);
 
 
-        $scope.eventsData={};
+        $scope.eventsData=[];
         $scope.imagepathurl = myconfig.imagepathurl;
         //alert("these are events");
 
@@ -2248,7 +2248,7 @@ function calcDistance(p1, p2) {
     
        //console.log("search type is: "+$scope.searchtype);
 
-        $scope.placesData={};
+        $scope.placesData=[];
         $scope.imagepathurl = myconfig.imagepathurl;
 
         
@@ -2306,7 +2306,9 @@ function calcDistance(p1, p2) {
 
         $scope.onSearchChange = function(){
 
-        webservices.getPlacesBasedOnSearchCriteria($scope.search.name).success(function(data) {
+        webservices.getPlacesBasedOnSearchCriteriaHomePageItems($scope.search.name,$scope.type).success(function(data) {
+            console.clear();
+            console.log(data);
             $scope.searchresult=data;
             //console.log("hellos this is test"+$scope.search.name);
             console.log($scope.searchresult);
@@ -2381,6 +2383,15 @@ app.factory('webservices', function($http,myconfig){
 
       var url = myconfig.webservicesurl+'/getPlacesBasedOnSearchCriteria.php';
       return $http.post(url, {search:searchkeyword})
+      
+    },//getOrdersBasedOnTicketNumber($state.params.ticketnumber) getEventNamesBasedOnSearchKeyword(eventname)
+
+
+    getPlacesBasedOnSearchCriteriaHomePageItems: function(searchkeyword,searchtype)
+    {
+
+      var url = myconfig.webservicesurl+'/getPlacesBasedOnSearchCriteriaHomePageItems.php';
+      return $http.post(url, {search:searchkeyword,searchtype:searchtype})
       
     },//getOrdersBasedOnTicketNumber($state.params.ticketnumber) getEventNamesBasedOnSearchKeyword(eventname)
 

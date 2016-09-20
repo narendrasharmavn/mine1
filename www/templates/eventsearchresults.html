@@ -44,7 +44,7 @@
     </div>
 	<div class="list" >
 
-		<a class="item item-thumbnail-left" href="#/sidemenu/eventdetails/{{e.eventid}}" ng-repeat="e in eventsData">
+		<a class="item item-thumbnail-left" href="#/sidemenu/eventdetails/{{e.eventid}}" ng-repeat="e in eventsData | orderBy:'distance'">
 		  <img src="{{imagepathurl+'assets/eventimages/'+e.bannerimage}}"/>
 		  <h2>{{e.eventname}}</h2>
 		  <p>{{e.location}}</p>

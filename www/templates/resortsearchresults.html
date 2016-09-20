@@ -33,7 +33,7 @@
 	
 	<div class="list" >
 
-		<a class="item item-thumbnail-left" href="#/sidemenu/resortdetails/{{r.resortid}}" ng-repeat="r in resortsData">
+		<a class="item item-thumbnail-left" href="#/sidemenu/resortdetails/{{r.resortid}}" ng-repeat="r in resortsData | orderBy:'distance'">
 		  <img src="{{imagepathurl+'assets/resortimages/'+r.bannerimage}}">
 		  <h2>{{r.resortname}}</h2>
 		  <p>{{r.location}}</p>

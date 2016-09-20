@@ -33,7 +33,7 @@
 	
 	<div class="list" >
 
-		<a class="item item-thumbnail-left" href="#/sidemenu/placedetails/{{p.plid}}" ng-repeat="p in placesData">
+		<a class="item item-thumbnail-left" href="#/sidemenu/placedetails/{{p.plid}}" ng-repeat="p in placesData | orderBy:'distance'">
 		  <img src="{{imagepathurl+'assets/places/'+p.photoname}}">
 		  <h2>{{p.place}}</h2>
       <p>{{p.description}}...</p>
