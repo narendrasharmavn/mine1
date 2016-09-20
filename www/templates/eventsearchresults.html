@@ -44,11 +44,11 @@
     </div>
 	<div class="list" >
 
-		<a class="item item-thumbnail-left" href="#/sidemenu/eventdetails/{{e.eventid}}" ng-repeat="e in eventsData | orderBy:'distance'">
+		<a class="item item-thumbnail-left" href="#/sidemenu/eventdetails/{{e.eventid}}" ng-repeat="e in eventsData | orderBy:sorterFunc ">
 		  <img src="{{imagepathurl+'assets/eventimages/'+e.bannerimage}}"/>
 		  <h2>{{e.eventname}}</h2>
 		  <p>{{e.location}}</p>
-      <p style="float:right;" ng-if="e.distance!=''"><i class="icon ion-flag"> </i> {{e.distance}} Km</p>
+      <p style="float:right;" ng-if="e.latitude!='' && e.distance!=''"><i class="icon ion-flag"> </i> {{e.distance}} Km</p>
 		</a>
 
 	</div>

@@ -88,8 +88,8 @@ app.run(function($ionicLoading,$ionicPlatform,$state,$ionicPopup) {
 app.constant('myconfig', {
     appName: 'Book4Holiday',
     appVersion: 'development',
-    webservicesurl: 'http://book4holiday.com/services',
-    imagepathurl: 'http://book4holiday.com/'
+    webservicesurl: 'https://book4holiday.com/services/',
+    imagepathurl: 'https://book4holiday.com/'
 });
 
 // (Amar) Controllers And Web Services Start //
@@ -1995,6 +1995,11 @@ function calcDistance(p1, p2) {
       });
 
 
+      $scope.sorterFunc = function(p){
+    return parseInt(p.distance);
+};
+
+
      $scope.onSearchChange = function(){
 
         webservices.getResortsBasedOnSearchCriteria($scope.search.name).success(function(data) {
@@ -2063,6 +2068,9 @@ app.controller('EventSearchCtrl',function($scope,$state,$http,webservices,myconf
 }
 
 
+   $scope.sorterFunc = function(p){
+    return parseInt(p.distance);
+};
           
 
          webservices.getEvents().success(function(data) { 
@@ -2250,6 +2258,10 @@ function calcDistance(p1, p2) {
 
         $scope.placesData=[];
         $scope.imagepathurl = myconfig.imagepathurl;
+
+        $scope.sorterFunc = function(p){
+    return parseInt(p.distance);
+};
 
         
         //alert("these are events");

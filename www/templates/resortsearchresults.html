@@ -33,11 +33,11 @@
 	
 	<div class="list" >
 
-		<a class="item item-thumbnail-left" href="#/sidemenu/resortdetails/{{r.resortid}}" ng-repeat="r in resortsData | orderBy:'distance'">
+		<a class="item item-thumbnail-left" href="#/sidemenu/resortdetails/{{r.resortid}}" ng-repeat="r in resortsData | orderBy:sorterFunc ">
 		  <img src="{{imagepathurl+'assets/resortimages/'+r.bannerimage}}">
 		  <h2>{{r.resortname}}</h2>
 		  <p>{{r.location}}</p>
-      <p style="float:right;" ng-if="r.distance!=''"><i class="icon ion-flag"> </i> {{r.distance}} Km</p>
+      <p style="float:right;" ng-if="r.latitude!='' && r.distance!=''"><i class="icon ion-flag"> </i> {{r.distance}} Km</p>
 		</a>
 
 	</div>
