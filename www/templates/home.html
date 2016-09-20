@@ -9,7 +9,7 @@
         </a>
 </ion-nav-buttons>
   <ion-content class="has-header">
-    <ion-slide-box on-slide-changed="slideChanged(index)">
+    <ion-slide-box on-slide-changed="slideChanged(index)" does-continue="true" show-pager="false" ng-if="data.length">
 		   <ion-slide ng-repeat="s in data" repeat-done="repeatDone()">
 				<div id="logo">
 					<a href="#/sidemenu/{{s.type}}/{{s.value}}"><img class="full-image" src="{{imagepathurl+'assets/sliderimages/'+s.image}}" style="width:100%;height:210px;"/>

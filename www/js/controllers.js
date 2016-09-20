@@ -146,6 +146,7 @@ app.controller('HomeCtrl',function($scope,$ionicSlideBoxDelegate,$state,myconfig
     $scope.data = response;
 	$ionicLoading.hide();
   $ionicSlideBoxDelegate.update();
+  $ionicSlideBoxDelegate.loop(true);
   })
 
   //console.log("constant value is: "+myconfig.webservicesurl);
@@ -2633,7 +2634,7 @@ app.factory('webservices', function($http,myconfig){
       var url = myconfig.webservicesurl+'/checkIfKidsMealPriceIsZeroOrNot.php';
       return $http.post(url, { packageid:packageid })
       
-    },//sendUserSelectedOptionsToServer end 
+    },//checkIfKidsMealPriceIsZeroOrNot end 
 
 
 	sendUserSelectedOptionsToServer: function(userSelections,kidsmealqty,dateofvisit){

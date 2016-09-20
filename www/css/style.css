@@ -37,6 +37,37 @@
 .tax-col{
 border-style:none;
 }
+.rnd-button-minus{
+	    border-radius: 25px !important;
+    width: 25px !important;
+    padding: 0px !important;
+    /* height: 54px; */
+    background: red;
+    color: white;
+    min-width: 0px !important;
+    min-height: 0px !important;
+    line-height: 20px !important;
+}
+
+.qty-txt{
+	    text-align: center;
+    width: 45px;
+    margin-top: -5px;
+    vertical-align: top;
+    padding: 0;
+}
+
+.rnd-button-plus{
+	    border-radius: 25px !important;
+    width: 25px !important;
+     padding: 0px !important;
+    /* height: 54px; */
+    background: green;
+    color: white;
+    min-width: 0px !important;
+    min-height: 0px !important;
+    line-height: 20px !important;
+}
 .kidmealtextbox{
     background: rgba(10, 157, 199, 0.37);
     color: white !important;

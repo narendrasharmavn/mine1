@@ -40,15 +40,15 @@
             Adults (Per Ticket) <span>Rs. {{r.adultprice}} </span>
           </div>
           <div class="">
-            <button class="button" ng-click="decrement($index,'d')">
+            <button class="button rnd-button-minus" ng-click="decrement($index,'d')">
               -
             </button>
           </div>
           <div class="">
-             <input type="number" name="" ng-model="userBookingDetails[$index].mobileadultqty" placeholder="0" value="0" style="text-align:center; width:70px; margin-top: 8px;">
+             <input type="number" class="qty-txt" name="" ng-model="userBookingDetails[$index].mobileadultqty" placeholder="0" value="0" >
           </div>
           <div class="">
-            <button class="button" ng-click="decrement($index,'i')">
+            <button class="button rnd-button-plus" ng-click="decrement($index,'i')">
               +
             </button>
           </div>
@@ -59,15 +59,15 @@
             Children (Per Ticket) <span>Rs. {{r.childprice}}  </span>
           </div>
           <div class="">
-            <button class="button" ng-click="inc($index,'d')">
+            <button class="button rnd-button-minus" ng-click="inc($index,'d')">
               -
             </button>
           </div>
           <div class="">  
-            <input type="number" name=""  ng-model="userBookingDetails[$index].mobilechildqty" placeholder="0" value="0" style="text-align:center; width:70px; margin-top: 8px;">
+            <input type="number" name=""  ng-model="userBookingDetails[$index].mobilechildqty" placeholder="0" value="0" class="qty-txt">
           </div>
           <div class="">
-            <button class="button" ng-click="inc($index,'i')">
+            <button class="button rnd-button-plus" ng-click="inc($index,'i')">
              +
             </button>
           </div>  

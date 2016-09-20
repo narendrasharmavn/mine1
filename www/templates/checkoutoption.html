@@ -39,16 +39,16 @@
 <center><h3 >Proceed with guest account</h3></center>
   
       <div class="list">
-        <label class="item item-input" ng-class="{ 'has-errors' : login.name.$invalid && !login.name.$pristine, 'no-errors' : login.name.$valid}">
+        <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : login.name.$invalid && !login.name.$pristine, 'no-errors' : login.name.$valid}">
        
           <input type="text" placeholder="Name" ng-model="c.name" required>
     
         </label>
-        <label class="item item-input" ng-class="{ 'has-errors' : login.email.$invalid && !login.email.$pristine, 'no-errors' : login.email.$valid}">
+        <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : login.email.$invalid && !login.email.$pristine, 'no-errors' : login.email.$valid}">
        
           <input type="email" placeholder="Email" ng-model="c.email" required>
         </label>
-       <label class="item item-input" ng-class="{ 'has-errors' : login.mobile.$invalid && !login.mobile.$pristine, 'no-errors' : login.mobile.$valid}">
+       <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : login.mobile.$invalid && !login.mobile.$pristine, 'no-errors' : login.mobile.$valid}">
        
           <input type="tel" placeholder="Mobile" ng-model="c.mobile" required maxlength="10" minlength="10">
 
@@ -73,24 +73,34 @@
 <div class="card" ng-show="c.otpview">
     <form name="otp"  novalidate>
     <center><h3 >Please Enter OTP</h3></center>
-      
-          <div class="list">
-            
-           
-           <label class="item item-input" ng-class="{ 'has-errors' : otp.mobile.$invalid && !otp.mobile.$pristine, 'no-errors' : otp.mobile.$valid}">
-          
-              <input type="number" placeholder="Enter OTP" ng-model="c.otp" required>
+        <div class="row list">
+          <div class="col col-33 col-offset-33">
+                <div  class=" ">
+                  
+                 
+                 <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : otp.mobile.$invalid && !otp.mobile.$pristine, 'no-errors' : otp.mobile.$valid}">
+                
+                    <input type="number"  placeholder="Enter OTP" ng-model="c.otp" required>
 
-            </label>
+                  </label>
 
-          </div>
-          
-          <button class="button button-block button-calm" ng-disabled="otp.$invalid" ng-click="checkotp(c)">
+                </div>
+                <button class="button button-calm" ng-disabled="otp.$invalid" ng-click="checkotp(c)">
               Check OTP
             </button>
-            <button class="button button-block button-calm" ng-click="resendOTP(c)">
+            <div>
+              Did not recieve OTP in 120 seconds ?
+            </div>
+            <button class="button button-clear button-assertive" ng-click="resendOTP(c)">
               Resend OTP
             </button>
+          </div>
+          <div class="col"></div>
+        </div>
+      
+          
+          
+          
           </form>
 </div>
 
