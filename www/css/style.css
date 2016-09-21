@@ -268,6 +268,10 @@ div.hscroller {
 
 .iconsion { background-color: #eee; padding: 8px !important;  }
 
+.otpitem { background-color: #11c1f3 !important; } 
+
+.button-custom { background-color: #0a9dc7; }
+
 /* do not group these rules */
 *::-webkit-input-placeholder {
     color: #000 !important;

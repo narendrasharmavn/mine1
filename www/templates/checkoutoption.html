@@ -71,42 +71,32 @@
 </div>
 
 <div class="card" ng-show="c.otpview">
-    <form name="otp"  novalidate>
-    <center><h3 >Please Enter OTP</h3></center>
-        <div class="row list">
-          <div class="col col-33 col-offset-33">
-                <div  class=" ">
-                  
-                 
-                 <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : otp.mobile.$invalid && !otp.mobile.$pristine, 'no-errors' : otp.mobile.$valid}">
-                
-                    <input type="number"  placeholder="Enter OTP" ng-model="c.otp" required>
-
-                  </label>
-
-                </div>
-                <button class="button button-calm" ng-disabled="otp.$invalid" ng-click="checkotp(c)">
-              Check OTP
-            </button>
-            <div>
-              Did not recieve OTP in 120 seconds ?
-            </div>
-            <button class="button button-clear button-assertive" ng-click="resendOTP(c)">
-              Resend OTP
-            </button>
-          </div>
-          <div class="col"></div>
-        </div>
-      
-          
-          
-          
-          </form>
+<form name="otp"  novalidate>
+  <center>
+    <div class="item item-text-wrap otpitem">
+      <h1 style="color:#FFF;">Please Enter OTP</h1>
+      <div class="col col-100">
+        <input type="number" placeholder="Enter OTP" ng-model="c.otp" required>  
+      </div>
+      <div class="col col-100">
+        <button class="button button-custom button-small" ng-disabled="otp.$invalid" ng-click="checkotp(c)">
+          <span style="color:#fff;">Check OTP</span>
+        </button>  
+      </div>
+      <div>Did not recieve OTP in 120 seconds ?</div>
+      <div>
+        <button class="button button-clear button-assertive" ng-click="resendOTP(c)">
+          Resend OTP
+        </button>    
+      </div>  
+    </div>
+  </center> 
+  </form> 
 </div>
 
 
-        
-      </div>
-    </div>
+
+
+  
   </ion-content>
 </ion-view>
