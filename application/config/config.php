@@ -30,7 +30,7 @@ $config['base_url'] = 'https://book4holiday.com/beta/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php/';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------

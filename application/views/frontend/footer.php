@@ -42,15 +42,17 @@
             <div class="row">
                 <div class="col-md-12">
                     <div id="social_footer">
-                        <ul>
-                            <li><a href="#"><img src="<?php echo base_url(); ?>assets/frontend/img/android_app_store.png"></a></li> &nbsp;
-                            <li><a href="#"><img src="<?php echo base_url(); ?>assets/frontend/img/windows_app_store.png"></a></li> &nbsp;
-                            <li><a href="#"><img src="<?php echo base_url(); ?>assets/frontend/img/apple_store_icon.png"></a></li>  &nbsp;
+                        <center>
+                        <ul id="footermide">
+                            <li><a href="#"><img src="<?php echo base_url(); ?>assets/frontend/img/android_app_store.png" style="width: 95px; height: 35px;"></a></li> &nbsp;
+                            <li><a href="#"><img src="<?php echo base_url(); ?>assets/frontend/img/windows_app_store.png" style="width: 95px; height: 35px;"></a></li> &nbsp;
+                            <li><a href="#"><img src="<?php echo base_url(); ?>assets/frontend/img/apple_store_icon.png" style="width: 95px; height: 35px;"></a></li>  &nbsp;
                         <!--<li><a href="#"><i class="icon-facebook"></i></a></li>
                             <li><a href="#"><i class="icon-twitter"></i></a></li>
                             <li><a href="#"><i class="icon-youtube-play"></i></a></li>-->
                             <li class="pull-right"> © Book4Holiday 2016 </li>
                         </ul>
+                        </center>
                         <p></p>
                     </div>
                 </div>

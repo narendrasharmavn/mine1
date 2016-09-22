@@ -769,7 +769,17 @@ public function validateEmail($email){
     public function getNumberOfRowsForPlaces(){
 
 
-         $sQuery = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='places' GROUP by pp.plid";
+         $sQuery = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='Things To Do' GROUP by pp.plid";
+        
+        $query = $this->db->query($sQuery);
+       
+        return $query->num_rows();
+    }
+
+    public function getNumberOfRowsForResorts(){
+
+
+         $sQuery = "SELECT * FROM tblresorts WHERE status=1";
         
         $query = $this->db->query($sQuery);
        
@@ -779,7 +789,7 @@ public function validateEmail($email){
 	public function getKidsDayoutRows(){
 
 
-         $sQuery = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='kids' GROUP by pp.plid";
+         $sQuery = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='Kids Day Out' GROUP by pp.plid";
         
         $query = $this->db->query($sQuery);
        
@@ -789,7 +799,39 @@ public function validateEmail($email){
 	public function getAdventureRows(){
 
 
-         $sQuery = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='adventure' GROUP by pp.plid";
+         $sQuery = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='Adventure' GROUP by pp.plid";
+        
+        $query = $this->db->query($sQuery);
+       
+        return $query->num_rows();
+    }
+
+
+
+    public function getShoppingRows(){
+
+
+         $sQuery = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='Shopping & Fashion' GROUP by pp.plid";
+        
+        $query = $this->db->query($sQuery);
+       
+        return $query->num_rows();
+    }
+
+    public function getWeddingRows(){
+
+
+         $sQuery = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='Weddings/Banquets' GROUP by pp.plid";
+        
+        $query = $this->db->query($sQuery);
+       
+        return $query->num_rows();
+    }
+
+    public function getNightlifeRows(){
+
+
+         $sQuery = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='Night Life' GROUP by pp.plid";
         
         $query = $this->db->query($sQuery);
        

@@ -1,1 +1,3 @@
 [10-Aug-2016 22:29:42 Asia/Kolkata] PHP Notice:  Undefined index: useremail in /home2/book4holiday/public_html/beta/emailvalidation/example.php on line 6
+[21-Aug-2016 08:02:57 UTC] PHP Notice:  Undefined index: useremail in /home/book4holiday/public_html/beta/emailvalidation/example.php on line 6
+[21-Aug-2016 21:19:46 UTC] PHP Notice:  Undefined index: useremail in /home/book4holiday/public_html/beta/emailvalidation/example.php on line 6

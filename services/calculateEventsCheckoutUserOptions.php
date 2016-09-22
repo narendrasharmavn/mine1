@@ -66,6 +66,11 @@ $total = round($total,2);
 //echo "internetcharges:".$internetcharges."\nservice tax :".$servicetax."\n swachcess: ".$swachcess."\n krishicess:".$krishicess."\n";
 
 
+$adultticketprice = sprintf(round($adultticketprice , 2) == intval($adultticketprice ) ? "%.2f" : "%.2f", $adultticketprice );
+
+    $childticketprice = sprintf(round($childticketprice , 2) == intval($childticketprice ) ? "%.2f" : "%.2f", $childticketprice );
+
+
 
 
    $calculatedTotal = array(

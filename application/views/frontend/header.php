@@ -36,7 +36,7 @@
     <link href="<?php echo base_url(); ?>assets/frontend/css/detailscarousel.css" rel="stylesheet" type="text/css" media="all" >
     <script type='text/javascript' src='<?php echo base_url(); ?>assets/frontend/js/detailspage.js'></script>
 
-    <script src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyA-hMJfrFKuq7zQy30m0GBdzKSMl9qcxIo"></script>
+    <script src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyA-hMJfrFKuq7zQy30m0GBdzKSMl9qcxIo"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/frontend/css/css/js/jssor.slider.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
 	<!-- use jssor.slider.debug.js instead for debug -->
@@ -255,21 +255,28 @@ if($this->uri->segment(1)=='home' || $this->uri->segment(1)==''){
                                 
                             </li>
                             <li >
-                                <a href="<?php echo site_url().'adventure' ?>" class="show-submenu">Adventure </a>
+                                <a href="<?php echo site_url().'adventure' ?>" class="show-submenu">Activities and Recreation </a>
                                 
                             </li>
                             <li >
                                 <a href="javascript:void(0);" class="show-submenu">Day Events </a>
                                 
                             </li>
-                            <li id="bookplaces">
-                                <a href="<?php echo site_url().'placesall' ?>" class="show-submenu">Places </a>
-                                
-                            </li>
                             <li >
                                 <a href="<?php echo site_url().'resorts/zoo/1'; ?>" class="show-submenu">Book Zoo Tickets </a>
                                 
                             </li>
+                            <li >
+                              <a  href="#"  class="show-submenu dropdown-toggle" data-toggle="dropdown"><i class="fa fa-chevron-down" aria-hidden="true"></i></a>
+                        <ul class="dropdown-menu" style="position:absolute; margin-right:170px;">
+                                  <li><a href="<?php echo site_url().'shopping' ?>">Shopping & Fashion</a></li>
+                                  <li><a href="<?php echo site_url().'weddings' ?>">Weddings/Banquets</a></li>
+                                  <li><a href="<?php echo site_url().'nightlife' ?>">Night Life</a></li>
+                                  <li><a href="<?php echo site_url().'placesall' ?>">Things To Do</a></li>
+                              </ul>   
+                            </li>
+
+                                                       
                             <li>&nbsp;</li>
                             
                             <li>

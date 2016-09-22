@@ -1,8 +1,8 @@
 <!-- Common scripts -->
 
    
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <link href="<?php echo base_url(); ?>assets/frontend/css/jquery-ui.css" rel="stylesheet">
     

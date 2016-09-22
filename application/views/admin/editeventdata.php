@@ -133,7 +133,8 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Description *</label>
 								                <div class="col-sm-7">
-								                  <textarea class="form-control" name="description"  ><?php echo $rows->description; ?></textarea>
+								                	<textarea class="description" name="description" id="description"><?php echo $rows->description; ?></textarea>
+								                  
 												  <span class="text-danger"><?php echo form_error('description'); ?></span>
 								                </div>
 								               

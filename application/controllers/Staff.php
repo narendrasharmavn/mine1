@@ -55,13 +55,14 @@ class Staff extends CI_Controller {
     }
 
  
-
-    public function updateticket()
+    /*
+    public function updtticketupdateticket()
     {
-        $tckno=$this->input->post('ticketno');
+        $tckno=$this->input->post('tkno');
         $dt = date('Y-m-d');
+        $vendorid = $this->db->get_where('tblusers' , array('email' => $email, 'password' => $password, 'usertype' => $usertype, 'status' => 1 ))->row()->vendorid; 
         //$query = "SELECT flag FROM tblbookings WHERE ticketnumber='$tckno' AND dateofvisit='date(now())' AND booking_status='booked' AND payment_status='paid' AND visitorstatus='absent'";
-        $getflag = $this->db->query("SELECT flag FROM tblbookings WHERE ticketnumber='$tckno' AND dateofvisit='$dt' AND booking_status='booked' AND payment_status='paid' AND visitorstatus='absent'");
+        $getflag = $this->db->query("SELECT flag FROM tblbookings WHERE ticketnumber='$tckno' AND vendorid='$vendorid' AND dateofvisit='$dt' AND booking_status='booked' AND payment_status='paid' AND visitorstatus='absent'");
        
         
         if($getflag->num_rows()>0)
@@ -74,6 +75,33 @@ class Staff extends CI_Controller {
             echo "true";
         }else{
             echo "false";
+        } 
+    } */
+
+    public function updateticket()
+    {
+        $tckno=$this->input->post('tkno');
+        $dt = date('Y-m-d');
+        $vendorid = $this->session->userdata('vendorid');
+        
+        //$query = "SELECT flag FROM tblbookings WHERE ticketnumber='$tckno' AND dateofvisit='date(now())' AND booking_status='booked' AND payment_status='paid' AND visitorstatus='absent'";
+        $getflag = $this->db->query("SELECT flag FROM tblbookings WHERE ticketnumber='$tckno' AND vendorid='$vendorid' AND dateofvisit='$dt' AND booking_status='booked' AND payment_status='paid' AND visitorstatus='absent'");
+       
+        
+        if($getflag->num_rows()>0)
+        {
+            $vdata = array(
+              'visitorstatus'=>'visited',
+              'flag' => '1'
+            );
+            $this->db->update('tblbookings', $vdata, array('ticketnumber' => $tckno));
+            //echo "true";
+            $this->session->set_flashdata('success','<div class="alert alert-success text-center">Ticket Valid</div>');
+            redirect('staff/dashboard');
+        }else{
+            //echo "false";
+            $this->session->set_flashdata('success','<div class="alert alert-danger text-center">Ticket Invalid</div>');
+            redirect('staff/dashboard');
         } 
     }
     

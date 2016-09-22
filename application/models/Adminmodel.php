@@ -139,6 +139,11 @@ class Adminmodel extends CI_Model {
         return $query;
     }
 
+    public function getMobileSliders(){
+        $query = $this->db->query("SELECT * from mobilesliders;");
+        return $query;
+    }
+
     public function getLoginsuperuser($username,$password,$usertype)
     {
         $sql ="select * from staff_login where username='".$username."' and password='".$password."' and usertype='".$usertype."'";

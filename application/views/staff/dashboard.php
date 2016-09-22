@@ -60,7 +60,71 @@
 	
 	.footertxt { color:#006400; } 
 
-	.hideticket { display: none !important; } 
+	.hideticket { display: none !important; }
+
+	body { font-size: 14px;
+		   font-family: calibri;
+		   /*transform: rotate(90deg);
+		   -webkit-transform: rotate(90deg);
+		   -moz-transform: rotate(90deg);
+           -o-transform: rotate(90deg);
+           -ms-transform: rotate(90deg);*/     }
+	
+	#printableArea { margin-top: 30px; }
+	
+	table { padding:5px; }	
+	
+	a { color:#006400;
+	    text-decoration: none; }
+	
+	a:hover { color:#0099cc; 
+	          text-decoration: none; } 
+	
+	.table-one { width: 750px; 
+				 height: 400px;
+				 background-color: #eee;
+				 border-radius: 8px; }
+	
+	.table-title { color: #006400;
+				   margin-left:20px; 
+				   font-size: 35px;	}
+	
+	.table-img { width: 300px;
+                 height: 75px;
+				 margin-left:55px; }
+	
+	.tdtextsize { font-size: 18px; } 
+	
+	.table-rowone { border-bottom:1px dashed #ccc; }
+	
+	.table-classone { margin-top: 8px;
+					  margin-bottom: 8px;
+					  margin-left: 50px;
+					  float:left;}
+	
+	.table-classtwo { margin-top: 8px;
+					  margin-bottom: 8px;
+					  margin-right: 40px;
+					  float:right;	}
+	
+	.main-table { margin-bottom: 10px; } 
+	
+	.table-row1 { margin-left: 50px; 
+				  float: left; }
+	
+	.table-row2 { margin-left: 70px;
+				  float: right;	}
+	
+	.table-row3 { margin-left: 154px;
+				  float: right;	}
+	
+	.table-row4 { background-color:#dcdcdc; }	
+	
+	.table-row5 { color: #006400; text-align: center; }
+	
+	.table-row6 { text-align: center; }
+
+
 </style>
 
 <?php 
@@ -84,6 +148,10 @@ include 'header.php';
 										<div class="panel-body" style="min-height:450px;">
 											<div class="widget-summary">
 											<div class="form-horizontal" id="formhide">
+												<?php
+												   if($usertype=='booking')
+										           { 
+												?>
 												<?php 
 										            echo form_open_multipart('staff/dashboard',array('class' => 'form-horizontal', 'id' => 'myForm'));
 										        ?>
@@ -91,8 +159,7 @@ include 'header.php';
 										           $email = $this->session->userdata('email');
 										           $vendorid = $this->session->userdata('vendorid');
 										           $usertype=$this->session->userdata('usertype');
-										           if($usertype=='booking')
-										           {
+										           
 										        ?>
 								        		<div class="form-group">
 												  <label class="col-md-4 control-label" for="textinput">Ticket Number</label>  
@@ -116,54 +183,66 @@ include 'header.php';
  <?php
  if($this->input->post('ticketnumber'))
  {
- 	//echo $this->input->post('ticketnumber');
+ 	$tckno = $this->input->post('ticketnumber');
+ 	$vid = $this->session->userdata('vendorid');
+    $dt = date('Y-m-d');
+ 	$getflag = $this->db->query("SELECT * FROM tblbookings WHERE ticketnumber='$tckno' AND dateofvisit='$dt' AND vendorid='$vid' AND booking_status='booked' AND payment_status='paid' AND visitorstatus='absent'");
+ 	
+ 	if($getflag->num_rows()>0)
+ 	{
  	?>
-    
-    <div class="col-xs-12 col-md-12 col-lg-12 maintable1">
-		<div class="col-xs-12 col-md-4 col-lg-4">
-			<h5 id="headertxt"><b>Book4Holiday</b></h5>
-		</div>
-		<div class="col-xs-12 col-md-8 col-lg-8">
-
-			<svg id="bcTarget"></svg>
-			<p class="pull-left hideticket"><b>Ticket Number # </b><span id="ticketnumber"><?php echo $this->input->post('ticketnumber'); ?></span></p>
-		</div>
-	</div>
-
-    <div class="col-xs-12 col-md-12 col-lg-12 maintable2">
-			<div class="col-xs-12 col-md-5 col-lg-5">
-				<table>
-					<tr>
-						<td class="subtable">Custmer Name</td>
-						<td>:</td> 
-						<td class="fsubtable"> &nbsp; <?php 
-						$tckno = $this->input->post('ticketnumber');
-						//echo $tckno;
-						$userid = $this->db->get_where('tblbookings' , array('ticketnumber' => $tckno ))->row()->userid;   
-						//echo $userid;
-						$customername = $this->db->get_where('tblcustomers' , array('customer_id' => $userid ))->row()->name;   
-						echo $customername; ?></td>
-					</tr>
-					<tr>
-						<td class="subtable">Mobile No</td>
-						<td>:</td> 
-						<td class="fsubtable"> &nbsp; <?php $customernumber = $this->db->get_where('tblcustomers' , array('customer_id' => $userid ))->row()->number;   
-						echo $customernumber; ?></td>
-					</tr>
-				</table>
-			</div>
-
-			<div class="col-xs-12 col-md-7 col-lg-7">
-				<table>
-					<tr>
-						<td class="subtable">Date of Visit</td>
-						<td>:</td> 
-						<?php 
-							$dov = $this->db->get_where('tblbookings' , array('ticketnumber' => $tckno ))->row()->dateofvisit;   
-						?>
-						<td class="fsubtable"> &nbsp; <?php echo date("d-m-Y", strtotime($dov)) ;?></td>
-					</tr>
-					<tr>
+<!-- Pradeep code start -->
+ 	<div id="printableArea">
+		<table align="center" class="table-one">
+				<tr>
+					<td>
+						<table class="table-rowone">
+							<tr>
+								<td width="375px">
+									<h2 class="table-title"><b>Book4Holiday</b></h2>
+								</td>
+								<td width="375px">
+									
+									<svg id="bcTarget" class="table-img"></svg>
+									
+									<input type="hidden" id="ticketnumber" value="<?php echo $this->input->post('ticketnumber'); ?>">
+								</td>
+							</tr>
+						</table>
+						
+						<table width="325px" class="table-classone">
+							<tr>
+								<td class="tdtextsize"> <b> Customer Name </b> </td>
+								<td class="tdtextsize"> : </td>
+								<td class="tdtextsize"> <?php
+								echo $this->db->get_where('tblvendors' , array('vendorid' => $vid ))->row()->vendorname;
+								 ?> </td>
+							</tr>
+							<tr>
+								<td class="tdtextsize"> <b> Mobile </b> </td>
+								<td class="tdtextsize"> : </td>
+								<td class="tdtextsize"> <?php
+								echo $this->db->get_where('tblvendors' , array('vendorid' => $vid ))->row()->mobile;
+								 ?> </td>
+							</tr>
+							<tr>
+								<td class="tdtextsize"> <b> Alt Mobile </b> </td>
+								<td class="tdtextsize"> : </td>
+								<td class="tdtextsize"> <?php
+								echo $this->db->get_where('tblvendors' , array('vendorid' => $vid ))->row()->landline;
+								 ?> </td>
+							</tr>
+						</table>
+						<table width="325px" class="table-classtwo">
+							<tr>
+								<td class="tdtextsize"> <b> Date Of Visit </b> </td>
+								<td class="tdtextsize"> : </td>
+								<td class="tdtextsize"> <?php
+								$dt =  $this->db->get_where('tblbookings' , array('ticketnumber' => $tckno ))->row()->dateofvisit;
+								echo date("d-m-Y", strtotime($dt));
+								 ?> </td>
+							</tr>
+							<tr>
 						
 						<?php 
 			               $packageid = $this->db->get_where('tblbookings' , array('ticketnumber' =>$tckno))->row()->packageid;
@@ -179,12 +258,12 @@ include 'header.php';
 			               if ($eventname!='') {
 			                 $name = $eventname;
 			            ?>
-			            <td class="subtable">Event Name</td>
+			            <td class="tdtextsize">Event Name</td>
 			            <?php 
 			            }else{
 			                $name = $resortname;
 			            ?>
-			            <td class="subtable">Resort Name</td>
+			            <td class="tdtextsize">Resort Name</td>
 			            <?php 
 			                }
 
@@ -195,34 +274,33 @@ include 'header.php';
 						<td>:</td> 
 						<td class="fsubtable"> &nbsp; <?php echo $name; ?></td>
 					</tr>
-				</table>
-			</div>
-		</div>
-
-		<div class="col-xs-12 col-md-12 col-lg-12">
-			<table class="table">
-			  	<thead class="thead-default fsubtable">
-			    	<tr>
-				    	
-				      	<th>Packages</th>
-				      	<th>Details</th>
-				      	<th>Total</th>
-				    </tr>
-			  	</thead>
-			  	<tbody class="fsubtable">
-			    <?php
+							<tr>
+								<td class="tdtextsize"> <b> Address </b> </td>
+								<td class="tdtextsize"> : </td>
+								<td class="tdtextsize"> Kapra, Hyderabad </td>
+							</tr>
+						</table>
+						
+						<table width="700px" align="center" border="1" class="main-table">
+						<tr class="table-row4">
+								
+								<th class="tdtextsize">Packages</th>
+								<th class="tdtextsize">Details</th>
+								<th class="tdtextsize">Total</th>
+							</tr>
+							<?php
 				    $query = $this->db->query("SELECT * from tblbookings WHERE ticketnumber='$tckno' ORDER BY bookingid DESC");
                     foreach ($query->result() as $k) {	
                     //echo "booking id is: ".$k->bookingid."<br>";		
 				?>
 			    	<tr>
-			      		<td>
+			      		<td class="tdtextsize">
 			      			<?php
 								$packagename = $this->db->get_where('tblpackages' , array('packageid' =>$k->packageid))->row()->packagename; 
 								echo $packagename;
 						    ?>
 						</td>
-			      		<td>
+			      		<td class="tdtextsize">
 			      			<?php 
 								if ($k->quantity!=0) {
 									?>
@@ -257,33 +335,46 @@ include 'header.php';
 
 								 ?>
 			      		</td>
-			      		<td><?php 
+			      		<td class="tdtextsize"><?php 
 
 								 		echo "Rs. ".$this->db->get_where('tblpayments' , array('ticketnumber' =>$tckno))->row()->totalcost;
 
 								 		  ?></td>
 			      	</tr>
 			    <?php } ?>
-			    </tbody>
-			</table>
+						</table>
+						
+						<table align="center">
+							<tr class="table-row5">
+								<td class="tdtextsize"><b>G-3, Royal Enclave, Madhapur, Hyderabad </b> </td>
+							</tr>
+							<tr class="table-row5">
+								<td class="table-row6 tdtextsize"> +91 40 2345 6789/0 | info@book4holiday.com </td>
+							</tr>
+							<tr class="table-row5">
+								<td class="table-row6 tdtextsize"> www.book4holiday.com </td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+		</table>	
+	</div>
+	
+	<div>&nbsp;</div>
+	
+	<center>
+		<div class="col-xs-12 col-md-12 col-lg-12">
+			<button type="button" class="btn btn-success" onclick="printDiv('printableArea')">Print Ticket</button>
 		</div>
+	</center>
 
-		<div class="col-xs-12 col-md-12 col-lg-12 maintable3">
-			<div class="col-xs-12 col-md-6 col-lg-6">
-				<span class="footertxt"><b>Address:</b> G-3, Royal Enclave, Madhapur, Hyderabad. </span>
-			</div>
-			<div class="col-xs-12 col-md-6 col-lg-3">
-				<span class="footertxt">+91 40 2345 6789/0</span>
-			</div>
-			<div class="col-xs-12 col-md-6 col-lg-3">
-				<span class="footertxt"><a href="https://accounts.google.com/" target="_blank">info@book4holiday.com</a></span>
-			</div>	
-		</div>
-	    <center>
-	    	<button class="btn btn-primary" onclick="print()" id="printbtn">Print</button>
-	    </center>
+	<!-- Pradeep code end -->
+    
+    
         
-<?php } ?>
+<?php }else{ ?> 
+<p style="font-size:50px;font-weight:bold;color:red;">Ticket Not Found</p>
+<?php }} ?>
 </div>
 <?php }else { ?>
 
@@ -292,17 +383,23 @@ include 'header.php';
 <section class="panel panel-featured-left panel-featured-primary">
 	<div class="panel-body">
 		<div class="widget-summary">
-		<div class="form-horizontal">
-           
+		<?php 
+            echo form_open('staff/updateticket',array('class' => 'form-horizontal', 'id' => 'myScan'));
+        ?>
+        
     		<div class="form-group">
 			  <label class="col-md-4 control-label" for="textinput">Ticket Number</label>  
 			  <div class="col-md-4">
-			  <input id="tckno" name="tckno" type="text" minlength=20  placeholder="Enter / Scan Ticket No." class="form-control input-md">
+			  <input id="tkno" name="tkno" type="text" minlength=20  placeholder="Enter / Scan Ticket No." class="form-control input-md" onblur="gettcktno()">
 			  </div>
 			  <div class="col-md-4">
-			    <button type="button" id="update" name="update"  class="btn btn-primary" onclick="getTicket()">Submit</button>
+			    <button type="submit" id="submit" name="submit"  class="btn btn-primary">Submit</button>
 			  </div>
 			</div>
+
+        <?php echo $this->session->flashdata('success'); ?>    
+
+        </form>
 			
 			<!-- Button -->
     	</div>
@@ -354,7 +451,7 @@ include 'header.php';
 
 $('document').ready(function(){
     $('#ticketdate-display').text($('#dateofvisit').val());
-    JsBarcode("#bcTarget", $('#ticketnumber').text(), {
+    JsBarcode("#bcTarget", $('#ticketnumber').val(), {
   
   lineColor: "black",
   width:1,
@@ -378,10 +475,20 @@ $('#searchtype').on('change',function(){
 function printfunction(){
 	window.print();
 }
+/*
+$('#tkno').blur(function(){
+	event.preventDefault();
+    getTicket();
+});*/
 
 function gettktnumber()
 {
     document.getElementById("myForm").submit();
+}
+
+function gettcktno()
+{
+    document.getElementById("myScan").submit();
 }
 
 </script>
@@ -392,7 +499,7 @@ function gettktnumber()
 
     function getTicket()
     {
-    	var ticketno=$('#tckno').val();
+    	var ticketno=$('#tkno').val();
 	    //alert(ticketno);
 	    $.ajax({
 	    type: "POST",
@@ -425,7 +532,7 @@ function gettktnumber()
 	if(e.keyCode == 13){   
 		
 	    var ticketno=$('#tckno').val();
-	    //alert(ticketno);
+	    alert(ticketno);
 	   
 	    $.ajax({
 	    type: "POST",
@@ -460,6 +567,15 @@ function gettktnumber()
 
 	
 </script>
+<script type="text/javascript">
+		function printDiv(divName) {
+			var printContents = document.getElementById(divName).innerHTML;
+			var originalContents = document.body.innerHTML;
+			document.body.innerHTML = printContents;
+			window.print();
+			document.body.innerHTML = originalContents;
+		}
+	</script>
 
 
 		

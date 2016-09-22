@@ -241,7 +241,7 @@ class Vendor extends CI_Controller {
 
                 $this->db->insert('tblevents', $data);
                 $this->session->set_flashdata('success','<div class="alert alert-success text-center">Record Inserted Successfully</div>');
-                //redirect('vendor/addevents');
+                 redirect('vendor/addevents');
                 
             }
             

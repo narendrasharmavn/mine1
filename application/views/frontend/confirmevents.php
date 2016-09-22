@@ -16,11 +16,11 @@
                                     <INPUT TYPE="hidden" NAME="udf1" value="NSE">
                                     <INPUT TYPE="hidden" NAME="udf4" value="NSE">
                                     
-                                    <INPUT TYPE="hidden" NAME="product" value="NSE">
+                                    <INPUT TYPE="hidden" NAME="product" value="ADEPTO">
                                     <INPUT TYPE="hidden" NAME="TType" value="NBFundTransfer">
 
-                                    <INPUT TYPE="hidden" NAME="clientcode" value="9654">
-                                    <INPUT TYPE="hidden" NAME="AccountNo" value="85654125485412">
+                                    <INPUT TYPE="hidden" NAME="clientcode" value="007">
+                                    <INPUT TYPE="hidden" NAME="AccountNo" value="1234567890">
 
                                     <INPUT TYPE="hidden" NAME="ru" value="<?php echo base_url(); ?>index.php/response">
                                     <input type="hidden" name="udf9" value="<?php echo  date('Ymdhisu'); ?>"/>
@@ -112,7 +112,7 @@
                                     
                                     <button type="button" class="btn btn_1 green re-enter-details">Edit Details</button>
                                     <br>
-                                    <span>*Did not recieve OTP in 120 seconds ?, please  <a class="resend-otp" style="cursor:hand;"> click here</a></span>
+                                    <span>*Did not recieve OTP in 120 seconds ?, please  <a class="resend-otp" style="cursor:pointer;"> click here</a></span>
                                 
                                 
                               </div>

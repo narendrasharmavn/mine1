@@ -65,7 +65,7 @@
 											<div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Address *</label>
 								                <div class="col-sm-7">
-								                  <textarea class="form-control" name="address"  ><?php echo $rows->address; ?></textarea>
+								                  <textarea class="address" name="address" id="address"><?php echo $rows->address; ?></textarea>	
 												  <span class="text-danger"><?php echo form_error('address'); ?></span>
 								                </div>
 								               
@@ -79,10 +79,6 @@
 								                </div>
 								               
 							                </div>
-
-							                
-
-							                
 
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Latitude</label>
@@ -103,8 +99,8 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Description *</label>
 								                <div class="col-sm-7">
-								                  <textarea class="form-control" name="description"  ><?php echo $rows->description; ?></textarea>
-												  <span class="text-danger"><?php echo form_error('description'); ?></span>
+								                	<textarea class="description" name="description" id="description"><?php echo $rows->description; ?></textarea>
+												    <span class="text-danger"><?php echo form_error('description'); ?></span>
 								                </div>
 								               
 							                </div>
@@ -112,8 +108,8 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Other Information</label>
 								                <div class="col-sm-7">
-								                  <textarea class="form-control" name="oinfo"  ><?php echo $rows->otherinfo; ?></textarea>
-												  <span class="text-danger"><?php echo form_error('oinfo'); ?></span>
+								                	<textarea class="oinfo" name="oinfo" id="oinfo"><?php echo $rows->otherinfo; ?></textarea>
+												    <span class="text-danger"><?php echo form_error('oinfo'); ?></span>
 								                </div>
 								               
 							                </div>

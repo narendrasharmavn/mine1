@@ -38,7 +38,7 @@
                ?>
             <?php echo $this->session->flashdata('success'); ?>
             <div class="row">
-               <div class="col-md-5 col-md-offset-1">
+               <div class="col-md-10">
                   
                   
                   <div class="form-group">
@@ -70,15 +70,7 @@
                       <span class="text-danger"><?php echo form_error('eventodate'); ?></span>
                     </div>
                   </div>
-                  <div class="form-group">
-                      <label for="inputEmail3" class="col-sm-5 control-label pull-left">Banner Image *</label>
-                      <div class="col-sm-7">
-                          <input type="file" id="packageimage" name="userfile">
-                    <span class="text-danger"><?php echo form_error('event'); ?></span>
-                      </div>
-                   </div>
-                </div>
-                <div class="col-md-5">
+                  
                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-5 control-label pull-left">FromTime </label>
                     <div class="col-sm-7">
@@ -93,6 +85,7 @@
                       <span class="text-danger"><?php echo form_error('totime'); ?></span>
                     </div>
                   </div>
+
                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-5 control-label pull-left">Latitude </label>
                     <div class="col-sm-7">
@@ -110,17 +103,22 @@
                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-5 control-label pull-left">Description *</label>
                     <div class="col-sm-7">
-                      <textarea class="form-control" name="description" id="description"  ><?php echo set_value('description'); ?></textarea>
+                      <textarea class="description" name="description" id="description" ><?php echo set_value('description'); ?></textarea>
                       <span class="text-danger"><?php echo form_error('description'); ?></span>
                     </div>
                   </div>
-                  
-                  <div>&nbsp;</div>
-                  <div>&nbsp;</div>
 
-                  <div>&nbsp;</div>
-               </div>
+                  <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-5 control-label pull-left">Banner Image *</label>
+                      <div class="col-sm-7">
+                        <input type="file" id="packageimage" name="userfile">
+                        <span class="text-danger"><?php echo form_error('event'); ?></span>
+                      </div>
+                  </div>
+                </div>
+              
             </div>
+            <div>&nbsp;</div>
             <center>
                <div class="form-group">
                   <label class="col-md-3 control-label"></label>

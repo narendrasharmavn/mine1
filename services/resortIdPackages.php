@@ -6,7 +6,7 @@ $resortIdDetails = array();
 $adultqty = 0;
 
 
-$sql2 = "SELECT r.bannerimage as bannerimage,r.latitude as latitude, r.longitude as longitude, p.description as description,p.packagename as packagename,p.adultprice as adultprice,p.childprice as childprice,p.packageid as packageid,p.mobileadultqty as mobileadultqty,p.mobilechildqty as mobilechildqty, r.location as location, r.resortname as resortname FROM tblresorts r LEFT JOIN tblpackages p ON r.resortid=p.resortid WHERE r.resortid='$resortid'";
+$sql2 = "SELECT r.bannerimage as bannerimage,r.latitude as latitude, r.longitude as longitude,r.description as rdescription, p.description as description,p.packagename as packagename,p.adultprice as adultprice,p.childprice as childprice,p.packageid as packageid,p.mobileadultqty as mobileadultqty,p.mobilechildqty as mobilechildqty, r.location as location, r.resortname as resortname FROM tblresorts r LEFT JOIN tblpackages p ON r.resortid=p.resortid WHERE r.resortid='$resortid'";
 //echo $sql2."<br>";
 //mysqli_set_charset("utf8");
 $result = mysqli_query($conn, $sql2);

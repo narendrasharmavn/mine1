@@ -61,7 +61,7 @@
 ?>
  <script>
 
-        var icon = new google.maps.MarkerImage("http://maps.google.com/mapfiles/ms/micons/blue.png",
+        var icon = new google.maps.MarkerImage("https://maps.google.com/mapfiles/ms/micons/blue.png",
         new google.maps.Size(32, 32), new google.maps.Point(0, 0),
         new google.maps.Point(16, 32));
         var center = null;
@@ -371,7 +371,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                                 <h4>Other Places in Hyderabad</h4>
                     
                 <?php 
-                    $query = $this->db->query("SELECT * FROM tblplaces where plid!='".$row->plid."'");
+                    $query = $this->db->query("SELECT * FROM tblplaces where plid!='".$row->plid."' order by plid DESC limit 5");
                     foreach ($query->result() as $k) {
                        $placename = $k->place;
                        $plid = $k->plid;

@@ -15,6 +15,7 @@
 		<script src="<?php echo base_url(); ?>assets/assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
 		<script src="<?php echo base_url(); ?>assets/assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
+		<script src="<?php echo base_url(); ?>assets/assets/vendor/summernote/summernote.js"></script>
 		
 		<!-- Theme Base, Components and Settings -->
 		<script src="<?php echo base_url(); ?>assets/assets/javascripts/theme.js"></script>

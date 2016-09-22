@@ -251,7 +251,7 @@ class Frontend extends CI_Controller {
           'review' => $reviewtext,
           'customerid' => $this->session->userdata('holidayCustomerId'),
           'resortoreventname' => $eventid,
-		      'status'=>1
+          'status'=>1
           );
 
         $this->db->insert('eventreviews', $data);
@@ -288,7 +288,7 @@ class Frontend extends CI_Controller {
           'review' => $reviewtext,
           'customerid' => $this->session->userdata('holidayCustomerId'),
           'placeid' => $placeid,
-		  'status' => 1
+      'status' => 1
           );
 
         $this->db->insert('placereviews', $data);
@@ -582,11 +582,11 @@ class Frontend extends CI_Controller {
       $ipaddress = $_SERVER['HTTP_CLIENT_IP']?:($_SERVER['HTTP_X_FORWARDE‌​D_FOR']?:$_SERVER['REMOTE_ADDR']);
 
       //check otp correct or not through session
-	  //echo "otp is: ".$OTP_CHECK."<BR>";
+    //echo "otp is: ".$OTP_CHECK."<BR>";
       
       $OTP_CHECK = $this->session->userdata('otp-resort-booking');
-	  
-	  
+    
+    
 
       if($OTP_CHECK==$otp){
 
@@ -664,7 +664,7 @@ class Frontend extends CI_Controller {
                         $calculatedinternetcharges += ( ($noofchildren * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->childprice) * $this->db->get_where('tblpackages' , array('packageid' => $packageid ))->row()->servicetax)/100;
 
                         //insert into database
-						            
+                        
                         $this->insertDataIntotblbookingsForMultiCheckoutNoSession($dateofvisit,$noofadults,$subtotal,$packageid,$vendorid,$noofchildren,$kidsmealqty,$ticketnumber,$customerid,$ipaddress);
                         //end of insert database
                  
@@ -690,8 +690,8 @@ class Frontend extends CI_Controller {
                 echo "calculatedkrishicess price ".$calculatedkrishicess."\n";
           echo "total price ".$total."\n";
           
-		  */
-		
+      */
+    
 
           $bokIdArr = $this->session->userdata('bookingsIdArray');
 
@@ -707,8 +707,8 @@ class Frontend extends CI_Controller {
       }else{
         echo "false";
       }
-	  
-	 
+    
+   
 
     }
 
@@ -738,13 +738,13 @@ class Frontend extends CI_Controller {
       $ipaddress = $_SERVER['HTTP_CLIENT_IP']?:($_SERVER['HTTP_X_FORWARDE‌​D_FOR']?:$_SERVER['REMOTE_ADDR']);
 
       $OTP_CHECK = $this->session->userdata('otp-event-booking');
-	  
-	  
-	
+    
+    
+  
 
       if ($OTP_CHECK==$otp) {
-		  
-		  //echo "this is".$OTP_CHECK."<br>";
+      
+      //echo "this is".$OTP_CHECK."<br>";
        
         $customerData = array(
 
@@ -753,11 +753,11 @@ class Frontend extends CI_Controller {
           'password' => hash('sha512',rand(9999,99999)),
           'number' => $mobile,
           'dateofcreation' => date('Y-m-d'),
-		      'regtype' => 'Guest'
+          'regtype' => 'Guest'
 
 
           );
-		  
+      
 
         $this->db->insert('tblcustomers',$customerData);
         $customerid = $this->db->insert_id();
@@ -771,7 +771,7 @@ class Frontend extends CI_Controller {
                     }else{
                       $ticketnumber = $m;
                     }
-		
+    
         $this->session->set_userdata('ticketnumber',$ticketnumber);
       $bookingsdata = array(
           'dateofvisit' => $this->session->userdata('dateofvisit'),
@@ -1492,7 +1492,7 @@ echo "true";
 
      if ($this->session->userdata('holidayEmail')) {
        # code...
-		//echo "vnedor id: ".$vendorid."\n";
+    //echo "vnedor id: ".$vendorid."\n";
         $this->db->insert('tblbookings',$bookingsdata); 
         $this->session->set_userdata('bookingsid',$this->db->insert_id());
 
@@ -1956,11 +1956,11 @@ echo "true";
           $resortid =  $query2->result()[0]->resortid;
           redirect('resorts/'.$resortname.'/'.$resortid);
         }else{
-			$sql3 = "SELECT * FROM tblresorts WHERE status=1 AND resortid !=1 AND (location LIKE '%$searchterm%' OR resortname LIKE '%$searchterm%' OR description LIKE '%$searchterm%') LIMIT 4";
-			$query2 = $this->db->query($sql3);
-		}
+      $sql3 = "SELECT * FROM tblresorts WHERE status=1 AND resortid !=1 AND (location LIKE '%$searchterm%' OR resortname LIKE '%$searchterm%' OR description LIKE '%$searchterm%') LIMIT 4";
+      $query2 = $this->db->query($sql3);
+    }
         $data['getdata'] = $query2;
-		
+    
 
         $this->session->set_userdata('limitcount',0);
         
@@ -2186,7 +2186,7 @@ echo "true";
         foreach ($getPriceResults->result() as $k) {
           $resorttitleurl = str_replace(" ", "-", $k->resortname);
           $sql = "select min(adultprice) as minprice from tblpackages WHERE resortid='$k->resortid' AND adultprice between '$startprice' AND '$endprice' ";
-		  //echo $sql;
+      //echo $sql;
           $query2 = $this->db->query($sql);
           $packagerow = $query2->row();
 
@@ -2266,7 +2266,7 @@ echo "true";
        
         $sql = "SELECT r.*,rp.* FROM tblplaces r LEFT JOIN tblplacesphotos rp ON r.plid=rp.plid WHERE r.status=1 AND r.place = '$searchterm' GROUP by rp.plid limit ".$data['page'].", ".$config['per_page'];
         //echo $sql."<br>";
-		
+    
 
         $query2 = $this->db->query($sql);
         if(count($query2->result())==1){
@@ -2279,8 +2279,8 @@ echo "true";
           redirect('places/'.$place.'/'.$plid);
           //echo "place is: ";
         }else{
-			 $sql3 = "SELECT r.*,rp.* FROM tblplaces r LEFT JOIN tblplacesphotos rp ON r.plid=rp.plid WHERE r.status=1 AND (r.address LIKE '%$searchterm%' OR r.place LIKE '%$searchterm%' OR r.description LIKE '%$searchterm%') GROUP by rp.plid limit ".$data['page'].", ".$config['per_page'];
-		}
+       $sql3 = "SELECT r.*,rp.* FROM tblplaces r LEFT JOIN tblplacesphotos rp ON r.plid=rp.plid WHERE r.status=1 AND (r.address LIKE '%$searchterm%' OR r.place LIKE '%$searchterm%' OR r.description LIKE '%$searchterm%') GROUP by rp.plid limit ".$data['page'].", ".$config['per_page'];
+    }
     $query2 = $this->db->query($sql3);
         $data['getdata'] = $query2;
         
@@ -2405,10 +2405,10 @@ echo "true";
         $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
         $searchterm = $this->session->userdata('searchterm');
-		
-		$sql= "select * from tblevents where status=1 and (fromdate<='".$this->session->userdata('searchdate')."' OR todate>='".$this->session->userdata('searchdate')."') AND eventname='".$this->session->userdata('searchterm')."'";
-		$query2 =$this->db->query($sql);
-		if(count($query2->result())==1){
+    
+    $sql= "select * from tblevents where status=1 and (fromdate<='".$this->session->userdata('searchdate')."' OR todate>='".$this->session->userdata('searchdate')."') AND eventname='".$this->session->userdata('searchterm')."'";
+    $query2 =$this->db->query($sql);
+    if(count($query2->result())==1){
          // echo '<pre>';
          // print_r($query2->result());
          // echo '</pre>';
@@ -2417,9 +2417,9 @@ echo "true";
           $eventid =  $query2->result()[0]->eventid;
           redirect('eventdetails/'.$eventname.'/'.$eventid);
         }else{
-			$sql3 = "SELECT * FROM tblevents WHERE status=1 AND (todate>='".$this->session->userdata('searchdate')."' AND fromdate<='".$this->session->userdata('searchdate')."') AND (location LIKE '%".$this->session->userdata('searchterm')."%' OR eventname LIKE '%".$this->session->userdata('searchterm')."%' OR description LIKE '%".$this->session->userdata('searchterm')."%' ) order by eventid limit 4";
-			$query2 =$this->db->query($sql3);
-		}
+      $sql3 = "SELECT * FROM tblevents WHERE status=1 AND (todate>='".$this->session->userdata('searchdate')."' AND fromdate<='".$this->session->userdata('searchdate')."') AND (location LIKE '%".$this->session->userdata('searchterm')."%' OR eventname LIKE '%".$this->session->userdata('searchterm')."%' OR description LIKE '%".$this->session->userdata('searchterm')."%' ) order by eventid limit 4";
+      $query2 =$this->db->query($sql3);
+    }
 
       
         $this->session->set_userdata('limitcount',0);
@@ -3097,7 +3097,7 @@ echo "true";
 
 
 
-        $sql = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and type='places' GROUP by pp.plid ORDER by p.plid DESC limit ".$data['page'].", ".$config['per_page'];
+        $sql = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and type='Things To Do' GROUP by pp.plid ORDER by p.plid DESC limit ".$data['page'].", ".$config['per_page'];
         //echo $sql."<br>";
 
         $query2 = $this->db->query($sql);
@@ -3109,6 +3109,62 @@ echo "true";
         //echo $sql; 
       $this->load->view('frontend/header');
       $this->load->view('frontend/placegridview',$data);
+
+}
+
+    public function resortgridview()
+    {
+      $this->load->library('pagination');
+
+      $numberOfRows = $this->FrontEndModel->getNumberOfRowsForResorts();
+
+       //echo $numberOfRows."<br>";
+       //pagination settings
+        $config['base_url'] = site_url('frontend/resortgridview');
+        $config['total_rows'] = $numberOfRows;
+        $config['per_page'] = "12";
+        $config["uri_segment"] = 3;
+        
+
+       
+
+        // integrate bootstrap pagination
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_link'] = false;
+        $config['last_link'] = false;
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['prev_link'] = '«';
+        $config['prev_tag_open'] = '<li class="prev">';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_link'] = '»';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active"><a href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $this->pagination->initialize($config);
+
+        $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+
+
+        $sql = "SELECT * FROM tblresorts WHERE status=1 ORDER by resortid DESC limit ".$data['page'].", ".$config['per_page'];
+        //echo $sql."<br>";
+
+        $query2 = $this->db->query($sql);
+        $data['getdata'] = $query2;
+        
+        $data['pagination'] = $this->pagination->create_links();
+       
+        $data['totalrows'] = $numberOfRows;
+        //echo $sql; 
+      $this->load->view('frontend/header');
+      $this->load->view('frontend/resortgridvieww',$data);
 
 }
 
@@ -3153,7 +3209,7 @@ echo "true";
 
 
 
-        $sql = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='kids' GROUP by pp.plid ORDER by p.plid DESC limit ".$data['page'].", ".$config['per_page'];
+        $sql = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='Kids Day Out' GROUP by pp.plid ORDER by p.plid DESC limit ".$data['page'].", ".$config['per_page'];
        // echo $sql."<br>";
 
         $query2 = $this->db->query($sql);
@@ -3209,7 +3265,7 @@ echo "true";
 
 
 
-        $sql = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='adventure' GROUP by pp.plid ORDER by p.plid DESC limit ".$data['page'].", ".$config['per_page'];
+        $sql = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='Adventure' GROUP by pp.plid ORDER by p.plid DESC limit ".$data['page'].", ".$config['per_page'];
         //echo $sql."<br>";
 
         $query2 = $this->db->query($sql);
@@ -3223,6 +3279,177 @@ echo "true";
      $this->load->view('frontend/adventure',$data);
 
 }
+
+public function shopping()
+    {
+      $this->load->library('pagination');
+
+      $numberOfRows = $this->FrontEndModel->getShoppingRows();
+
+       //echo $numberOfRows."<br>";
+       //pagination settings
+        $config['base_url'] = site_url('frontend/shopping');
+        $config['total_rows'] = $numberOfRows;
+        $config['per_page'] = "12";
+        $config["uri_segment"] = 3;
+        
+
+       
+
+        // integrate bootstrap pagination
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_link'] = false;
+        $config['last_link'] = false;
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['prev_link'] = '«';
+        $config['prev_tag_open'] = '<li class="prev">';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_link'] = '»';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active"><a href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $this->pagination->initialize($config);
+
+        $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+
+
+        $sql = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='Shopping & Fashion' GROUP by pp.plid ORDER by p.plid DESC limit ".$data['page'].", ".$config['per_page'];
+        //echo $sql."<br>";
+
+        $query2 = $this->db->query($sql);
+        $data['getdata'] = $query2;
+        
+        $data['pagination'] = $this->pagination->create_links();
+       
+        $data['totalrows'] = $numberOfRows;
+     //   echo $numberOfRows; 
+      $this->load->view('frontend/header');
+     $this->load->view('frontend/shopping',$data);
+
+}
+
+public function weddings()
+    {
+      $this->load->library('pagination');
+
+      $numberOfRows = $this->FrontEndModel->getWeddingRows();
+
+       //echo $numberOfRows."<br>";
+       //pagination settings
+        $config['base_url'] = site_url('frontend/weddings');
+        $config['total_rows'] = $numberOfRows;
+        $config['per_page'] = "12";
+        $config["uri_segment"] = 3;
+        
+
+       
+
+        // integrate bootstrap pagination
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_link'] = false;
+        $config['last_link'] = false;
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['prev_link'] = '«';
+        $config['prev_tag_open'] = '<li class="prev">';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_link'] = '»';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active"><a href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $this->pagination->initialize($config);
+
+        $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+
+
+        $sql = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='Weddings/Banquets' GROUP by pp.plid ORDER by p.plid DESC limit ".$data['page'].", ".$config['per_page'];
+        //echo $sql."<br>";
+
+        $query2 = $this->db->query($sql);
+        $data['getdata'] = $query2;
+        
+        $data['pagination'] = $this->pagination->create_links();
+       
+        $data['totalrows'] = $numberOfRows;
+     //   echo $numberOfRows; 
+      $this->load->view('frontend/header');
+     $this->load->view('frontend/weddings',$data);
+
+}
+
+public function nightlife()
+    {
+      $this->load->library('pagination');
+
+      $numberOfRows = $this->FrontEndModel->getNightlifeRows();
+
+       //echo $numberOfRows."<br>";
+       //pagination settings
+        $config['base_url'] = site_url('frontend/nightlife');
+        $config['total_rows'] = $numberOfRows;
+        $config['per_page'] = "12";
+        $config["uri_segment"] = 3;
+        
+
+       
+
+        // integrate bootstrap pagination
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_link'] = false;
+        $config['last_link'] = false;
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['prev_link'] = '«';
+        $config['prev_tag_open'] = '<li class="prev">';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_link'] = '»';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active"><a href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $this->pagination->initialize($config);
+
+        $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+
+
+        $sql = "SELECT p.*,pp.* FROM tblplaces p LEFT JOIN tblplacesphotos pp ON p.plid=pp.plid WHERE p.status=1 and p.type='Night Life' GROUP by pp.plid ORDER by p.plid DESC limit ".$data['page'].", ".$config['per_page'];
+        //echo $sql."<br>";
+
+        $query2 = $this->db->query($sql);
+        $data['getdata'] = $query2;
+        
+        $data['pagination'] = $this->pagination->create_links();
+       
+        $data['totalrows'] = $numberOfRows;
+     //   echo $numberOfRows; 
+      $this->load->view('frontend/header');
+     $this->load->view('frontend/nightlife',$data);
+
+}
+
+
+
 
 
 
@@ -3336,23 +3563,23 @@ echo "true";
         $this->load->view('frontend/header');
         $this->load->view('frontend/login');
     }
-	public function terms(){
+  public function terms(){
         $this->load->view('frontend/header');
         $this->load->view('frontend/terms');
     }
-	public function paymentpolicy(){
+  public function paymentpolicy(){
         $this->load->view('frontend/header');
         $this->load->view('frontend/payment_policy');
     }
-	public function cancellationpolicy(){
+  public function cancellationpolicy(){
         $this->load->view('frontend/header');
         $this->load->view('frontend/cancellation_policy');
     }
-	public function privacypolicy(){
+  public function privacypolicy(){
         $this->load->view('frontend/header');
         $this->load->view('frontend/privacy_policy');
     }
-	public function contactus(){
+  public function contactus(){
         $this->load->view('frontend/header');
         $this->load->view('frontend/contact_us');
     }

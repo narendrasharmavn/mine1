@@ -201,7 +201,7 @@ border-radius: 3px;
 }
 
 /* Margin tools */
-.margin_60 {padding-top:30px; padding-bottom:30px;}
+.margin_60 {padding-top:0px; padding-bottom:0px;}
 .margin_30 {margin-top:15px; margin-bottom:15px;}
 
 /* Parallax bg */

@@ -161,6 +161,16 @@ class Admin extends CI_Controller {
     }
 
 
+    public function deleteMobileSlider()
+    {
+      $id = $this->input->post('uid');
+     
+              $this->db->delete('mobilesliders', array('id' => $id));
+              $this->session->set_flashdata('success','<div class="alert alert-success text-center">The file has been deleted</div>');
+          
+    }
+
+
 
     public function vendorcomissionreports($vendorid='',$fromdate='',$todate='')
     {
@@ -1457,6 +1467,75 @@ public function submitvendordata(){
       
       $data['results'] = $this->Adminmodel->getSlidersData();
       $this->load->view('admin/addsliders',$data);
+    }
+
+    public function mobilesliders()
+    {
+      if (!$this->session->userdata('username')) 
+              redirect('admin/login');
+      
+      $data['results'] = $this->Adminmodel->getMobileSliders();
+      $this->load->view('admin/mobilesliders',$data);
+    }
+
+    public function getNamesMobileSlider(){
+      $type = $this->input->post('type');
+      $sql = "";
+      //echo $type;
+      if ($type=="resortdetails") {
+        $sql = "SELECT resortid as id,resortname as name FROM tblresorts WHERE status=1 ORDER BY resortid desc";
+      }else if($type=="eventdetails"){
+        $sql = "SELECT eventid as id,eventname as name FROM tblevents WHERE status=1 ORDER BY eventid desc";
+      }else {
+        $sql = "SELECT plid as id,place as name FROM tblplaces WHERE status=1 ORDER BY plid desc";
+      }
+     
+
+      $query = $this->db->query($sql);
+
+        foreach ($query->result() as $k) {
+          ?>
+          <option value="<?php echo $k->id;  ?>"><?php echo $k->name;  ?></option>
+        
+          <?php
+                               
+        }
+
+
+
+    }
+
+    public function submitmobilesliders()
+    {
+      $title = $this->input->post('title');
+      $type = $this->input->post('type');
+      $value = $this->input->post('value');
+      
+
+      $config['upload_path']   = './assets/sliderimages';
+      $config['allowed_types'] = 'gif|jpg|png';
+      
+      $this->load->library('upload', $config);
+      if (!$this->upload->do_upload('userfile'))
+      {
+          $error = array('error' => $this->upload->display_errors());
+          $this->session->set_flashdata('success',$error);
+      } else {
+        $imageInformation = $this->upload->data();
+        $this->imagename = $imageInformation['file_name'];
+        $this->filepath = $imageInformation['file_path'];
+        $data = array(
+           'title' => $title ,
+           'type' => $type ,
+           'value' => $value,
+           'image' => $this->imagename,
+           'status' =>1
+        );
+        $this->db->insert('mobilesliders', $data); 
+      }
+      
+      $this->session->set_flashdata('success','<div class="alert alert-success text-center">Slider Created</div>');
+      redirect('admin/mobilesliders');
     }
 
     public function submitsliders()

@@ -44,7 +44,7 @@
 								        <?php echo $this->session->flashdata('success'); ?>
 
                                             <div class="row">
-						                        <div class="col-md-5 col-md-offset-1">
+						                        <div class="col-md-10">
                                                      <div class="form-group">
 										                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Resorts *</label>
 										                <div class="col-sm-7">
@@ -64,13 +64,7 @@
 										                </div>
 									                </div>
 
-									                <div class="form-group">
-										                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Adult Price *</label>
-										                <div class="col-sm-7">
-										                  <input type="number" class="form-control" name="aprice" id="aprice" placeholder="Enter Adult Price" value="<?php echo set_value('aprice'); ?>">
-														  <span class="text-danger"><?php echo form_error('aprice'); ?></span>
-										                </div>
-									                </div>
+									                
 
 									                <div class="form-group">
 										                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Tags </label>
@@ -83,7 +77,8 @@
 									                <div class="form-group">
 										                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Description *</label>
 										                <div class="col-sm-7">
-										                  <textarea class="form-control" name="description" id="description"  ><?php echo set_value('description'); ?></textarea>
+										                	<textarea class="description" name="description" id="description"><?php echo set_value('description'); ?></textarea>
+										                  
 														  <span class="text-danger"><?php echo form_error('description'); ?></span>
 										                </div>  
 									                </div>
@@ -95,14 +90,20 @@
 														  <span class="text-danger"><?php echo form_error('expirydate'); ?></span>
 										                </div>
 									                </div>
-									                <div>&nbsp;</div>
-						                        </div>
-						                        <div class="col-md-5">
-                                                    <div class="form-group">
+
+									                <div class="form-group">
 										                <label for="inputEmail3" class="col-sm-5 col-xs-5 control-label pull-left">Package Name *</label>
 										                <div class="col-sm-7 col-xs-7">
 										                  <input type="text" class="form-control" name="packagename" id="packagename" placeholder="Enter Package Name" value="<?php echo set_value('packagename'); ?>">
 														  <span class="text-danger"><?php echo form_error('packagename'); ?></span>
+										                </div>
+									                </div>
+
+									                <div class="form-group">
+										                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Adult Price *</label>
+										                <div class="col-sm-7">
+										                  <input type="number" class="form-control" name="aprice" id="aprice" placeholder="Enter Adult Price" value="<?php echo set_value('aprice'); ?>">
+														  <span class="text-danger"><?php echo form_error('aprice'); ?></span>
 										                </div>
 									                </div>
 
@@ -150,6 +151,8 @@
 														  <span class="text-danger"><?php echo form_error('event'); ?></span>
 										                </div>
 									                </div>
+
+									                <div>&nbsp;</div>
 						                        </div>
 						                    </div>
 								            

@@ -73,6 +73,11 @@ for($i=0;$i<count($request->obj);$i++){
     //echo "\n kidmealtax ".$kidmealtax;
    //echo "\n internetcharges ".$servicecharges."\n swachcess : ".$swachcess."\n krishicess : ".$krishicess."\n Total : ".$total;
 
+    $adultticketprice = sprintf(round($adultticketprice , 2) == intval($adultticketprice ) ? "%.2f" : "%.2f", $adultticketprice );
+
+    $childticketprice = sprintf(round($childticketprice , 2) == intval($childticketprice ) ? "%.2f" : "%.2f", $childticketprice );
+
+    $kidmealprice = sprintf(round($kidmealprice , 2) == intval($kidmealprice ) ? "%.2f" : "%.2f", $kidmealprice );
 
    $calculatedTotal = array(
     "adultqty"  => $adultqty,

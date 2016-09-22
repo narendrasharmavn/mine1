@@ -8,12 +8,12 @@
   .carousel { margin-top: 5px !important; }          /* style.css - 2120 / add customedia css */
   .margin_61 { background-color:#FFFFFF !important; }      /* add customedia css */
   
-  .events-thumb { margin-left: 20px !important;
-                  min-width: 350px !important;
+  .events-thumb { margin-left: 15px !important;
+                  min-width: 325px !important;
                  min-height: 0px !important; }
 
-  .places-thumb { margin-left: 20px !important;
-                  min-width: 350px !important;
+  .places-thumb { margin-left: 40px !important;
+                  min-width: 225px !important;
                  min-height: 0px !important; }                       /* add customedia css */
           /* add customedia css */
   #social_footer p { text-align: center !important; }      /* add customedia css */
@@ -91,7 +91,7 @@
                             </div>
                             </div>
       <!-- ForNext Slider -->
-      <div id="jssor_1" class="jssor_1 hidden-sm hidden-xs">
+      <div id="jssor_1" class="jssor_1">
         <!-- Loading Screen -->
         <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
             <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
@@ -129,147 +129,7 @@
     <script>
         jssor_1_slider_init();
     </script>
-    <div class="margin_61 slidercontainerm" style="background:#FFF;">
     
-    
-    <div class="row">
-        <!-- Carousel -->
-        
-                            
-        <div id="carousel-example-generic" class="carousel slide col-md-9 hidden-lg hidden-md" data-ride="carousel">
-        
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-            <?php
-            $i=0;
-            foreach ($query->result() as $k) {
-                if($i==1){
-                    ?>
-
-                    <li data-target="#carousel-example-generic" data-slide-to="<?php echo $i;  ?>" class="active"></li>
-
-                    <?php
-}else{
-    ?>
-<li data-target="#carousel-example-generic" data-slide-to="<?php echo $i;  ?>" ></li>
-    <?php
-}
-
-$i++;
-            }
-            ?>
-               
-            </ol>
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner">
-                <?php
-            //$i=0;
-            //foreach ($query->result() as $k) {
-            //    if($i==1){
-                    ?>
-
-                    <div class="item active">
-                    <img src="<?php echo base_url(); ?>assets/sliderimages/2.jpg" alt="<?php //echo $k->image; ?>">
-                                        <div class="header-text hidden-xs">
-                        <div class="col-md-12 text-center">
-                            <h2>
-                                <span>Welcome to <strong><?php //echo $k->title; ?></strong></span>
-                            </h2>
-                            <br>
-                            <h3>
-                                <span><?php //echo $k->subtitle; ?></span>
-                            </h3>
-                            <br>
-                            <div class="">
-                                <a class="btn btn-danger btn-sm btn-min-block" href="<?php //echo $k->link; ?>"><?php //echo $k->name; ?></a></div>
-                        </div>
-                    </div><!-- /header-text -->
-                </div>
-
-                    <?php
-//}else{
-    ?>
-<div class="item">
-                    <img src="<?php echo base_url(); ?>assets/sliderimages/4.jpg" alt="<?php //echo $k->image; ?>">
-                    <!-- Static Header -->
-                    <div class="header-text hidden-xs">
-                        <div class="col-md-12 text-center">
-                            <h2>
-                                <span>Some Text Comes Here<strong><?php //echo $k->title; ?></strong></span>
-                            </h2>
-                            <br>
-                            <h3>
-                                <span><?php //echo $k->subtitle; ?></span>
-                            </h3>
-                            <br>
-                            <div class="">
-                                <a class="btn btn-danger btn-sm btn-min-block" href="<?php //echo $k->link; ?>"><?php //echo $k->name; ?></a></div>
-                        </div>
-                    </div><!-- /header-text -->
-                </div>
-				<div class="item">
-                    <img src="<?php echo base_url(); ?>assets/sliderimages/8.jpg" alt="<?php //echo $k->image; ?>">
-                    <!-- Static Header -->
-                    <div class="header-text hidden-xs">
-                        <div class="col-md-12 text-center">
-                            <h2>
-                                <span>Some Text Comes Here<strong><?php //echo $k->title; ?></strong></span>
-                            </h2>
-                            <br>
-                            <h3>
-                                <span><?php //echo $k->subtitle; ?></span>
-                            </h3>
-                            <br>
-                            <div class="">
-                                <a class="btn btn-danger btn-sm btn-min-block" href="<?php //echo $k->link; ?>"><?php //echo $k->name; ?></a></div>
-                        </div>
-                    </div><!-- /header-text -->
-                </div>
-				<div class="item">
-                    <img src="<?php echo base_url(); ?>assets/sliderimages/10.jpg" alt="<?php //echo $k->image; ?>">
-                    <!-- Static Header -->
-                    <div class="header-text hidden-xs">
-                        <div class="col-md-12 text-center">
-                            <h2>
-                                <span>Some Text Comes Here<strong><?php //echo $k->title; ?></strong></span>
-                            </h2>
-                            <br>
-                            <h3>
-                                <span><?php //echo $k->subtitle; ?></span>
-                            </h3>
-                            <br>
-                            <div class="">
-                                <a class="btn btn-danger btn-sm btn-min-block" href="<?php //echo $k->link; ?>"><?php //echo $k->name; ?></a></div>
-                        </div>
-                    </div><!-- /header-text -->
-                </div>
-    <?php
-//}
-
-//$i++;
-  //          }
-            ?>
-
-              
-
-                
-                
-            </div>
-            <!-- Controls 
-            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-            </a>-->
-        </div><!-- /carousel -->
-        </div>
-    </div>
-    <!-- End Slider -->
-    </div>
-    <!-- End Slider -->
-
-       
 
        
 <div class="banner colored hidden-lg hidden-md">
@@ -339,12 +199,13 @@ $i++;
             </div>
                         </div><!-- End row -->
             </div>
+            <div class="container margin_60">
 <?php
 
 if (count($events->result())>0) {
   ?>
 
-    <div class="container margin_60">
+    
     
         <div class="main_title">
             <h2 class="bar_title"><span>Latest Events</span></h2> 
@@ -366,7 +227,7 @@ if (count($events->result())>0) {
                        <a href="<?php echo site_url().'eventdetails/'.$eventtitleurl.'/'.$k->eventid;   ?> ">
                        <img src="<?php echo base_url().'assets/eventimages/'.$k->bannerimage; ?>" alt="Image" style="min-height:200px;" class="img-responsive">
                        <div class="short_info">
-                            <i class="icon_set_1_icon-44"></i><?php echo $k->eventname; ?>
+                            <?php echo $k->eventname; ?>
 		       </div>
                        </a>
                     </div>
@@ -425,6 +286,51 @@ if (count($events->result())>0) {
 
 ?>
 
+<!-- View All Resorts -->
+<?php 
+$resorts = $this->db->query("SELECT * FROM tblresorts WHERE status=1 ORDER BY resortid desc limit 4");
+if (count($resorts->result())>0) {
+?>
+<div class="main_title">
+    <h2 class="bar_title"><span>Featured Resorts</span></h2>
+</div>
+<div class="row">
+    <?php 
+                        
+      foreach ($resorts->result() as $k) {
+         $resortid = $k->resortid;
+         $resortname = $k->resortname;
+         //echo $placename."<br>";
+         $rdescription = $k->description;
+         //echo $pdescription."<br>";
+         $photoname = $k->bannerimage;
+         //echo $photoname."<br>";
+         $resorttitleurl = str_replace(" ", "-", $k->resortname);
+
+    ?>
+    <div class="col-md-3 col-sm-6 text-center places-thumb">
+        <div class="img_container">
+            <p>
+                <a href="<?php echo site_url().'resorts/'.$resorttitleurl.'/'.$k->resortid; ?>">
+                <img src="<?php echo base_url(); ?>/assets/resortimages/<?php echo $photoname; ?>" alt="Pic" width="800" height="450" style="height: 200px;" class="img-responsive">
+            </p>
+            <div class="short_info">
+                <?php echo $resortname; ?>
+            </div></a>
+        </div>
+        <p style="padding: 5px;">
+            <?php echo substr($rdescription,0,100)."...."; ?>
+        </p>
+    </div>
+<?php } ?>
+</div>
+
+
+    <p class="text-center add_bottom_30">
+        <a href="<?php echo site_url().'resortsall' ?>" class="btn_1 green medium"><i class="icon-eye-7"></i>View all Resorts  </a>
+    </p>
+<?php } ?>
+<!-- View All Resorts -->
 
 <?php
 $query = $this->db->query("SELECT * FROM tblplaces WHERE status=1 ORDER BY plid desc limit 4");
@@ -465,7 +371,7 @@ if (count($query->result())>0) {
 						<img src="<?php echo base_url(); ?>/assets/places/<?php echo $photoname; ?>" alt="Pic" width="800" height="450" style="height: 200px;" class="img-responsive">
                   </p>
 				   <div class="short_info">
-                            <i class="icon_set_1_icon-44"></i><?php echo $placename; ?>
+                            <?php echo $placename; ?>
 		       </div></a>
 			   </div>
                   <!--<div class="place_title">

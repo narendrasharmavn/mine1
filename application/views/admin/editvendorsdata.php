@@ -75,7 +75,7 @@
 											<div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Address 1 *</label>
 								                <div class="col-sm-7">
-								                  <textarea class="form-control" name="address1"><?php echo $rows->Address1; ?></textarea>
+								                	<textarea class="address1" name="address1" id="address1"><?php echo $rows->Address1; ?></textarea>
 												  <span class="text-danger"><?php echo form_error('address1'); ?></span>
 								                </div>
 								               
@@ -84,7 +84,7 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Address 2</label>
 								                <div class="col-sm-7">
-								                  <textarea class="form-control" name="address2" ><?php echo $rows->Address2; ?></textarea>
+								                	<textarea class="address2" name="address2" id="address2"><?php echo $rows->Address2; ?></textarea>
 												  <span class="text-danger"><?php echo form_error('address2'); ?></span>
 								                </div>
 								               

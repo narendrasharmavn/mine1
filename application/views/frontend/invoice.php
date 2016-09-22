@@ -286,9 +286,9 @@ foreach ($query->result() as $k) {
 $('document').ready(function(){
     $('#ticketdate-display').text($('#dateofvisit').val());
     JsBarcode("#bcTarget", $('#ticketnumber').text(), {
-  
+  format: "CODE128",
   lineColor: "black",
-  width:1,
+  width:2,
   height:40,
   
 });

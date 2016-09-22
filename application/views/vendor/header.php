@@ -34,8 +34,8 @@
 		<!-- Theme CSS -->
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/assets/stylesheets/theme.css" />
 
-		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/assets/vendor/summernote/summernote.css" />
-		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/assets/vendor/summernote/summernote-bs3.css" />
+		<!--<link rel="stylesheet" href="<?php echo base_url(); ?>assets/assets/vendor/summernote/summernote.css" />
+		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/assets/vendor/summernote/summernote-bs3.css" />-->
 
 		<!-- Skin CSS -->
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/assets/stylesheets/skins/default.css" />
@@ -50,6 +50,28 @@
 		<!-- drop zone css -->
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/assets/vendor/dropzone/css/dropzone.css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/assets/vendor/bootstrap-markdown/css/bootstrap-markdown.min.css" />
+
+                <script src="<?php echo base_url(); ?>assets/tinymce/tinymce.min.js"></script>
+        <script>
+          tinymce.init({ 
+          	selector:'textarea',
+          	 theme: 'modern',
+          	 plugins: [
+				'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+				'searchreplace wordcount visualblocks visualchars code fullscreen',
+				'insertdatetime media nonbreaking save table contextmenu directionality',
+				'emoticons template paste textcolor colorpicker textpattern imagetools'
+			],
+			toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+			toolbar2: 'print preview media | forecolor backcolor emoticons',
+			image_advtab: true,
+			templates: [
+			    { title: 'Test template 1', content: 'Test 1' },
+			    { title: 'Test template 2', content: 'Test 2' }
+			]
+          });
+        </script>
+
 	</head>
 	<body>
 		<section class="body">
