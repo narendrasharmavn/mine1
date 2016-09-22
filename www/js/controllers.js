@@ -124,7 +124,7 @@ app.controller('ResponseCtrl',function($scope,$ionicSlideBoxDelegate,$ionicNavBa
           $scope.res.failed=true;
         }
         window.localStorage.setItem("ticketnumber",'');
-        //var paymenturl = myconfig.webservicesurl+"/confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
+        //var paymenturl = myconfig.webservicesurl+"confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
         
     });
 
@@ -206,10 +206,10 @@ app.controller('CheckOutOptionEventCtrl',function($scope,$state,$http,webservice
     webservices.saveUserSelectedSessionAndUserSelectionsAndUserTotalsEventsWithLogin($scope.c,$scope.usertotals, $scope.userselectedoptions ).success(function (response) {
         console.clear();
         console.log(response);
-        var paymenturl = myconfig.webservicesurl+"/confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
+        var paymenturl = myconfig.webservicesurl+"confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
 		    console.log(paymenturl);
-        var finalurl = myconfig.webservicesurl+"/test.php";
-        var responseurl = myconfig.webservicesurl+"/responsemulticheckout.php";
+        var finalurl = myconfig.webservicesurl+"test.php";
+        var responseurl = myconfig.webservicesurl+"responsemulticheckout.php";
                       try {
                           ref = window.open(paymenturl,'_blank','location=no'); //encode is needed if you want to send a variable with your link if not you can use ref = window.open(url,'_blank','location=no');
                                ref.addEventListener('loadstop', LoadStop);
@@ -305,9 +305,9 @@ app.controller('CheckOutOptionEventCtrl',function($scope,$state,$http,webservice
          webservices.saveUserSelectedSessionAndUserSelectionsAndUserTotalsEvents($scope.c, $scope.usertotals, $scope.userselectedoptions ).success(function (response) {
                   //console.clear();
                   console.log(response);
-                  var paymenturl = myconfig.webservicesurl+"/confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
-                  var finalurl = myconfig.webservicesurl+"/test.php";
-                  var responseurl = myconfig.webservicesurl+"/responsemulticheckout.php";
+                  var paymenturl = myconfig.webservicesurl+"confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
+                  var finalurl = myconfig.webservicesurl+"test.php";
+                  var responseurl = myconfig.webservicesurl+"responsemulticheckout.php";
                       try {
                                ref = window.open(paymenturl,'_blank','location=no'); //encode is needed if you want to send a variable with your link if not you can use ref = window.open(url,'_blank','location=no');
                                ref.addEventListener('loadstop', LoadStop);
@@ -397,9 +397,9 @@ app.controller('checkOutOptionResortsCtrl',function($scope,$state,$http,webservi
     webservices.saveUserSelectedSessionAndUserSelectionsAndUserTotalsResortsWithLogin($scope.c,$scope.usertotals, $scope.userselectedoptions ).success(function (response) {
         //console.clear();
         console.log(response);
-        var paymenturl = myconfig.webservicesurl+"/confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
-        var finalurl = myconfig.webservicesurl+"/test.php";
-                  var responseurl = myconfig.webservicesurl+"/responsemulticheckout.php";
+        var paymenturl = myconfig.webservicesurl+"confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
+        var finalurl = myconfig.webservicesurl+"test.php";
+                  var responseurl = myconfig.webservicesurl+"responsemulticheckout.php";
                       try {
                                ref = window.open(paymenturl,'_self','location=no,clearcache=yes'); //encode is needed if you want to send a variable with your link if not you can use ref = window.open(url,'_blank','location=no');
                                ref.addEventListener('loadstop', LoadStop);
@@ -492,8 +492,8 @@ app.controller('checkOutOptionResortsCtrl',function($scope,$state,$http,webservi
                   console.clear();
                   console.log(response);
                   var paymenturl = myconfig.webservicesurl+"/confirm.php?data="+encodeURIComponent(JSON.stringify(response));
-                  var finalurl = myconfig.webservicesurl+"/test.php";
-                  var responseurl = myconfig.webservicesurl+"/responsemulticheckout.php";
+                  var finalurl = myconfig.webservicesurl+"test.php";
+                  var responseurl = myconfig.webservicesurl+"responsemulticheckout.php";
                       try {
                           ref = window.open(paymenturl,'_blank','location=no'); //encode is needed if you want to send a variable with your link if not you can use ref = window.open(url,'_blank','location=no');
                                ref.addEventListener('loadstop', LoadStop);
@@ -579,10 +579,10 @@ app.controller('checkOutOptionCtrl',function($scope,$state,$http,webservices,myc
     webservices.saveUserSelectedSessionAndUserSelectionsAndUserTotalsMultiCheckOutWithLogin($scope.c, $scope.usertotals, $scope.userselectedoptions ).success(function (response) {
         //console.clear();
         console.log(response);
-        var paymenturl = myconfig.webservicesurl+"/confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
+        var paymenturl = myconfig.webservicesurl+"confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
 		    console.log(paymenturl);
-        var finalurl = myconfig.webservicesurl+"/test.php";
-                  var responseurl = myconfig.webservicesurl+"/responsemulticheckout.php";
+        var finalurl = myconfig.webservicesurl+"test.php";
+                  var responseurl = myconfig.webservicesurl+"responsemulticheckout.php";
                       try {
                           ref = window.open(paymenturl,'_blank','location=no'); //encode is needed if you want to send a variable with your link if not you can use ref = window.open(url,'_blank','location=no');
                                ref.addEventListener('loadstop', LoadStop);
@@ -669,8 +669,8 @@ app.controller('checkOutOptionCtrl',function($scope,$state,$http,webservices,myc
                   //console.clear();
                   console.log(response);
                   var paymenturl = myconfig.webservicesurl+"/confirm.php?data="+encodeURIComponent(JSON.stringify(response));
-                  var finalurl = myconfig.webservicesurl+"/test.php";
-                  var responseurl = myconfig.webservicesurl+"/responsemulticheckout.php";
+                  var finalurl = myconfig.webservicesurl+"test.php";
+                  var responseurl = myconfig.webservicesurl+"responsemulticheckout.php";
                       try {
                           ref = window.open(paymenturl,'_blank','location=no'); //encode is needed if you want to send a variable with your link if not you can use ref = window.open(url,'_blank','location=no');
                                ref.addEventListener('loadstop', LoadStop);
