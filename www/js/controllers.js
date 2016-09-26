@@ -3229,7 +3229,7 @@ app.factory('process', function($http,myconfig){
 
     getslidersdata: function()
     {
-      return $http.get(myconfig.webservicesurl+'/getslidersdata.php')
+      return $http.get(myconfig.webservicesurl+'getslidersdata.php')
       .success(function(data, status, headers,config){
         console.log('data success');
         console.log("Data Length: "+data.length+"\n"); // for browser console

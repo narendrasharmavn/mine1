@@ -14,8 +14,8 @@
     <div class="row">
       <div class="col col-80">
 	  <h4>{{userBookingDetails[0].place}}</h4>
-      <p class="details">{{userBookingDetails[0].otherinfo}}</p>
-      <p>{{userBookingDetails[0].address}}</p>
+      <p class="details" ng-bind-html="userBookingDetails[0].otherinfo"></p>
+      <p ng-bind-html="userBookingDetails[0].address"></p>
           
       </div>
 
@@ -54,7 +54,9 @@
       <p>{{r.subject}}</p>
       <p>{{r.review}}</p>
     </a>
+    <!--
 	<br><h4 ng-show="noreviews"><b style="float:left;">No Reviews</b>
+  -->
 	</h4>
 	
 
