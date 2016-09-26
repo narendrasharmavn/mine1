@@ -50,9 +50,11 @@
       
       </p>
     </div>
+    <!--
 	<div class="row" ng-show="nopackage" >
 		No Packages Found
 	</div>
+-->
 		<div class="row">
 	<div class="col col-100">
 		<center>
@@ -61,7 +63,7 @@
 	</center>
 	</div>
 	</div>
-	<div class="list list-inset" >
+	<div class="list list-inset" ng-if="count(eventreviews)>0" >
 	<h5><b>User Reviews</b></h5>
     <a class="item item-avatar" href="" ng-repeat="r in eventreviews">
       <img src="img/usericon.png">
