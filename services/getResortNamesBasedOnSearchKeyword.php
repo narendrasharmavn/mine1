@@ -9,7 +9,7 @@ $data = array();
     $resortname = $request->search;
 	
 		
-		$sql = "SELECT resortid,resortname from tblresorts WHERE status=1 AND resortname LIKE '%$resortname%' limit 4";
+		$sql = "SELECT resortid,resortname from tblresorts WHERE status=1 AND resortid!=1 AND resortname LIKE '%$resortname%' limit 4";
 			$result = mysqli_query($conn, $sql);
 
 			if (mysqli_num_rows($result) > 0) {
