@@ -200,7 +200,7 @@ echo $vendorname." , ";
 					 <input type="hidden" value="<?php echo $vkidsmealprice; ?>" id="kidsmeal-price" class="qty2 form-control <?php echo 'kidsmeal-price-'.$vkidsmealprice; ?>" >               
 			   <?php
 			    if (count($packages->result())==0) {
-                    echo '<h3 style="color:red;">No Packages</h3>';
+                    //echo '<h3 style="color:red;">No Packages</h3>';
                 } else {
                     # code...
                 

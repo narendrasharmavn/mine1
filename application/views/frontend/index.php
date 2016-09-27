@@ -333,7 +333,7 @@ if (count($resorts->result())>0) {
 <!-- View All Resorts -->
 
 <?php
-$query = $this->db->query("SELECT * FROM tblplaces WHERE status=1 ORDER BY plid desc limit 4");
+$query = $this->db->query("SELECT * FROM tblplaces WHERE type='Things To Do' AND status=1 ORDER BY plid desc limit 4");
 
 if (count($query->result())>0) {
     
@@ -344,7 +344,7 @@ if (count($query->result())>0) {
     
     
             <div class="main_title">
-                <h2 class="bar_title"><span>Popular Places in Hyderabad</span></h2>
+                <h2 class="bar_title"><span>Things to Do</span></h2>
                 
             </div>
 
@@ -386,7 +386,7 @@ if (count($query->result())>0) {
             </div><!-- End row -->
 
             <p class="text-center add_bottom_30">
-            <a href="<?php echo site_url().'placesall' ?>" class="btn_1 green medium"><i class="icon-eye-7"></i>View all Places  </a>
+            <a href="<?php echo site_url().'placesall' ?>" class="btn_1 green medium"><i class="icon-eye-7"></i>View all </a>
         </p>
 
            
@@ -529,7 +529,7 @@ $("#searchform").validate({
                 required:"Please choose a date"
             },
             searchterm: {
-                required: "Please type a letter or word in searchterm"
+                required: "Please type a letter or word in search term"
             }
         },
         

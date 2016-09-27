@@ -142,6 +142,7 @@ include 'header.php';
 														<?php
 														 $gettotalbookingstoday = $this->db->query("SELECT * FROM tblbookings WHERE date >= CURDATE()");
 														 $processedResults = $gettotalbookingstoday->num_rows();
+
 														?>
 														<div class="info">
 															<strong class="amount"><?php echo $processedResults;  ?></strong>
@@ -172,9 +173,15 @@ include 'header.php';
 
 														 $gettotalcollectionstoday = $this->db->query("SELECT sum(totalcost) as totalcost FROM tblpayments WHERE status='paid' and transactiontime>=date_format(now(),'%Y-%m-%d')");
 														 $gctResults = $gettotalcollectionstoday->row();
+														 $gtct = $gctResults->totalcost; 
+														 $gtct = round($gtct, 2);
+                                                         $gtct = sprintf("%.2f", $gtct); 
+														 
 														?>
 														<div class="info">
-															<strong class="amount"><?php echo $gctResults->totalcost;  ?></strong>
+															<strong class="amount">
+																<?php echo  $gtct; ?>
+															</strong>
 														</div>
 													</div>
 													<div class="summary-footer">
@@ -201,9 +208,12 @@ include 'header.php';
 
 														 $gettotalcommissionstoday = $this->db->query("SELECT sum(servicetax) as servicetax FROM tblpayments WHERE status='paid' and transactiontime>=date_format(now(),'%Y-%m-%d')");
 														 $gtcResults = $gettotalcommissionstoday->row();
+														 $gtcmt = $gtcResults->servicetax;
+														 $gtcmt = round($gtcmt, 2);
+                                                         $gtcmt = sprintf("%.2f", $gtcmt);
 														?>
 														<div class="info">
-															<strong class="amount"><?php echo $gtcResults->servicetax;  ?></strong>
+															<strong class="amount"><?php echo $gtcmt;  ?></strong>
 														</div>
 													</div>
 													<div class="summary-footer">
@@ -230,9 +240,13 @@ include 'header.php';
 
 														 $gettotalamountpayabletoday = $this->db->query("SELECT sum(balance) as balance FROM tbltransactions WHERE  transactiondate>=date_format(now(),'%Y-%m-%d')");
 														 $gtaptResults = $gettotalamountpayabletoday->row();
+														 $gtalt = $gtaptResults->balance;
+														 $gtalt = round($gtalt, 2);
+                                                         $gtalt = sprintf("%.2f", $gtalt);
 														?>
 														<div class="info">
-															<strong class="amount"><?php echo $gtaptResults->balance;  ?></strong>
+															<strong class="amount"><?php echo $gtalt;  ?>
+															</strong>
 														</div>
 													</div>
 													<div class="summary-footer">

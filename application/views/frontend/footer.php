@@ -21,10 +21,13 @@
                     <h3>Categories</h3>
                     <ul>
                         <li><a href="#">Kids Day Out</a></li>
-                        <li><a href="#">Adventutre</a></li>
+                        <li><a href="#">Activities & Recreation</a></li>
                         <li><a href="#">Day Events</a></li>
-                         <li><a href="<?php echo site_url().'placesall' ?>">Places</a></li>
-                         <li><a href="<?php echo site_url().'resorts/zoo/1'; ?>">Book Zoo Tickets</a></li>
+                        <li><a href="<?php echo site_url().'shopping' ?>">Shopping & Fashion </a></li>
+                        <li><a href="<?php echo site_url().'weddings' ?>">Weddings & Banquets</a></li>
+                        <li><a href="<?php echo site_url().'nightlife' ?>">Night Life</a></li>
+                        <li><a href="<?php echo site_url().'placesall' ?>">Things to Do</a></li>
+                        <li><a href="<?php echo site_url().'resorts/zoo/1'; ?>">Book Zoo Tickets</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2 col-sm-3">

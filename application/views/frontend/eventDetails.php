@@ -156,23 +156,23 @@ echo $vendorname." , ";
             </div>
             </div>
 
-<hr>
- <div class="row">
-                <div class="col-md-3">
-                    <h3>Packages</h3>
-                </div>
-                <div class="col-md-9">
-
-                <?php
+<hr> <?php
                 if (count($packages->result())==0) {
-                    echo '<h3 style="color:red;">No Packages</h3>';
+                    //echo '<h3 style="color:red;">No Packages</h3>';
                 } else {
                     # code...
-                
-                
+             ?>
+ <div class="row">
+               
 
-                foreach ($packages->result() as $k) {
-            ?>
+               
+             <div class="col-md-3">
+                    <h3>Packages</h3>
+                </div>
+				<?php
+				 foreach ($packages->result() as $k) {
+					 ?>
+                <div class="col-md-9">
              <div class="strip_all_tour_list "  style="visibility: visible; ">
 				<div class="row">        
 				<div class="col-lg-4 col-md-4 col-sm-8">		
@@ -201,18 +201,20 @@ echo $vendorname." , ";
 
 				</div>
 			</div>
+            </div>
 
   <?php
                         }
 
-                        }
-
-
+                       
                 ?>
 
              
-                </div>
+                
             </div>
+				<?php
+				}
+				?>
 		
 <!--map starts from here-->
            
@@ -224,8 +226,7 @@ echo $vendorname." , ";
             
             
 <div class="row reviews">
-        <div class="col-md-3">
-            <h3>User Reviews</h3>
+        
             <?php
 
 if ($this->session->userdata('holidayCustomerName')) {
@@ -234,6 +235,8 @@ if ($this->session->userdata('holidayCustomerName')) {
 
 
             ?>
+            <div class="col-md-3">
+            <h3>User Reviews</h3>
 			<a href="#" class="btn_1 add_bottom_15" data-toggle="modal" data-target="#myReview">Leave a review</a>
 
             <?php
@@ -315,7 +318,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                         <?php
                         }
                     }else{
-                        echo "<h3 style='color:red;'>No Reviews</h3>";
+                        //echo "<h3 style='color:red;'>No Reviews</h3>";
                     }
                     ?>
 

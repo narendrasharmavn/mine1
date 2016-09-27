@@ -80,6 +80,7 @@ include 'header.php';
                                                             $vendorid = $this->session->userdata('vendorid');
 														    $gettotalbookingstoday = $this->db->query("SELECT * FROM tblbookings WHERE vendorid='$vendorid' AND date >= CURDATE()");
 														    $processedResults = $gettotalbookingstoday->num_rows();
+
 														?>
 														<div class="info">
 															<strong class="amount"><?php echo $processedResults;  ?></strong>
@@ -114,11 +115,14 @@ include 'header.php';
 														    	$bookingid = $k->bookingid;
 														    	$gettotalcollectionstoday = $this->db->query("SELECT sum(totalcost) as totalcost FROM tblpayments WHERE bookingid='$bookingid' and status='paid' and transactiontime>=date_format(now(),'%Y-%m-%d')");
 														        $gctResults = $gettotalcollectionstoday->row();
+														        $gtbt = $gctResults->totalcost;
+														        $gtbt = round($gtbt, 2);
+                                                                $gtbt = sprintf("%.2f", $gtbt);
 														    
 														 ?>   
 														    
 														<div class="info">
-															<strong class="amount"><?php echo $gctResults->totalcost;  ?></strong>
+															<strong class="amount"><?php echo $gtbt;  ?></strong>
 														</div>
                                                         <?php } ?>
 													</div>

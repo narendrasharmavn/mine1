@@ -779,7 +779,7 @@ public function validateEmail($email){
     public function getNumberOfRowsForResorts(){
 
 
-         $sQuery = "SELECT * FROM tblresorts WHERE status=1";
+         $sQuery = "SELECT * FROM tblresorts WHERE resortid!=1 AND status=1";
         
         $query = $this->db->query($sQuery);
        

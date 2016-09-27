@@ -256,10 +256,14 @@
                 <hr>
 
          
-            
+            <?php
+			  $reviewsquery = $this->db->query("SELECT er.*,c.name from placereviews er LEFT JOIN tblcustomers c ON er.customerid=c.customer_id WHERE er.placeid='$placeid' ORDER BY er.prid DESC LIMIT 5");
+                        //echo "SELECT er.*,c.name from eventreviews er LEFT JOIN tblcustomers c ON er.customerid=c.customer_id WHERE er.status=1 AND er.resortoreventname='$eventid' ORDER BY er.rid DESC LIMIT 4";
+
+                        if(count($reviewsquery->result())>0){
+							?>
 <div class="row reviews">
-        <div class="col-md-3">
-            <h3>User Reviews</h3>
+        
 
                <?php
 
@@ -268,7 +272,8 @@ if ($this->session->userdata('holidayCustomerName')) {
 
 
             ?>
-           
+            <div class="col-md-3">
+            <h3>User Reviews</h3>
             <a href="#" class="btn_1 add_bottom_15" data-toggle="modal" data-target="#myReview">Leave a review</a>
 
             <?php
@@ -280,10 +285,7 @@ if ($this->session->userdata('holidayCustomerName')) {
 
                     <?php
 
-                        $reviewsquery = $this->db->query("SELECT er.*,c.name from placereviews er LEFT JOIN tblcustomers c ON er.customerid=c.customer_id WHERE er.placeid='$placeid' ORDER BY er.prid DESC LIMIT 5");
-                        //echo "SELECT er.*,c.name from eventreviews er LEFT JOIN tblcustomers c ON er.customerid=c.customer_id WHERE er.status=1 AND er.resortoreventname='$eventid' ORDER BY er.rid DESC LIMIT 4";
-
-                        if(count($reviewsquery->result())>0){
+                      
 
                         foreach ($reviewsquery->result() as $k) {
                          
@@ -349,13 +351,15 @@ if ($this->session->userdata('holidayCustomerName')) {
                          
                         <?php
                         }
-                    }else{
-                        echo "<h3 style='color:red;'>No Reviews</h3>";
-                    }
+                   
                     ?>
 
                     </div>
  </div>
+ <?php }else{
+                        //echo "<h3 style='color:red;'>No Reviews</h3>";
+                    }
+					?>
 
 
         </div><!--End  single_tour_desc-->
@@ -371,7 +375,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                                 <h4>Other Places in Hyderabad</h4>
                     
                 <?php 
-                    $query = $this->db->query("SELECT * FROM tblplaces where plid!='".$row->plid."' order by plid DESC limit 5");
+                    $query = $this->db->query("SELECT * FROM tblplaces where plid!='".$row->plid."' and type='".$row->type."' order by plid DESC limit 5");
                     foreach ($query->result() as $k) {
                        $placename = $k->place;
                        $plid = $k->plid;

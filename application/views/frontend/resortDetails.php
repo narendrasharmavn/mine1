@@ -163,240 +163,205 @@
               
                 
         <div class="container margin_60" style="transform: none;">
-    <div class="row" style="transform: none;">
-        
-
-              
-        <div class="col-md-8 col-sm-8">
-        
-       
-                        <h1><?php echo $resortResults->resortname; ?></h1>
-                        <span><?php 
-                        
-                             
-
-$vendorid = $this->db->get_where('tblresorts' , array('resortid' =>$resortid))->row()->vendorid;
-$vendorname = $this->db->get_where('tblvendors' , array('vendorid' =>$vendorid))->row()->vendorname;
-
-echo $vendorname." , ";
-
-                             
-
-
-
-                        echo $resortResults->location; ?></span>
+			<div class="row" style="transform: none;">
+				<div class="col-md-8 col-sm-8">
+					<h1><?php echo $resortResults->resortname; ?></h1>
+                    <span><?php $vendorid = $this->db->get_where('tblresorts' , array('resortid' =>$resortid))->row()->vendorid;
+						  $vendorname = $this->db->get_where('tblvendors' , array('vendorid' =>$vendorid))->row()->vendorname;
+						  echo $vendorname." , ";
+						  echo $resortResults->location; ?></span>
                         
                     
-            <div class="row">
-                <div class="col-md-2">
-                    <h3>Description</h3>
-                </div>
-                <div class="col-md-10">
-                <p>
-                   <?php echo $resortResults->description;  ?>
-                </p>
-            </div>
-            </div>
+					<div class="row">
+						<div class="col-md-2">
+							<h3>Description</h3>
+						</div>
+						<div class="col-md-10">
+							<p>
+							   <?php echo $resortResults->description;  ?>
+							</p>
+						</div>
+					</div>
 
-<hr>
- <div class="row">
-                <div class="col-md-2">
-                    <h3>Packages</h3>
-                </div>
-                <div class="col-md-10">
+					
+					<?php //echo "count is :".count($packages->result());
+							if (count($packages->result())==0) {
+							//echo '<h3 style="color:red;">No Packages</h3>';
+							} else {
+							# code...
+							?>
+							<hr>
+					<div class="row">
+						
+							<div class="col-md-2">
+								<h3>Packages</h3>
+							</div>
+							<div class="col-md-10">
+								<?php
+						
+									$photoName = "";
+									foreach ($packages->result() as $k) {
+									$photoName=$k->packageimage;
 
-                <?php
-                //echo "count is :".count($packages->result());
-                if (count($packages->result())==0) {
-                     echo '<h3 style="color:red;">No Packages</h3>';
-                } else {
-                    # code...
-                
-                
-                     $photoName = "";
-                foreach ($packages->result() as $k) {
-                    $photoName=$k->packageimage;
+									if ($k->kidsmealprice!=0) {
+									?>
+									<input type="hidden" name="kidsmealprice" value="<?php echo $k->kidsmealprice;   ?>">                        
+								<?php
+								}
+								?>
+								<div class="strip_all_tour_list "  style="visibility: visible; ">
+									<div class="row">
+										<div class="col-lg-4 col-md-4 col-sm-8">
+											<img src="<?php echo base_url(); ?>assets/package/<?php echo $photoName; ?>" class="img-responsive attachment-330x220 wp-post-image" alt="tour_box_1">                  
+										</div>
+										<div class="col-lg-5 col-md-8 col-sm-8">
+											<div class="tour_list_desc">
+												<h4><?php echo $k->packagename;   ?></h4>
+													<p  style="line-height:15px;"><?php echo $k->description;   ?></p>
+											</div>  
+										</div>
+					
+										<div class="col-lg-3 col-md-4 col-sm-4">
+											<div class="price_list">
+												<div>
+													<span><small>Adults - <i class="fa fa-inr"></i> <?php echo $k->adultprice;   ?></small></span>
+													 <span><small>Kids - <i class="fa fa-inr"></i> <?php echo $k->childprice;   ?></small></span>
+													 <input type="hidden" id="<?php echo $k->packageid.'adultprice';   ?>" value="<?php echo $k->adultprice;   ?>">
+													 <input type="hidden" id="<?php echo $k->packageid.'childprice';   ?>" value="<?php echo $k->childprice;   ?>">
+													 <input type="hidden" id="<?php echo $k->packageid.'servicetax';   ?>" value="<?php echo $k->servicetax;   ?>">
+													 <input type="hidden" id="<?php echo $k->packageid.'kidsmealprice';   ?>" value="<?php echo $k->kidsmealprice;   ?>">
+													 <input type="hidden" id="currenturl" value="<?php echo $this->uri->segment(1, 0).'/'.$this->uri->segment(2, 0).'/'.$this->uri->segment(3, 0); ?>">
 
-                    if ($k->kidsmealprice!=0) {
-                        ?>
-                            <input type="hidden" name="kidsmealprice" value="<?php echo $k->kidsmealprice;   ?>">                        
-                        <?php
-                    }
+													<button onclick="bookthispackage(<?php echo $k->packageid;   ?>)" class="btn_1 package-book button-clicked-<?php echo $k->packageid;   ?>">Book Now</button>
+												</div>
+											</div>
 
+										</div>
+									</div>
+								</div>
 
-                    
-
-
-
-            ?>
-             <div class="strip_all_tour_list "  style="visibility: visible; ">
-    <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-8">
-		<img src="<?php echo base_url(); ?>assets/package/<?php echo $photoName; ?>" class="img-responsive attachment-330x220 wp-post-image" alt="tour_box_1">                  
-		</div>
-        <div class="col-lg-5 col-md-8 col-sm-8">
-                      
-                      <div class="tour_list_desc">
-             
-                <h4><?php echo $k->packagename;   ?></h4>
-                <p  style="line-height:15px;"><?php echo $k->description;   ?></p>
-            </div>  
-        </div>
-        
-        <div class="col-lg-3 col-md-4 col-sm-4">
-            <div class="price_list">
-                <div>
-                    <span><small>Adults - <i class="fa fa-inr"></i> <?php echo $k->adultprice;   ?></small></span>
-                     <span><small>Kids - <i class="fa fa-inr"></i> <?php echo $k->childprice;   ?></small></span>
-                     <input type="hidden" id="<?php echo $k->packageid.'adultprice';   ?>" value="<?php echo $k->adultprice;   ?>">
-                     <input type="hidden" id="<?php echo $k->packageid.'childprice';   ?>" value="<?php echo $k->childprice;   ?>">
-                     <input type="hidden" id="<?php echo $k->packageid.'servicetax';   ?>" value="<?php echo $k->servicetax;   ?>">
-                     <input type="hidden" id="<?php echo $k->packageid.'kidsmealprice';   ?>" value="<?php echo $k->kidsmealprice;   ?>">
-                     <input type="hidden" id="currenturl" value="<?php echo $this->uri->segment(1, 0).'/'.$this->uri->segment(2, 0).'/'.$this->uri->segment(3, 0); ?>">
-
-                    <button onclick="bookthispackage(<?php echo $k->packageid;   ?>)" class="btn_1 package-book button-clicked-<?php echo $k->packageid;   ?>">Book Now</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-  <?php
-                        }
-
-                        }
-
-
-                ?>
+									<?php
+											}
+											
+									?>
 
              
-                </div>
-            </div>
-        
+							</div>
+					</div>
+        <?php
+		}
+		?>
 <!--map starts from here-->
            
 
 <!--map ends from here-->
 
-            <hr>
+					<hr>
 
-          
+          <?php
+									$reviewsquery = $this->db->query("SELECT rr.*,c.name from resortreviews rr LEFT JOIN tblcustomers 
+									c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortname='$resortid' ORDER BY rr.rrid 
+									DESC LIMIT 5");
+										if(count($reviewsquery->result())>0){
+											?>
             
-<div class="row" style="margin-bottom: 20px;">
-        <div class="col-md-2">
-            <h3>User Reviews</h3>
-            <?php
-            $reviewsquery = $this->db->query("SELECT rr.*,c.name from resortreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortname='$resortid' ORDER BY rr.rrid DESC");
+					<div class="row" style="margin-bottom: 20px;">
+       
+							<?php
+							$reviewsquery = $this->db->query("SELECT rr.*,c.name from resortreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortname='$resortid' ORDER BY rr.rrid DESC");
 
-            //$result=$reviewsquery->result();
-            $reviewsum= $this->db->query("SELECT sum(pricereview) as sumr from resortreviews where resortname='$resortid'");
-            foreach($reviewsum->result() as $sum)
-            {
-                $sum=$sum->sumr;
-            }
-            $tot=count($reviewsquery->result());
-            //echo count($reviewsquery->result());
-            $avg=0;
-            if($tot!=0){
-                $avg=$sum/$tot;
-            }
-            //echo "Avg=".$avg;
+							//$result=$reviewsquery->result();
+							$reviewsum= $this->db->query("SELECT sum(pricereview) as sumr from resortreviews where resortname='$resortid'");
+							foreach($reviewsum->result() as $sum)
+							{
+								$sum=$sum->sumr;
+							}
+							$tot=count($reviewsquery->result());
+							//echo count($reviewsquery->result());
+							$avg=0;
+							if($tot!=0){
+								$avg=$sum/$tot;
+							}
+							//echo "Avg=".$avg;
 
-            ?>
+							?>
 
-              <?php
+							  <?php
 
-if ($this->session->userdata('holidayCustomerName')) {
-    
-            ?>
+							if ($this->session->userdata('holidayCustomerName')) {
+					
+							?>
+							<div class="col-md-2">
+								<h3>User Reviews</h3>
 
-            <a href="#" class="btn_1 add_bottom_15" data-toggle="modal" data-target="#myReview">Leave a review</a>
+								<a href="#" class="btn_1 add_bottom_15" data-toggle="modal" data-target="#myReview">Leave a review</a>
 
-            <?php
-}
-?>
-        </div>
-       <div class="col-md-10 col-xs-12">
+								<?php
+									}
+								?>
+							</div>
+							<div class="col-md-10 col-xs-12">
 
-                    <?php
-
-                        $reviewsquery = $this->db->query("SELECT rr.*,c.name from resortreviews rr LEFT JOIN tblcustomers c ON rr.customerid=c.customer_id WHERE rr.status=1 AND rr.resortname='$resortid' ORDER BY rr.rrid DESC LIMIT 5");
-
-
-                        if(count($reviewsquery->result())>0){
-
-                        foreach ($reviewsquery->result() as $k) {
-                         
-                         ?>
-						
-						    <div class="row-fluid"> 
-      <div class="col-sm-12">
-          <div class="panel panel-success">
-          <div class="panel-heading">
-            <span itemscope itemtype="http://schema.org/Review">
-            <h3 class="panel-title" itemprop="name"><?php echo $k->subject; ?></h3>
-          </div><!--/panel-heading-->
-          <div class="panel-body" itemprop="reviewBody">
-            <div class="col-sm-6">
-			<?php echo $k->review; ?>
+								<?php
+										foreach ($reviewsquery->result() as $k) {
+								?>
+                        
+								<div class="row-fluid"> 
+									<div class="col-sm-12">
+										<div class="panel panel-success">
+											<div class="panel-heading">
+												<span itemscope itemtype="http://schema.org/Review">
+													<h3 class="panel-title" itemprop="name"><?php echo $k->subject; ?></h3>
+											</div><!--/panel-heading-->
+											<div class="panel-body" itemprop="reviewBody">
+												<div class="col-sm-6">
+													<?php echo $k->review; ?>
 
            
-            <p> 
-<span itemprop="author" itemscope itemtype="http://schema.org/Person">
-              <span itemprop="name">--<strong> <?php echo $k->name; ?></strong></span>
-            </span><!--/author schema -->
-</br>
+													<p> 
+														<span itemprop="author" itemscope itemtype="http://schema.org/Person">
+															<span itemprop="name">--<strong> <?php echo $k->name; ?></strong></span>
+														</span><!--/author schema -->
+														</br>
 
-			<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+														<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
 
-              <meta itemprop="datePublished" content="01-01-2016"><?php
-               $reviewgivendate = date("d-m-Y", strtotime($k->reviewgivendate));
-               echo $reviewgivendate;
-                ?>
-              </p>
-			  </div>
-			  <div class="col-sm-6">
-              <span class="pull-left">
+															<meta itemprop="datePublished" content="01-01-2016"><?php
+																$reviewgivendate = date("d-m-Y", strtotime($k->reviewgivendate));
+																echo $reviewgivendate;
+															?>
+													</p>
+												</div>
+												<div class="col-sm-6">
+													<span class="pull-left">
               
-              <?php
+														<?php
+															echo "<ul class='codexworld_rating_widget'>";
+																$i=0;
+																//echo "review is: ".$k->pricereview."<br>";
+																for ($j=$k->pricereview; $j > 0 ; $j--) { 
+																echo '<li style="background-image: url('.base_url().'assets/widget_star.gif); background-position: 0px -28px;cursor:default;"></li>';
+																$i++;
+																	}
+																for ($a=$i; $a < 5; $a++) { 
+																echo '<li style="background-image: url('.base_url().'assets/widget_star.gif); background-position: 0px 0px;cursor:default;"></li>';
+																	}
+																echo "</ul>";
+														?>
+													</span>
+												</div>
+											</div><!--/panel-body-->
+										</div><!--/panel-->
+								
+										<?php
+										}
+											}else{
+											//echo "No Reviews";
+										}
+										?>
 
-                                                    
-                                echo "<ul class='codexworld_rating_widget'>";
-                                    $i=0;
-                                    //echo "review is: ".$k->pricereview."<br>";
-                                    for ($j=$k->pricereview; $j > 0 ; $j--) { 
-                                        
-                                        echo '<li style="background-image: url('.base_url().'assets/widget_star.gif); background-position: 0px -28px;cursor:default;"></li>';
-                                        $i++;
-                                    }
-
-                                    for ($a=$i; $a < 5; $a++) { 
-                                        echo '<li style="background-image: url('.base_url().'assets/widget_star.gif); background-position: 0px 0px;cursor:default;"></li>';
-                                    }
-                                    
-                                    echo "</ul>";
-                                ?>
-            
-          </span>
-          </div>
-          </div><!--/panel-body-->
-         
-        </div><!--/panel-->
-      </div><!--/col-sm-6-->
-    
-  </div><!--/row (1) -->
-                            
-                         <?php
-                        }
-                    }else{
-                        echo "No Reviews";
-                    }
-                    ?>
-
-                    </div>
- </div>
-
+							</div>
+					
 
         
         <!--Reviews Start-->
@@ -405,7 +370,7 @@ if ($this->session->userdata('holidayCustomerName')) {
                          
         <!--Reviews End-->
 
-        </div><!--End  single_tour_desc-->
+      
   <div class="col-md-4">
  
                 <aside class="col-md-12 aside-panel" id="sidebar">
@@ -435,51 +400,51 @@ if ($this->session->userdata('holidayCustomerName')) {
                     </div>
                 </div>
                                 <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                    <?php
-                            $SERVICETAX = $this->db->get_where('taxmaster' , array('taxid' => 1 ))->row()->servicetax;
-                            $SWACHHCESS = $this->db->get_where('taxmaster' , array('taxid' => 1 ))->row()->swachcess;
-                            $KRISHICESS = $this->db->get_where('taxmaster' , array('taxid' => 1 ))->row()->krishicess;
+									<div class="col-md-6 col-sm-6">
+										<?php
+											$SERVICETAX = $this->db->get_where('taxmaster' , array('taxid' => 1 ))->row()->servicetax;
+											$SWACHHCESS = $this->db->get_where('taxmaster' , array('taxid' => 1 ))->row()->swachcess;
+											$KRISHICESS = $this->db->get_where('taxmaster' , array('taxid' => 1 ))->row()->krishicess;
 
 
-                            ?>
-                            <input type="hidden" name="stax" value="<?php echo $SERVICETAX;  ?>">
-                            <input type="hidden"  name="scess" value="<?php echo $SWACHHCESS;  ?>">
-                            <input type="hidden"  name="kcess" value="<?php echo $KRISHICESS;  ?>">
-                        <div class="form-group">
-                            <label>Adults</label>
-                            <div class="numbers-row" data-min="0">
-                                <input type="text" value="0" id="adults" class="qty2 form-control" name="adults">
-								
-                            <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
+											?>
+											<input type="hidden" name="stax" value="<?php echo $SERVICETAX;  ?>">
+											<input type="hidden"  name="scess" value="<?php echo $SWACHHCESS;  ?>">
+											<input type="hidden"  name="kcess" value="<?php echo $KRISHICESS;  ?>">
+										<div class="form-group">
+											<label>Adults</label>
+											<div class="numbers-row" data-min="0">
+												<input type="text" value="0" id="adults" class="qty2 form-control" name="adults">
+												
+											<div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
 
-                            <input type="hidden" name="per-adult-price" value="0"  class="pap" >
-                                <input type="hidden" name="per-child-price" value="0"  class="pcp" >
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 childqtyhide">
-                        <div class="form-group">
-                            <label>Children</label>
-                            <div class="numbers-row" data-min="0">
-                                <input type="text" value="0" id="children" class="qty2 form-control" name="kids">
-                            <div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
-                        </div>
-                    </div>
-                                    </div>
-                    <div class="row kids">
-                        <div class="col-md-6 col-sm-6 addkidsmeallink">
-                            <a href="" data-toggle="modal" data-target="#kidsmealpopup">Add Kids Meal</a>
-                            
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
-                              
-                                
-                            </div>
-                        </div>
+											<input type="hidden" name="per-adult-price" value="0"  class="pap" >
+												<input type="hidden" name="per-child-price" value="0"  class="pcp" >
+										</div>
+									</div>
+									<div class="col-md-6 col-sm-6 childqtyhide">
+										<div class="form-group">
+											<label>Children</label>
+											<div class="numbers-row" data-min="0">
+												<input type="text" value="0" id="children" class="qty2 form-control" name="kids">
+											<div class="inc button_inc">+</div><div class="dec button_inc">-</div></div>
+										</div>
+									</div>
+                                </div>
+								<div class="row kids">
+									<div class="col-md-6 col-sm-6 addkidsmeallink">
+										<a href="" data-toggle="modal" data-target="#kidsmealpopup">Add Kids Meal</a>
+										
+									</div>
+									<div class="col-md-6 col-sm-6">
+										<div class="form-group">
+										  
+											
+										</div>
+									</div>
                     
-                    </div>
-                <br>
+								</div>
+							<br>
                 <table class="table table_summary">
                 <tbody>
                 <tr>
@@ -509,43 +474,43 @@ if ($this->session->userdata('holidayCustomerName')) {
                 <tr>
                     <td>
                         Internet & Handling Charges  
-						<span id="internetcharges" style="display:none;"></span>
-						</td>
+                        <span id="internetcharges" style="display:none;"></span>
+                        </td>
                     <td class="text-right internetcharges" >
-					<i class="fa fa-inr"></i> <span class="calculated-internetcharges">0</span>
+                    <i class="fa fa-inr"></i> <span class="calculated-internetcharges">0</span>
                         
                     </td>
                 </tr>
                 <tr>
                     <td>
                         Service tax @ 14%
-						<span id="servicetax" style="display:none;"></span>
-						</td>
+                        <span id="servicetax" style="display:none;"></span>
+                        </td>
                     <td class="text-right" >
                         
-						<i class="fa fa-inr"></i> <span class="calculated-servicetax">0</span>
+                        <i class="fa fa-inr"></i> <span class="calculated-servicetax">0</span>
                     </td>
                 </tr>
 
                 <tr>
                     <td>
                         Swachh Bharath @ 0.5%       
-					<span id="internetcharges" style="display:none;">0.05</span>
-						</td>
+                    <span id="internetcharges" style="display:none;">0.05</span>
+                        </td>
                     <td class="text-right" >
                         
-						<i class="fa fa-inr"></i> <span class="calculated-swachhbharath">0</span>
+                        <i class="fa fa-inr"></i> <span class="calculated-swachhbharath">0</span>
                     </td>
                 </tr>
 
                 <tr>
                     <td>
                        Krishi Kalyan Cess @ 0.5%
-					<span id="internetcharges" style="display:none;">0.05</span>
-						</td>
+                    <span id="internetcharges" style="display:none;">0.05</span>
+                        </td>
                     <td class="text-right" >
                         
-						<i class="fa fa-inr"></i> <span class="calculated-kkcess">0</span>
+                        <i class="fa fa-inr"></i> <span class="calculated-kkcess">0</span>
                     </td>
                 </tr>
                 <tr class="total">
@@ -564,7 +529,7 @@ if ($this->session->userdata('holidayCustomerName')) {
 
                                                                     </form>
                     </div><!--/box_style_1 -->
-					
+                    
                                                 </div>
                                                 <div class="row">
                 <div class="col-md-12">
@@ -850,7 +815,7 @@ function disableSpecificWeekDays(date) {
 //});
 
 function update_tour_price() {
-	console.clear();
+    console.clear();
     var adults = $('input#adults').val();
     var kidsmealqty = $('input#kidsmeal').val();
     var children = 0;
@@ -872,10 +837,10 @@ function update_tour_price() {
     var kmpp = round(kidsmealqty*kids_meal_price,2);
     
     $('.adultprice').html(ap);
-	
-	//console.log("adult price is: "+price_per_person);
-	
-	$('.childprice').html( cp );
+    
+    //console.log("adult price is: "+price_per_person);
+    
+    $('.childprice').html( cp );
 
     $('.kidsmealprice').html(kmpp);
     console.log("kids meal price is:  "+kidsmealqty*kids_meal_price);

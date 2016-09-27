@@ -449,7 +449,7 @@ class Frontend extends CI_Controller {
 
       //send sms
       $randNumber = rand(9999,99999);
-      $msg = "Your OTP number is : ".$randNumber;
+      $msg = $randNumber." is OTP for transaction at Book4Holiday. This OTP is valid for only 10 mins. Please do not share with anyone.";
       $this->sendsms($mobile,$msg);
       $this->session->set_userdata( 'otp-resort-booking' ,$randNumber);
 
@@ -463,7 +463,7 @@ class Frontend extends CI_Controller {
       $mobile = $this->input->post('mobile');
 
        $randNumber = rand(9999,99999);
-      $msg = "Your OTP number is : ".$randNumber;
+      $msg = $randNumber." is OTP for transaction at Book4Holiday. This OTP is valid for only 10 mins. Please do not share with anyone.";
       $this->sendsms($mobile,$msg);
       $this->session->unset_userdata('otp-resort-booking');
       $this->session->set_userdata( 'otp-resort-booking' ,$randNumber);
@@ -475,7 +475,7 @@ class Frontend extends CI_Controller {
       $mobile = $this->input->post('mobile');
 
        $randNumber = rand(9999,99999);
-      $msg = "Your OTP number is : ".$randNumber;
+      $msg = $randNumber." is OTP for transaction at Book4Holiday. This OTP is valid for only 10 mins. Please do not share with anyone.";
       $this->sendsms($mobile,$msg);
       $this->session->unset_userdata('otp-event-booking');
       $this->session->set_userdata( 'otp-event-booking' ,$randNumber);
@@ -720,7 +720,7 @@ class Frontend extends CI_Controller {
 
       //send sms
       $randNumber = rand(9999,99999);
-      $msg = "Your OTP number is : ".$randNumber;
+      $msg = $randNumber." is OTP for transaction at Book4Holiday. This OTP is valid for only 10 mins. Please do not share with anyone.";
       $this->sendsms($mobile,$msg);
       $this->session->set_userdata( 'otp-event-booking' ,$randNumber);
       //echo $msg;
@@ -1682,7 +1682,7 @@ echo "true";
 
         $dateofvisit = date("d-m-Y", strtotime($dateofvisit));
 
-        $msg = "Thank you for booking at ".$name." Date is: ".$dateofvisit." Your Booking Id is: ".$ticketnumber;
+        $msg = "Your booking is confirmed via Book4Holiday at  ".$name."  for ".$dateofvisit." . Your Booking Id is: ".$ticketnumber;
         $this->sendsms($mobile,$msg);
         $this->sendingEmailTickets($_POST['udf2'],$ticketnumber,$name,$location);
         //echo " post email id is: ".$_POST['udf2']."<br>";
@@ -1693,7 +1693,7 @@ echo "true";
         //send sms if transaction failed
         $mobile = $_POST['udf3'];
 
-        $msg = "OOP's Your Transaction at Book4Holiday Failed. Transaction Id is : ".$ticketnumber;
+        $msg = "We are sorry, looks like something went wrong. Your transaction at Book4Holiday failed! Transaction Id for your reference is: ".$ticketnumber;
         $this->sendsms($mobile,$msg);
         $this->sendingFailEmail($_POST['udf2'],$ticketnumber);
 
@@ -1838,7 +1838,7 @@ echo "true";
         $mobile = $_POST['udf3'];
         $dateofvisit = date("d-m-Y", strtotime($dateofvisit));
 
-        $msg = "Thank you for booking at ".$name.". Date is: ".$dateofvisit.". Your Booking Id is: ".$ticketnumber;
+        $msg = "Your booking is confirmed via Book4Holiday at ".$name.". for ".$dateofvisit.". Your Booking Id is: ".$ticketnumber;
         //echo $msg."<br>mobile is: ";
         //echo $mobile."<br>";
         $this->sendsms($mobile,$msg);
@@ -3153,7 +3153,7 @@ echo "true";
 
 
 
-        $sql = "SELECT * FROM tblresorts WHERE status=1 ORDER by resortid DESC limit ".$data['page'].", ".$config['per_page'];
+        $sql = "SELECT * FROM tblresorts WHERE resortid!=1 AND status=1 ORDER by resortid DESC limit ".$data['page'].", ".$config['per_page'];
         //echo $sql."<br>";
 
         $query2 = $this->db->query($sql);
@@ -3679,7 +3679,7 @@ public function getPackageAmountAndSetMarkUp(){
                             $randNumber = rand(9999,99999);
                             $this->session->set_userdata('register-otp',$randNumber);
                             
-                            $msg = 'Your OTP is: '.$randNumber;
+                            $msg = 'OTP for registration at Book4Holiday is: '.$randNumber.'. Please enter the OTP and complete the process';
 
                              $this->sendsms($mobile,$msg);
 
@@ -3698,7 +3698,7 @@ public function getPackageAmountAndSetMarkUp(){
       $mobile = $this->input->post('mobile');
 
       $randNumber = rand(9999,99999);
-      $msg = 'Your OTP is: '.$randNumber;
+      $msg = 'OTP for registration at Book4Holiday is: '.$randNumber.'. Please enter the OTP and complete the process';
 
                              $this->sendsms($mobile,$msg);
 
@@ -3726,7 +3726,7 @@ public function getPackageAmountAndSetMarkUp(){
 
           $this->db->query("insert into tblcustomers (name,username,password,number,dateofcreation,regtype) VALUES ('$name','$email','$convertedpassword','$mobile','$dt','registration')");
 
-                            $this->sendsms($mobile,'Thank you for the Registration. From Book4Holiday');
+                            $this->sendsms($mobile,'Thank you for registering at Book4Holiday!');
                             
                             // send mail to user //
 

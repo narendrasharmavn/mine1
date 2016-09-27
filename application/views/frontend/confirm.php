@@ -115,7 +115,7 @@
                                     <button type="button" class="btn btn_1 green otp-check">Verify</button>
                                     <button type="button" class="btn btn_1 green re-enter-details">Edit Details</button>
                                     <br/>
-                                     <span>*Did not recieve OTP in 120 seconds ?, please click <a class="resend-otp" style="cursor:pointer;">click here</a></span>
+                                     <span>*Did not recieve OTP in 120 seconds ? Please <a class="resend-otp" style="cursor:pointer;">Click Here</a></span>
 
                                 </div>
                               <?php
@@ -141,6 +141,8 @@
      $childpriceperticket = $this->session->userdata('childpriceperticket');
      $kidsmealprice = $this->session->userdata('kidsmealprice');
      $ticketcost = $adultpriceperticket+$childpriceperticket+$kidsmealprice;
+     $ticketcost = round($ticketcost, 2);
+     $ticketcost = sprintf("%.2f", $ticketcost);
      $servicetax = $this->session->userdata('servicetax');
      $swachhbharath = $this->session->userdata('swachhbharath');
      $kkcess = $this->session->userdata('kkcess');
