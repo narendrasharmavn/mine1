@@ -87,10 +87,10 @@ class Frontend extends CI_Controller {
 
 
 
-  }else if($searchtype=='places'){
+  }else {
 
     //places
-        $searchResultPlaces =  $this->FrontEndModel->getAutoFillSearchDataPlaces($searchterm);
+        $searchResultPlaces =  $this->FrontEndModel->getAutoFillSearchDataPlaces($searchterm,$searchtype);
 
        if(count($searchResultPlaces->result())>0){
             
@@ -101,58 +101,7 @@ class Frontend extends CI_Controller {
         }
 
     
-  }else{
-          /*
-       $searchResult =  $this->FrontEndModel->getAutoFillSearchDataEvents($searchterm);
-       
-       if(count($searchResult->result())>0){
-            //echo '<div><div class="category-headings">Events</div><div>';
-            foreach ($searchResult->result() as $k) {
-              //$evename = str_replace(' ','-',$k->eventname);
-               //echo '<div class="list-items"><a href="'.site_url().'eventdetails/'.$evename.'/'.$k->eventid.'">'.$k->eventname.'</a></div>';
-              array_push($data, $k->eventname);
-            }
-            //echo '</div>';
-            //echo '</div>';
-        }
-        
-
-        //resorts
-        $searchResultResort =  $this->FrontEndModel->getAutoFillSearchDataResorts($searchterm);
-
-       if(count($searchResultResort->result())>0){
-            //echo '<div ><div class="category-headings">Resorts</div><div>';
-            foreach ($searchResultResort->result() as $k) {
-              //$resortname = str_replace(' ','-',$k->resortname);
-               //echo '<div class="list-items"><a href="'.site_url().'resorts/'.$resortname.'/'.$k->resortid.'">'.$k->resortname.'</a></div>';
-              array_push($data, $k->resortname);
-            }
-            //echo '</div>';
-            //echo '</div>';
-        }
-
-        //places
-        $searchResultPlaces =  $this->FrontEndModel->getAutoFillSearchDataPlaces($searchterm);
-
-       if(count($searchResultPlaces->result())>0){
-            
-            foreach ($searchResultPlaces->result() as $k) {
-              
-              array_push($data, $k->place);
-            }
-        }
-
-        $placescount = count($searchResultPlaces->result());
-        $eventscount = count($searchResult->result());
-        $resortcount = count($searchResultResort->result());
-        if($eventscount==0 && $resortcount==0 && $placescount==0){
-          //echo '<div ><div class="category-headings">No Results found</div>';
-          array_push($data, 'no results found');
-        }
-
-       */
-
-      }
+  }
 
        echo json_encode($data);
     }
@@ -398,14 +347,10 @@ class Frontend extends CI_Controller {
                 $this->session->set_userdata('resortsearchquery',$searchQuery);
                     $this->resortsGridView();
                     break;
-                case "places":
-                $this->session->set_userdata('placessearchquery',$searchQuery);
-                //echo "this is palces";
-
-                    $this->placesGridView();
-                    break;
                 default:
-                    echo "no match";
+                $this->session->set_userdata('placessearchquery',$searchQuery);
+                redirect('frontend/placesGridView');
+
             }
 
 
@@ -2221,8 +2166,10 @@ echo "true";
     public function placesGridView(){
       
       $searchterm = $this->session->userdata('searchterm');
-      //$searchdate = $this->session->userdata('searchdate');
-      //echo $searchterm."<br>";
+      $searchtype = $this->session->userdata('searchtype');
+      $searchtype = str_replace('%20',' ',$searchtype);
+      //echo "<br> $searchtype<br>";
+      
 
       $this->load->library('pagination');
 
@@ -2259,37 +2206,38 @@ echo "true";
         $config['num_tag_close'] = '</li>';
         $this->pagination->initialize($config);
 
+        //echo "<br>this is uri segment: ".$this->uri->segment(3)."<br>";
+        //echo is_numeric($this->uri->segment(3));
         $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
 
 
        
-        $sql = "SELECT r.*,rp.* FROM tblplaces r LEFT JOIN tblplacesphotos rp ON r.plid=rp.plid WHERE r.status=1 AND r.place = '$searchterm' GROUP by rp.plid limit ".$data['page'].", ".$config['per_page'];
-        //echo $sql."<br>";
+        $sql = "SELECT r.*,rp.* FROM tblplaces r LEFT JOIN tblplacesphotos rp ON r.plid=rp.plid WHERE r.status=1 AND type='$searchtype' AND r.place = '$searchterm' GROUP by rp.plid limit ".$data['page'].", ".$config['per_page'];
+        
     
 
         $query2 = $this->db->query($sql);
+        //echo "<br>count is: ".count($query2->result())."<br>";
         if(count($query2->result())==1){
-         // echo '<pre>';
-         // print_r($query2->result());
-         // echo '</pre>';
+        
 
           $place = str_replace(' ','-',$query2->result()[0]->place);
           $plid =  $query2->result()[0]->plid;
           redirect('places/'.$place.'/'.$plid);
           //echo "place is: ";
         }else{
-       $sql3 = "SELECT r.*,rp.* FROM tblplaces r LEFT JOIN tblplacesphotos rp ON r.plid=rp.plid WHERE r.status=1 AND (r.address LIKE '%$searchterm%' OR r.place LIKE '%$searchterm%' OR r.description LIKE '%$searchterm%') GROUP by rp.plid limit ".$data['page'].", ".$config['per_page'];
+       $sql3 = "SELECT r.*,rp.* FROM tblplaces r LEFT JOIN tblplacesphotos rp ON r.plid=rp.plid WHERE r.status=1 AND type='$searchtype' AND (r.address LIKE '%$searchterm%' OR r.place LIKE '%$searchterm%' OR r.description LIKE '%$searchterm%') GROUP by rp.plid limit ".$data['page'].", ".$config['per_page'];
     }
-    $query2 = $this->db->query($sql3);
+        //echo "<br> query is: ".$sql3."<br>";
+        $query2 = $this->db->query($sql3);
         $data['getdata'] = $query2;
         
         $data['pagination'] = $this->pagination->create_links();
        
         $data['totalrows'] = $numberOfRows;
-        //echo $sql; 
-        //echo "count is : ".count($query2->result())."<br>";
-//echo "this is it2222";
+        
+        
 
        $this->load->view('frontend/header'); 
        $this->load->view('frontend/placesGridView',$data); 

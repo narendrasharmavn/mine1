@@ -48,9 +48,9 @@ class FrontEndModel extends CI_Model {
 
     }
 
-    public function getAutoFillSearchDataPlaces($searchterm){
+    public function getAutoFillSearchDataPlaces($searchterm,$searchtype){
 
-      $query = $this->db->query("SELECT plid,place FROM tblplaces WHERE status=1 AND (address LIKE '%$searchterm%' OR place LIKE '%$searchterm%' OR city LIKE '%$searchterm%' OR description LIKE '%$searchterm%' OR otherinfo LIKE '%$searchterm%') LIMIT 4");
+      $query = $this->db->query("SELECT plid,place FROM tblplaces WHERE status=1 AND type='$searchtype' AND (address LIKE '%$searchterm%' OR place LIKE '%$searchterm%' OR city LIKE '%$searchterm%' OR description LIKE '%$searchterm%' OR otherinfo LIKE '%$searchterm%') LIMIT 4");
 
       return $query;
 
@@ -1011,8 +1011,10 @@ public function getLatestSixEvents(){
 
         $searchterm=$this->session->userdata('searchterm');
         $searchdate = $this->session->userdata('searchdate');
+        $searchtype = $this->session->userdata('searchtype');
+        $searchtype = str_replace('%20',' ',$searchtype);
 
-         $sQuery = "SELECT r.*,rp.* FROM tblplaces r LEFT JOIN tblplacesphotos rp ON r.plid=rp.plid WHERE r.status=1 AND (r.address LIKE '%$searchterm%' OR r.place LIKE '%$searchterm%' OR r.description LIKE '%$searchterm%') GROUP by rp.plid";
+         $sQuery = "SELECT r.*,rp.* FROM tblplaces r LEFT JOIN tblplacesphotos rp ON r.plid=rp.plid WHERE r.status=1 AND type='$searchtype' AND (r.address LIKE '%$searchterm%' OR r.place LIKE '%$searchterm%' OR r.description LIKE '%$searchterm%') GROUP by rp.plid";
         
         $query = $this->db->query($sQuery);
        

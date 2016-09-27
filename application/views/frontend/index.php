@@ -49,7 +49,10 @@
                                                             <option value="" selected="">Search For</option>
                                                             <option value="resortname" <?php echo  set_select('searchtype', 'resortname'); ?>>Resort Name</option>
                                                            <option value="eventname" <?php echo  set_select('searchtype', 'eventname'); ?>>Event Name</option>
-                                                           <option value="places" <?php echo  set_select('searchtype', 'places'); ?>>Places</option>
+                                                           <option value="Things To Do" <?php echo  set_select('searchtype', 'places'); ?>>Things To Do</option>
+                                                           <option value="Shopping & Fashion" <?php echo  set_select('searchtype', 'places'); ?>>Shopping & Fashion</option>
+                                                           <option value="Weddings/Banquets" <?php echo  set_select('searchtype', 'places'); ?>>Weddings/Banquets</option>
+                                                           <option value="Night Life" <?php echo  set_select('searchtype', 'places'); ?>>Night Life</option>
                                                            
                                                          </select>
                                                          <span class="text-danger searchtypeerror"><?php echo form_error('searchtype'); ?></span>
@@ -157,7 +160,10 @@
                                                             <option value="" selected="">Search For</option>
                                                             <option value="resortname" <?php echo  set_select('searchtype', 'resortname'); ?>>Resort Name</option>
                                                            <option value="eventname" <?php echo  set_select('searchtype', 'eventname'); ?>>Event Name</option>
-                                                           <option value="places" <?php echo  set_select('searchtype', 'places'); ?>>Places</option>
+                                                           <option value="Things To Do" <?php echo  set_select('searchtype', 'places'); ?>>Things To Do</option>
+                                                           <option value="Shopping & Fashion" <?php echo  set_select('searchtype', 'places'); ?>>Shopping & Fashion</option>
+                                                           <option value="Weddings/Banquets" <?php echo  set_select('searchtype', 'places'); ?>>Weddings/Banquets</option>
+                                                           <option value="Night Life" <?php echo  set_select('searchtype', 'places'); ?>>Night Life</option>
                                                            
                                                          </select>
                                                          <span class="text-danger searchtypeerror"><?php echo form_error('searchtype'); ?></span>

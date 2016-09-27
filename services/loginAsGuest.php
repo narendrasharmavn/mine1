@@ -23,7 +23,7 @@ if($email!='')
         if (mysqli_query($conn, $sql)) {
             $last_id = mysqli_insert_id($conn);
             $randNumber =  rand(99999,999999);
-        	$text1='Your OTP is: '.$randNumber;
+        	$text1='OTP for registration at Book4Holiday is: '.$randNumber.'. Please enter the OTP and complete the process';
         	sendSMS($text1,$mobile,$conn);
 
         } else {

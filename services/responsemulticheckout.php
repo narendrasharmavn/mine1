@@ -208,7 +208,7 @@ if (mysqli_num_rows($tbltransactionsresult) > 0) {
 
 	// send sms //
 
-    $text1 =  'Thank you for booking at Nehru Zoo Date is:'.$dateofvisit.'. Your Booking Id is: '.$ticketnumber;
+    $text1 =  'Your booking is confirmed via Book4Holiday at Nehru Zoo for:'.$dateofvisit.'. Your Booking Id is: '.$ticketnumber;
 
 	sendSMS($mobile,$smsurl,$smsusername,$smspassword,$smssenderid,$text1);
 
@@ -244,7 +244,7 @@ if (mysqli_num_rows($tbltransactionsresult) > 0) {
 
     // send sms //
     
-    $text1 =  "OOP's Your Transaction at Book4Holiday Failed. Transaction Id is :".$ticketnumber;
+    $text1 =  "We are sorry, looks like something went wrong. Your transaction at Book4Holiday failed! Transaction Id for your reference is:    ".$ticketnumber;
 
 	sendSMS($mobile,$smsurl,$smsusername,$smspassword,$smssenderid,$text1);
 

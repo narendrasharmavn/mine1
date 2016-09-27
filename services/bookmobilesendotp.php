@@ -34,7 +34,7 @@ if (isset($postdata)) {
 
     // SMS REQUEST SENT START //
     
-    $text1='Your OTP is: '.$randNumber;
+    $text1=$randNumber.' is OTP for transaction at Book4Holiday. This OTP is valid for only 10 mins. Please do not share with anyone.';
     $text=str_replace(" ","%20",$text1);
     $qry_str = $smsurl.$smsusername."&password=".$smspassword."&to=".$mobile."&from=".$smssenderid."&message=".$text;
     //echo $qry_str;

@@ -65,7 +65,7 @@ function sendSMS($mobile,$smsurl,$smsusername,$smspassword,$smssenderid)
 {
     // SMS REQUEST SENT START //
     
-    $text1='Thank you for the Registration. From Book4Holiday';
+    $text1='Thank you for registering at Book4Holiday!';
     $text=str_replace(" ","%20",$text1);
     $qry_str = $smsurl.$smsusername."&password=".$smspassword."&to=".$mobile."&from=".$smssenderid."&message=".$text;
     //echo "Server returns: " .$qry_str;
