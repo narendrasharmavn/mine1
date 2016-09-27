@@ -2149,6 +2149,13 @@ $scope.searchtermchange = function(searchterm){
     $scope.search.divSearchTerm=false;
     $scope.search.selectsearch=true;
   }
+
+
+  if (searchterm!='events' && searchterm!='resorts') {
+    $scope.search.placesionlist=true;
+  }else{
+    $scope.search.placesionlist=false;
+  }
 }
 
 $scope.showSelection = function(){
@@ -2204,7 +2211,7 @@ $scope.showSelection = function(){
   $scope.search.resortionlist=false;
   $scope.search.placesionlist=true;
 
-        webservices.getPlacesBasedOnSearchCriteria($scope.search.name).success(function(data) {
+        webservices.getPlacesBasedOnSearchCriteriaAndSearchTerm($scope.search.name,$scope.search.searchterm).success(function(data) {
             $scope.searchresult=data;
             //console.log("hellos this is test"+$scope.search.name);
             console.log($scope.searchresult);
@@ -2391,11 +2398,11 @@ app.factory('webservices', function($http,myconfig){
     },//getOrdersBasedOnTicketNumber($state.params.ticketnumber) getEventNamesBasedOnSearchKeyword(eventname)
 
 
-    getPlacesBasedOnSearchCriteria: function(searchkeyword)
+    getPlacesBasedOnSearchCriteriaAndSearchTerm: function(searchkeyword,searchterm)
     {
 
-      var url = myconfig.webservicesurl+'/getPlacesBasedOnSearchCriteria.php';
-      return $http.post(url, {search:searchkeyword})
+      var url = myconfig.webservicesurl+'/getPlacesBasedOnSearchCriteriaAndSearchTerm.php';
+      return $http.post(url, {search:searchkeyword,searchtype:searchterm})
       
     },//getOrdersBasedOnTicketNumber($state.params.ticketnumber) getEventNamesBasedOnSearchKeyword(eventname)
 

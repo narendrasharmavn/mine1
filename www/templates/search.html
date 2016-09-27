@@ -21,7 +21,10 @@
             <option value="">Choose your search</option>
             <option value="events">Events</option>
             <option value="resorts">Resorts</option>
-            <option value="places">Places</option>
+            <option value="Things To Do">Things To Do</option>
+            <option value="Shopping & Fashion">Shopping & Fashion</option>
+            <option value="Weddings/Banquets">Weddings/Banquets</option>
+            <option value="Night Life">Night Life</option>
           </select>
         </label>
 
@@ -61,16 +64,37 @@
         <!--end of resorts search-->
 
         <!--places search-->
-        <label class="item item-input" ng-if="search.searchterm=='places'">
+        <div ng-show="search.placesionlist" >
+        <label class="item item-input" ng-if="search.searchterm!=''">
           <i class="icon ion-search placeholder-icon"></i>
-          <input type="text" placeholder="Enter Place Name" ng-model="search.name" ng-change="onSearchChange()">
+          <input type="text" placeholder="{{search.searchterm}}" ng-model="search.name" ng-change="onSearchChange()">
         </label>
         
-        <ion-list ng-if="search.searchterm=='places' && search.name!=''" ng-show="search.placesionlist">
+        <ion-list ng-if="search.searchterm=='Things To Do' && search.name!=''" >
         <ion-item  type="item-text-wrap" href="#/sidemenu/placedetails/{{p.plid}}" ng-repeat="p in searchresult | filter:search.name" >
           {{p.place}}
         </ion-item>
       </ion-list>
+
+      <ion-list ng-if="search.searchterm=='Night Life' && search.name!=''">
+        <ion-item  type="item-text-wrap" href="#/sidemenu/placedetails/{{p.plid}}" ng-repeat="p in searchresult | filter:search.name" >
+          {{p.place}}
+        </ion-item>
+      </ion-list>
+
+      <ion-list ng-if="search.searchterm=='Weddings/Banquets' && search.name!=''">
+        <ion-item  type="item-text-wrap" href="#/sidemenu/placedetails/{{p.plid}}" ng-repeat="p in searchresult | filter:search.name" >
+          {{p.place}}
+        </ion-item>
+      </ion-list>
+
+      <ion-list ng-if="search.searchterm=='Shopping & Fashion' && search.name!=''">
+        <ion-item  type="item-text-wrap" href="#/sidemenu/placedetails/{{p.plid}}" ng-repeat="p in searchresult | filter:search.name" >
+          {{p.place}}
+        </ion-item>
+      </ion-list>
+
+</div>
         <!--end of places search-->
 
 
