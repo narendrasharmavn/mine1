@@ -579,7 +579,7 @@ app.controller('checkOutOptionCtrl',function($scope,$state,$http,webservices,myc
     webservices.saveUserSelectedSessionAndUserSelectionsAndUserTotalsMultiCheckOutWithLogin($scope.c, $scope.usertotals, $scope.userselectedoptions ).success(function (response) {
         //console.clear();
         console.log(response);
-        var paymenturl = myconfig.webservicesurl+"confirmevents.php?data="+encodeURIComponent(JSON.stringify(response));
+        var paymenturl = myconfig.webservicesurl+"confirm.php?data="+encodeURIComponent(JSON.stringify(response));
 		    console.log(paymenturl);
         var finalurl = myconfig.webservicesurl+"test.php";
                   var responseurl = myconfig.webservicesurl+"responsemulticheckout.php";

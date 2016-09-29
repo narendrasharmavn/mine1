@@ -85,6 +85,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     }
   })  
   .state('sidemenu.search', {
+    cache: false,
     url: '/search',
     views: {
       'menuContent': {
@@ -168,6 +169,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
   .state('sidemenu.resortsearchresults', {
+    cache: false,
     url: '/resortsearchresults/:searchtype',
     views: {
       'menuContent': {
@@ -188,6 +190,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
   .state('sidemenu.eventsearchresults', {
+    cache: false,
     url: '/eventsearchresults/:searchtype',
     views: {
       'menuContent': {
@@ -208,6 +211,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
   .state('sidemenu.placesearchresults', {
+    cache: false,
     url: '/placesearchresults/:searchtype/:type',
     views: {
       'menuContent': {
