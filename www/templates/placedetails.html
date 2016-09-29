@@ -16,7 +16,7 @@
          <h4>{{userBookingDetails[0].place}}</h4>       
       </div>
       <div class="col col-20 text-right">
-          <a href="geo://{{userBookingDetails[0].latitude}},{{userBookingDetails[0].longitude}}?q={{userBookingDetails[0].place}}" ng-if="userBookingDetails[0].longitude!=0">
+          <a href="geo://{{userBookingDetails[0].latitude}},{{userBookingDetails[0].longitude}}?q={{userBookingDetails[0].address}}" ng-if="userBookingDetails[0].longitude!=0">
           <i class="ion ion-location" style="font-size:30px;"></i>
           </a>   
       </div>

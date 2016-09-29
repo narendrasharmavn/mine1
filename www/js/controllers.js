@@ -232,7 +232,7 @@ app.controller('CheckOutOptionEventCtrl',function($scope,$state,$http,webservice
                                    var tkt = eventurl.split("/ticketnumber");
                                    ////alert("extracted information"+tkt[1]);
                                    window.localStorage.setItem("ticketnumber", tkt[1]);
-                                   $ionicLoading.hide();
+                                   
                                    window.location.href="index.html";
 
                                }    
@@ -240,7 +240,9 @@ app.controller('CheckOutOptionEventCtrl',function($scope,$state,$http,webservice
                           function Close(event) {
                                ref.removeEventListener('loadstop', LoadStop);
                                ref.removeEventListener('exit', Close);
+                               $ionicLoading.hide();
                           } 
+
         //$state.go('sidemenu.test',{url:paymenturl});
 
         
@@ -330,7 +332,7 @@ app.controller('CheckOutOptionEventCtrl',function($scope,$state,$http,webservice
                                    var tkt = eventurl.split("/ticketnumber");
                                    ////alert("extracted information"+tkt[1]);
                                    window.localStorage.setItem("ticketnumber", tkt[1]);
-                                   $ionicLoading.hide();
+                                   
                                    window.location.href="index.html";
 
                                }    
@@ -338,7 +340,9 @@ app.controller('CheckOutOptionEventCtrl',function($scope,$state,$http,webservice
                           function Close(event) {
                                ref.removeEventListener('loadstop', LoadStop);
                                ref.removeEventListener('exit', Close);
+                               $ionicLoading.hide();
                           } 
+                          
                   });
 
         }else{
@@ -422,7 +426,7 @@ app.controller('checkOutOptionResortsCtrl',function($scope,$state,$http,webservi
                                    var tkt = eventurl.split("/ticketnumber");
                                    //alert("extracted information"+tkt[1]);
                                    window.localStorage.setItem("ticketnumber", tkt[1]);
-                                   $ionicLoading.hide();
+                                   
                                    window.location.href="index.html";
 
                                    
@@ -431,6 +435,7 @@ app.controller('checkOutOptionResortsCtrl',function($scope,$state,$http,webservi
                           function Close(event) {
                                ref.removeEventListener('loadstop', LoadStop);
                                ref.removeEventListener('exit', Close);
+                               $ionicLoading.hide();
                           } 
         //$state.go('sidemenu.test',{url:paymenturl});
         
@@ -516,7 +521,7 @@ app.controller('checkOutOptionResortsCtrl',function($scope,$state,$http,webservi
                                    var tkt = eventurl.split("/ticketnumber");
                                    //alert("extracted information"+tkt[1]);
                                    window.localStorage.setItem("ticketnumber", tkt[1]);
-                                   $ionicLoading.hide();
+                                   
                                    window.location.href="index.html";
 
                                    
@@ -525,6 +530,7 @@ app.controller('checkOutOptionResortsCtrl',function($scope,$state,$http,webservi
                           function Close(event) {
                                ref.removeEventListener('loadstop', LoadStop);
                                ref.removeEventListener('exit', Close);
+                               $ionicLoading.hide();
                           } 
                   //$state.go('sidemenu.test',{url:paymenturl});
                   
@@ -605,7 +611,7 @@ app.controller('checkOutOptionCtrl',function($scope,$state,$http,webservices,myc
                                    var tkt = eventurl.split("/ticketnumber");
                                    ////alert("extracted information"+tkt[1]);
                                    window.localStorage.setItem("ticketnumber", tkt[1]);
-                                   $ionicLoading.hide();
+
                                    window.location.href="index.html";
 
                                }    
@@ -613,6 +619,8 @@ app.controller('checkOutOptionCtrl',function($scope,$state,$http,webservices,myc
                           function Close(event) {
                                ref.removeEventListener('loadstop', LoadStop);
                                ref.removeEventListener('exit', Close);
+                               $ionicLoading.hide();
+
                           } 
         //$state.go('sidemenu.test',{url:paymenturl});
         
@@ -693,7 +701,7 @@ app.controller('checkOutOptionCtrl',function($scope,$state,$http,webservices,myc
                                    var tkt = eventurl.split("/ticketnumber");
                                    ////alert("extracted information"+tkt[1]);
                                    window.localStorage.setItem("ticketnumber", tkt[1]);
-                                   $ionicLoading.hide();
+
                                    window.location.href="index.html";
 
                                }    
@@ -701,6 +709,8 @@ app.controller('checkOutOptionCtrl',function($scope,$state,$http,webservices,myc
                           function Close(event) {
                                ref.removeEventListener('loadstop', LoadStop);
                                ref.removeEventListener('exit', Close);
+                               $ionicLoading.hide();
+
                           } 
                   
                   });
@@ -2276,6 +2286,7 @@ function calcDistance(p1, p2) {
        
          webservices.getPlaces($scope.type).success(function(data) { 
             $scope.placesData = data;
+            console.log(data);
             
             $scope.lat = window.localStorage.getItem("currentlat");
             $scope.lng = window.localStorage.getItem("currentlong");

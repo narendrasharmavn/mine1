@@ -268,23 +268,27 @@ div.hscroller {
 
 .iconsion { background-color: #eee; padding: 8px !important;  }
 
-.otpitem { background-color: #11c1f3 !important; } 
+.otpitem { background-color: #ccc !important; } 
 
-.button-custom { background-color: #0a9dc7; }
+.button-custom { background-color: #387ef5; }
 
 /* do not group these rules */
 *::-webkit-input-placeholder {
     color: #000 !important;
+    margin-left: 10px !important;
 }
 *:-moz-placeholder {
     /* FF 4-18 */
     color: #000 !important;
+    margin-left: 10px !important;
 }
 *::-moz-placeholder {
     /* FF 19+ */
     color: #000 !important;
+    margin-left: 10px !important;
 }
 *:-ms-input-placeholder {
     /* IE 10+ */
     color: #000 !important;
+    margin-left: 10px !important;
 }
