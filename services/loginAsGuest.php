@@ -23,7 +23,7 @@ if($email!='')
         if (mysqli_query($conn, $sql)) {
             $last_id = mysqli_insert_id($conn);
             $randNumber =  rand(99999,999999);
-        	$text1='OTP for registration at Book4Holiday is: '.$randNumber.'. Please enter the OTP and complete the process';
+        	$text1= $randNumber.'  is OTP for transaction at Book4Holiday. This OTP is valid for only 10 mins. Please do not share with anyone.';
         	sendSMS($text1,$mobile,$conn);
 
         } else {
