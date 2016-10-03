@@ -215,10 +215,11 @@ if (mysqli_num_rows($tbltransactionsresult) > 0) {
     // send sms //
 
    
-
+	//$surl = shortenURL($ticketnumber);
+	$surl = 'https://book4holiday.com/beta/index.php/invoice/'.$ticketnumber;
 
     // send email //
-   sendEmail($email,$totalcost,$adultpriceperticket,$childpriceperticket,$kidsmealprice,$numberofadults,$numberofchildren,$noofkidsmeal,$servicetax,$internetcharges,$swachhbharath,$krishkalyancess,$ticketnumber,$resortname,$eventname,$eventotime,$eventfromtime,$location,$description,$dateofvisit,$transactiontime);
+   sendEmail($email,$totalcost,$adultpriceperticket,$childpriceperticket,$kidsmealprice,$numberofadults,$numberofchildren,$noofkidsmeal,$servicetax,$internetcharges,$swachhbharath,$krishkalyancess,$ticketnumber,$resortname,$eventname,$eventotime,$eventfromtime,$location,$description,$dateofvisit,$transactiontime,$surl);
     // send email // 
 
 }else{
@@ -251,12 +252,45 @@ if (mysqli_num_rows($tbltransactionsresult) > 0) {
     // send sms //
 
     // send email //
+    //$surl = shortenURL($ticketnumber);
+    $surl = 'https://book4holiday.com/beta/index.php/invoice/'.$ticketnumber;
     
-    sendFailureEmail($email,$ticketnumber);
+    sendFailureEmail($email,$ticketnumber,$surl);
 
     // send email //
    
 	echo "Transaction Failed";
+}
+
+function shortenURL($ticketnumber){
+	// This is the URL you want to shorten
+$longUrl = 'https://book4holiday.com/index.php/invoice/'.$ticketnumber.'/'.$_POST['qrname'];
+echo "<br>Long URL: ".$longUrl."   <br>";
+
+// Get API key from : http://code.google.com/apis/console/
+$apiKey = 'book4holidayurlshortner';
+
+$postData = array('longUrl' => $longUrl, 'key' => $apiKey);
+$jsonData = json_encode($postData);
+
+$curlObj = curl_init();
+
+curl_setopt($curlObj, CURLOPT_URL, 'https://www.googleapis.com/urlshortener/v1/url');
+curl_setopt($curlObj, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curlObj, CURLOPT_SSL_VERIFYPEER, 0);
+curl_setopt($curlObj, CURLOPT_HEADER, 0);
+curl_setopt($curlObj, CURLOPT_HTTPHEADER, array('Content-type:application/json'));
+curl_setopt($curlObj, CURLOPT_POST, 1);
+curl_setopt($curlObj, CURLOPT_POSTFIELDS, $jsonData);
+
+$response = curl_exec($curlObj);
+
+// Change the response json string to object
+$json = json_decode($response);
+
+curl_close($curlObj);
+
+return $json->id;
 }
 
 
@@ -284,7 +318,7 @@ function sendSMS($mobile,$smsurl,$smsusername,$smspassword,$smssenderid,$text1)
 }
 
 
-function sendEmail($email,$totalcost,$adultpriceperticket,$childpriceperticket,$kidsmealprice,$numberofadults,$numberofchildren,$noofkidsmeal,$servicetax,$internetcharges,$swachhbharath,$krishkalyancess,$ticketnumber,$resortname,$eventname,$eventotime,$eventfromtime,$location,$description,$dateofvisit,$transactiontime)
+function sendEmail($email,$totalcost,$adultpriceperticket,$childpriceperticket,$kidsmealprice,$numberofadults,$numberofchildren,$noofkidsmeal,$servicetax,$internetcharges,$swachhbharath,$krishkalyancess,$ticketnumber,$resortname,$eventname,$eventotime,$eventfromtime,$location,$description,$dateofvisit,$transactiontime,$surl)
 {
 	$to=$email;
     $subject = "Transaction Success";
@@ -331,7 +365,7 @@ function sendEmail($email,$totalcost,$adultpriceperticket,$childpriceperticket,$
 			              <tr>
 			                <td valign="top" style="background-color:#f2f2f2;color:#666666;font-size:12px;font-family:Arial,sans-serif;text-align:left;padding:10px 40px 20px 40px;line-height:20px">
 			                  
-			                  <p style="font-size:14px;float:left;width:70%;padding-top:20px">Please find your holiday tickets attached to this mail or to download your ticket, <a href="#" style="text-decoration:none;color:#4073cf;font-weight:bold" target="_blank" data-saferedirecturl="#">click here</a></p>
+			                  <p style="font-size:14px;float:left;width:70%;padding-top:20px">Please find your holiday tickets attached to this mail or to download your ticket, <a href="'.$surl.'" style="text-decoration:none;color:#4073cf;font-weight:bold" target="_blank" data-saferedirecturl="#">click here</a></p>
 			                </td>
 			              </tr>
 			              <tr>
@@ -558,10 +592,12 @@ function sendEmail($email,$totalcost,$adultpriceperticket,$childpriceperticket,$
 			</body>
 			</html>';
     mail($to, $subject, $message, $headers);
+
+    echo "url is: ".$surl."<br>";
 }
 
 
-function sendFailureEmail($email,$ticketnumber)
+function sendFailureEmail($email,$ticketnumber,$surl)
 {
 	$to=$email;
     $subject = "Transaction Failed";

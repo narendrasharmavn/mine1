@@ -21,9 +21,9 @@ $_SESSION['ticketnumber'] = $data1['ticketnumber'];
 //echo "data is: ".$data1['ticketnumber'];
 
 ?>
+<div style="background-color:#11c1f3; height:35px; padding-top: 3px; color: #fff;"><center><b style="font-size:20px;">Book4Holiday</b></center></div>
 <div class="container">
-  <center><h2>Book4Holiday</h2></center>
-  <p>Press Pay to take you to payment gateway</p>
+  <p style="margin-top:10px; text-align: center;">Press Pay to take you to payment gateway</p>
   <form action="<?php echo 'https://book4holiday.com/'.'merchant/';  ?>submit.php" method="post" id="payment-form" >
 		<input type="hidden" name="amount" class=" form-control" placeholder="" value="<?php echo $data1['total']; ?>" readonly>
         <INPUT TYPE="hidden" NAME="udf1" value="NSE">
