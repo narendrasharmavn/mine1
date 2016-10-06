@@ -94,35 +94,43 @@ class Admin extends CI_Controller {
 
     public function getledger()
     {
-      $fromdate = $this->input->post('fromdate');
-      $todate = $this->input->post('todate');
+      //$newDate = date("Y-m-d", strtotime($this->input->post('todate')));
+      $fromdate = date("Y-m-d", strtotime($this->input->post('fromdate')));
+      $todate = date("Y-m-d", strtotime($this->input->post('todate')));
       $vendorid = $this->input->post('vendorid');
+
+      echo "from date is: ".$fromdate." \n";
+      echo "to date is: ".$todate." \n";
+      echo "Vendor id:  ".$vendorid." \n";
       
-        if($vendorid){
-          $selectvendors=$this->db->query("select * from tblvendors where vendorid='$vendorid'");
-          foreach ($selectvendors -> result() as $resv) {
-          $getledger=$this->db->query("SELECT * FROM tbltransactions where vendorid='$vendorid' and transactiondate between ('$fromdate') and ('$todate');");
-          echo '<tr><td colspan="5" align="center" style="background:yellow;"><b>'.$resv->vendorname.'</b></td></tr>';
+        if($vendorid!='all'){
+
+          echo " query si: "."SELECT * FROM tbltransactions where vendorid='$vendorid' and date(transactiondate)<='$fromdate' and date(transactiondate)>='$todate'"."\n";
+          
+          $getledger=$this->db->query("SELECT * FROM tbltransactions where vendorid='$vendorid' and date(transactiondate) BETWEEN '$fromdate' and '$todate'");
+          echo '<tr><td colspan="5" align="center" style="background:yellow;"><b>'.
+$this->db->get_where('tblvendors' , array('vendorid' =>$vendorid))->row()->vendorname.'</b></td></tr>';
           foreach ($getledger -> result() as $gl) {
              echo '<tr>
              <td>'.$gl->transactiondate.'</td>
-                <td>'.$gl->amountrecieved.'</td>
+                <td>'.$gl->amountreceived.'</td>
                 <td>'.$gl->amountpaid.'</td>
                 <td>'.$gl->balance.'</td>
                 
                 </tr>
         ';
-      }
+      
         }
         }else{
           $selectvendors=$this->db->query("select * from tblvendors");
-        foreach ($selectvendors -> result() as $resv) {
-        $getledger=$this->db->query("SELECT * FROM tbltransactions where vendorid='$resv->vendorid' and transactiondate between ('$fromdate') and ('$todate');");
+        foreach ($selectvendors->result() as $resv) {
+        $getledger=$this->db->query("SELECT * FROM tbltransactions where vendorid='$resv->vendorid' and date(transactiondate) BETWEEN '$fromdate' and '$todate'");
+        echo "SELECT * FROM tbltransactions where vendorid='$resv->vendorid' and date(transactiondate)<='$fromdate' and date(transactiondate)>='$todate'"."\n";
         echo '<tr><td colspan="5" align="center" style="background:yellow;"><b>'.$resv->vendorname.'</b></td></tr>';
           foreach ($getledger -> result() as $gl) {
              echo '<tr>
              <td>'.$gl->transactiondate.'</td>
-                <td>'.$gl->amountrecieved.'</td>
+                <td>'.$gl->amountreceived.'</td>
                  <td>'.$gl->amountpaid.'</td>
                 <td>'.$gl->balance.'</td>
                 
@@ -209,7 +217,7 @@ class Admin extends CI_Controller {
       echo '<tr>
               <td>'.$k->vendorname.'</td>
               <td>'.$k->transactiondate.'</td>
-              <td>'.$k->amountrecieved.'</td>
+              <td>'.$k->amountreceived.'</td>
               <td>'.$k->servicecharges.'</td>
             </tr>
       ';
@@ -218,8 +226,8 @@ class Admin extends CI_Controller {
 
   public function getvendorcommissionreport()
   {
-      $fromdate = $this->input->post('fromdate');
-      $todate = $this->input->post('todate');
+      $fromdate = date("Y-m-d", strtotime($this->input->post('fromdate')));
+      $todate = date("Y-m-d", strtotime($this->input->post('todate')));
       $vendorid = $this->input->post('vendorid');
       if($vendorid!='' && $fromdate=='' && $todate==''){
           $vcommission=$this->db->query("select t.*,v.vendorname from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid WHERE t.vendorid='$vendorid' ORDER BY t.tid desc");
@@ -233,7 +241,7 @@ class Admin extends CI_Controller {
               ';
           }
         }else if($vendorid=='' && $fromdate!='' && $todate!=''){
-          $vcommission=$this->db->query("select t.*,v.vendorname from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid WHERE t.transactiondate BETWEEN '$fromdate' AND '$todate' GROUP BY t.vendorid ORDER BY t.tid desc");
+          $vcommission=$this->db->query("select t.*,v.vendorname from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid WHERE date(t.transactiondate) BETWEEN '$fromdate' AND '$todate' GROUP BY t.vendorid ORDER BY t.tid desc");
           foreach ($vcommission -> result() as $k) {
              echo '<tr>
                       <td>'.$k->vendorname.'</td>
@@ -244,7 +252,7 @@ class Admin extends CI_Controller {
               ';
           }
         }else {
-          $vcommission=$this->db->query("select t.*,v.vendorname from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid WHERE t.vendorid='$vendorid' AND t.transactiondate BETWEEN '$fromdate' AND '$todate' ORDER BY t.tid desc");
+          $vcommission=$this->db->query("select t.*,v.vendorname from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid WHERE t.vendorid='$vendorid' AND date(t.transactiondate) BETWEEN '$fromdate' AND '$todate' ORDER BY t.tid desc");
           foreach ($vcommission -> result() as $k) {
              echo '<tr>
                     <td>'.$k->vendorname.'</td>
@@ -742,6 +750,100 @@ class Admin extends CI_Controller {
       ';
     }
   }
+  
+
+  public function vattendees($vendorid='')
+  {
+    error_reporting(0);
+     if (!$this->session->userdata('username')) 
+       redirect('admin/login');
+      //echo $vendorid."<br>";
+        $data['vendors']=$this->Adminmodel->getVendorsIdAndName(); 
+        $data['vendorb']=$this->Adminmodel->getVendorsBooking($vendorid);
+        $this->load->view('admin/vattendees',$data);
+
+  }
+
+  public function getvattendees()
+  {
+    error_reporting(0);
+    $vendorid = $this->input->post('vendorid');
+    $fromdate = $this->input->post('fromdate');
+    if ($fromdate!='') {
+      $fromdate = date("Y-m-d", strtotime($fromdate));
+    }
+    $todate = $this->input->post('todate');
+    if ($todate!='') {
+      $todate = date("Y-m-d", strtotime($todate));
+    }
+
+    if($vendorid!='' && $fromdate=='' && $todate==''){
+
+      $vendorb=$this->db->query("SELECT sum(b.quantity) as quantity, sum(b.childqty) as childqty,sum(p.adultpriceperticket + p.childpriceperticket) as totalcost,count(b.visitorstatus='visited') as attendees,count(b.bookingid) as bookings FROM tblbookings b LEFT JOIN tblpayments p ON b.bookingid=p.bookingid left join tblvendors v ON b.vendorid=v.vendorid WHERE v.vendorid='$vendorid' and b.booking_status='booked' and b.payment_status='paid' and b.visitorstatus='visited' ORDER BY b.bookingid desc");
+      //echo "SELECT sum(b.quantity) as quantity, sum(b.childqty) as childqty,sum(p.adultpriceperticket + p.childpriceperticket) as totalcost,count(b.visitorstatus='visited') as attendees,count(b.bookingid) as bookings FROM tblbookings b LEFT JOIN tblpayments p ON b.bookingid=p.bookingid left join tblvendors v ON b.vendorid=v.vendorid WHERE v.vendorid='$vendorid' and b.booking_status='booked' and b.payment_status='paid' and b.visitorstatus='visited' ORDER BY b.bookingid desc"."\n";
+      foreach ($vendorb->result() as $k) {
+        echo '<tr>
+                <td>'.$k->bookings.'</td>
+                <td>'.$k->attendees.'</td>
+                <td>'.$k->quantity.'</td>
+                <td>'.$k->childqty.'</td>
+                <td>'.$k->totalcost.'</td>
+              </tr>
+        ';
+      }
+          
+    }else if($vendorid=='' && $fromdate!='' && $todate!=''){
+      $vendorb=$this->db->query("SELECT sum(b.quantity) as quantity, sum(b.childqty) as childqty,sum(p.adultpriceperticket + p.childpriceperticket) as totalcost,count(b.visitorstatus='visited') as attendees,count(b.bookingid) as bookings FROM tblbookings b LEFT JOIN tblpayments p ON b.bookingid=p.bookingid left join tblvendors v ON b.vendorid=v.vendorid WHERE b.date BETWEEN '$fromdate' AND '$todate' and b.booking_status='booked' and b.payment_status='paid' and b.visitorstatus='visited' ORDER BY b.bookingid desc ");
+      foreach ($vendorb->result() as $k) {
+        echo '<tr>
+                <td>'.$k->bookings.'</td>
+                <td>'.$k->attendees.'</td>
+                <td>'.$k->quantity.'</td>
+                <td>'.$k->childqty.'</td>
+                <td>'.$k->totalcost.'</td>
+              </tr>
+        ';
+      }  
+        
+    }else{
+      $vendorb=$this->db->query("SELECT sum(b.quantity) as quantity, sum(b.childqty) as childqty,sum(p.adultpriceperticket + p.childpriceperticket) as totalcost,count(b.visitorstatus='visited') as attendees,count(b.bookingid) as bookings FROM tblbookings b LEFT JOIN tblpayments p ON b.bookingid=p.bookingid left join tblvendors v ON b.vendorid=v.vendorid WHERE v.vendorid='$vendorid'  AND b.date BETWEEN '$fromdate' AND '$todate' and b.booking_status='booked' and b.payment_status='paid' and b.visitorstatus='visited'  ORDER BY b.bookingid desc ");
+      foreach ($vendorb->result() as $k) {
+        echo '<tr>
+                <td>'.$k->bookings.'</td>
+                <td>'.$k->attendees.'</td>
+                <td>'.$k->quantity.'</td>
+                <td>'.$k->childqty.'</td>
+                <td>'.$k->totalcost.'</td>
+              </tr>
+        ';
+      }
+    }
+  }
+
+  public function onloadvattendees()
+  {
+    error_reporting(0);
+    $vendorb=$this->db->query("SELECT * FROM tblbookings b LEFT JOIN tblpayments p ON b.bookingid=p.bookingid left join tblcustomers c ON p.customerid=c.customer_id");
+    foreach ($vendorb->result() as $k) {
+      echo '<tr>
+
+          <td>'.$k->ticketnumber.'</td>
+          <td>'.$k->date.'</td>
+              <td>
+                
+        '.$this->db->get_where("tblpackages" , array("packageid" =>$k->packageid))->row()->packagename.'
+                 
+              </td>
+              <td>'.$k->name.'</td>
+              <td>'.$k->quantity.'</td>
+              <td>'.$k->childqty.'</td>
+              <td>'.$k->totalcost.'</td>
+              </tr>
+      ';
+    }
+  }
+
+
 
   public function dailybookings()
   {
@@ -1648,13 +1750,14 @@ public function submitvendordata(){
            'createdon' => date('Y-m-d h:i:s'),
            'status' =>1,
            'description' => $description,
-           'ptype' => $ptype
+           'type' => $ptype
         );
 		//print_r($data);
-        $insert = $this->db->query("insert into tblplaces (place,latitude,longitude,city,address,createdby,
+        /*$insert = $this->db->query("insert into tblplaces (place,latitude,longitude,city,address,createdby,
 		createdon,status,description,otherinfo,type) values ('$pname','$latitude','$longitude','$city','$address','admin',now(),'1',
-		'$description','$oinfo','$ptype')");
+		'$description','$oinfo','$ptype')");*/
 	
+       $this->db->insert('tblplaces', $data); 
 		
 			$this->session->set_flashdata('success','<div class="alert alert-success text-center">Places Created</div>');
 			redirect('admin/addplaces');
@@ -1679,6 +1782,7 @@ public function submitvendordata(){
       $city = $this->input->post('city');
       $address = $this->input->post('address');
       $oinfo = $this->input->post('oinfo');
+      $ptype = $this->input->post('ptype');
       $data = array(
          'place' => $pname ,
          'longitude' => $longitude ,
@@ -1686,6 +1790,7 @@ public function submitvendordata(){
          'city' => $city,
          'address' => $address,
          'otherinfo' => $oinfo,
+         'type'=> $ptype,
          'updatedby' => 'admin',
          'updatedon' => date('Y-m-d h:i:s'),
          'description' => $description

@@ -1483,6 +1483,31 @@ echo "true";
 
  }
 
+  public function confirm2($selectiontype=''){
+
+      if($selectiontype=="events"){
+
+  $packageid = $this->session->userdata('packageid');
+
+  $data['eventResults'] =  $this->FrontEndModel->getResortDetailsBasedOnPackageIdAndEventsTable($packageid);
+
+      $this->load->view('frontend/header2');
+     $this->load->view('frontend/confirmevents',$data);
+
+
+      }else{
+
+      $packageid = $this->session->userdata('packageid');
+
+      $data['resortResults'] =  $this->FrontEndModel->getResortDetailsBasedOnPackageId($packageid);
+
+      $this->load->view('frontend/header2');
+     $this->load->view('frontend/confirm2',$data);
+
+     }
+
+    }
+
     public function confirm($selectiontype=''){
 
       if($selectiontype=="events"){
@@ -1519,6 +1544,204 @@ echo "true";
      $this->load->view('frontend/confirmevents',$data);
 
     }
+
+
+    public function temporeryresponse(){
+    error_reporting(0);
+
+      $paymentid = $this->session->userdata('paymentsid');
+      $bookingid = $this->session->userdata('bookingsid');
+      $servicetax = $this->session->userdata('servicetax');
+      $vendorid = $this->session->userdata('vendorid');
+      $kidsmealprice = $this->session->userdata('kidsmealprice');
+      $ticketnumber = $this->session->userdata('ticketnumber');
+      //echo "ticketnumber is: ".$ticketnumber."<br>";
+      // echo "<br> payment id: ".$bookingid."<br>";
+      //echo "amount is: ".$_POST['f_code'];
+      //print_r($_POST);
+      $amountreceived = ($_POST['amt'])-($servicetax);
+
+      //get last balance row
+      $query = $this->db->query("SELECT * FROM tbltransactions WHERE vendorid='$vendorid' ORDER BY tid DESC LIMIT 0,1");
+      $balance=0;
+
+      if (count($query->row())>0) {
+        $row = $query->row();
+        $balance = $row->balance;
+
+        $balance+= $amountreceived;
+      } else {
+       $balance+= $amountreceived;
+      }
+      
+      $tbltransactionsdata = array(
+          'vendorid'=>$vendorid,
+          'amountreceived'=>$amountreceived,
+          'servicecharges' => $servicetax,
+          'balance' => $balance,
+          'kidsmealamountrecieved'=>$kidsmealprice
+      );
+
+      if($_POST['f_code']==="Ok"){
+
+        $packageid = $this->db->get_where('tblbookings' , array('ticketnumber' =>$ticketnumber))->row()->packageid;
+
+        $dateofvisit = $this->db->get_where('tblbookings' , array('ticketnumber' =>$ticketnumber))->row()->dateofvisit;
+
+               $eventid = $this->db->get_where('tblpackages' , array('packageid' =>$packageid))->row()->eventid;
+
+               $eventname = $this->db->get_where('tblevents' , array('eventid' =>$eventid))->row()->eventname;
+
+               $elocation = $this->db->get_where('tblevents' , array('eventid' =>$eventid))->row()->location;
+
+               $resortid = $this->db->get_where('tblpackages' , array('packageid' =>$packageid))->row()->resortid;
+
+               $resortname = $this->db->get_where('tblresorts' , array('resortid' =>$resortid))->row()->resortname;
+
+               $rlocation = $this->db->get_where('tblresorts' , array('resortid' =>$resortid))->row()->location;
+               $name="";
+               $location="";
+               if ($eventname!='') {
+                 $name = $eventname;
+                 $location=$elocation;
+               }else{
+                $name = $resortname;
+                $location=$rlocation;
+               }
+
+              // echo $name;
+
+
+
+        
+        $paymentsdata = array(
+          'banktransaction'=>$_POST['bank_txn'],
+          'transactiondescription'=>$_POST['desc'],
+          'transaction_id'=>$_POST['ipg_txn_id'],
+          'authorizationcode'=> $_POST['auth_code'],
+          'transdate'=>$_POST['date'],
+          'amount'=>$_POST['amt'],
+          'discriminator'=>$_POST['discriminator'],
+          'cardnumber'=>$_POST['CardNumber'],
+          'billingemail'=>$_POST['udf2'],
+          'billingphone'=>$_POST['udf3'],
+          'udf9'=>$_POST['udf9'],
+          'mmp_txn'=>$_POST['mmp_txn'],
+          'mer_txn'=>$_POST['mer_txn'],
+          'status' => 'paid',
+          'responsestatus' => $_POST['f_code']
+      );
+
+      $bookingsdata = array(
+          'booking_status'=>'booked',
+          'payment_status'=>'paid',
+          
+      );
+
+
+       $this->db->where('ticketnumber', $ticketnumber);
+       $this->db->update('tblpayments', $paymentsdata); 
+
+
+       $this->db->where('ticketnumber', $ticketnumber);
+       $this->db->update('tblbookings', $bookingsdata); 
+
+        //insert into table transactions
+        $this->db->insert('tbltransactions',$tbltransactionsdata); 
+        $mobile = $_POST['udf3'];
+
+        $dateofvisit = date("d-m-Y", strtotime($dateofvisit));
+        $surl = $this->shortenURL($ticketnumber);
+
+        $msg = "Your booking is confirmed via Book4Holiday at  ".$name."  for ".$dateofvisit." . Your Booking Id is: ".$ticketnumber.". Invoice: ".$surl;
+        $this->sendsms($mobile,$msg);
+        $this->sendingEmailTickets($_POST['udf2'],$ticketnumber,$name,$location);
+        //echo " post email id is: ".$_POST['udf2']."<br>";
+  
+      }else{
+
+
+        //send sms if transaction failed
+        $mobile = $_POST['udf3'];
+
+        $msg = "We are sorry, looks like something went wrong. Your transaction at Book4Holiday failed! Transaction Id for your reference is: ".$ticketnumber;
+        $this->sendsms($mobile,$msg);
+        $this->sendingFailEmail($_POST['udf2'],$ticketnumber);
+
+        $paymentsdata = array(
+          'banktransaction'=>$_POST['bank_txn'],
+          'transactiondescription'=>$_POST['desc'],
+          'transaction_id'=>$_POST['ipg_txn_id'],
+          'authorizationcode'=> $_POST['auth_code'],
+          'transdate'=>$_POST['date'],
+          'amount'=>$_POST['amt'],
+          'discriminator'=>$_POST['discriminator'],
+          'cardnumber'=>$_POST['CardNumber'],
+          'billingemail'=>$_POST['udf2'],
+          'billingphone'=>$_POST['udf3'],
+          'udf9'=>$_POST['udf9'],
+          'mmp_txn'=>$_POST['mmp_txn'],
+          'mer_txn'=>$_POST['mer_txn'],
+          'status' => 'failed',
+          'responsestatus' => $_POST['f_code']
+      );
+
+      $bookingsdata = array(
+          'booking_status'=>'failed',
+          'payment_status'=>'failed',
+      );
+
+      $this->db->where('ticketnumber', $ticketnumber);
+       $this->db->update('tblpayments', $paymentsdata); 
+
+
+       $this->db->where('ticketnumber', $ticketnumber);
+       $this->db->update('tblbookings', $bookingsdata); 
+
+        //redirect('frontend/index');
+      }
+
+     
+
+    $this->load->view('frontend/header2');
+     $this->load->view('frontend/responsee',$paymentsdata);
+    
+
+    }
+
+    public function shortenURL($ticketnumber){
+$longUrl = 'https://book4holiday.com/invoice/'.$ticketnumber;
+//echo "<br>Long URL: ".$longUrl."   <br>";
+
+// Get API key from : http://code.google.com/apis/console/
+$apiKey = 'AIzaSyBjh4UINnDpcuIQNcyvmz_BXGZLJN6iKIs';
+
+$postData = array('longUrl' => $longUrl, 'key' => $apiKey);
+$jsonData = json_encode($postData);
+
+$curlObj = curl_init();
+
+curl_setopt($curlObj, CURLOPT_URL, 'https://www.googleapis.com/urlshortener/v1/url?key='.$apiKey);
+curl_setopt($curlObj, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curlObj, CURLOPT_SSL_VERIFYPEER, 0);
+curl_setopt($curlObj, CURLOPT_HEADER, 0);
+curl_setopt($curlObj, CURLOPT_HTTPHEADER, array('Content-type:application/json'));
+curl_setopt($curlObj, CURLOPT_POST, 1);
+curl_setopt($curlObj, CURLOPT_POSTFIELDS, $jsonData);
+
+$response = curl_exec($curlObj);
+
+// Change the response json string to object
+$json = json_decode($response);
+
+curl_close($curlObj);
+//print_r($json);
+$shortLink = get_object_vars($json);
+//echo "Shortened URL is: ".$shortLink['id'];
+return $shortLink['id'];
+
+//return $json->id;
+}
 
 
     public function response(){
@@ -1627,7 +1850,8 @@ echo "true";
 
         $dateofvisit = date("d-m-Y", strtotime($dateofvisit));
 
-        $msg = "Your booking is confirmed via Book4Holiday at  ".$name."  for ".$dateofvisit." . Your Booking Id is: ".$ticketnumber;
+        $surl = $this->shortenURL($ticketnumber);
+        $msg = "Your booking is confirmed via Book4Holiday at  ".$name."  for ".$dateofvisit." . Your Booking Id is: ".$ticketnumber.". Invoice: ".$surl;
         $this->sendsms($mobile,$msg);
         $this->sendingEmailTickets($_POST['udf2'],$ticketnumber,$name,$location);
         //echo " post email id is: ".$_POST['udf2']."<br>";
@@ -1783,7 +2007,8 @@ echo "true";
         $mobile = $_POST['udf3'];
         $dateofvisit = date("d-m-Y", strtotime($dateofvisit));
 
-        $msg = "Your booking is confirmed via Book4Holiday at ".$name.". for ".$dateofvisit.". Your Booking Id is: ".$ticketnumber;
+        $surl = $this->shortenURL($ticketnumber);
+        $msg = "Your booking is confirmed via Book4Holiday at  ".$name."  for ".$dateofvisit." . Your Booking Id is: ".$ticketnumber.". Invoice: ".$surl;
         //echo $msg."<br>mobile is: ";
         //echo $mobile."<br>";
         $this->sendsms($mobile,$msg);
@@ -3438,7 +3663,7 @@ public function nightlife()
 
       $this->load->view('frontend/header2');
 
-        $this->load->view('frontend/resortDetails',$data);
+        $this->load->view('frontend/resortDetails2',$data);
 
     }
 

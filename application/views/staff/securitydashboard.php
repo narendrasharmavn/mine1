@@ -153,19 +153,11 @@ include 'header.php';
 										<div class="panel-body" style="min-height:450px;">
 											<div class="widget-summary">
 											<div class="form-horizontal" id="formhide">
-												<?php
-												   if($usertype=='booking')
-										           { 
-												?>
-												<?php 
-										            echo form_open_multipart('staff/dashboard',array('class' => 'form-horizontal', 'id' => 'myForm'));
-										        ?>
-										        <?php 
-										           $email = $this->session->userdata('email');
-										           $vendorid = $this->session->userdata('vendorid');
-										           $usertype=$this->session->userdata('usertype');
-										           
-										        ?>
+												
+<?php          
+    echo form_open('staff/securitydashboard',array('id'=>'myForm','method'=>'post'));
+?>
+
 								        		<div class="form-group">
 												  <label class="col-md-4 control-label" for="textinput">Ticket Number</label>  
 												  <div class="col-md-4">
@@ -185,17 +177,47 @@ include 'header.php';
 								        	
 
 <div class="container" style="width:706.771653543px;height:309.921259843px;">
- <?php
+<?php
  if($this->input->post('ticketnumber'))
  {
+
+
+ 	$tckno=$this->input->post('ticketnumber');
+        $dt = date('Y-m-d');
+        $vendorid = $this->session->userdata('vendorid');
+        
+        //$query = "SELECT flag FROM tblbookings WHERE ticketnumber='$tckno' AND dateofvisit='date(now())' AND booking_status='booked' AND payment_status='paid' AND visitorstatus='absent'";
+        $getflag = $this->db->query("SELECT flag FROM tblbookings WHERE ticketnumber='$tckno' AND vendorid='$vendorid' AND dateofvisit='$dt' AND booking_status='booked' AND payment_status='paid' AND visitorstatus='absent'");
+       
+        
+        if($getflag->num_rows()>0)
+        {
+            $vdata = array(
+              'visitorstatus'=>'visited',
+              'flag' => '1'
+            );
+            $this->db->update('tblbookings', $vdata, array('ticketnumber' => $tckno));
+            //echo "true";
+            echo '<div class="alert alert-success text-center">Ticket Valid</div>';
+          
+        }else{
+            //echo "false";
+            echo '<div class="alert alert-danger text-center">Ticket Invalid</div>';
+            
+        } 
+
+
+
  	$tckno = $this->input->post('ticketnumber');
  	$vid = $this->session->userdata('vendorid');
     $dt = date('Y-m-d');
- 	$getflag = $this->db->query("SELECT * FROM tblbookings WHERE ticketnumber='$tckno' AND dateofvisit='$dt' AND vendorid='$vid' AND booking_status='booked' AND payment_status='paid' AND visitorstatus='absent'");
+ 	$getflag = $this->db->query("SELECT * FROM tblbookings WHERE ticketnumber='$tckno' AND dateofvisit='$dt' AND vendorid='$vid' AND booking_status='booked' AND payment_status='paid' AND visitorstatus!='absent'");
  	
+ 	//echo "<h1>amar ".$getflag->num_rows()."</h1>";
  	if($getflag->num_rows()>0)
  	{
  	?>
+ 
 <!-- Pradeep code start -->
  	<div id="printableArea">
 		<table align="center" class="table-one">
@@ -384,70 +406,19 @@ include 'header.php';
 
 	<!-- Pradeep code end -->
     
-    
-        
-<?php 
-    }else{
-    $dte =  $this->db->get_where('tblbookings' , array('ticketnumber' => $tckno ))->row()->dateofvisit;
-	$d=date("d-m-Y", strtotime($dte)); 
-	//echo $d."<br>";
-	$cd =  date("d-m-Y");
-	//echo $cd."<br>";
-	if($d<$cd)
-	{
-	?> 
-	<p style="font-size:30px;font-weight:bold;color:red;">Ticket Number is Used</p>
-		
-	<?php }else if($d>$cd){ ?> 
+        <?php 
 
-    <p style="font-size:30px;font-weight:bold;color:red;">Ticket Number is valid For Furture Date</p>
-    <?php }else{ ?>
-     <p style="font-size:30px;font-weight:bold;color:red;">Ticket Number Already Used Today</p>
-    <?php } } } ?>
-</div>
-<?php }else { ?>
+}
 
-<!--Security Dashboard -->
+}
 
-<section class="panel panel-featured-left panel-featured-primary">
-	<div class="panel-body">
-		<div class="widget-summary">
-		<?php 
-            echo form_open('staff/updateticket',array('class' => 'form-horizontal', 'id' => 'myScan'));
-        ?>
-        
-    		<div class="form-group">
-			  <label class="col-md-4 control-label" for="textinput">Ticket Number</label>  
-			  <div class="col-md-4">
-			  <input id="tkno" name="tkno" type="text"  placeholder="Enter / Scan Ticket No." class="form-control input-md" onblur="gettcktno()">
-			  </div>
-			  <div class="col-md-4">
-			    <button type="submit" id="submit" name="submit"  class="btn btn-primary">Submit</button>
-			  </div>
-			</div>
 
-        <?php echo $this->session->flashdata('success'); ?>    
 
-        </form>
-			
-			<!-- Button -->
-    	</div>
-    </br>
-    	<div class="row">
-    	
-		<p id="ticketdata"></p>
-	</div>
-	<!--<div class="col-md-4">
-			    <button type="button" id="update" name="update" onclick="updateticket(),getTicketdata()" class="btn btn-success">Update</button>
-			  </div>-->
 
-		</div>
-	</div>
-</section>
 
-<!--Security Dashboard -->
 
-<?php } ?>
+         ?>
+
 
     
 

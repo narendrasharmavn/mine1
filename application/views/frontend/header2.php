@@ -17,7 +17,7 @@
   <!--  <script src="<?php echo base_url(); ?>assets/frontend/fontawesome/fonts.js"></script>-->
 
     <!-- Favicons-->
-    <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/frontend/img/favicon.ico" type="image/x-icon">
+    
     <link rel="apple-touch-icon" type="image/x-icon" href="<?php echo base_url(); ?>assets/frontend/img/apple-touch-icon-57x57-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="<?php echo base_url(); ?>assets/frontend/img/apple-touch-icon-72x72-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="<?php echo base_url(); ?>assets/frontend/img/apple-touch-icon-114x114-precomposed.png">
@@ -27,9 +27,9 @@
     <link href="<?php echo base_url(); ?>assets/frontend/css/base.css" rel="stylesheet" type="text/css" media="all" >
 
     <!-- Google web fonts -->
-   <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-   <link href='http://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet' type='text/css'>
-   <link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+   <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+   <link href='https://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet' type='text/css'>
+   <link href='https://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
 
     <!-- REVOLUTION SLIDER CSS -->
     <link href="<?php echo base_url(); ?>assets/frontend/rs-plugin/css/settings.css" rel="stylesheet" type="text/css" media="all" >
@@ -45,7 +45,7 @@
     <link href="<?php echo base_url(); ?>assets/frontend/css/detailscarousel.css" rel="stylesheet" type="text/css" media="all" >
     <script type='text/javascript' src='<?php echo base_url(); ?>assets/frontend/js/detailspage.js'></script>
 
-    <script src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyA-hMJfrFKuq7zQy30m0GBdzKSMl9qcxIo"></script>
+    <script src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyA-hMJfrFKuq7zQy30m0GBdzKSMl9qcxIo"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/frontend/css/css/js/jssor.slider.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
 	<!-- use jssor.slider.debug.js instead for debug -->
@@ -181,14 +181,7 @@
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a>.</p>
 <![endif]-->
 
-    <div id="preloader">
-<div id="loader">
-    <div id="box"></div>
-    <div id="hill"></div>
-</div>
-        
-    </div>
-    <!-- End Preload -->
+  
 
     <div class="layer"></div>
     <!-- Mobile menu overlay mask -->

@@ -376,6 +376,12 @@
 													 Daily Bookings
 												</a>
 											</li>
+											<li>
+												<a href="<?php echo site_url(); ?>vendor/vattendances">
+													 Check Attendees
+												</a>
+											</li>
+											
 										</ul>
 									</li>
 

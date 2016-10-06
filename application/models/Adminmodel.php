@@ -32,7 +32,7 @@ class Adminmodel extends CI_Model {
 
     public function getVendorOutStandingTransactions(){
         //echo "select t.*,v.vendorname from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid GROUP BY t.vendorid ORDER BY t.tid desc";
-        return $this->db->query("SELECT sum(t.amountrecieved) as amountrecieved, sum(t.servicecharges) as servicecharges,sum(t.amountpaid) as amountpaid,v.vendorname from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid GROUP BY t.vendorid ORDER BY t.tid desc");
+        return $this->db->query("SELECT sum(t.amountrecieved) as amountrecieved, sum(t.servicecharges) as servicecharges,sum(t.amountpaid) as amountpaid,v.vendorname from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid INNER join tblbookings b ON b.vendorid=v.vendorid WHERE b.visitorstatus='visited' GROUP BY t.vendorid ORDER BY t.tid desc");
         
     }
 
@@ -49,7 +49,7 @@ class Adminmodel extends CI_Model {
    
      public function  getVendorOutStandingTransactionsOnVendorId($vendorid){
         //echo "select t.*,v.vendorname,SUM(t.amountrecieved)-SUM(t.amountpaid) AS outstanding from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid WHERE t.vendorid='t.vendorid' ORDER BY t.tid desc";
-        return $this->db->query("select t.*,v.vendorname,SUM(t.amountreceived)-SUM(t.amountpaid) AS outstanding from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid WHERE t.vendorid='$vendorid' ORDER BY t.tid desc");
+        return $this->db->query("select t.*,v.vendorname,SUM(t.amountreceived)-SUM(t.amountpaid) AS outstanding from tbltransactions t INNER JOIN tblvendors v ON t.vendorid=v.vendorid INNER JOIN tblbookings b ON b.vendorid=v.vendorid WHERE t.vendorid='$vendorid' AND b.visitorstatus='visited' ORDER BY t.tid desc");
         
     }
 

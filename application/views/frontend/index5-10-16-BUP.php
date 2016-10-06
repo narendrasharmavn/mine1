@@ -12,7 +12,7 @@
                   min-width: 325px !important;
                  min-height: 0px !important; }
 
-  .places-thumb { margin-left: 25px !important;
+  .places-thumb { margin-left: 40px !important;
                   min-width: 225px !important;
                  min-height: 0px !important; }                       /* add customedia css */
           /* add customedia css */
@@ -431,13 +431,12 @@ function myFunctionFocusOut(){
 	
 	
 $('document').ready(function(){
+	
+	$("#carousel-menu-prev").hide();
+
+  
 	  $(".indexmyhome").hide();
-    $(".indexmyhome").css('display','-webkit-inline-box'); 
-	$(".menu-two").css('display','none');
-	
-	
-	
-	
+    $(".indexmyhome").css('display','-webkit-inline-box');
 
    $( ".datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
 
@@ -451,9 +450,6 @@ $('document').ready(function(){
 
 
 });
-
-	
-
  $( ".search-form-slider1" ).autocomplete({
       source:function(request, response) {
         
@@ -623,7 +619,11 @@ $(window).scroll(function() {
 
 
 </script>
- 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+		</script>
+ <script src="<?php echo base_url(); ?>assets/frontend/js/b4hjs/bootstrap.min.js"></script>
+ <script src="<?php echo base_url(); ?>assets/frontend/js/b4hjs/carousel-menu.min.js"></script>
+
         </body>
 
 </html>

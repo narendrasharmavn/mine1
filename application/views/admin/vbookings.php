@@ -103,7 +103,7 @@
 			                            <h2 class="panel-title">Bookings</h2>
 			                            <hr>
 			                            <div>&nbsp;</div>
-			                            <table class="table table-bordered table-striped mb-none" id="datatable-default" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+			                            <table class="table table-bordered table-striped mb-none" id="" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
 											<thead>
 												<tr>
 													<th>Ticket No.</th>
@@ -196,7 +196,7 @@
  <script type="text/javascript">
   var $j = jQuery.noConflict();
     $(document).ready(function(){
-
+       /*
     	$("#fromdate").datepicker({
         dateFormat: "dd-mm-yy",
         minDate: 0,
@@ -215,6 +215,11 @@
             //same for dt1
             $(this).datepicker('option', 'minDate', minDate);
         }
+    });*/
+
+
+      $('#fromdate').datepicker({
+        dateFormat: "dd-mm-yy"
     });
 
        $('#todate').datepicker({

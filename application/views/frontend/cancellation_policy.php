@@ -54,15 +54,14 @@
 <div class="container" style="min-height:480px;margin-top:5%;">
  
 
-	<div class="row">
-		<div class="col-xs-12">
-			
+	<div class="container row">
+		<div class="col-xs-12 canpol">
 			
 			<h3><strong>Cancellation Policy</strong></h3>
 			<hr>
 			<div class="row">
 
-<ul style="line-height:1.5em;text-align:justify;">
+<ul style="line-height:1.5em;text-align:justify; font-size: 14px;">
 	<li>Tickets booked through Book4holiday are NOT cancelable except for resorts and room; which are cancellable only within a stipulated time.</li>
 	<li>Wherever cancellation is allowed, cancellation can be done free of charge i.e., Book4holiday doesn&rsquo;t levy any cancellation charges.</li>
 	<li>Cancellation is not allowed for Zoo ticket booking and no refund applicable if the customer not visited within the validity period.</li>
@@ -72,14 +71,14 @@
 			
 			<h3><strong>Refund Policy</strong></h3>
 <div class="row">
-	<ul style="line-height:1.5em;text-align:justify;">
+	<ul style="line-height:1.5em;text-align:justify; font-size: 14px;">
 		<li>If customer paid twice for one transaction, the one transaction amount will be refunded via same source within 07 to 10 working days</li>
 <li>For Resort Bookings and Event Bookings, If customer does not appear at time of Visiting, no cancellation will be allowed and no refund is applicable.</li>
 	</ul>
 </div>
 <h3><strong>Delivery / Shipping Policy</strong></h3>
 <div class="row">
-	<ul style="line-height:1.5em;text-align:justify;">
+	<ul style="line-height:1.5em;text-align:justify; font-size: 14px;">
 		<li>After successful transaction Booking Details will be delivered to the customer via Email and SMS within the time of maximum one hour.</li>
 	</ul>
 </div>

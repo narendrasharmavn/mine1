@@ -26,12 +26,9 @@
           ?>
 
           <div class="form_title">
-                <h3>
-                    <strong><i class="fa fa-times-circle" aria-hidden="true"></i></strong>OOPS ! Sorry Something went wrong
-                </h3>
-                <p>Your Transaction Failed</p>
+                <h3><strong><i class="fa fa-times-circle" aria-hidden="true"></i></strong>OOPS ! Sorry Something went wrong</h3> <br>
+                <p>Your Transaction Failed.</p>
             </div>
-
           <?php
        }
        
@@ -46,17 +43,31 @@
                 <td><strong>Bank Transaction</strong></td>
                 <td><?php echo $banktransaction;   ?></td>
             </tr>
-            <tr>
+            <!--<tr>
                 <td><strong>Transaction Id</strong></td>
-                <td><?php echo $transaction_id;   ?></td>
-            </tr>
+                <td><?php //echo $transaction_id;   ?></td>
+            </tr>-->
             <tr>
                 <td><strong>Transaction Date</strong></td>
-                <td><?php echo $transdate;   ?></td>
+                <td>
+                 <?php 
+     
+                    $total = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->transactiontime;
+                    //echo $total;
+                    $newDate = date("d-m-Y", strtotime($total));
+                    echo $newDate;
+                ?>  
+                </td>
             </tr>
             <tr>
                 <td><strong>Transaction Amount</strong></td>
-                <td>Rs. <span><?php echo $amount;   ?></span></td>
+                <td>Rs. <span>
+                <?php 
+     
+                  $total = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->totalcost;
+                  echo $total;
+                ?>  
+                </span></td>
             </tr>
             <tr>
                 <td><strong>Billing Email</strong></td>
@@ -149,6 +160,8 @@
      $childpriceperticket = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->childpriceperticket;
      $kidsmealprice = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->kidsmealprice;
      $ticketcost = $adultpriceperticket+$childpriceperticket+$kidsmealprice;
+     $ticketcost = round($ticketcost, 2);
+     $ticketcost = sprintf("%.2f", $ticketcost);
      $servicetax = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->servicetax;
      $swachhbharath = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->swachhbharath;
      $kkcess = $this->db->get_where('tblpayments' , array('ticketnumber' =>$ticketnumber))->row()->krishkalyancess;

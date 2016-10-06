@@ -1,0 +1,151 @@
+<html>
+<head>
+<title>Book4Holiday Pass</title>
+
+    <!--Bootstrap cdn-->
+
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+	body { font-size: 14px;
+		   font-family: calibri; }
+	
+	a { color:#006400;
+	    text-decoration: none; }
+	
+	a:hover { color:#0099cc; 
+	          text-decoration: none; } 
+	
+	.maintable { width: 750px;
+				 height: 255px;
+				 background-color: #eee;
+				 border-radius: 20px;
+				 margin-top: 50px; }
+	
+	#headertxt { color:#006400; }			 
+	
+	.maintable1 { border-bottom: 1px solid #ccc; }	
+	
+	.maintable2 { padding-top: 10px;
+		          padding-bottom: 10px; }		 
+	
+	.img-barcode { margin-top: 10px; 
+	               float: right; }
+	
+	.subtable { font-weight: bold; }
+	
+	.tablepara1 { font-weight: bold; }               
+	
+	.tablepara { font-size: 11px; } 
+	
+	.thead-default { background-color: #ddd; }
+
+	.maintable3 { text-align: center;
+	              border-top: 1px solid #ccc;
+	              padding-top: 10px; }
+	
+	.footertxt { color:#006400; }                        			 
+</style>
+
+</head>
+<body>
+	
+	<div class="container maintable" id="printableArea">
+		<div class="col-xs-12 col-md-12 col-lg-12 maintable1">
+			<div class="col-xs-12 col-md-4 col-lg-4">
+				<h3 id="headertxt"><b>Book4Holiday</b></h3>
+			</div>
+			<div class="col-xs-12 col-md-8 col-lg-8">
+				<img src="barcode.png" width="350px" height="50px" alt="barcode_img" class="img-barcode">
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-md-12 col-lg-12 maintable2">
+			<div class="col-xs-12 col-md-5 col-lg-5">
+				<table>
+					<tr>
+						<td class="subtable">Coustmer Name</td>
+						<td>:</td> 
+						<td> &nbsp; Fornext IT</td>
+					</tr>
+					<tr>
+						<td class="subtable">Mobile No</td>
+						<td>:</td> 
+						<td> &nbsp; +91 98765 43210</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="col-xs-12 col-md-7 col-lg-7">
+				<table>
+					<tr>
+						<td class="subtable">Date of Visit</td>
+						<td>:</td> 
+						<td> &nbsp; 03<sup>rd</sup> Sep 2016</td>
+					</tr>
+					<tr>
+						<td class="subtable">Resort Name</td>
+						<td>:</td> 
+						<td> &nbsp; Royal Green Paradise Resort, Hyderabad</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-md-12 col-lg-12">
+			<table class="table">
+			  	<thead class="thead-default">
+			    	<tr>
+				    	<th>#</th>
+				      	<th>Packages</th>
+				      	<th>Details</th>
+				      	<th>Total</th>
+				    </tr>
+			  	</thead>
+			  	<tbody>
+			    	<tr>
+			      		<th scope="row">1</th>
+			      		<td>Resort</td>
+			      		<td>Lorem Ipsum noderum to the ipsumvexor with opened icaned.</td>
+			      		<td>Rs. 1500</td>
+			      	</tr>
+			    </tbody>
+			</table>
+		</div>
+
+		<div class="col-xs-12 col-md-12 col-lg-12 maintable3">
+			<div class="col-xs-12 col-md-6 col-lg-6">
+				<span class="footertxt"><b>Address:</b> G-3, Royal Enclave, Madhapur, Hyderabad. </span>
+			</div>
+			<div class="col-xs-12 col-md-6 col-lg-3">
+				<span class="footertxt">+91 40 2345 6789/0</span>
+			</div>
+			<div class="col-xs-12 col-md-6 col-lg-3">
+				<span class="footertxt"><a href="#" target="_blank">info@book4holiday.com</a></span>
+			</div>	
+		</div>	
+	</div>
+	
+	<div>&nbsp;</div>
+	
+	<center>
+	<div class="col-xs-12 col-md-12 col-lg-12">
+		<button type="button" class="btn btn-success" onclick="printDiv('printableArea')">Print Ticket</button>
+	</div>
+	</center>
+	
+	<script type="text/javascript">
+		function printDiv(divName) {
+			var printContents = document.getElementById(divName).innerHTML;
+			var originalContents = document.body.innerHTML;
+			document.body.innerHTML = printContents;
+			window.print();
+			document.body.innerHTML = originalContents;
+		}
+	</script>
+	
+</body>
+</html>

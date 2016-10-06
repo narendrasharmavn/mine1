@@ -102,7 +102,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-6" style="margin-bottom:20px;">
 							<label>Human verification</label>
 							<input type="text" id="verify_contact" class=" form-control add_bottom_30" placeholder="Are you human? 3 + 1 =">
 							<input type="submit" value="Submit" class="btn_1" id="submit-contact">
@@ -112,16 +112,19 @@
 			</div>
 		</div><!-- End col-md-8 -->
         
+		<div>&nbsp;</div>
+		
 		<div class="col-md-4 col-sm-4">
 			<div class="box_style_1">
 				<span class="tape"></span>
 				<h4>Address <span><i class="icon-pin pull-right"></i></span></h4>
-				<p>Book4holiday</p>
-				<p>A unit of Adepto Geoinformatics Pvt. Ltd.</p>
-				<p>8-2-686/K/21, S-1, III rd Floor</p>
-				<p>Ashok Asha Abode,Behind Fortune Hotel</p>
-				<p>Road no.12, Banjara Hills, Hyderabad &ndash; 500 034</p>
-				<p>Ph.: 040 -23393131, E: <a href="mailto:info@adeptogeoit.com">info@adeptogeoit.com</a></p>
+				<p><b>Book4holiday</b></br>
+					A unit of Adepto Geoinformatics Pvt. Ltd.</br>
+					8-2-686/K/21, S-1, III rd Floor</br>
+					Ashok Asha Abode,Behind Fortune Hotel</br>
+					Road no.12, Banjara Hills, Hyderabad &ndash; 500 034</br>
+					Ph: 040 -23393131, E: <a href="mailto:info@adeptogeoit.com">info@adeptogeoit.com</a></br>
+				</p>
 				<hr>
 				<h4>Help center <span><i class="icon-help pull-right"></i></span></h4>
 				<ul id="contact-info">
@@ -129,11 +132,11 @@
 					<li><a href="#">info@book4holiday.com</a></li>
 				</ul>
 			</div>
-			<div class="box_style_4">
-				<i class="icon_set_1_icon-57"></i>
+			<div class="box_style_4" style="margin-bottom: 20px;">
+				<!-- <i class="icon_set_1_icon-57"></i> -->
 				<h4>Need <span>Help?</span></h4>
 				<a href="tel://919123467890" class="phone">+ 91 91234 67890 </a>
-				<small>Monday to Friday 9.00am - 7.30pm</small>
+				<small style="font-size:12px;">Monday to Friday 9.00am - 7.30pm</small>
 			</div>
 		</div><!-- End col-md-4 -->
 	</div><!-- End row -->

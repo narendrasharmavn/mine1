@@ -37,7 +37,12 @@ class Staff extends CI_Controller {
             $this->session->set_userdata('usertype',$usertype);
             $this->session->set_userdata('email',$email);
             $this->session->set_userdata('vendorid',$vendorid);
-            redirect('staff/dashboard');
+            if ($usertype=="booking") {
+                redirect('staff/dashboard');
+            }else{
+                redirect('staff/securitydashboard');
+            }
+            
         }
     } 
 
@@ -45,6 +50,12 @@ class Staff extends CI_Controller {
     {
         $vendorid = $this->session->userdata('vendorid');
         $this->load->view('staff/dashboard');
+    }
+
+    public function securitydashboard()
+    {
+        $vendorid = $this->session->userdata('vendorid');
+        $this->load->view('staff/securitydashboard');
     }
 
     public function logout()

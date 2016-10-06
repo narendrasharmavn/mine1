@@ -14,7 +14,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
 		<!-- Web Fonts  -->
-		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
 		
 		
 		<!-- Vendor CSS -->
@@ -273,11 +273,15 @@
 
 											<li>
 												<a href="<?php echo site_url(); ?>admin/vendorcomissionreports">
-													 Vendor Commission Report
+													 Vendor Profit Report
 												</a>
 											</li>
 
-											
+											<li>
+												<a href="<?php echo site_url(); ?>admin/vattendees">
+													 Check Attendees
+												</a>
+											</li>
 
 										</ul>
 									</li>

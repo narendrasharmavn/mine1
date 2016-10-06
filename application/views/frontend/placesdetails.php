@@ -48,7 +48,7 @@
     $getplacename = $this->db->query("SELECT * FROM tblplaces WHERE plid='$placeid'");
     $row = $getplacename->row(); 
     $place = $row->place;
-
+    $type = $row->type;
     $photoName = "";
 
     $query2 = $this->db->query("SELECT * from tblplacesphotos WHERE plid='$placeid'");
@@ -372,7 +372,7 @@ if ($this->session->userdata('holidayCustomerName')) {
 
                                         <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; top: 80px; z-index: 100; left: 889.5px;">
                             <div class="box_style_1 expose">
-                                <h4>Other Places in Hyderabad</h4>
+                                <h4><?php echo $type; ?> in Hyderabad</h4>
                     
                 <?php 
                     $query = $this->db->query("SELECT * FROM tblplaces where plid!='".$row->plid."' and type='".$row->type."' order by plid DESC limit 5");

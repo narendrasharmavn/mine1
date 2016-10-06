@@ -172,6 +172,7 @@
  <script type="text/javascript">
  var $j = jQuery.noConflict();
  $("document").ready(function(){
+         /*
          $("#fromdate").datepicker({
         dateFormat: "dd-mm-yy",
         minDate: 0,
@@ -190,7 +191,15 @@
             //same for dt1
             $(this).datepicker('option', 'minDate', minDate);
         }
+    });*/
+
+
+
+    $('#fromdate').datepicker({
+        dateFormat: "dd-mm-yy"
     });
+
+       
 
        $('#todate').datepicker({
         dateFormat: "dd-mm-yy"
@@ -216,6 +225,7 @@
 		            },
 		      success: function(res) {
 		      //alert(res); 
+		      console.log(res);
 		      $('#gledger').html(res);
 		      }
 	    });

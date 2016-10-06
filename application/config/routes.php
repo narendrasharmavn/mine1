@@ -76,6 +76,7 @@ $route['searchquery/(:any)/(:any)'] = 'frontend/squery/$1/$2';
 $route['searchevents/(:any)/(:any)/(:any)'] = 'frontend/squery2/$1/$2/$3';
 $route['search-resultss'] = 'frontend/indexsearch2';
 
+$route['confirm-booking-resortss'] = 'frontend/confirm2';
 $route['confirm-booking-resorts'] = 'frontend/confirm';
 $route['confirm-booking-multicheckout'] = 'frontend/confirmmulticheckout';
 $route['confirm-booking-events'] = 'frontend/confirm/events';
@@ -95,6 +96,7 @@ $route['myaccount-update'] = 'frontend/updateMyAccount';
 
 $route['my-orders'] = 'frontend/myorders';
 $route['response'] = 'frontend/response';
+$route['responsee'] = 'frontend/temporeryresponse';
 $route['paymentresponse'] = 'frontend/response2';
 
 $route['login'] = 'frontend/loginForm';

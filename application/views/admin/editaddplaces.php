@@ -47,7 +47,8 @@
 											$query = $this->db->query("SELECT * FROM tblplaces WHERE plid='$placeid'");
 											$rows = $query->row(); 
 											//$name = $rows->itemname;
-							
+											$type = $rows->type;
+							                
 								         ?>
 									
 								         
@@ -113,6 +114,21 @@
 								                </div>
 								               
 							                </div>
+
+							                <div class="form-group" style="margin-right: 442px;">
+							                    <label for="inputEmail3" class="col-sm-5 control-label pull-left">Type *</label>
+							                    <div class="col-sm-7">
+							                      <select name="ptype" class="form-control">
+							                        <option value="Things To Do" <?php if($type == 'Things To Do' ) { echo "Selected";}?>>Things To Do</option>
+							                        <option value="Kids Day Out" <?php if($type == 'Kids Day Out' ) { echo "Selected";}?>>Kids Day Out</option>
+							                        <option value="Adventure" <?php if($type == 'Adventure' ) { echo "Selected";}?>>Adventure</option>
+							                        <option value="Shopping & Fashion" <?php if($type == 'Shopping & Fashion' ) { echo "Selected";}?>>Shopping & Fashion</option>
+							                        <option value="Weddings/Banquets" <?php if($type == 'Weddings/Banquets' ) { echo "Selected";}?>>Weddings/Banquets</option>
+							                        <option value="Night Life" <?php if($type == 'Night Life' ) { echo "Selected";}?>>Night Life</option>
+							                      </select>
+							                      <span class="text-danger"><?php echo form_error('ptype'); ?></span>
+							                     </div>
+							                  </div>
 							                                                      
 											
 											<div class="form-group">

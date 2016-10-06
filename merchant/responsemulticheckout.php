@@ -209,18 +209,16 @@ if (mysqli_num_rows($tbltransactionsresult) > 0) {
 	// send sms //
 
     $text1 =  'Your booking is confirmed via Book4Holiday at Nehru Zoo for:'.$dateofvisit.'. Your Booking Id is: '.$ticketnumber;
-    $shorturl = shortenURL($ticketnumber);
 
-	sendSMS($mobile,$smsurl,$smsusername,$smspassword,$smssenderid,$text1,$shorturl);
+	sendSMS($mobile,$smsurl,$smsusername,$smspassword,$smssenderid,$text1);
 
     // send sms //
 
-   
-	
-	$surl = 'https://book4holiday.com/beta/index.php/invoice/'.$ticketnumber;
+   echo "<br> Before sendEmail function: ".$email."<br>";
+
 
     // send email //
-   sendEmail($email,$totalcost,$adultpriceperticket,$childpriceperticket,$kidsmealprice,$numberofadults,$numberofchildren,$noofkidsmeal,$servicetax,$internetcharges,$swachhbharath,$krishkalyancess,$ticketnumber,$resortname,$eventname,$eventotime,$eventfromtime,$location,$description,$dateofvisit,$transactiontime,$surl);
+   sendEmail($email,$totalcost,$adultpriceperticket,$childpriceperticket,$kidsmealprice,$numberofadults,$numberofchildren,$noofkidsmeal,$servicetax,$internetcharges,$swachhbharath,$krishkalyancess,$ticketnumber,$resortname,$eventname,$eventotime,$eventfromtime,$location,$description,$dateofvisit,$transactiontime);
     // send email // 
 
 }else{
@@ -247,65 +245,28 @@ if (mysqli_num_rows($tbltransactionsresult) > 0) {
     // send sms //
     
     $text1 =  "We are sorry, looks like something went wrong. Your transaction at Book4Holiday failed! Transaction Id for your reference is:    ".$ticketnumber;
-    $shorturl = shortenURL($ticketnumber);
 
-	sendSMS($mobile,$smsurl,$smsusername,$smspassword,$smssenderid,$text1,$shorturl);
+	sendSMS($mobile,$smsurl,$smsusername,$smspassword,$smssenderid,$text1);
 
     // send sms //
 
     // send email //
     
-    $surl = 'https://book4holiday.com/beta/invoice/'.$ticketnumber;
-    
-    sendFailureEmail($email,$ticketnumber,$surl);
+    sendFailureEmail($email,$ticketnumber);
 
     // send email //
    
 	echo "Transaction Failed";
 }
 
-function shortenURL($ticketnumber){
-$longUrl = 'https://book4holiday.com/index.php/invoice/'.$ticketnumber;
-//echo "<br>Long URL: ".$longUrl."   <br>";
-
-// Get API key from : http://code.google.com/apis/console/
-$apiKey = 'AIzaSyBjh4UINnDpcuIQNcyvmz_BXGZLJN6iKIs';
-
-$postData = array('longUrl' => $longUrl, 'key' => $apiKey);
-$jsonData = json_encode($postData);
-
-$curlObj = curl_init();
-
-curl_setopt($curlObj, CURLOPT_URL, 'https://www.googleapis.com/urlshortener/v1/url?key='.$apiKey);
-curl_setopt($curlObj, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($curlObj, CURLOPT_SSL_VERIFYPEER, 0);
-curl_setopt($curlObj, CURLOPT_HEADER, 0);
-curl_setopt($curlObj, CURLOPT_HTTPHEADER, array('Content-type:application/json'));
-curl_setopt($curlObj, CURLOPT_POST, 1);
-curl_setopt($curlObj, CURLOPT_POSTFIELDS, $jsonData);
-
-$response = curl_exec($curlObj);
-
-// Change the response json string to object
-$json = json_decode($response);
-
-curl_close($curlObj);
-//print_r($json);
-$shortLink = get_object_vars($json);
-//echo "Shortened URL is: ".$shortLink['id'];
-return $shortLink['id'];
-
-//return $json->id;
-}
 
 
 
-
-function sendSMS($mobile,$smsurl,$smsusername,$smspassword,$smssenderid,$text1,$shorturl)
+function sendSMS($mobile,$smsurl,$smsusername,$smspassword,$smssenderid,$text1)
 {
     // SMS REQUEST SENT START //
     
-    $text1.= " Invoice:".$shorturl;
+    
     $text=str_replace(" ","%20",$text1);
     $qry_str = $smsurl.$smsusername."&password=".$smspassword."&to=".$mobile."&from=".$smssenderid."&message=".$text;
     echo "Server returns: " .$qry_str;
@@ -323,8 +284,9 @@ function sendSMS($mobile,$smsurl,$smsusername,$smspassword,$smssenderid,$text1,$
 }
 
 
-function sendEmail($email,$totalcost,$adultpriceperticket,$childpriceperticket,$kidsmealprice,$numberofadults,$numberofchildren,$noofkidsmeal,$servicetax,$internetcharges,$swachhbharath,$krishkalyancess,$ticketnumber,$resortname,$eventname,$eventotime,$eventfromtime,$location,$description,$dateofvisit,$transactiontime,$surl)
+function sendEmail($email,$totalcost,$adultpriceperticket,$childpriceperticket,$kidsmealprice,$numberofadults,$numberofchildren,$noofkidsmeal,$servicetax,$internetcharges,$swachhbharath,$krishkalyancess,$ticketnumber,$resortname,$eventname,$eventotime,$eventfromtime,$location,$description,$dateofvisit,$transactiontime)
 {
+	echo "<br>inside sendEmail function ".$email."<br>";
 	$to=$email;
     $subject = "Transaction Success";
     $headers = "MIME-Version: 1.0"."\r\n";
@@ -370,7 +332,7 @@ function sendEmail($email,$totalcost,$adultpriceperticket,$childpriceperticket,$
 			              <tr>
 			                <td valign="top" style="background-color:#f2f2f2;color:#666666;font-size:12px;font-family:Arial,sans-serif;text-align:left;padding:10px 40px 20px 40px;line-height:20px">
 			                  
-			                  <p style="font-size:14px;float:left;width:70%;padding-top:20px">Please find your holiday tickets attached to this mail or to download your ticket, <a href="'.$surl.'" style="text-decoration:none;color:#4073cf;font-weight:bold" target="_blank" data-saferedirecturl="#">click here</a></p>
+			                  <p style="font-size:14px;float:left;width:70%;padding-top:20px">Please find your holiday tickets attached to this mail or to download your ticket, <a href="#" style="text-decoration:none;color:#4073cf;font-weight:bold" target="_blank" data-saferedirecturl="#">click here</a></p>
 			                </td>
 			              </tr>
 			              <tr>
@@ -597,18 +559,19 @@ function sendEmail($email,$totalcost,$adultpriceperticket,$childpriceperticket,$
 			</body>
 			</html>';
     mail($to, $subject, $message, $headers);
-
-    echo "url is: ".$surl."<br>";
 }
 
 
-function sendFailureEmail($email,$ticketnumber,$surl)
+function sendFailureEmail($email,$ticketnumber)
 {
+	echo "<br>inside sendfailureemail function.  Failed email :".$email."<br>";
+
 	$to=$email;
     $subject = "Transaction Failed";
     $headers = "MIME-Version: 1.0"."\r\n";
     $headers .= "Content-Type: text/html; charset=ISO-8859-1"."\r\n";
     $headers .= 'From: Book4Holiday Support <info@book4holiday.com>'."\r\n";
+    $msgg='hello';
     $message='<!doctype html>
 <html>
 <head>
@@ -694,7 +657,8 @@ function sendFailureEmail($email,$ticketnumber,$surl)
 </body>
 </html>
 ';
-    mail($to, $subject, $message, $headers);
+echo "<br>Message is: <br>".$msgg."<br>";
+    echo "<br>status of mail is: ".mail($to, $subject, $msgg, $headers);
 }
 
 
@@ -706,7 +670,7 @@ mysqli_close($conn);
 ?>
 <script>
 window.onload = function(e) {
-              window.location.href="test.php/ticketnumber=<?php echo $ticketnumber;?>";
+              //window.location.href="test.php/ticketnumber=<?php echo $ticketnumber;?>";
               //window.location.href="test.php/ticketnumber=20160808102834000000";
               //alert("hello");
             };

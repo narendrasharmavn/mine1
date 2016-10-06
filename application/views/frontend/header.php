@@ -17,7 +17,7 @@
   <!--  <script src="<?php echo base_url(); ?>assets/frontend/fontawesome/fonts.js"></script>-->
 
     <!-- Favicons-->
-    <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/frontend/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/frontend/img/icon.png" type="image/x-icon">
    <!-- BASE CSS -->
     <link href="<?php echo base_url(); ?>assets/frontend/css/base.css" rel="stylesheet" type="text/css" media="all" >
 
@@ -203,7 +203,111 @@
                 </div>
                 <nav class="col-md-9 col-sm-9 col-xs-9">
                     <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
-                    <div class="main-menu">
+                    <div class="main-menu hidden-sm hidden-xs">
+                        <div id="header_menu">
+                            <!--<img src="<?php echo base_url(); ?>assets/frontend/img/logo_sticky.png" width="160" height="34" alt="City tours" data-retina="true">-->
+                            <a href="<?php echo site_url().'home';      ?>">
+                                <span style="color: Black;font-size: 30px;">Book4Holiday</span>
+                           </a>
+							<!--Added mobile view starts-->   
+								  <!-- <div class="col-xs-12 hidden-lg hidden-md">
+								   <div class="col-xs-1"></div>
+								   <div class="col-xs-5">
+								   <a href="<?php echo site_url().'login'; ?>" class="show-submenu">Sign In</a>
+								   </div>
+								   <div class="col-xs-5">
+								   <a href="<?php echo site_url().'register'; ?>" class="show-submenu">Register</a>
+								   </div>
+								   <div class="col-xs-1"></div>
+								   </div>   
+								   <div class="hidden-lg hidden-md">&nbsp;</div> -->
+							<!--Added mobile view ends-->      
+                        </div>
+                        <a href="#" class="open_close" id="close_in"><i class="icon_set_1_icon-77"></i></a>
+                        <ul id="menu-menu-1" class="menu">
+                            
+							<?php
+							if($this->uri->segment(1)=='home' || $this->uri->segment(1)==''){
+							?>
+							<!-- <li style="background:rgb(0, 153, 204);" id="li-search-book-toggle">
+                                <a href="#" class="show-submenu" style="color:white;" id="search-book-toggle" >Search</a></li> <!---->
+                            <li style="background:rgb(0, 153, 204)" id="li-search-book-toggle">
+                                <a class="show-submenu" style="color:white;" id="search-book-toggle">Home</a>
+                                	<?php //} ?>                          
+							</li>
+								<?php }else{
+
+								?>
+							<li class="indexmyhome">
+                                <a href="<?php echo site_url().'home';?>" class="show-submenu">Home </a>
+                            </li>
+							<?php
+							} ?>                          
+						  
+							<?php
+							//if($this->uri->segment(1)=='home' || $this->uri->segment(1)==''){
+							?>
+                            
+							<span class="menu-one">
+								
+								<li >
+									<a href="<?php echo site_url().'kidsdayout' ?>" class="show-submenu">Kids Dayout </a>
+									
+								</li>
+								<li >
+									<a href="<?php echo site_url().'adventure' ?>" class="show-submenu">Activities and Recreation </a>
+									
+								</li>
+								<li >
+									<a href="javascript:void(0);" class="show-submenu">Day Events </a>
+								</li>
+								<li >
+									<a href="<?php echo site_url().'resorts/zoo/1'; ?>" class="show-submenu">Book Zoo Tickets </a>
+									
+								</li>
+								<a href="#"><i class="fa fa-chevron-right" aria-hidden="true" style="color:#fff; font-size:14px;" id="bbb"></i></a>
+							</span>
+                                
+							<span class="menu-two" style="display: none; margin-left: 15px;">
+								<a href="#"><i class="fa fa-chevron-left" aria-hidden="true" style="color:#fff; font-size:14px;" id="aaa"></i></a>
+									<li><a href="<?php echo site_url().'shopping' ?>">Shopping & Fashion</a></li>
+									<li><a href="<?php echo site_url().'weddings' ?>">Weddings/Banquets</a></li>
+									<li><a href="<?php echo site_url().'nightlife' ?>">Night Life</a></li>
+									<li><a href="<?php echo site_url().'placesall' ?>">Things To Do</a></li>
+							</span>
+                              
+
+                                                       
+                            <li>&nbsp;</li>
+                            
+                            <li>
+                                <?php
+                                if (!$this->session->userdata('holidayCustomerName')) {
+                               ?>
+                                <a href="<?php echo site_url().'login'; ?>" class="show-submenu"><i class="fa fa-user" aria-hidden="true"></i> Sign In</a>
+                            
+                            <li>
+                                <a href="<?php echo site_url().'register'; ?>" class="show-submenu"><i class="fa fa-user-plus" aria-hidden="true"></i> Register</a>
+                            </li>
+                            <?php
+         
+                            }else{
+                                echo ' <li><a href="#"  class="dropdown-toggle show-submenu" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i> Welcome '.$this->session->userdata('holidayCustomerName').'</a>
+                                
+                                    <ul class="dropdown-menu">
+                                        <li><a href="'.site_url().'my-account">My Account</a></li>
+                                        <li><a href="'.site_url().'my-orders">My Orders</a></li>
+                                        <li><a href="'.site_url().'logout'.'">Logout</a></li>
+                                    </ul>   
+                                </li>';
+                                
+									}
+								?>
+							</li>
+                        </ul>
+                    </div><!-- End main-menu -->
+					
+					  <div class="main-menu hidden-lg hidden-md">
                         <div id="header_menu">
                             <!--<img src="<?php echo base_url(); ?>assets/frontend/img/logo_sticky.png" width="160" height="34" alt="City tours" data-retina="true">-->
                             <a href="<?php echo site_url().'home';      ?>">
@@ -231,48 +335,50 @@ if($this->uri->segment(1)=='home' || $this->uri->segment(1)==''){
 ?>
                            <!-- <li style="background:rgb(0, 153, 204);" id="li-search-book-toggle">
                                 <a href="#" class="show-submenu" style="color:white;" id="search-book-toggle" >Search</a></li> <!---->
-                                <li style="background:rgb(0, 153, 204)" id="li-search-book-toggle">
+                                <li id="li-search-book-toggle">
                                 <a class="show-submenu" style="color:white;" id="search-book-toggle">Home</a>
                                 
   <?php //} ?>                          </li>
   <?php }else{
 
     ?>
-<li class="indexmyhome">
+							<li class="indexmyhome">
                                 <a href="<?php echo site_url().'home';?>" class="show-submenu">Home </a>
                                 
                             </li>
-    <?php
-    } ?>                          
-  
-  <?php
-//if($this->uri->segment(1)=='home' || $this->uri->segment(1)==''){
-?>
+							<?php
+							} ?>                          
+						  
+							<?php
+							//if($this->uri->segment(1)=='home' || $this->uri->segment(1)==''){
+							?>
                             
 							
-                            <li >
-                                <a href="<?php echo site_url().'kidsdayout' ?>" class="show-submenu">Kids Dayout </a>
-                                
-                            </li>
-                            <li >
-                                <a href="<?php echo site_url().'adventure' ?>" class="show-submenu">Activities and Recreation </a>
-                                
-                            </li>
-                            <li >
-                                <a href="javascript:void(0);" class="show-submenu">Day Events </a>
-                                
-                            </li>
-                            <li >
-                                <a href="<?php echo site_url().'resorts/zoo/1'; ?>" class="show-submenu">Book Zoo Tickets </a>
-                                
-                            </li>
-                            <li >
+								<li >
+									<a href="<?php echo site_url().'kidsdayout' ?>" class="show-submenu">Kids Dayout </a>
+									
+								</li>
+								<li>
+									<a href="<?php echo site_url().'adventure' ?>" class="show-submenu">Activities and Recreation </a>
+									
+								</li>
+								<li >
+									<a href="javascript:void(0);" class="show-submenu">Day Events </a>
+								</li>
+								<li>
+									<a href="<?php echo site_url().'resorts/zoo/1'; ?>" class="show-submenu">Book Zoo Tickets </a>
+									
+								</li>
+						
+                            <li>
                               <a  href="#"  class="show-submenu dropdown-toggle" data-toggle="dropdown"><i class="fa fa-chevron-down" aria-hidden="true"></i></a>
-                        <ul class="dropdown-menu" style="position:absolute; margin-right:170px;">
-                                  <li><a href="<?php echo site_url().'shopping' ?>">Shopping & Fashion</a></li>
-                                  <li><a href="<?php echo site_url().'weddings' ?>">Weddings/Banquets</a></li>
-                                  <li><a href="<?php echo site_url().'nightlife' ?>">Night Life</a></li>
-                                  <li><a href="<?php echo site_url().'placesall' ?>">Things To Do</a></li>
+								<ul class="dropdown-menu" style="position:absolute; margin-right:175px;">
+                                 
+									  <li><a href="<?php echo site_url().'shopping' ?>">Shopping & Fashion</a></li>
+									  <li><a href="<?php echo site_url().'weddings' ?>">Weddings/Banquets</a></li>
+									  <li><a href="<?php echo site_url().'nightlife' ?>">Night Life</a></li>
+									  <li><a href="<?php echo site_url().'placesall' ?>">Things To Do</a></li>
+								 
                               </ul>   
                             </li>
 
@@ -293,7 +399,7 @@ if($this->uri->segment(1)=='home' || $this->uri->segment(1)==''){
                             }else{
                                 echo ' <li><a href="#"  class="dropdown-toggle show-submenu" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i> Welcome '.$this->session->userdata('holidayCustomerName').'</a>
                                 
-                                    <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu" style="margin-left: 12px;">
                                         <li><a href="'.site_url().'my-account">My Account</a></li>
                                         <li><a href="'.site_url().'my-orders">My Orders</a></li>
                                         <li><a href="'.site_url().'logout'.'">Logout</a></li>

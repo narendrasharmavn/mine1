@@ -94,6 +94,62 @@ class Vendor extends CI_Controller {
     
   }
 
+  public function vattendances()
+  {
+     if (!$this->session->userdata('username')) 
+       redirect('admin/login');
+      
+      $this->load->view('vendor/vattendances');
+        
+  }
+
+    public function onloadvattendances()
+  {
+    $vendorid = $this->session->userdata('vendorid');
+    $vendorb=$this->db->query("SELECT b.bookingid,b.date, b.quantity,b.childqty,b.booking_status b.amount,b.ticketnumber,p.packagename,c.name FROM tblbookings b,tblpackages p,tblcustomers c,tblvendors v where b.packageid=p.packageid and b.userid=c.customer_id and v.vendorid='$vendorid' and b.booking_status='booked' and b.payment_status='paid' and b.visitorstatus='visited' and b.date >= CURDATE() ORDER BY b.date DESC");
+    foreach ($vendorb->result() as $k) {
+      echo '<tr>
+
+              <td>'.$k->ticketnumber.'</td>
+              <td>'.$k->packagename.'</td>
+              <td>'.$k->name.'</td>
+              <td>'.$k->quantity.'</td>
+              <td>'.$k->childqty.'</td>
+              <td>'.$k->amount.'</td>
+              </tr>
+      ';
+    }
+  }
+
+  public function getvattendances()
+  {
+    error_reporting(0);
+    $vendorid = $this->input->post('vendorid');
+    $fromdate = $this->input->post('fromdate');
+    if ($fromdate!='') {
+      $fromdate = date("d-m-Y", strtotime($fromdate));
+    }
+    $todate = $this->input->post('todate');
+    if ($todate!='') {
+      $todate = date("Y-m-d", strtotime($todate));
+    }
+      
+      $vendorb=$this->db->query("SELECT b.bookingid,b.date, b.quantity,b.childqty, b.amount,b.ticketnumber,p.packagename,c.name FROM tblbookings b,tblpackages p,tblcustomers c,tblvendors v where b.packageid=p.packageid and b.userid=c.customer_id and v.vendorid='$vendorid' and b.date BETWEEN '$fromdate' AND '$todate' and b.booking_status='booked' and b.payment_status='paid' and b.visitorstatus='visited' ORDER BY b.date DESC");
+      foreach ($vendorb->result() as $k) {
+        echo '<tr>
+                <td>'.$k->ticketnumber.'</td>
+              <td>'.$k->packagename.'</td>
+              <td>'.$k->name.'</td>
+              <td>'.$k->quantity.'</td>
+              <td>'.$k->childqty.'</td>
+              <td>'.$k->amount.'</td>
+              </tr>
+        ';
+      }  
+        
+    
+  }
+
   public function updateticket()
   {
     $tckno=$this->input->post('ticketno');

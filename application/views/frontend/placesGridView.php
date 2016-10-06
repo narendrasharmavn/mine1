@@ -98,7 +98,7 @@
             </a>
         </div>
         <div class="tour_title">
-            <h3><a href="<?php echo site_url().'places/'.$placetitleurl.'/'.$k->plid;   ?>  "><?php echo $k->place;   ?>  </a></h3>
+            <!--<h3><a href="<?php echo site_url().'places/'.$placetitleurl.'/'.$k->plid;   ?>  "><?php echo $k->place;   ?>  </a></h3>-->
             <div>
                 <?php echo $k->address; ?>
             </div>

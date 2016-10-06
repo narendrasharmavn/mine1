@@ -89,7 +89,7 @@
 						            <div class="col-md-5">
 
 						            	<div class="form-group">
-					                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Places Image</label>
+					                <label for="inputEmail3" class="col-sm-5 control-label pull-left">Slider Image</label>
 					                <div class="col-sm-7">
 					                    <input type="file" class="form-control" name="userfile">
 									  <span class="text-danger"><?php echo form_error('userfile'); ?></span>

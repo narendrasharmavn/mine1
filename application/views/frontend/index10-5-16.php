@@ -12,7 +12,7 @@
                   min-width: 325px !important;
                  min-height: 0px !important; }
 
-  .places-thumb { margin-left: 25px !important;
+  .places-thumb { margin-left: 40px !important;
                   min-width: 225px !important;
                  min-height: 0px !important; }                       /* add customedia css */
           /* add customedia css */
@@ -411,33 +411,19 @@ if (count($query->result())>0) {
 <?php
      include 'scripts.php';
       ?>
-	  
-	  
-	  
-	  
-	  <!--b4hjs -->
-	 
- <!--b4hjs -->
- 
- 
- 
- 
+
 <script type="text/javascript">
 
 function myFunctionFocusOut(){
     $('.search-results-autofill').html('');
 }
 
-	
-	
+
+
 $('document').ready(function(){
-	  $(".indexmyhome").hide();
-    $(".indexmyhome").css('display','-webkit-inline-box'); 
-	$(".menu-two").css('display','none');
-	
-	
-	
-	
+
+    $(".indexmyhome").hide();
+    $(".indexmyhome").css('display','-webkit-inline-box');
 
    $( ".datepickerj" ).datepicker({dateFormat: "dd-mm-yy", minDate: 0});
 
@@ -452,7 +438,6 @@ $('document').ready(function(){
 
 });
 
-	
 
  $( ".search-form-slider1" ).autocomplete({
       source:function(request, response) {
@@ -606,7 +591,6 @@ $("#searchform2").validate({
     });
 
 
-
 /*
 $(window).scroll(function() {
 
@@ -623,7 +607,7 @@ $(window).scroll(function() {
 
 
 </script>
- 
+
         </body>
 
 </html>

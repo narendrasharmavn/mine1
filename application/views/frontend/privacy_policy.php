@@ -59,36 +59,49 @@
 	<div class="row">
 		<div class="col-xs-12">
 			
-			<svg id="bcTarget"></svg>
-			<h2><strong>Privacy Policy</strong></h2>
+			<!-- <svg id="bcTarget"></svg> -->
+			<h2 style="margin-top:75px;"><strong>Privacy Policy</strong></h2>
 			<hr>
-			<div class="row" style="font-size:14px;text-align:justify;">
+			<div class="container row" style="font-size:14px;text-align:justify;">
 
-<p>&nbsp;</p>
-<p>Book4holiday is an online service that provides users ("<strong>you</strong>") with recommendations for hotels, resorts, inns, vacations, Amusement Parks, and lots more. Our website, mobile properties, and related applications (collectively, our "<strong>Website</strong>") are part of the Book4holiday, which is owned and operated by Adepto Geoinformatics Pvt Ltd.</p>
-<p>By accessing our Website and utilizing our services, you acknowledge that you have read understood this Privacy Policy and the information collection and handling practices outlined in it. This Privacy Policy was last updated on June09, 2016. We may change this Privacy Policy from time to time so please check back regularly to keep informed of any updates.</p>
-<p><strong>Scope</strong></p>
-<p>This Privacy Policy describes in detail our policy and practices regarding our collection, use and disclosure of information about you.</p>
-<p>Your privacy is very important to us. We do not sell or rent your personal information to third parties your name, your personal information and especially your credit card number are never stored on the Internet with our system.</p>
-<p>Once you type your information, it is sent instantly, directly to our order processing system, which is on a server separate and monitored continuously. We do not capture or store your any credit card or other bank account details in our system.</p>
-<p>This is done to protect you from unauthorized use of the information you are sending to our server.</p>
-<p><strong>Changes to this Privacy Policy</strong></p>
-<p>Book4holiday may change or modify this Privacy Policy in the future. We will note the date that revisions were last made to this Privacy Policy at the bottom of this page, and any revisions will take effect upon posting. We will notify our members of material changes to this Privacy Policy by either sending a notice to the email address you provided to us or by placing a notice on our Website. We encourage you to check this Privacy Policy from time to time to review the most current version.</p>
-<p><strong>Contact us</strong></p>
-<p>If you have questions about this Privacy Policy or have any material grievances, please contact us at:</p>
-<p>Book4holiday</p>
-<p>A unit of Adepto Geoinformatics Pvt. Ltd.</p>
-<p>8-2-686/K/21, S-1, III rd Floor</p>
-<p>Ashok Asha Abode,Behind Fortune Hotel</p>
-<p>Road no.12, Banjara Hills, Hyderabad &ndash; 500 034</p>
-<p>Ph.: 040 -23393131, E: <a href="mailto:info@adeptogeoit.com">info@adeptogeoit.com</a></p>
-<p>&nbsp;</p>
-<p>&copy;2016 Book4holiday. All rights reserved.</p>			</div>
+				<p>Book4holiday is an online service that provides users ("<strong>you</strong>") with recommendations for hotels, 
+				   resorts, inns, vacations, Amusement Parks, and lots more. Our website, mobile properties, and related applications 
+				   (collectively, our "<strong>Website</strong>") are part of the Book4holiday, which is owned and operated by Adepto 
+				   Geoinformatics Pvt Ltd.</p>
+				<p>By accessing our Website and utilizing our services, you acknowledge that you have read understood this Privacy 
+				   Policy and the information collection and handling practices outlined in it. This Privacy Policy was last updated on 
+				   June09, 2016. We may change this Privacy Policy from time to time so please check back regularly to keep informed of 
+				   any updates.</p>
+				<p><strong>Scope</strong></p>
+				<p>This Privacy Policy describes in detail our policy and practices regarding our collection, use and disclosure of 
+				   information about you.</p>
+				<p>Your privacy is very important to us. We do not sell or rent your personal information to third parties your name, 
+				   your personal information and especially your credit card number are never stored on the Internet with our system.</p>
+				<p>Once you type your information, it is sent instantly, directly to our order processing system, which is on a server 
+				   separate and monitored continuously. We do not capture or store your any credit card or other bank account details in 
+				   our system.</p>
+				<p>This is done to protect you from unauthorized use of the information you are sending to our server.</p>
+				<p><strong>Changes to this Privacy Policy</strong></p>
+				<p>Book4holiday may change or modify this Privacy Policy in the future. We will note the date that revisions were last 
+				   made to this Privacy Policy at the bottom of this page, and any revisions will take effect upon posting. We will notify 
+				   our members of material changes to this Privacy Policy by either sending a notice to the email address you provided to 
+				   us or by placing a notice on our Website. We encourage you to check this Privacy Policy from time to time to review the 
+				   most current version.</p>
+				<p><strong>Contact us :</strong> If you have questions about this Privacy Policy or have any material grievances, 
+				   please contact us at:</p>
+				<p><b>Book4holiday</b></br>
+					A unit of Adepto Geoinformatics Pvt. Ltd.</br>
+					8-2-686/K/21, S-1, III rd Floor</br>
+					Ashok Asha Abode,Behind Fortune Hotel</br>
+					Road no.12, Banjara Hills, Hyderabad &ndash; 500 034</br>
+					Ph: 040 -23393131, E: <a href="mailto:info@adeptogeoit.com">info@adeptogeoit.com</a></br>
+				</p>			
+			</div>
 		</div>
 	</div>
 
 
-	</div>
+</div>
 
 
     

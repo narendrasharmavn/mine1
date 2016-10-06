@@ -59,13 +59,20 @@
 	<div class="row">
 		<div class="col-xs-12">
 			
-			<svg id="bcTarget"></svg>
-			<h2><strong>Payment Policy</strong></h2>
+			<!-- <svg id="bcTarget"></svg> -->
+			<h2 style="margin-top:75px;"><strong>Payment Policy</strong></h2>
 			<hr>
-			<div class="row">
-
-<p style="font-size:14px;">User hereby agree and understand that he will have to pay the usage fee as mentioned on the Website/Application for the concerned Accommodation via the payment mode provided on the Website/Application post which User&rsquo;s requested reservation will be confirmed. Once the reservation has been confirmed, Book4holiday will debit the usage fee from the payment mode selected by the User. The User agrees and acknowledges that the payment procedure may call for and require additional verification of or information from the User and the User undertakes to provide complete, correct and proper information.</p>
-<p style="font-size:14px;">Book4holiday uses third party payment providers to receive payments from User. Book4holiday is not responsible for delays or erroneous transaction execution or cancellation of reservation due to payment issues. Book4holiday takes utmost care to work with third party payment providers, but does not control their systems, processes, technology and work flows, hence cannot be held responsible for any fault at the end of payment providers.</p>
+			<div class="container row">
+				<p style="font-size:14px;">User hereby agree and understand that he will have to pay the usage fee as mentioned on the 
+				Website/Application for the concerned Accommodation via the payment mode provided on the Website/Application post which 
+				User&rsquo;s requested reservation will be confirmed. Once the reservation has been confirmed, Book4holiday will debit the 
+				usage fee from the payment mode selected by the User. The User agrees and acknowledges that the payment procedure may call 
+				for and require additional verification of or information from the User and the User undertakes to provide complete, correct 
+				and proper information.</p>
+				<p style="font-size:14px; margin-bottom: 50px;">Book4holiday uses third party payment providers to receive payments from User. 
+				Book4holiday is not responsible for delays or erroneous transaction execution or cancellation of reservation due to payment issues. 
+				Book4holiday takes utmost care to work with third party payment providers, but does not control their systems, processes, 
+				technology and work flows, hence cannot be held responsible for any fault at the end of payment providers.</p>
 			</div>
 		</div>
 	</div>
