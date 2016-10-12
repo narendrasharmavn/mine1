@@ -9,6 +9,14 @@ body {
 	width: 100%;
 }
 
+input[type="search"] {
+    display: none !important;
+}
+
+.DTTT.btn-group {
+    display: none !important;
+}
+
 html {
 	font-size: 10px;
 }
@@ -13284,7 +13292,7 @@ html.dark .table .actions-hover a {
 }
 
 .dataTables_wrapper .DTTT.btn-group {
-	display: inline-block !important;
+	display: inline-block;
 }
 
 .dataTables_wrapper .datatables-header {

@@ -14,7 +14,6 @@ session_start();
 <body>
   
 <?php
-session_start();
 $data1 = json_decode($_GET['data'],true);
 //print_r($data1);
 $_SESSION['ticketnumber'] = $data1['ticketnumber'];
@@ -24,22 +23,23 @@ $_SESSION['ticketnumber'] = $data1['ticketnumber'];
 <div style="background-color:#11c1f3; height:35px; padding-top: 3px; color: #fff;"><center><b style="font-size:20px;">Book4Holiday</b></center></div>
 <div class="container">
   <p style="margin-top:10px; text-align: center;">Press Pay to take you to payment gateway</p>
-  <form action="<?php echo 'https://book4holiday.com/'.'merchant/';  ?>submit.php" method="post" id="payment-form">
+  <form action="<?php echo 'https://book4holiday.com/'.'assets/merchant/';  ?>submit.php" method="post" id="payment-form" >
 		<input type="hidden" name="amount" class=" form-control" placeholder="" value="<?php echo $data1['total']; ?>" readonly>
         <INPUT TYPE="hidden" NAME="udf1" value="NSE">
         
 		<INPUT TYPE="hidden" NAME="product" value="ADEPTO">
                                     <INPUT TYPE="hidden" NAME="TType" value="NBFundTransfer">
+
                                     <INPUT TYPE="hidden" NAME="clientcode" value="007">
                                     <INPUT TYPE="hidden" NAME="AccountNo" value="1234567890">
 
-                                    <INPUT TYPE="hidden" NAME="ru" value="<?php echo 'https://book4holiday.com/services/responsemulticheckout.php'; ?>">
+                                    <INPUT TYPE="hidden" NAME="ru" value="<?php echo 'https://book4holiday.com/assets/services/responsemulticheckout.php'; ?>">
                                     <input type="hidden" name="udf9" value="<?php echo  date('Ymdhisu'); ?>"/>
 									<INPUT TYPE="hidden" NAME="ticketnumber" value="<?php echo $data1['ticketnumber'];   ?>">
  <input type="hidden" name="udf3" class="form-control" id="mobile" placeholder="Enter Your mobile" value="<?php echo $data1['mobile'];   ?>">
 <input type="hidden" name="udf2" class="form-control" id="email" placeholder="abcd@example.com" value="<?php echo $data1['email'];   ?>">
 
-  <table class="table">
+<table class="table">
   
     <tbody>
         <tr><td>Name</td><td><?php echo $data1['name'];   ?></td></tr>
@@ -52,7 +52,6 @@ $_SESSION['ticketnumber'] = $data1['ticketnumber'];
     </tbody>
   </table>
   <center><button type="submit" class="btn btn-success">Confirm To Pay</button></center>
-  <?php //echo "name is: ".$data1['name'];   ?>
   </form>
 </div>
 

@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-md-12 col-xs-12">
                     <div class="col-md-8 col-xs-12"><h3 style="color: #ffffff;background-color: #2474b7; padding:20px;">Share Your Contact Details</h3>
-                        <form class="form-horizontal" action="<?php echo base_url().'merchant/';  ?>submit.php" method="post" id="payment-form" style="background-color:#eee; padding:25px;">
+                        <form class="form-horizontal" action="<?php echo base_url().'assets/merchant/';  ?>submit.php" method="post" id="payment-form" style="background-color:#eee; padding:25px;">
 
                         
                         <input type="hidden" name="amount" class=" form-control" placeholder="" value="<?php echo $this->session->userdata('total'); ?>" readonly>
@@ -21,7 +21,7 @@
                                     <INPUT TYPE="hidden" NAME="clientcode" value="007">
                                     <INPUT TYPE="hidden" NAME="AccountNo" value="1234567890">
 
-                                    <INPUT TYPE="hidden" NAME="ru" value="<?php echo base_url(); ?>index.php/paymentresponse">
+                                    <INPUT TYPE="hidden" NAME="ru" value="<?php echo base_url(); ?>paymentresponse">
                                     <input type="hidden" name="udf9" value="<?php echo  date('Ymdhisu'); ?>"/>
 
 

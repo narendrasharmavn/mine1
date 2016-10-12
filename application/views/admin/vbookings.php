@@ -48,7 +48,7 @@
 											<div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">From Date</label>
 								                <div class="col-sm-7">
-								                  <input type="text" id="fromdate" name="fromdate" class="form-control" required>
+								                  <input type="text" id="fromdate" name="fromdate" class="form-control" >
 												  <span class="text-danger"><?php echo form_error('fromdate'); ?></span>
 								                </div>
 								               
@@ -58,7 +58,7 @@
 							                <div class="form-group" style="margin-right: 442px;">
 								                <label for="inputEmail3" class="col-sm-5 control-label pull-left">To Date</label>
 								                <div class="col-sm-7">
-								                  <input type="text" name="todate" id="todate" class="form-control" required>
+								                  <input type="text" name="todate" id="todate" class="form-control">
 												  <span class="text-danger"><?php echo form_error('fromdate'); ?></span>
 								                </div>
 								               
@@ -88,7 +88,7 @@
 											<div class="form-group">
 												<label class="col-md-3 control-label"></label>
 												<div class="col-md-6 col-xs-11">
-													<button type="button" class="btn btn-primary getvbookings" id="getvbookings">Get</button>
+													<button type="submit" class="btn btn-primary getvbookings" id="getvbookings">Get</button>
 													<button type="reset"  class="btn btn-danger">Cancel</button>
 												</div>
 											</div>
@@ -98,12 +98,17 @@
                                 <div>&nbsp;</div>
 	                            <div>&nbsp;</div>
 
+	                           
 										
                                         
 			                            <h2 class="panel-title">Bookings</h2>
 			                            <hr>
 			                            <div>&nbsp;</div>
-			                            <table class="table table-bordered table-striped mb-none" id="" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+			                            <?php
+										$tsumvalue = $tsum->row();
+												    echo '<div style="font-size:15px;float:right;font-weight:bold;color:red;"><span colspan="7">Total : '.$tsumvalue->tsum.'</span></div>';
+												    ?>
+			                           <table class="table table-bordered table-striped mb-none" id="datatable-default">
 											<thead>
 												<tr>
 													<th>Ticket No.</th>
@@ -117,31 +122,35 @@
 													
 												</tr>
 											</thead>
-											<tbody id="vbookings">
-												
-												<tr >
-													<td><?php echo $vendorb->ticketnumber; ?></td>
-													<td>
-														<?php echo
-										$this->db->get_where('tblpackages' , array('packageid' =>$vendorb->packageid))->row()->packagename;
-														  ?>
-													</td>
-													<td><?php echo $vendorb->name; ?></td>
-													<td><?php echo $vendorb->quantity; ?>
-													<br><?php echo $vendorb->childqty; ?>
-													</td>
-													<td><?php echo $vendorb->childqty; ?></td>
-													<td><?php echo $vendorb->amount; ?></td>
-													
-													
-													
+											<tbody>
 
-													
-												</tr>
+											<?php
+											foreach ($vendorb->result() as $k) {
+												      echo '<tr>
+
+												          <td>'.$k->ticketnumber.'</td>
+												          <td>'.$k->date.'</td>
+												              <td>
+												                
+												        '.$this->db->get_where("tblpackages" , array("packageid" =>$k->packageid))->row()->packagename.'
+												                 
+												              </td>
+												              <td>'.$k->name.'</td>
+												              <td>'.$k->quantity.'</td>
+												              <td>'.$k->childqty.'</td>
+												              <td>'.$k->totalcost.'</td>
+												              </tr>
+												      ';
+												    }
+												    
+											  ?>
+												
+												
 												
 
 											</tbody>
 										</table>
+
 									</div>
 								</section>
 							</div>
@@ -227,12 +236,13 @@
     });
 
 
-
+/*
 		$.get('<?php echo site_url("admin/onloadvbookings")?>', function(data, status){
             //alert("Data: " + data + "\nStatus: " + status);
             //console.log(data);
             $('#vbookings').html(data);
         });
+        */
     });
 
     $(".getvbookings").click(function(){

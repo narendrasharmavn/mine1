@@ -1710,37 +1710,37 @@ echo "true";
     }
 
     public function shortenURL($ticketnumber){
-$longUrl = 'https://book4holiday.com/invoice/'.$ticketnumber;
-//echo "<br>Long URL: ".$longUrl."   <br>";
+        $longUrl = site_url().'invoice/'.$ticketnumber;
+        //echo "<br>Long URL: ".$longUrl."   <br>";
 
-// Get API key from : http://code.google.com/apis/console/
-$apiKey = 'AIzaSyBjh4UINnDpcuIQNcyvmz_BXGZLJN6iKIs';
+        // Get API key from : http://code.google.com/apis/console/
+        $apiKey = 'AIzaSyBjh4UINnDpcuIQNcyvmz_BXGZLJN6iKIs';
 
-$postData = array('longUrl' => $longUrl, 'key' => $apiKey);
-$jsonData = json_encode($postData);
+        $postData = array('longUrl' => $longUrl, 'key' => $apiKey);
+        $jsonData = json_encode($postData);
 
-$curlObj = curl_init();
+        $curlObj = curl_init();
 
-curl_setopt($curlObj, CURLOPT_URL, 'https://www.googleapis.com/urlshortener/v1/url?key='.$apiKey);
-curl_setopt($curlObj, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($curlObj, CURLOPT_SSL_VERIFYPEER, 0);
-curl_setopt($curlObj, CURLOPT_HEADER, 0);
-curl_setopt($curlObj, CURLOPT_HTTPHEADER, array('Content-type:application/json'));
-curl_setopt($curlObj, CURLOPT_POST, 1);
-curl_setopt($curlObj, CURLOPT_POSTFIELDS, $jsonData);
+        curl_setopt($curlObj, CURLOPT_URL, 'https://www.googleapis.com/urlshortener/v1/url?key='.$apiKey);
+        curl_setopt($curlObj, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curlObj, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($curlObj, CURLOPT_HEADER, 0);
+        curl_setopt($curlObj, CURLOPT_HTTPHEADER, array('Content-type:application/json'));
+        curl_setopt($curlObj, CURLOPT_POST, 1);
+        curl_setopt($curlObj, CURLOPT_POSTFIELDS, $jsonData);
 
-$response = curl_exec($curlObj);
+        $response = curl_exec($curlObj);
 
-// Change the response json string to object
-$json = json_decode($response);
+        // Change the response json string to object
+        $json = json_decode($response);
 
-curl_close($curlObj);
-//print_r($json);
-$shortLink = get_object_vars($json);
-//echo "Shortened URL is: ".$shortLink['id'];
-return $shortLink['id'];
+        curl_close($curlObj);
+        //print_r($json);
+        $shortLink = get_object_vars($json);
+        //echo "Shortened URL is: ".$shortLink['id'];
+        return $shortLink['id'];
 
-//return $json->id;
+        //return $json->id;
 }
 
 

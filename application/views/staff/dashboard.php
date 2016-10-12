@@ -270,7 +270,7 @@ include 'header.php';
 			            }else{
 			                $name = $resortname;
 			            ?>
-			            <td class="tdtextsize"><b>Resort Name</b></td>
+			            <td class="tdtextsize"><b>Place of Visit</b></td>
 			            <?php 
 			                }
 
@@ -360,10 +360,16 @@ include 'header.php';
 						
 						<table align="center">
 							<tr class="table-row5">
-								<td class="tdtextsize"><b>G-3, Royal Enclave, Madhapur, Hyderabad </b> </td>
+								<td class="tdtextsize"><b>
+Book4holiday
+A unit of Adepto Geoinformatics Pvt. Ltd.
+8-2-686/K/21, S-1, III rd Floor
+Ashok Asha Abode,Behind Fortune Hotel
+Road no.12, Banjara Hills, Hyderabad – 500 034
+								 </b> </td>
 							</tr>
 							<tr class="table-row5">
-								<td class="table-row6 tdtextsize"> +91 40 2345 6789/0 | info@book4holiday.com </td>
+								<td class="table-row6 tdtextsize"> Ph: 040 -23393131 | info@adeptogeoit.com </td>
 							</tr>
 							<tr class="table-row5">
 								<td class="table-row6 tdtextsize"> www.book4holiday.com </td>

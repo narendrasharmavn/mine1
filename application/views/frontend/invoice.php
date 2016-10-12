@@ -24,11 +24,11 @@
     <!-- BASE CSS -->
     <link href="<?php echo base_url(); ?>/assets/frontend/css/base.css" rel="stylesheet" type="text/css" media="all" >
 
-    <!-- Google web fonts -->
+    <!-- Google web fonts 
    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
    <link href='http://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet' type='text/css'>
    <link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
-
+-->
     <!-- REVOLUTION SLIDER CSS -->
     <link href="<?php echo base_url(); ?>/assets/frontend/rs-plugin/css/settings.css" rel="stylesheet" type="text/css" media="all" >
     <link href="<?php echo base_url(); ?>/assets/frontend/css/extralayers.css" rel="stylesheet" type="text/css" media="all" >

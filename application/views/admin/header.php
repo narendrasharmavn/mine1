@@ -265,7 +265,7 @@
 
 											<li>
 												<a href="<?php echo site_url(); ?>admin/outstandingreports">
-													 OutStanding Reports
+													 Outstanding Reports
 												</a>
 											</li>
 
@@ -279,7 +279,7 @@
 
 											<li>
 												<a href="<?php echo site_url(); ?>admin/vattendees">
-													 Check Attendees
+													 Visiting Report
 												</a>
 											</li>
 

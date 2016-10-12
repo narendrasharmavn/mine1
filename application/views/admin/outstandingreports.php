@@ -5,7 +5,7 @@
 
 				<section role="main" class="content-body">
 					<header class="page-header">
-						<h2>OutStanding Reports</h2>
+						<h2>Outstanding Reports</h2>
 					
 						<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
@@ -14,7 +14,7 @@
 										<i class="fa fa-home"></i>
 									</a>
 								</li>
-								<li><span>OutStanding Reports</span></li>
+								<li><span>Outstanding Reports</span></li>
 								<li><span>Reports</span></li>
 							</ol>
 					
@@ -31,7 +31,7 @@
 											<a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
 											<a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
 										</div>
-						                <h2>OutStanding Reports</h2>
+						                <h2>Outstanding Reports</h2>
 										
 									</header>
 									

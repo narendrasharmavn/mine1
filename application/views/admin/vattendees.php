@@ -5,7 +5,7 @@
 
 				<section role="main" class="content-body">
 					<header class="page-header">
-						<h2>Attendees</h2>
+						<h2>Visiting Report</h2>
 					
 						<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
@@ -14,7 +14,7 @@
 										<i class="fa fa-home"></i>
 									</a>
 								</li>
-								<li><span>Attendees</span></li>
+								<li><span>Visiting Report</span></li>
 								
 							</ol>
 					
@@ -31,7 +31,7 @@
 											<a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
 											<a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
 										</div>
-						                <h2>Attendees</h2>
+						                <h2>Visiting Report</h2>
 										
 									</header>
 									
@@ -100,14 +100,14 @@
 
 										
                                         
-			                            <h2 class="panel-title">Attendees</h2>
+			                            <h2 class="panel-title">Visiting Report</h2>
 			                            <hr>
 			                            <div>&nbsp;</div>
 			                            <table class="table table-bordered table-striped mb-none" id="datatable-default" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
 											<thead>
 												<tr>
 													<th>No Of Bookings</th>
-													<th>No Of Attendees</th>
+													<th>No Of Visited</th>
 													<th>Adults</th>
 													<th>Children</th>
 													<th>Total Cost</th>
