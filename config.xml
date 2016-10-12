@@ -1,21 +1,21 @@
-<?xml version="2.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.fornextit.book4holiday" version="2.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Book4Holiday</name>
-  <description>
-        An Ionic Framework and Cordova project.
+  <description>&#xD;
+        An Ionic Framework and Cordova project.&#xD;
     </description>
-  <author email="info@book4holiday.com" href="http://book4holiday.com">
-      Book4Holiday
+  <author email="info@book4holiday.com" href="http://book4holiday.com">&#xD;
+      Book4Holiday&#xD;
     </author>
   <content src="index.html"/>
   <access origin="*"/>
-  <access origin="geo:*" launch-external="yes" />
-  <allow-navigation href="*" />
-  <allow-intent href="*" />
-  <allow-intent href="http://*/*" />
-  <allow-intent href="https://*/*" />
-  <allow-navigation href="http://*/*" />
-  <allow-navigation href="https://*/*" />
+  <access origin="geo:*" launch-external="yes"/>
+  <allow-navigation href="*"/>
+  <allow-navigation href="http://*/*"/>
+  <allow-navigation href="https://*/*"/>
+  <allow-intent href="*"/>
+  <allow-intent href="http://*/*"/>
+  <allow-intent href="https://*/*"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
@@ -24,7 +24,7 @@
   <preference name="android-minSdkVersion" value="16"/>
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="screen"/>
-  <preference name="orientation" value="portrait" />
+  <preference name="orientation" value="portrait"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>

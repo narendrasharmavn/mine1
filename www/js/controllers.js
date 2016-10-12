@@ -88,7 +88,7 @@ app.run(function($ionicLoading,$ionicPlatform,$state,$ionicPopup) {
 app.constant('myconfig', {
     appName: 'Book4Holiday',
     appVersion: 'development',
-    webservicesurl: 'https://book4holiday.com/services/',
+    webservicesurl: 'https://book4holiday.com/assets/services/',
     imagepathurl: 'https://book4holiday.com/'
 });
 
