@@ -4,8 +4,16 @@
             <div class="row">
                 <div class="col-md-4 col-sm-3">
                     <h3>Need help?</h3>
-                    <a href="tel://004542344599" id="phone">+91 1231313131</a>
-                    <a href="mailto:help@book4holiday.com" id="email_footer">help@book4holiday.com</a>
+                    <a href="tel://004542344599" id="phone">
+<?php 
+echo $this->db->get_where('organization' , array('id' =>1))->row()->phonenumber;
+  ?>
+                    </a>
+                    <a href="mailto:help@book4holiday.com" id="email_footer">
+<?php 
+echo $this->db->get_where('organization' , array('id' =>1))->row()->emailaddress;
+  ?>
+                    </a>
                     <!--<a href="#"><img src="<?php echo base_url(); ?>assets/frontend/img/Googleplayss.png" class="img-responsive footcopy"></a>-->
                 </div>
                 <div class="col-md-3 col-sm-3">

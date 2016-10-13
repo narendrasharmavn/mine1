@@ -217,8 +217,16 @@ foreach ($query->result() as $k) {
 								 ?>
 								 <tr>
 								 	<td>
+								 	<?php
+							$status = $this->db->get_where('tblpayments' , array('ticketnumber' =>$tckno))->row()->status;
+							if ($status=="paid") {
+								echo "Amount Paid";
+							}else{
+								echo "Amount";
+							}
+							?>
 	
-								 			Amount Paid
+								 			
 								 	</td>
 								 	<td class="text-center">
 								 		<?php 
@@ -237,6 +245,18 @@ foreach ($query->result() as $k) {
 								
 															</tbody>
 						</table>
+
+						<p>
+						Transaction Status: 
+							<?php
+							$status = $this->db->get_where('tblpayments' , array('ticketnumber' =>$tckno))->row()->status;
+							if ($status=="paid") {
+								echo "Success";
+							}else{
+								echo "Failed";
+							}
+							?>
+						</p>
 						<button class="btn btn-primary" onclick="print()" id="printbtn">Print</button>
 					</div>
 				</div>

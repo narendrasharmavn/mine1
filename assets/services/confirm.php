@@ -51,7 +51,7 @@ $_SESSION['ticketnumber'] = $data1['ticketnumber'];
      
     </tbody>
   </table>
-  <center><button type="submit" class="btn btn-success">Confirm To Pay</button></center>
+  <center><button type="submit" class="btn btn-success">Pay</button></center>
   <?php //echo "name is: ".$data1['name'];   ?>
   </form>
 </div>

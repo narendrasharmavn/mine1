@@ -235,7 +235,7 @@ if (mysqli_num_rows($tbltransactionsresult) > 0) {
 
 
 
-		$sql = "UPDATE tblpayments SET mmp_txn='".$_POST['mmp_txn']."',mer_txn='".$_POST['mer_txn']."',amount='".$_POST['amt']."',transdate='".$_POST['date']."',banktransaction='".$_POST['bank_txn']."',authorizationcode='".$_POST['auth_code']."',discriminator='".$_POST['discriminator']."',cardnumber='".$_POST['CardNumber']."',billingemail='".$_POST['udf2']."',billingphone='".$_POST['udf3']."',status='paid',responsestatus='".$_POST['f_code']."' WHERE ticketnumber=".$ticketnumber;
+		$sql = "UPDATE tblpayments SET mmp_txn='".$_POST['mmp_txn']."',mer_txn='".$_POST['mer_txn']."',amount='".$_POST['amt']."',transdate='".$_POST['date']."',banktransaction='".$_POST['bank_txn']."',authorizationcode='".$_POST['auth_code']."',discriminator='".$_POST['discriminator']."',cardnumber='".$_POST['CardNumber']."',billingemail='".$_POST['udf2']."',billingphone='".$_POST['udf3']."',status='failed',responsestatus='".$_POST['f_code']."' WHERE ticketnumber=".$ticketnumber;
 
 		if (mysqli_query($conn, $sql)) {
 		    //echo "Table payments updated"."<br>";
@@ -247,9 +247,9 @@ if (mysqli_num_rows($tbltransactionsresult) > 0) {
     // send sms //
     
     $text1 =  "We are sorry, looks like something went wrong. Your transaction at Book4Holiday failed! Transaction Id for your reference is:    ".$ticketnumber;
-    $shorturl = shortenURL($ticketnumber);
+   
 
-	sendSMS($mobile,$smsurl,$smsusername,$smspassword,$smssenderid,$text1,$shorturl);
+	sendSMS($mobile,$smsurl,$smsusername,$smspassword,$smssenderid,$text1);
 
     // send sms //
 
@@ -301,11 +301,11 @@ return $shortLink['id'];
 
 
 
-function sendSMS($mobile,$smsurl,$smsusername,$smspassword,$smssenderid,$text1,$shorturl)
+function sendSMS($mobile,$smsurl,$smsusername,$smspassword,$smssenderid,$text1)
 {
     // SMS REQUEST SENT START //
     
-    $text1.= " Invoice:".$shorturl;
+    
     $text=str_replace(" ","%20",$text1);
     $qry_str = $smsurl.$smsusername."&password=".$smspassword."&to=".$mobile."&from=".$smssenderid."&message=".$text;
     echo "Server returns: " .$qry_str;

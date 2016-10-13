@@ -233,6 +233,12 @@
 											<span>Users</span>
 										</a>
 									</li>
+									<li class="nav-item">
+										<a href="<?php echo site_url(); ?>admin/organizationinformation">
+											
+											<span>Organization Information</span>
+										</a>
+									</li>
 									</ul>
 									</li>
 

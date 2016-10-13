@@ -383,15 +383,21 @@ include 'header.php';
 						<table align="center">
 							<tr class="table-row5">
 								<td class="tdtextsize"><b>
-Book4holiday
-A unit of Adepto Geoinformatics Pvt. Ltd.
-8-2-686/K/21, S-1, III rd Floor
-Ashok Asha Abode,Behind Fortune Hotel
-Road no.12, Banjara Hills, Hyderabad – 500 034
-								</b> </td>
+<?php 
+echo $this->db->get_where('organization' , array('id' =>1))->row()->address;
+  ?>
+								 </b> </td>
 							</tr>
 							<tr class="table-row5">
-								<td class="table-row6 tdtextsize">Ph: 040 -23393131 | info@adeptogeoit.com </td>
+								<td class="table-row6 tdtextsize"> 
+<?php 
+echo $this->db->get_where('organization' , array('id' =>1))->row()->phonenumber;
+  ?>
+								 | 
+<?php 
+echo $this->db->get_where('organization' , array('id' =>1))->row()->emailaddress;
+  ?>
+								  </td>
 							</tr>
 							<tr class="table-row5">
 								<td class="table-row6 tdtextsize"> www.book4holiday.com </td>

@@ -2955,6 +2955,36 @@ public function submitvendordata(){
     $this->load->view('admin/editusers');
   }
 
+  public function organizationinformation()
+  {
+    $adminname = $this->session->userdata('username');
+    //get organization information
+    $processedResults = $this->db->query("SELECT * FROM organization WHERE id=1");
+    $data['orgdata'] = $processedResults->row();
+    
+    $this->load->view('admin/organizationinformation',$data);
+  }
+
+  public function updateorganizationdata()
+{
+ $address = $this->input->post('address');
+ //echo $username;
+ $email = $this->input->post('email');
+ //echo $department;
+ $phonenumber = $this->input->post('phonenumber');
+
+ $data = array(
+    'phonenumber'=> $phonenumber,
+    'address'=> $address,
+    'emailaddress' => $email
+    
+     );
+
+ $this->db->update('organization', $data, array('id' => 1));
+ redirect('admin/organizationinformation');
+ 
+}
+
 public function submiteditusers()
 {
  $username = $this->input->post('username');
